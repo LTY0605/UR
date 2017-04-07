@@ -1,0 +1,24 @@
+{
+    "code" : 200,
+    "msg" : "OK",
+    "data" : {
+        "orderId" : "1234567890987654321",
+        "stStoreId" : "000000001",
+        "orderMethod" : "0",
+        "createTime" : "2017-03-29 10:58",
+        "qrcode" : "http://120.26.243.168/mdcf/qrcode/orderQrcode.png",
+        "appraise" : "false",
+        "packages" : [
+            {
+                "name":"蜜汁正宗卤肉饭1",
+                "amount" : "2",
+                "price" : "38"
+            },
+            {
+                "name":"蜜汁正宗卤肉饭2",
+                "amount" : "2",
+                "price" : "38"
+            }
+        ]
+    }
+}

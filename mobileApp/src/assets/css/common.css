@@ -1,0 +1,242 @@
+/*当你设置一个元素为 box-sizing: border-box; 时，此元素的内边距和边框不再会增加它的宽度*/
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+/*单页面的布局*/
+
+html, body {
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    -webkit-tap-highlight-color: transparent;
+    overflow: hidden;
+}
+
+#app {
+    height: auto;
+    width: 100%;
+}
+
+body, .page {
+    background-color: #FBF9FE;
+}
+
+a {
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 1080px), only screen and (max-device-width: 1080px) {
+    html, body {
+        font-size: 57.599999999999994px;
+    }
+}
+
+@media only screen and (max-width: 960px), only screen and (max-device-width: 960px) {
+    html, body {
+        font-size: 51.2px;
+    }
+}
+
+@media only screen and (max-width: 800px), only screen and (max-device-width: 800px) {
+    html, body {
+        font-size: 42.666666666666664px;
+    }
+}
+
+@media only screen and (max-width: 720px), only screen and (max-device-width: 720px) {
+    html, body {
+        font-size: 38.4px;
+    }
+}
+
+@media only screen and (max-width: 640px), only screen and (max-device-width: 640px) {
+    html, body {
+        font-size: 34.13333333333333px;
+    }
+}
+
+@media only screen and (max-width: 600px), only screen and (max-device-width: 600px) {
+    html, body {
+        font-size: 32px;
+    }
+}
+
+@media only screen and (max-width: 540px), only screen and (max-device-width: 540px) {
+    html, body {
+        font-size: 28.799999999999997px;
+    }
+}
+
+@media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
+    html, body {
+        font-size: 25.6px;
+    }
+}
+
+@media only screen and (max-width: 414px), only screen and (max-device-width: 414px) {
+    html, body {
+        font-size: 22.080000000000002px;
+    }
+}
+
+@media only screen and (max-width: 400px), only screen and (max-device-width: 400px) {
+    html, body {
+        font-size: 21.333333333333332px;
+    }
+}
+
+@media only screen and (max-width: 375px), only screen and (max-device-width: 375px) {
+    html, body {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (max-width: 360px), only screen and (max-device-width: 360px) {
+    html, body {
+        font-size: 19.2px;
+    }
+}
+
+@media only screen and (max-width: 320px), only screen and (max-device-width: 320px) {
+    html, body {
+        font-size: 17.066666666666666px;
+    }
+}
+
+@media only screen and (max-width: 240px), only screen and (max-device-width: 240px) {
+    html, body {
+        font-size: 12.8px;
+    }
+}
+
+html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%
+}
+
+.page_container {
+    height: 100%;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+.routerContent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #f0f0f0;
+}
+.vux-header{
+    background-color: #000 !important;
+}
+
+/*.vux-header + .routerContent {*/
+    /*top: 46px;*/
+/*}*/
+
+
+/* icely add */
+
+.bfcClass{
+    overflow: hidden;
+}
+.floatLeft{
+    float: left;
+}
+.floatRight{
+    float: right;
+}
+.textAlignLeft{
+    text-align: left;
+}
+.textAlignRight{
+    text-align: right;
+}
+.textAlignCenter{
+    text-align: center;
+}
+.tableCell{
+    width: inherit;
+    height: inherit;
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+}
+
+/* 栅格布局 */
+.commonRow{
+    width: 100%;
+    font-size: 0px !important;
+    box-sizing: border-box;
+}
+.commonRow [class^="col-"]{
+    box-sizing: inherit;
+    display: inline-block;
+    vertical-align: top;
+    padding: 0.1rem 0.4rem;
+    position: relative;
+    overflow: hidden;
+}
+.commonRow > .col-1{
+    width: 8.33%;
+}
+.commonRow > .col-2{
+    width: 16.66%;
+}
+.commonRow > .col-3{
+    width: 25.00%;
+}
+.commonRow > .col-4{
+    width: 33.33%;
+}
+.commonRow > .col-5{
+    width: 41.66%;
+}
+.commonRow > .col-6{
+    width: 50%;
+}
+.commonRow > .col-7{
+    width: 58.33%;
+}
+.commonRow > .col-8{
+    width: 66.66%;
+}
+.commonRow > .col-9{
+    width: 75.00%;
+}
+.commonRow > .col-10{
+    width: 83.33%;
+}
+.commonRow > .col-11{
+    width: 91.66%;
+}
+.commonRow > .col-12{
+    width: 100%;
+}
+
+/* 通用 样式 */
+
+/*$orange: rgb(238,113,73)*/
+button{
+    color: rgba(0,0,0,0.7);
+    border: 1px solid rgba(0,0,0,0.6);
+    background: transparent;
+    border-radius: 3px;
+    padding: 0.1rem 0.5rem;
+    margin-left: 0.2rem;
+    min-width: 3.5rem;
+    min-height: 1.5rem;
+}
+button.orangeBtn{
+    color: rgb(238,113,73);
+    border-color: rgb(238,113,73);
+}
