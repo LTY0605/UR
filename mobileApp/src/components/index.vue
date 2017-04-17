@@ -6,6 +6,9 @@
         <router-link to="pageDemo">
             <cell title="Go to hello with router index" value="click me" is-link></cell>
         </router-link>
+        <router-link to="login">
+            <cell title="注册" value="click me" is-link></cell>
+        </router-link>
     </div>
 
 </template>
