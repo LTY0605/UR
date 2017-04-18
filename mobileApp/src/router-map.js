@@ -19,14 +19,14 @@ const routes = [
         },
         component: resolve => require(['./components/pageDemo.vue'], resolve)
     },
-    {
-        path: '/login',
-        name: 'login',
-        meta: {
-            title: '注册'
-        },
-        component: resolve => require(['./components/login.vue'], resolve)
-    }
+    // {
+    //     path: '/login',
+    //     name: 'login',
+    //     meta: {
+    //         title: '注册'
+    //     },
+    //     component: resolve => require(['./components/login.vue'], resolve)
+    // }
 ]
 
 export default routes
