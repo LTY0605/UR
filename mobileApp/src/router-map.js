@@ -35,6 +35,14 @@ const routes = [
         },
         component: resolve => require(['./components/personMain.vue'], resolve)
     },
+    {
+        path: '/wallet',
+        name: 'wallet',
+        meta: {
+            title: '钱包'
+        },
+        component: resolve => require(['./components/wallet.vue'], resolve)
+    },
     // {
     //     path: '/login',
     //     name: 'login',
