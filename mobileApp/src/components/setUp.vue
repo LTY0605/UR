@@ -7,40 +7,54 @@
                           @click="demo2 = item" :key="index">{{item}}
                 </tab-item>
             </tab>
-            <swiper v-model="index" height="auto" :show-dots="false">
-                <swiper-item key="0">
-                    <div class="tab-swiper vux-center">
-                        <person></person>
-                    </div>
-                </swiper-item>
-                <swiper-item key="1">
-                    <div class="tab-swiper vux-center">1 Container</div>
-                </swiper-item>
-                <swiper-item key="2">
-                    <div class="tab-swiper vux-center">2 Container</div>
-                </swiper-item>
-                <swiper-item key="3">
-                    <div class="tab-swiper vux-center">3 Container</div>
-                </swiper-item>
-                <!--<swiper-item v-for="(item, index) in list2" :key="index">
-                    <div class="tab-swiper vux-center">{{item}} Container</div>
-                </swiper-item>-->
-            </swiper>
+            <div class="a" style="height: 200px">
+                <swiper v-model="index" height="swiperHeight" :show-dots="false">
+                    <swiper-item key="0">
+                        <div class="tab-swiper vux-center">
+                            <person></person>
+                        </div>
+                    </swiper-item>
+                    <swiper-item key="1">
+                        <div class="tab-swiper vux-center">1 Container{{time}}
+                            <group>
+                                <inline-calendar
+                                    v-model="time"
+                                ></inline-calendar>
+                            </group>
+                        </div>
+                    </swiper-item>
+                    <swiper-item key="2">
+                        <div class="tab-swiper vux-center">2 Container
+                            <group>
+                                <calendar v-model="time" title="出生日期"></calendar>
+                            </group>
+                        </div>
+                    </swiper-item>
+                    <swiper-item key="3">
+                        <div class="tab-swiper vux-center">3 Container</div>
+                    </swiper-item>
+                    <!--<swiper-item v-for="(item, index) in list2" :key="index">
+                        <div class="tab-swiper vux-center">{{item}} Container</div>
+                    </swiper-item>-->
+                </swiper>
+            </div>
+
         </div>
     </div>
 </template>
 <script>
     import Person from './setUp/person.vue'
-    import {XHeader, Scroller,Tab,TabItem,Swiper,SwiperItem} from 'vux'
+    import {XHeader, Scroller,Tab,TabItem,Swiper,SwiperItem,Calendar,Cell,Group,InlineCalendar} from 'vux'
     export default {
         components: {
-            XHeader,Scroller,Tab,TabItem,Swiper,SwiperItem,Person
+            XHeader,Scroller,Tab,TabItem,Swiper,SwiperItem,Person,Calendar,Cell,Group,InlineCalendar
         },
         data () {
             return {
                 demo2: '个人信息',
                 list2:['个人信息', '密码修改', '微信解绑', '地址管理'],
                 index: 0,
+                time:'',
 
             }
         },
@@ -90,7 +104,8 @@
             border-color: transparent transparent #fff transparent;
             position: absolute;
             bottom:-1px;
-            left: 36px;
+            left: 50%;
+            margin-left: -0.175rem;
             display: block;
         }
 

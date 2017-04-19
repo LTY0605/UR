@@ -27,6 +27,14 @@ const routes = [
         },
         component: resolve => require(['./components/setUp.vue'], resolve)
     },
+    {
+        path: '/personMain',
+        name: 'personMain',
+        meta: {
+            title: '设置'
+        },
+        component: resolve => require(['./components/personMain.vue'], resolve)
+    },
     // {
     //     path: '/login',
     //     name: 'login',
