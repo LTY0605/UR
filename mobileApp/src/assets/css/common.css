@@ -23,7 +23,8 @@ html, body {
 }
 
 body, .page {
-    background-color: #FBF9FE;
+    /*background-color: #FBF9FE;*/
+    background-color: #fff;
 }
 
 a {

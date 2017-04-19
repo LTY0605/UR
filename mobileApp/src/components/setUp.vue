@@ -7,7 +7,7 @@
                           @click="demo2 = item" :key="index">{{item}}
                 </tab-item>
             </tab>
-            <swiper v-model="index" height="100px" :show-dots="false">
+            <swiper v-model="index" height="auto" :show-dots="false">
                 <swiper-item key="0">
                     <div class="tab-swiper vux-center">
                         <person></person>
@@ -66,6 +66,10 @@
             line-height: 1.85rem;
             background: #F2EDDA;
             color: #CDBE86;
+            border-left: 1px solid #CDBE86 !important;
+        }
+        .vux-tab .vux-tab-item:first-child{
+            border:none !important;
         }
         .vux-tab{
             height: 1.85rem;
@@ -85,7 +89,7 @@
             border-width: .35rem;
             border-color: transparent transparent #fff transparent;
             position: absolute;
-            top: 22px;
+            bottom:-1px;
             left: 36px;
             display: block;
         }
