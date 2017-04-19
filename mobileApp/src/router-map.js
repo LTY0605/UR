@@ -19,6 +19,14 @@ const routes = [
         },
         component: resolve => require(['./components/pageDemo.vue'], resolve)
     },
+    {
+        path: '/setUp',
+        name: 'setUp',
+        meta: {
+            title: '设置'
+        },
+        component: resolve => require(['./components/setUp.vue'], resolve)
+    },
     // {
     //     path: '/login',
     //     name: 'login',

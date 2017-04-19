@@ -2,7 +2,7 @@
 * Created by liangtianyou on 2017/4/13.
 */
 <template>
-    <div>
+    <div class="page_login">
         <x-header :left-options="{backText: ''}"></x-header>
         <scroller :height="-46+'px'" lock-x>
             <div>
@@ -105,6 +105,7 @@
     }
 </script>
 <style lang="less" rel="stylesheet/less">
+    .page_login{
     ul{
         list-style: none;
     }
@@ -235,6 +236,7 @@
     }
     .weui-cell_access .weui-cell__ft:after{
         display: none !important;
+    }
     }
 </style>
 
