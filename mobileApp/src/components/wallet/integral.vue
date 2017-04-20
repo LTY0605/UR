@@ -138,7 +138,8 @@
             height: 8.05rem;
             background: white;
             border-radius: 2px;
-            position: relative;
+            display: flex;
+            flex-direction: column;
         }
         .integral-code > div{
             width: 11.05rem;
@@ -149,21 +150,15 @@
             color: #FF0018;
             border-bottom: 1px solid rgb(205,190,134);
             box-sizing: border-box;
-            position: absolute;
-            top: 1rem;
-            left: .75rem;
+            margin: .75rem auto .75rem auto;
         }
         .integral-code > img{
             width: 7.85rem;
-            position: absolute;
-            top: 3.65rem;
-            left: 2.35rem;
+            margin: 0 auto;
         }
         .integral-code > p{
-            position: absolute;
             font-size: .6rem;
-            bottom: 1.5rem;
-            left: 5.25rem;
+            margin: .15rem auto 0 auto;
         }
         .mask-animative-enter-active, .mask-animative-leave-active{
             transition: all .3s ease;
