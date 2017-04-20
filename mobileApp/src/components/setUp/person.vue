@@ -25,7 +25,7 @@
                         <calendar v-model="time" title="出生日期" disable-future></calendar>
                     </group>
                 </li>
-                <li>
+                <li class="attress">
                     <x-address @on-hide="logHide" @on-show="logShow" title="地区" v-model="attrValue" :list="addressData"
                                placeholder="请选择地址"></x-address>
                 </li>
@@ -101,7 +101,6 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .operate{
-        width: 100%;
         height: 2rem;
         line-height:2rem;
         text-align: center;
@@ -141,6 +140,7 @@
         .weui-cell_select-after .weui-select {
             padding: 0;
             direction: rtl;
+            color: #999;
         }
         .weui-cell_select .weui-cell__bd:after {
             display: none;
@@ -193,6 +193,11 @@
                     font-size: .7rem;
                 }
             }
+            .attress{
+                .vux-popup-picker-select span{
+                    color: #999;
+                }
+            }
         }
         .edit_material2{
             width: 100%;
@@ -208,13 +213,14 @@
                         position: absolute;
                         right: 0;
                         top: 50%;
-                        margin-top: -.4rem;
+                        margin-top: -.55rem;
                         border-bottom: 1px solid #EC6941;
                         color: #EC6941;
                         z-index: 100;
                     }
 
                 }
+
             .code{
                 .weui-cell__ft{
                     display: none;
