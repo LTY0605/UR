@@ -45,12 +45,15 @@
                         name: '地址管理'
                     }
                 ],
+                direction: 'forward',
 
             }
         },
+        watch: {
+
+        },
         mounted(){
         },
-        watch: {},
         created(){
         },
         computed: {}
