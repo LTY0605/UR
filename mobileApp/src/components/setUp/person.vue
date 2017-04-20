@@ -205,6 +205,7 @@
                 li{
                     background: none;
                     position: relative;
+                    padding: 1rem 0;
                     .weui-input{
                         text-align: left;
                     }
