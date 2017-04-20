@@ -8,23 +8,32 @@
             <div class="tabItem tab-swiper" v-if="titleTab==0">
                 <person></person>
             </div>
-            <div class="tabItem" v-if="titleTab==1">22</div>
-            <div class="tabItem" v-if="titleTab==2">33</div>
-            <div class="tabItem" v-if="titleTab==3">44</div>
+            <div class="tabItem" v-if="titleTab==1">
+                <password></password>
+            </div>
+            <div class="tabItem" v-if="titleTab==2">
+                <unbound></unbound>
+            </div>
+            <div class="tabItem" v-if="titleTab==3">
+                <addressMange></addressMange>
+            </div>
         </div>
     </div>
 </template>
 <script>
     import Person from './setUp/person.vue'
+    import Password from './setUp/password.vue'
+    import Unbound from './setUp/unbound.vue'
+    import AddressMange from './setUp/addressManage.vue'
     import {XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar, Cell, Group, InlineCalendar} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Person, Calendar, Cell, Group, InlineCalendar
+            XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Person,
+            Calendar, Cell, Group, InlineCalendar,Password,Unbound,AddressMange
         },
         data () {
             return {
                 titleTab: 0,
-                list2: ['个人信息', '密码修改', '微信解绑', '地址管理'],
                 index: 1,
                 time: '',
                 titleList: [
@@ -34,23 +43,24 @@
                     },
                     {
                         code: 1,
-                        name: '微信解绑'
+                        name: '密码修改'
                     },
                     {
                         code: 2,
-                        name: '密码修改'
+                        name: '微信解绑'
                     },
                     {
                         code: 3,
                         name: '地址管理'
                     }
                 ],
-
             }
+        },
+        watch: {
+
         },
         mounted(){
         },
-        watch: {},
         created(){
         },
         computed: {}
