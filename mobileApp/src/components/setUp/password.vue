@@ -116,7 +116,7 @@
             width: 100%;
             li {
                 list-style: none;
-                padding: 1rem 1rem 1rem 0;
+                padding: 1rem 0;
                 height: auto;
                 border-bottom: 1px solid #D2D2D2;
                 width: 100%;
