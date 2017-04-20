@@ -43,6 +43,14 @@ const routes = [
         },
         component: resolve => require(['./components/wallet.vue'], resolve)
     },
+    {
+        path: '/myCoupon',
+        name: 'myCoupon',
+        meta: {
+            title: '优惠券'
+        },
+        component: resolve => require(['./components/myCoupon.vue'], resolve)
+    }
     // {
     //     path: '/login',
     //     name: 'login',
