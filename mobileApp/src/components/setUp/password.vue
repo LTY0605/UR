@@ -109,7 +109,7 @@
         .materialItem {
             width: 100%;
             height: auto;
-            padding: 0 1rem;
+            padding: .9rem 1rem 0 1rem;
         }
         .edit_material {
             height: auto;
