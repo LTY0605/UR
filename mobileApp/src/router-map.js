@@ -39,7 +39,7 @@ const routes = [
         path: '/wallet',
         name: 'wallet',
         meta: {
-            title: '钱包'
+            title: '我的钱包'
         },
         component: resolve => require(['./components/wallet.vue'], resolve)
     },
@@ -51,14 +51,14 @@ const routes = [
     },
         component: resolve => require(['./components/myBill.vue'], resolve)
     },
-  {
-    path: '/integralS',
-    name: 'integralS',
-    meta: {
-      title: '积分查询'
+    {
+        path: '/integralS',
+        name: 'integralS',
+        meta: {
+          title: '积分查询'
+        },
+        component: resolve => require(['./components/integralS.vue'], resolve)
     },
-    component: resolve => require(['./components/integralS.vue'], resolve)
-  },
     {
         path: '/login',
         name: 'login',
@@ -66,7 +66,28 @@ const routes = [
             title: '注册'
         },
         component: resolve => require(['./components/login.vue'], resolve)
-    }
+    }, {
+        path: '/transaction',
+        name: 'transaction',
+        meta: {
+            title: '交易记录'
+        },
+        component: resolve => require(['./components/transaction.vue'], resolve)
+    }, {
+        path: '/transfer',
+        name: 'transfer',
+        meta: {
+            title: '转赠'
+        },
+        component: resolve => require(['./components/transfer.vue'], resolve)
+    },{
+        path: '/myCoupon',
+        name: 'myCoupon',
+        meta: {
+            title: '优惠券'
+        },
+        component: resolve => require(['./components/myCoupon.vue'], resolve)
+    },
 ]
 
 export default routes
