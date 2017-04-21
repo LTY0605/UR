@@ -87,6 +87,13 @@ const routes = [
             title: '优惠券'
         },
         component: resolve => require(['./components/myCoupon.vue'], resolve)
+    },{
+        path: '/contract',
+        name: 'contract',
+        meta: {
+            title: '协议'
+        },
+        component: resolve => require(['./components/contract.vue'], resolve)
     },
 ]
 

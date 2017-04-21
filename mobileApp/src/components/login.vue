@@ -50,7 +50,7 @@
                         <x-button type="primary" name="submit" action-type="submit" @click.native="onSubmit">提交注册</x-button>
                     </div>
                     <div class="agreementBox">
-                        <a href="#" class="text">UR用户使用协议</a>
+                        <router-link to="/contract" class="text">UR用户使用协议</router-link>
                     </div>
                 </div>
             </div>
@@ -118,130 +118,149 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_login{
-    ul{
-        list-style: none;
-    }
-    .text{
-        font-size: 0.75rem;
-        color: #999 !important;
-        font-family: 'PingFang-SC-Medium';
-    }
-    .female{
-        float: left;
-        width: 50%;
-        padding-left: .8rem;
-    }
-    input[type="radio"]{
-        display: none;
-    }
-    input[type="radio"] + span{
-        width: .85rem;
-        height: .85rem;
-        line-height: .85rem;
-        background: url(../assets/images/circle.png) left center no-repeat;
-        background-size: 1rem 1rem;
-        padding-left: 1.3rem;
-    }
-    input[type="radio"]:checked + span{
-        background: url(../assets/images/circle_a.png) left center no-repeat;
-        background-size: 1rem 1rem;
-    }
-    .vux-header {
-        background-color: #AB9236 !important;
-    }
-    .header{
-        background-color: #AB9236;
-        padding-top: 1.25rem;
-    }
-    .imgBox{
-        width: 4.55rem;
-        height: 4.55rem;
-        border: 0.2rem solid #cdbe86;
-        border-radius: 50%;
-        overflow: hidden;
-        margin: auto;
-    }
-    .imgBox img{
-        width: 4.2rem;
-        height: 4.2rem;
-    }
-    .header p{
-        font-family: "PingFang-SC-Medium";
-        font-size: .8rem;
-        text-align: center;
-        color: #fff;
-        padding: 0.4rem 0 0.65rem;
-    }
-    .loginContent{
-        padding: 0 9.6%;
-        background: #fff;
-    }
-    .weui-cells{
-        margin-top: 0 !important;
-    }
-    .nameBox{
-        padding-top: 0.75rem;
-    }
-    .input{
-        height: 2rem;
-    }
-    .input1{
-        border-radius: 0.2rem;
-        border: 0.02rem solid #D2D2D2;
-    }
-    .userW{
-        width: 0.75rem;
-        height: 0.8rem;
-        margin: 0 10px -2px 0;
-    }
-    .mobileBox{
-        padding-top: 0.6rem;
-    }
-    .mobileW{
-        height: 0.8rem;
-        width: 0.6rem;
-        margin: 0 10px -2px 0;
-    }
-    .radioBox{
-        padding: 0.95rem 0 1rem;
-    }
-    .vux-x-icon {
-        fill: #AB9236;
-    }
-     .datatimeBox .weui-cell{
-         background: url("../assets/images/date.png") right center no-repeat;
-         background-size: 8%;
-     }
-    .adressBox{
-        padding-top: 0.6rem;
-    }
-    .submitBox{
-        padding-top: 1.25rem;
-    }
-    .weui-btn{
-        background-color: #AB9236 !important;
-    }
-    .weui-cells{
-        margin-top: 0;
-    }
-    .weui-label{
-        width: 3rem !important;
-    }
-    .weui-cell__ft{
-        padding-right: 1.25rem !important;
-    }
-    .agreementBox{
-        text-align: center;
-        padding-top: 3.75rem;//todo  4.75
-        padding: 3.75rem 0 1.2rem;
-    }
-    .agreementBox a{
-        font-size: 0.6rem;
-        text-decoration:underline;
-    }
-    .weui-cell_access .weui-cell__ft:after{
-        display: none !important;
-    }
+        ul{
+            list-style: none;
+        }
+        .text{
+            font-size: 0.75rem;
+            color: #999 !important;
+            font-family: 'PingFang-SC-Medium';
+        }
+        .female{
+            float: left;
+            width: 50%;
+            padding-left: .8rem;
+        }
+        input[type="radio"]{
+            display: none;
+        }
+        input[type="radio"] + span{
+            width: .85rem;
+            height: .85rem;
+            line-height: .85rem;
+            background: url(../assets/images/circle.png) left center no-repeat;
+            background-size: .85rem .85rem;
+            padding-left: 1.3rem;
+            font-size: .75rem;
+        }
+        input[type="radio"]:checked + span{
+            background: url(../assets/images/circle_a.png) left center no-repeat;
+            background-size: .85rem .85rem;
+        }
+        .vux-header {
+            background-color: #AB9236 !important;
+        }
+        .header{
+            background-color: #AB9236;
+            padding-top: 1.25rem;
+            height:auto;
+        }
+        .imgBox{
+            width: 4.55rem;
+            height: 4.55rem;
+            border: 0.2rem solid #cdbe86;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: auto;
+        }
+        .imgBox img{
+            width: 4.2rem;
+            height: 4.2rem;
+        }
+        .header p{
+            font-family: "PingFang-SC-Medium";
+            font-size: .8rem;
+            text-align: center;
+            color: #fff;
+            padding: 0.4rem 0 0.65rem;
+        }
+        .loginContent{
+            padding: 0 9.6%;
+            background: #fff;
+            height:auto;
+        }
+        .vux-datetime p,.weui-label,.weui-input{
+            font-size: 0.75rem;
+            font-family: 'PingFang-SC-Medium';
+            color: #999;
+        }
+        .weui-btn:after{
+            font-size: 0.75rem;
+            font-family: 'PingFang-SC-Medium';
+            color: #999;
+        }
+        .weui-cells{
+            margin-top: 0 !important;
+        }
+        .nameBox{
+            padding-top: 0.75rem;
+            height:auto;
+        }
+        .input{
+            height: 2rem;
+        }
+        .input1{
+            border-radius: 0.2rem;
+            border: 0.02rem solid #D2D2D2;
+        }
+        .userW{
+            width: 0.75rem;
+            height: 0.8rem;
+            margin: 0 10px -2px 0;
+        }
+        .mobileBox{
+            padding-top: 0.6rem;
+            height:auto;
+        }
+        .mobileW{
+            height: 0.8rem;
+            width: 0.6rem;
+            margin: 0 10px -2px 0;
+        }
+        .radioBox{
+            padding: 0.95rem 0 1rem;
+            height:auto;
+        }
+        .vux-x-icon {
+            fill: #AB9236;
+        }
+         .datatimeBox .weui-cell{
+             background: url("../assets/images/date.png") 98% center no-repeat;
+             background-size: 8%;
+         }
+        .adressBox{
+            padding-top: 0.6rem;
+            height:auto;
+        }
+        .submitBox{
+            padding-top: 1.25rem;
+            height:auto;
+        }
+        .weui-btn{
+            background-color: #AB9236 !important;
+        }
+        .weui-cells{
+            margin-top: 0;
+        }
+        .weui-label{
+            width: 3rem !important;
+        }
+        .weui-cell__ft{
+            padding-right: 1.25rem !important;
+        }
+        .agreementBox{
+            text-align: center;
+            padding-top: 1.25rem;//todo  4.75
+            padding: 1.25rem 0 1.2rem;
+            height:auto;
+        }
+        .agreementBox a{
+            font-size: 0.6rem;
+            text-decoration:underline;
+        }
+        .weui-cell_access .weui-cell__ft:after{
+            display: none !important;
+        }
     }
 </style>
 
