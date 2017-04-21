@@ -9,20 +9,22 @@
                 <notused></notused>
             </div>
             <div class="tabItem" v-if="titleTab==1">
-                <notused></notused>
+                <used></used>
             </div>
             <div class="tabItem" v-if="titleTab==2">
-                <notused></notused>
+                <overdue></overdue>
             </div>
         </div>
     </div>
 </template>
 <script>
     import Notused from './coupon/notUsed.vue'
+    import Used from './coupon/used.vue'
+    import Overdue from './coupon/overdue.vue'
     import {XHeader, Scroller} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, Notused
+            XHeader, Scroller, Notused, Used, Overdue
         },
         data () {
             return {

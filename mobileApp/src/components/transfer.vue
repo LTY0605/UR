@@ -12,6 +12,7 @@
             <p class="tran-remind"><span>*</span> 转赠金额需大于50</p>
             <x-button><span class="btn-text">提 交</span></x-button>
         </div>
+        <!--遮罩和密码框-->
     </div>
 </template>
 
@@ -88,6 +89,31 @@
             .btn-text{
                 font-size: .75rem;
                 color: #FFFFFF;
+            }
+        }
+        .transfer-mask{
+            position: absolute;top: 0;width: 100%;height: 100%;background: rgba(0,0,0,0.6);
+            .code{
+                width: 12.55rem;
+                height: 9.2rem;
+                border-radius: 3px;
+                background: #FFFFFF;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                margin: 7.5rem auto 0 auto;
+                flex-direction: column;
+                display: flex;
+                .code-text{
+                    font-size: .75rem;
+                    color: #AB9236;
+                    height: .85rem;
+                    margin: 1rem auto 1.5rem auto;
+                }
+                .tran-money{
+                    color: #333333;
+                    font-size: .75rem;
+                    margin-left: .5rem;
+                }
             }
         }
     }

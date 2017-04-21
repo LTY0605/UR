@@ -11,7 +11,8 @@
             </div>
         </transition>
         <!--优惠券-->
-        <div class="couponCon" v-for="(coupon,index) in couponList">
+        <scroller :height="-46+'px'" lock-x>
+            <div class="couponCon" v-for="(coupon,index) in couponList">
             <div class="couList">
                 <div class="couList-img">
                     <p class="couList-imgText">
@@ -31,6 +32,7 @@
                 <div @click="show=!show" class="couList-code"></div>
             </div>
         </div>
+        </scroller>
     </div>
 </template>
 <script>
