@@ -6,7 +6,7 @@
                 <div id="couponMask" @click="stopPropagation" class="integral-code">
                     <div class="code-text">付款时交给店员扫一扫</div>
                     <img class="code-img" src="../../assets/money_code.png" alt=""/>
-                    <p class="code-p">8999305128</p>
+                    <p class="code-p">8999305228</p>
                 </div>
             </div>
         </transition>
