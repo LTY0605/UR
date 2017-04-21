@@ -4,7 +4,6 @@
 <template>
     <div class="page_login">
         <x-header :left-options="{backText: ''}"></x-header>
-        <scroller :height="-46+'px'" lock-x>
             <div>
                 <div class="header">
                     <div class="imgBox">
@@ -38,7 +37,6 @@
                     <div class="datatimeBox">
                         <group class="dateBox">
                             <datetime v-model="value2" clear-text="clear" @on-clear="clearValue" class="input input1 text textPadding" @on-change="change" title="出生日期"></datetime>
-                            <!--<label class="dateClass"></label>-->
                         </group>
                     </div>
                     <div class="adressBox">
@@ -48,17 +46,17 @@
                     </div>
                     <div class="submitBox">
                         <x-button type="primary" name="submit" action-type="submit" @click.native="onSubmit">提交注册</x-button>
+                        <alert v-model="show" title="提交" @on-show="onShow" @on-hide="onHide">123</alert>
                     </div>
                     <div class="agreementBox">
                         <router-link to="/contract" class="text">UR用户使用协议</router-link>
                     </div>
                 </div>
             </div>
-        </scroller>
     </div>
 </template>
 <script>
-    import {XHeader, Scroller,XInput,Datetime,XAddress,XButton,Group,ChinaAddressData  } from 'vux'
+    import { Alert,XHeader,Scroller,XInput,Datetime,XAddress,XButton,Group,ChinaAddressData  } from 'vux'
     export default {
         components: {
             XHeader,
@@ -67,10 +65,12 @@
             Datetime,
             XAddress,
             XButton,
-            Group
+            Group,
+            Alert
         },
         data () {
             return {
+                show: '',
                 phone:'',
                 user:'',
                 title: '默认为空',
@@ -83,7 +83,7 @@
                     console.log(value)
                     return {
                         valid: /^[A-Za-z0-9_\u4e00-\u9fa5]{4,16}$/.test(value),
-                        msg: 'Must be 4-16个字的组合'
+                        msg: 'Must be 4-16个字母（区分大小写），数字，下划线和汉字的组合'
                     }
                 },
                 options:[
@@ -102,10 +102,16 @@
             },
             onSubmit () {
                 if(this.user==''||this.phone==''||this.user==''||this.value2==''||this.value3==''||this.selected==''){
-                    alert('请完善表单信息')
+//                    alert('请完善表单信息')
                 }else{
                     alert('注册成功')
                 }
+            },
+            onShow () {
+                console.log('on show')
+            },
+            onHide () {
+                console.log('on hide')
             }
         },
         mounted(){
