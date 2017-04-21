@@ -21,7 +21,15 @@
                 <img class="listRight" slot="icon" width="7" src="../../assets/icon_right_on.png">
             </cell>
         </group>
-        <transition name="mask-animative">
+        <!--弹窗-->
+        <div v-if="show" @click="show=!show" v-transfer-dom>
+            <x-dialog class="dialog-demo">
+                <div class="img-box">
+                    <img src="../../assets/money_code2.png" style="max-width:100%">
+                </div>
+            </x-dialog>
+        </div>
+<!--        <transition name="mask-animative">
             <div v-if="show" @click="show=!show" class="integral-mask">
                 <div id="integralMask" @click="stopPropagation" class="integral-code">
                     <div class="integralCode-div">积分使用时交给店员扫一扫</div>
@@ -29,14 +37,17 @@
                     <p class="integralCode-p">{{code}}</p>
                 </div>
             </div>
-        </transition>
+        </transition>-->
     </div>
 </template>
 <script>
-    import {XHeader, Scroller, Group, Cell} from 'vux'
+    import {XHeader, Scroller, Group, Cell, XDialog,TransferDomDirective as TransferDom} from 'vux'
     export default {
+        directives: {
+            TransferDom
+        },
         components: {
-            XHeader, Scroller, Group, Cell
+            XHeader, Scroller, Group, Cell, XDialog
         },
         data () {
             return {
@@ -46,14 +57,15 @@
             }
         },
         methods:{
+            /*//阻止冒泡
             stopPropagation:function (e) {
                 e = e||window.event;
                 if(e.stopPropagation){
                     e.stopPropagation();
-                }else{
+                } else{
                     e.cancelBubble = true;
                 }
-            }
+            }*/
         },
         mounted(){
         },
@@ -63,8 +75,31 @@
         computed: {}
     }
 </script>
-<style lang="less" rel="stylesheet/less">
+<style lang="less"  rel="stylesheet/less">
+    .weui-mask{
+        display: block !important;
+    }
+    .weui-dialog{
+        border-radius: 8px;
+        padding-bottom: 8px;
+        display: block !important;
+    }
     .page_integral{
+
+        .dialog-demo {
+        .dialog-title {
+            line-height: 30px;
+            color: #666;
+        }
+        .img-box {
+            height: 350px;
+            overflow: hidden;
+        }
+        .vux-close {
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+    }
         .vux-label{
             font-size: .75rem;
             color: #564712;
