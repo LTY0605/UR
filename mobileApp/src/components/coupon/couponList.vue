@@ -63,7 +63,7 @@
                 e = e||window.event;
                 if(e.stopPropagation){
                     e.stopPropagation();
-                } else{
+                }else{
                     e.cancelBubble = true;
                 }
             }
