@@ -5,10 +5,10 @@
 </template>
 <script>
     import Couponlist from '../coupon/couponList.vue'
-    import {XHeader, Scroller, Group,Cell} from 'vux'
+    import {XHeader, Scroller} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, Group,Cell,Couponlist
+            XHeader, Scroller, Couponlist
         },
         data () {
             return {

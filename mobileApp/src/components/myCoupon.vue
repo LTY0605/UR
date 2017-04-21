@@ -56,54 +56,52 @@
     }
 </script>
 <style lang="less" rel="stylesheet/less">
-    .vux-header {
-        background-color: #AB9236 !important;
-    }
-
-    .vux-header .vux-header-title, .vux-header h1 {
-        font-size: .85rem;
-    }
-
     .page_myCoupon {
-    .tabTitle {
-        width: 100%;
-        height: 1.85rem;
-        line-height: 1.85rem;
-        font-size: 0;
-    span {
-        font-size: .75rem;
-        display: inline-block;
-        vertical-align: top;
-        text-align: center;
-        width: 33.33%;
-        background: #F2EDDA;
-        color: #CDBE86;
-        border-left: 1px solid rgb(227,218,184);
-        position: relative;
-    }
-    span:first-child {
-        border: none;
-    }
-    span.active {
-        background: #CDBE86;
-        color: #fff;
-    }
-    span.active:after {
-        content: '';
-        border-style: solid;
-        border-width: .35rem;
-        border-color: transparent transparent #fff transparent;
-        position: absolute;
-        bottom: -1px;
-        left: 48%;
-        margin-left: -0.175rem;
-        display: block;
-    }
-    }
-    .tabContain {
-        width: 100%;
-        height: auto;
-    }
+        .vux-header {
+            background-color: #AB9236 !important;
+        }
 
+        .vux-header .vux-header-title, .vux-header h1 {
+            font-size: .85rem;
+        }
+        .tabTitle {
+            width: 100%;
+            height: 1.85rem;
+            line-height: 1.85rem;
+            font-size: 0;
+            span {
+                font-size: .75rem;
+                display: inline-block;
+                vertical-align: top;
+                text-align: center;
+                width: 33.33%;
+                background: #F2EDDA;
+                color: #CDBE86;
+                border-left: 1px solid rgb(227,218,184);
+                position: relative;
+            }
+            span:first-child {
+                border: none;
+            }
+            span.active {
+                background: #CDBE86;
+                color: #fff;
+            }
+            span.active:after {
+                content: '';
+                border-style: solid;
+                border-width: .35rem;
+                border-color: transparent transparent #fff transparent;
+                position: absolute;
+                bottom: -1px;
+                left: 48%;
+                margin-left: -0.175rem;
+                display: block;
+            }
+        }
+        .tabContain {
+            width: 100%;
+            height: auto;
+        }
     }
 </style>
