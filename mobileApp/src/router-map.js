@@ -39,41 +39,34 @@ const routes = [
         path: '/wallet',
         name: 'wallet',
         meta: {
-            title: '我的钱包'
+            title: '钱包'
         },
         component: resolve => require(['./components/wallet.vue'], resolve)
     },
     {
         path: '/myBill',
-        name: 'myBill',
+            name: 'myBill',
         meta: {
-            title: '我的账单'
-        },
+        title: '我的账单'
+    },
         component: resolve => require(['./components/myBill.vue'], resolve)
     },
-    {
-        path: '/myCoupon',
-        name: 'coupon',
-        meta: {
-            title: '优惠券'
-        },
-        component: resolve => require(['./components/myCoupon.vue'], resolve)
-    },{
-        path: '/transaction',
-        name: 'transaction',
-        meta: {
-            title: '交易记录'
-        },
-        component: resolve => require(['./components/transaction.vue'], resolve)
+  {
+    path: '/integralS',
+    name: 'integralS',
+    meta: {
+      title: '积分查询'
     },
-    // {
-    //     path: '/login',
-    //     name: 'login',
-    //     meta: {
-    //         title: '注册'
-    //     },
-    //     component: resolve => require(['./components/login.vue'], resolve)
-    // }
+    component: resolve => require(['./components/integralS.vue'], resolve)
+  },
+    {
+        path: '/login',
+        name: 'login',
+        meta: {
+            title: '注册'
+        },
+        component: resolve => require(['./components/login.vue'], resolve)
+    }
 ]
 
 export default routes
