@@ -1,5 +1,6 @@
 <template>
     <div class="page_couponList">
+        <!--扫码和遮罩-->
         <transition name="mask-animative">
             <div v-if="show" @click="show=!show" class="integral-mask">
                 <div class="integral-code">
@@ -9,6 +10,7 @@
                 </div>
             </div>
         </transition>
+        <!--优惠券-->
         <div class="couponCon" v-for="(coupon,index) in couponList">
             <div class="couList">
                 <div class="couList-img">
@@ -32,10 +34,10 @@
     </div>
 </template>
 <script>
-    import {XHeader, Scroller,XInput, Group,Selector,Calendar,Cell} from 'vux'
+    import {XHeader, Scroller} from 'vux'
     export default {
         components: {
-            XHeader, Scroller,XInput, Group,Selector,Calendar,Cell
+            XHeader, Scroller
         },
         data () {
             return {
@@ -66,48 +68,48 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_couponList {
-    .integral-mask{
-        z-index: 999;
-        position:absolute;
-        top: 0;
-        height: 100%;
-        width: 100%;
-        background: rgba(0,0,0,0.5);
-    }
-    .integral-code{
-        margin: 8.25rem auto 0 auto;
-        width: 12.55rem;
-        height: 8.05rem;
-        background: white;
-        border-radius: 2px;
-        display: flex;
-        flex-direction: column;
-    }
-    .code-text{
-        width: 11.05rem;
-        height: 2.1rem;
-        line-height: 2.1rem;
-        text-align: center;
-        font-size: .6rem;
-        color: #FF0018;
-        border-bottom: 1px solid rgb(205,190,134);
-        box-sizing: border-box;
-        margin: .75rem auto .75rem auto;
-    }
-    .code-img{
-        width: 7.85rem;
-        margin: 0 auto;
-    }
-    .code-p{
-        font-size: .6rem;
-        margin: .15rem auto 0 auto;
-    }
-    .mask-animative-enter-active, .mask-animative-leave-active{
-        transition: all .3s ease;
-    }
-    .mask-animative-enter, .mask-animative-leave-active {
-        opacity: 0;
-    }
+        .integral-mask{
+            z-index: 999;
+            position:absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+        .integral-code{
+            margin: 8.25rem auto 0 auto;
+            width: 12.55rem;
+            height: 8.05rem;
+            background: white;
+            border-radius: 2px;
+            display: flex;
+            flex-direction: column;
+        }
+        .code-text{
+            width: 11.05rem;
+            height: 2.1rem;
+            line-height: 2.1rem;
+            text-align: center;
+            font-size: .6rem;
+            color: #FF0018;
+            border-bottom: 1px solid rgb(205,190,134);
+            box-sizing: border-box;
+            margin: .75rem auto .75rem auto;
+        }
+        .code-img{
+            width: 7.85rem;
+            margin: 0 auto;
+        }
+        .code-p{
+            font-size: .6rem;
+            margin: .15rem auto 0 auto;
+        }
+        .mask-animative-enter-active, .mask-animative-leave-active{
+            transition: all .3s ease;
+        }
+        .mask-animative-enter, .mask-animative-leave-active {
+            opacity: 0;
+        }
         .couponCon {
             width: 100%;
             height: auto;
@@ -149,6 +151,7 @@
                 font-size: .45rem;
                 color: #C5B166;
                 margin-top: -.3rem;
+                -webkit-text-size-adjust: none;
             }
             .couList-text {
                 margin-left: .6rem;

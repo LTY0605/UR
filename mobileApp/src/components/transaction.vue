@@ -1,50 +1,71 @@
 <template>
-    <div class="page_wallet">
-        <x-header :left-options="{backText: ''}">我的钱包</x-header>
+    <div class="page_transaction">
+        <x-header :left-options="{backText: ''}">交易记录</x-header>
         <div class="tabTitle">
             <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="titleTab = index">{{item.name}}</span>
         </div>
         <div class="tabContain">
-            <div class="tabItem tab-swiper" v-if="titleTab==0">
-                111
+            <div class="tab-swiper" v-if="titleTab==0">
+                <whole></whole>
             </div>
             <div class="tabItem" v-if="titleTab==1">
-                <coupon></coupon>
+                <consume></consume>
             </div>
             <div class="tabItem" v-if="titleTab==2">
-                <integral></integral>
+                <transfer></transfer>
             </div>
         </div>
     </div>
 </template>
 <script>
-    import Integral from './wallet/integral.vue'
-    import Coupon from './wallet/coupon.vue'
+    import Whole from './transaction/whole.vue'
+    import Consume from './transaction/consume.vue'
+    import Transfer from './transaction/transfer.vue'
     import {XHeader, Scroller} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, Integral, Coupon
+            XHeader, Scroller, Whole, Consume, Transfer
         },
         data () {
             return {
                 titleTab: 0,
-                list2: ['礼品卡', '优惠券', '积分'],
+                list2: ['全部', '消费', '转赠'],
                 index: 1,
                 time: '',
                 titleList: [
                     {
                         code: 0,
-                        name: '礼品卡'
+                        name: '全部'
                     },
                     {
                         code: 1,
-                        name: '优惠券'
+                        name: '消费'
                     },
                     {
                         code: 2,
-                        name: '积分'
+                        name: '转赠'
                     }
                 ],
+                tranlists:[
+                    {
+                        number: 'OS201704120289',
+                        type: '消费',
+                        time: '2017-04-12 15:30:28',
+                        money: '-300.00'
+                    },
+                    {
+                        number: 'OS201703021888',
+                        type: '转出',
+                        time: '2017-03-02 09:38:21',
+                        money: '-150.00'
+                    },
+                    {
+                        number: 'OS201609113466',
+                        type: '获赠',
+                        time: '2016-09-11 11:25:15',
+                        money: '+100.00'
+                    }
+                ]
 
             }
         },
@@ -57,7 +78,7 @@
     }
 </script>
 <style lang="less" rel="stylesheet/less">
-    .page_wallet {
+    .page_transaction {
         .vux-header {
             background-color: #AB9236 !important;
         }

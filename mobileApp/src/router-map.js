@@ -58,6 +58,13 @@ const routes = [
             title: '优惠券'
         },
         component: resolve => require(['./components/myCoupon.vue'], resolve)
+    },{
+        path: '/transaction',
+        name: 'transaction',
+        meta: {
+            title: '交易记录'
+        },
+        component: resolve => require(['./components/transaction.vue'], resolve)
     },
     // {
     //     path: '/login',

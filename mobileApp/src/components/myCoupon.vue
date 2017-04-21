@@ -19,10 +19,10 @@
 </template>
 <script>
     import Notused from './coupon/notUsed.vue'
-    import {XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar, Cell, Group, InlineCalendar} from 'vux'
+    import {XHeader, Scroller} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Notused, Calendar, Cell, Group, InlineCalendar
+            XHeader, Scroller, Notused
         },
         data () {
             return {

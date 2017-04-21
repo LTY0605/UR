@@ -2,50 +2,41 @@
     <div class="page_integral">
         <div class="integralTop">
             <div class="integralTop-img">
-                <h1>{{integral}}</h1>
-                <p>可用积分</p>
+                <h1 class="integralTop-h1">{{integral}}</h1>
+                <p class="integralTop-p">可用积分</p>
             </div>
             <span class="integralTop-text">积分规则</span>
         </div>
         <group class="integralList">
             <cell title="积分使用码">
-                <img slot="icon" width="16" style="display:inline-block;margin-right:.25rem;margin-top: .2rem"
-                     src="../../assets/icon_gift.png">
-                <img @click="show=!show" slot="icon" width="15" style="position: absolute; right: 0;top:.75rem"
-                     src="../../assets/icon_money_code.png"
-                     alt=""/>
+                <img class="listImg" slot="icon" width="16" src="../../assets/icon_gift.png">
+                <img class="listRight" @click="show=!show" slot="icon" width="15" src="../../assets/icon_money_code.png">
             </cell>
             <cell title="积分商城">
-                <img slot="icon" width="16" style="display:inline-block;margin-right:.25rem;margin-top: .2rem"
-                     src="../../assets/icon_home.png">
-                <img slot="icon" width="7" style="position: absolute; right: 0;top:.75rem"
-                     src="../../assets/icon_right_on.png"
-                     alt=""/>
+                <img class="listImg" slot="icon" width="16" src="../../assets/icon_home.png">
+                <img class="listRight" slot="icon" width="7" src="../../assets/icon_right_on.png">
             </cell>
             <cell title="积分查询">
-                <img slot="icon" width="16" style="display:inline-block;margin-right:.25rem;margin-top: .2rem"
-                     src="../../assets/icon_search.png">
-                <img slot="icon" width="7" style="position: absolute; right: 0;top:.75rem"
-                     src="../../assets/icon_right_on.png"
-                     alt=""/>
+                <img class="listImg" slot="icon" width="16" src="../../assets/icon_search.png">
+                <img class="listRight" slot="icon" width="7" src="../../assets/icon_right_on.png">
             </cell>
         </group>
         <transition name="mask-animative">
             <div v-if="show" @click="show=!show" class="integral-mask">
                 <div class="integral-code">
-                    <div>积分使用时交给店员扫一扫</div>
-                    <img src="../../assets/money_code.png" alt=""/>
-                    <p>{{code}}</p>
+                    <div class="integralCode-div">积分使用时交给店员扫一扫</div>
+                    <img class="integralCode-img" src="../../assets/money_code.png" alt=""/>
+                    <p class="integralCode-p">{{code}}</p>
                 </div>
             </div>
         </transition>
     </div>
 </template>
 <script>
-    import {XHeader, Scroller, XInput, Group, Selector, Calendar, Cell} from 'vux'
+    import {XHeader, Scroller, Group, Cell} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, XInput, Group, Selector, Calendar, Cell
+            XHeader, Scroller, Group, Cell
         },
         data () {
             return {
@@ -103,14 +94,14 @@
             justify-content: center;
             align-items: center;
         }
-        .integralTop-img > h1{
+        .integralTop-h1{
             margin-top: 1.2rem;
             margin-bottom: 0;
             font-size: 3rem;
             font-weight: 100;
             color: #AB9236;
         }
-        .integralTop-img > p{
+        .integralTop-p{
             margin-top: -.3rem;
             font-size: .75rem;
             color: #AB9236;
@@ -124,6 +115,12 @@
         }
         .integralList{
             margin-top: -1rem;
+            .listImg{
+                display:inline-block;margin-right:.25rem;margin-top: .2rem;
+            }
+            .listRight{
+                position: absolute; right: 0;top:.75rem;
+            }
         }
         .integral-mask{
             position:absolute;
@@ -141,7 +138,7 @@
             display: flex;
             flex-direction: column;
         }
-        .integral-code > div{
+        .integralCode-div{
             width: 11.05rem;
             height: 2.1rem;
             line-height: 2.1rem;
@@ -152,11 +149,11 @@
             box-sizing: border-box;
             margin: .75rem auto .75rem auto;
         }
-        .integral-code > img{
+        .integralCode-img{
             width: 7.85rem;
             margin: 0 auto;
         }
-        .integral-code > p{
+        .integralCode-p{
             font-size: .6rem;
             margin: .15rem auto 0 auto;
         }
