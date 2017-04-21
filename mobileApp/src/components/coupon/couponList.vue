@@ -3,7 +3,7 @@
         <!--扫码和遮罩-->
         <transition name="mask-animative">
             <div v-if="show" @click="show=!show" class="integral-mask">
-                <div class="integral-code">
+                <div id="couponMask" @click="stopPropagation" class="integral-code">
                     <div class="code-text">付款时交给店员扫一扫</div>
                     <img class="code-img" src="../../assets/money_code.png" alt=""/>
                     <p class="code-p">8999305128</p>
@@ -56,6 +56,16 @@
                         startTime:'2017.04.12',endTime:'2017.04.30'
                     }
                 ]
+            }
+        },
+        methods:{
+            stopPropagation:function (e) {
+                e = e||window.event;
+                if(e.stopPropagation){
+                    e.stopPropagation();
+                } else{
+                    e.cancelBubble = true;
+                }
             }
         },
         mounted(){
