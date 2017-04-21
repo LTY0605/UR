@@ -14,7 +14,7 @@ html, body {
     padding: 0px;
     margin: 0px;
     -webkit-tap-highlight-color: transparent;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 #app {
