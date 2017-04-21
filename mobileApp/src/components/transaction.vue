@@ -6,7 +6,8 @@
         </div>
         <div class="tabContain">
             <div class="tab-swiper" v-if="titleTab==0">
-                <whole></whole>
+                <consume></consume>
+                <transfer></transfer>
             </div>
             <div class="tabItem" v-if="titleTab==1">
                 <consume></consume>
