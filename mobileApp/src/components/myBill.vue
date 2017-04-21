@@ -1,6 +1,7 @@
 <template>
    <div class="page_myBill">
       <x-header>我的账单</x-header>
+      <scroller :height="-46+'px'" lock-x>
       <div class="tabTitle">
          <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="titleTab = index">{{item.name}}</span>
       </div>
@@ -12,17 +13,17 @@
             <integralBill></integralBill>
          </div>
       </div>
+      </scroller>
    </div>
 </template>
 
 <script>
-    import consume from './myBill/consume.vue'
+  import consume from './myBill/consume.vue'
     import integralBill from './myBill/integralBill.vue'
     import {XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar, Cell, Group, InlineCalendar} from 'vux'
     export default {
       components: {
-        XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem,
-        Calendar, Cell, Group, InlineCalendar,consume,integralBill
+        XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem,consume, Calendar, Cell, Group, InlineCalendar,integralBill
       },
       data () {
         return {

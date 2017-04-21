@@ -1,31 +1,34 @@
 <template>
    <div class="page_integralS">
       <x-header>积分查询</x-header>
+      <scroller :height="-46+'px'" lock-x>
       <div class="tabTitle">
          <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="titleTab = index">{{item.name}}</span>
       </div>
       <div class="tabContain">
          <div class="tabItem tab-swiper" v-if="titleTab==0">
-            <!--<consume></consume>-->
-         </div>
-         <div class="tabItem" v-if="titleTab==1">
             <sample></sample>
-         </div>
-         <div class="tabItem" v-if="titleTab==2">
             <sampleT></sampleT>
          </div>
+         <div class="tabItem" v-if="titleTab==1">
+            <sampleT></sampleT>
+         </div>
+         <div class="tabItem" v-if="titleTab==2">
+            <sample></sample>
+         </div>
       </div>
-   
+      </scroller>
    </div>
 </template>
 
 <script>
+//  import Consume from './transaction/consume.vue'
   import sample from './myBill/sample.vue'
-  import sampleT from './myBill/sampleT.vue'
+   import sampleT from './myBill/sampleT.vue'
   import {XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar, Cell, Group, InlineCalendar} from 'vux'
   export default {
     components: {
-      XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar, Cell, Group, InlineCalendar,sample,sampleT
+      XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar, Cell, Group, InlineCalendar,sampleT,sample
     },
     data () {
       return {
