@@ -38,7 +38,7 @@
                     <div class="datatimeBox">
                         <group class="dateBox">
                             <datetime v-model="value2" clear-text="clear" @on-clear="clearValue" class="input input1 text textPadding" @on-change="change" title="出生日期"></datetime>
-                            <img @on-change="change" class="dateClass" src="../assets/images/date.png" alt="">
+                            <!--<label class="dateClass"></label>-->
                         </group>
                     </div>
                     <div class="adressBox">
@@ -208,17 +208,10 @@
     .vux-x-icon {
         fill: #AB9236;
     }
-    .dateBox{
-        position: relative;
-    }
-    .dateBox img{
-        position: absolute;
-        top: 0.45rem;
-        right: 0.45rem;
-    }
-    .dateClass{
-        width: 1.1rem;
-    }
+     .datatimeBox .weui-cell{
+         background: url("../assets/images/date.png") right center no-repeat;
+         background-size: 8%;
+     }
     .adressBox{
         padding-top: 0.6rem;
     }

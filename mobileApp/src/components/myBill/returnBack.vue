@@ -1,16 +1,25 @@
 <template>
-   <div class="page_sampleT">
+   <div class="page_returnBack" >
       <div class="detail">
-         <ul class="sampleTlist">
-            <li v-for="list in sampleTlists" class="list">
+         <!--<span class="price">-800</span>-->
+         <!--<ul>-->
+         <!--<li class="number">单号:<a href="#">#VHB56646</a></li>-->
+         <!--<li class="itype">类型:<a href="#">消费</a></li>-->
+         <!--<li class="time">日期:<a href="#"></a></li>-->
+         <!--</ul>-->
+         <ul class="returnBacklist">
+            <li v-for="list in returnBacklists" class="list">
                <p>单号：<span class="list-number">{{list.number}}</span></p>
                <p class="list-mar">类型：{{list.type}}</p>
                <p>日期：{{list.time}}</p>
                <p class="list-money red">{{list.money}}</p>
             </li>
          </ul>
+
       </div>
    </div>
+   </div>
+
 </template>
 
 <script>
@@ -19,24 +28,18 @@
     },
     data () {
       return {
-        sampleTlists:[
+        returnBacklists:[
           {
-            number: 'OS201704120289',
-            type: '消费',
+            number: 'TB201704156987',
+            type: '退货',
             time: '2017-04-12 15:30:28',
-            money: '+300.00'
+            money: '+200.00'
           },
           {
-            number: 'OS201703021888',
-            type: '消费',
+            number: 'JH201703048746',
+            type: '退货',
             time: '2017-03-02 09:38:21',
-            money: '+150.00'
-          },
-          {
-            number: 'OS201609113466',
-            type: '消费',
-            time: '2016-09-11 11:25:15',
-            money: '+100.00'
+            money: '+850.00'
           }
         ]
 
@@ -50,11 +53,10 @@
     computed: {}
   }
 </script>
-
 <style lang="less" rel="stylesheet/less">
-   .page_sampleT{
+   .page_returnBack{
    .detail{
-   .sampleTlist{
+   .returnBacklist{
       list-style: none;
    .list{
       font-size: .6rem;

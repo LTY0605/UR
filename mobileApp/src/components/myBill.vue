@@ -16,13 +16,13 @@
 </template>
 
 <script>
-    import consume from './myBill/consume.vue'
+  import consume from './myBill/consume.vue'
     import integralBill from './myBill/integralBill.vue'
     import {XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar, Cell, Group, InlineCalendar} from 'vux'
     export default {
       components: {
-        XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem,
-        Calendar, Cell, Group, InlineCalendar,consume,integralBill
+        XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem,consume,
+        Calendar, Cell, Group, InlineCalendar,integralBill
       },
       data () {
         return {
