@@ -15,24 +15,24 @@
                 <div class="loginContent">
                     <div class="nameBox">
                         <group>
-                            <x-input class="input input1 text" title="姓名" name="username" placeholder="用户名" :is-type="china_name">
+                            <x-input class="input input1 text" title="姓名" name="username" placeholder="用户名" :is-type="zhengze_name" v-model="user">
                                 <img class="userW" slot="label" src="../assets/images/user.png">
                             </x-input>
                         </group>
                     </div>
                     <div class="mobileBox">
                         <group>
-                            <x-input is-type="china-mobile" class="input input1 text" placeholder="手机号" title="手机号码" name="mobile">
+                            <x-input is-type="china-mobile" class="input input1 text" placeholder="手机号" title="手机号码" name="mobile" v-model="phone">
                                 <img class="mobileW" slot="label" src="../assets/images/Mobile.png">
                             </x-input>
                         </group>
                     </div>
                     <ul class="radioBox">
                         <li class="female">
-                            <label class="text"><input name="radio" type="radio"><span>女生</span></label>
+                            <label class="text"><input name="radio" type="radio" v-model="selected" value="1"><span>女生</span></label>
                         </li>
                         <li class="male">
-                            <label class="text checked"><input  name="radio" type="radio"><span>男生</span></label>
+                            <label class="text checked"><input  name="radio" v-model="selected" type="radio" value="2"><span>男生</span></label>
                         </li>
                     </ul>
                     <div class="datatimeBox">
@@ -43,11 +43,11 @@
                     </div>
                     <div class="adressBox">
                         <group>
-                            <x-address class="input input1 text" title="选择地区" raw-value :list="addressData"></x-address>
+                            <x-address v-model="value3" class="input input1 text" title="选择地区" raw-value :list="addressData"></x-address>
                         </group>
                     </div>
                     <div class="submitBox">
-                        <x-button type="primary" action-type="button">提交注册</x-button>
+                        <x-button type="primary" name="submit" action-type="submit" @click.native="onSubmit">提交注册</x-button>
                     </div>
                     <div class="agreementBox">
                         <a href="#" class="text">UR用户使用协议</a>
@@ -71,29 +71,41 @@
         },
         data () {
             return {
+                phone:'',
+                user:'',
                 title: '默认为空',
                 iconType: '',
                 value2: '',
                 addressData: ChinaAddressData,
-                value1:[],
-                china_name: function (value) {
+                value3:[],
+                selected: '',
+                zhengze_name: function (value) {
                     console.log(value)
                     return {
-                        valid: /^[a-zA-Z]\w{5,17}$/.test(value),
-                        msg: 'Must be 5-17个字的组合'
+                        valid: /^[A-Za-z0-9_\u4e00-\u9fa5]{4,16}$/.test(value),
+                        msg: 'Must be 4-16个字的组合'
                     }
-                }
+                },
+                options:[
+                    {"name":"feman"},
+                    {"name":"man"}
+                ]
             }
+
         },
         methods: {
             change (value) {
                 console.log('change', value)
             },
-            passwInvalid () {
-                alert('只能输入2-4个字的汉字组合');
-            },
             clearValue (value) {
                 this.$data.value2 = ''
+            },
+            onSubmit () {
+                if(this.user==''||this.phone==''||this.user==''||this.value2==''||this.value3==''||this.selected==''){
+                    alert('请完善表单信息')
+                }else{
+                    alert('注册成功')
+                }
             }
         },
         mounted(){
