@@ -90,6 +90,14 @@ const routes = [
             title: '注册'
         },
         component: resolve => require(['./components/login.vue'], resolve)
+    },
+    {
+        path: '/contract',
+        name: 'contract',
+        meta: {
+            title: '协议'
+        },
+        component: resolve => require(['./components/contract.vue'], resolve)
     }
 ]
 
