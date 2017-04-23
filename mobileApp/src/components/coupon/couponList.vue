@@ -26,7 +26,8 @@
                     <p class="cou-type">{{coupon.shop}}</p>
                     <p style="margin:0;font-size: .6rem;color: #999999">有效期：{{coupon.startTime}}～{{coupon.endTime}}</p>
                     <div style="height: auto">
-                        <span @click="showText=!showText" class="couponExplain">礼券说明></span>
+                        <p @click="hideRight" class="couponExplain">礼券说明
+                            <span v-if="showRight" class="couponRight">></span></p>
                         <p v-if="showText" class="coupon-text">本券只限于购买正价商品，每个订单 限用一张。</p>
                     </div>
                 </div>
@@ -43,6 +44,7 @@
         },
         data () {
             return {
+                showRight:true,
                 showText:false,
                 showNoScroll:false,
                 couponList: [
@@ -67,6 +69,10 @@
             },
             hide:function () {
                 this.showNoScroll = false;
+            },
+            hideRight:function () {
+                this.showText = !this.showText;
+                this.showRight = !this.showRight;
             }
         },
         mounted(){
@@ -170,16 +176,18 @@
             .couponExplain {
                 color: #F68B79;
                 font-size: .6rem;
-                display: block;
                 margin-top: .15rem;
+            }
+            .couponRight{
                 position: relative;
             }
-            .couponExplain:before {
+            .couponRight:before {
                 content: '';
                 position: absolute;
                 height: 1px;
                 width: 2.8rem;
                 background: #F68B79;
+                left: -2.6rem;
                 bottom: -1px;
             }
             .coupon-text{
@@ -187,6 +195,7 @@
                 margin-top: .35rem;
                 width: 9.55rem;
                 height: 1.6rem;
+                color: #999999
             }
             .cou-type {
                 margin: .2rem 0 .2rem 0;
