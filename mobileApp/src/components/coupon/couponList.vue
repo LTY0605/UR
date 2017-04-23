@@ -1,15 +1,16 @@
 <template>
     <div class="page_couponList">
         <!--扫码和遮罩-->
-        <transition name="mask-animative">
-            <div v-if="show" @click="show=!show" class="integral-mask">
-                <div id="couponMask" @click="stopPropagation" class="integral-code">
-                    <div class="code-text">付款时交给店员扫一扫</div>
-                    <img class="code-img" src="../../assets/money_code.png" alt=""/>
-                    <p class="code-p">8999305228</p>
+        <div @click="hide">
+            <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
+                <div @click.stop class="couponCode">
+                    <p class="couponCode-title">付款时交给店员扫一扫</p>
+                    <img class="couponCode-img" src="../../assets/money_code.png" alt=""/>
+                    <p class="couponCode-code">8999305128</p>
+                    <div @click="hide" class="couponCode-close"></div>
                 </div>
-            </div>
-        </transition>
+            </x-dialog>
+        </div>
         <!--优惠券-->
         <div class="couponCon" v-for="(coupon,index) in couponList">
             <div class="couList">
@@ -24,24 +25,26 @@
                     <p style="margin:0;font-size: .75rem;color: #333333">券号：{{coupon.number}}</p>
                     <p class="cou-type">{{coupon.shop}}</p>
                     <p style="margin:0;font-size: .6rem;color: #999999">有效期：{{coupon.startTime}}～{{coupon.endTime}}</p>
-                    <router-link to="myCoupon">
-                        <span class="couponExplain">礼券说明></span>
-                    </router-link>
+                    <div style="height: auto">
+                        <span @click="showText=!showText" class="couponExplain">礼券说明></span>
+                        <p v-if="showText" class="coupon-text">本券只限于购买正价商品，每个订单 限用一张。</p>
+                    </div>
                 </div>
-                <div @click="show=!show" class="couList-code"></div>
+                <div @click="show" class="couList-code"></div>
             </div>
     </div>
     </div>
 </template>
 <script>
-    import {XHeader, Scroller} from 'vux'
+    import {XHeader, Scroller,XDialog} from 'vux'
     export default {
         components: {
-            XHeader, Scroller
+            XHeader, Scroller,XDialog
         },
         data () {
             return {
-                show:false,
+                showText:false,
+                showNoScroll:false,
                 couponList: [
                     {
                         money: '50', type: '生日礼券', number: '8999305128', shop:'线下门店',
@@ -59,13 +62,11 @@
             }
         },
         methods:{
-            stopPropagation:function (e) {
-                e = e||window.event;
-                if(e.stopPropagation){
-                    e.stopPropagation();
-                }else{
-                    e.cancelBubble = true;
-                }
+            show:function () {
+                this.showNoScroll = true;
+            },
+            hide:function () {
+                this.showNoScroll = false;
             }
         },
         mounted(){
@@ -78,47 +79,42 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_couponList {
-        .integral-mask{
-            z-index: 999;
-            position:absolute;
-            top: 0;
-            height: 100%;
-            width: 100%;
-            background: rgba(0,0,0,0.5);
+        .weui-dialog{
+            width: auto !important;
+            max-width: none !important;
+            top: 43% !important;
         }
-        .integral-code{
-            margin: 8.25rem auto 0 auto;
-            width: 12.55rem;
-            height: 8.05rem;
+        .couponCode{
+            width: 12.5rem;
+            height: 8rem;
+            position: relative;
             background: white;
-            border-radius: 2px;
-            display: flex;
-            flex-direction: column;
-        }
-        .code-text{
-            width: 11.05rem;
-            height: 2.1rem;
-            line-height: 2.1rem;
-            text-align: center;
-            font-size: .6rem;
-            color: #FF0018;
-            border-bottom: 1px solid rgb(205,190,134);
-            box-sizing: border-box;
-            margin: .75rem auto .75rem auto;
-        }
-        .code-img{
-            width: 7.85rem;
-            margin: 0 auto;
-        }
-        .code-p{
-            font-size: .6rem;
-            margin: .15rem auto 0 auto;
-        }
-        .mask-animative-enter-active, .mask-animative-leave-active{
-            transition: all .3s ease;
-        }
-        .mask-animative-enter, .mask-animative-leave-active {
-            opacity: 0;
+            .couponCode-title{
+                width: 11rem;
+                height: 2rem;
+                line-height: 2rem;
+                margin: .75rem auto;
+                font-size: .6rem;
+                text-align: center;
+                color: #FF0018;
+                border-bottom: 1px solid #CDBE86;
+            }
+            .couponCode-img{
+                width: 7.85rem;
+                height: 2.2rem;
+            }
+            .couponCode-code{
+                font-size: .6rem;
+            }
+            .couponCode-close{
+                position: absolute;
+                width: .8rem;
+                height: .8rem;
+                background: url("../../assets/money_code3.png");
+                background-size: 100%;
+                top: -.15rem;
+                right: .6rem;
+            }
         }
         .couponCon {
             width: 100%;
@@ -128,6 +124,7 @@
             .couList {
                 display: flex;
                 width: 89.6%;
+                height: auto;
                 margin: 0 auto 0 auto;
                 position: relative;
             }
@@ -166,8 +163,9 @@
             .couList-text {
                 margin-left: .6rem;
                 margin-top: .75rem;
-                height: 4rem;
+                height: auto;
                 width: auto;
+                padding-bottom: .85rem;
             }
             .couponExplain {
                 color: #F68B79;
@@ -184,6 +182,12 @@
                 background: #F68B79;
                 bottom: -1px;
             }
+            .coupon-text{
+                font-size: .6rem;
+                margin-top: .35rem;
+                width: 9.55rem;
+                height: 1.6rem;
+            }
             .cou-type {
                 margin: .2rem 0 .2rem 0;
                 width: 2.9rem;
@@ -198,7 +202,7 @@
                 width: 1.5rem;
                 height: 1.5rem;
                 position: absolute;
-                bottom: 2.5rem;
+                top: 1.8rem;
                 right: 0;
                 background: url("../../assets/money_code2.png");
                 background-size: 100%;
