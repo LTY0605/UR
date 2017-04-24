@@ -12,7 +12,7 @@
                 <!--</li>-->
                 <li>
                     <group>
-                        <x-input title="用户名" placeholder="请输入"></x-input>
+                        <x-input title="用户名" placeholder="请输入" v-model="customerName"></x-input>
                     </group>
                 </li>
                 <li>
@@ -22,7 +22,8 @@
                 </li>
                 <li>
                     <group>
-                        <calendar v-model="time" title="出生日期" disable-future></calendar>
+                        <datetime v-model="brithday" title="出生日期" format="YYYY-MM-DD"></datetime>
+                        <!--<calendar v-model="time" title="出生日期" disable-future></calendar>-->
                     </group>
                 </li>
                 <li class="attress">
@@ -53,34 +54,81 @@
             </ul>
             <div class="operate">提交</div>
         </div>
+        <x-dialog v-model="showNoScroll" class="dialog-demo" :scroll="false">
+            <p class="dialog-title">温馨提示</p>
+            <div class="dialog-contain">
+                {{warnText}}
+            </div>
+            <button class="vux-close" @click="showNoScroll=false">关闭</button>
+        </x-dialog>
     </div>
 </template>
 <script>
     import {
         XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, ChinaAddressData,
-        Value2nameFilter as value2name
+        Value2nameFilter as value2name,Name2valueFilter as name2value, Datetime, XDialog
     } from 'vux'
+    import {
+        memberInfoService,
+    } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress
+            XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, Datetime, XDialog
         },
         data () {
             return {
+                customerName: '',
+                showNoScroll: false,
+                brithday: '',
+                warnText: '提示',
                 demo1: '修改资料',
                 tablist: ['修改资料', '修改手机'],
                 activeIndex: 0,
                 isPhone: false,
-                sexList: ['男', '女'],
+                sexList: [{key: '0', value: '男'}, {key: '1', value: '女'}],
                 sex: '男',
                 time: 'TODAY',
                 attrValue: [],
                 addressData: ChinaAddressData,
                 attress: '',
+                provice: '',//省
+                city: '',//市
+                district: '',//县/区
             }
+        },
+        created(){
+            this.renderData();
         },
         mounted(){
         },
         methods: {
+            renderData(){
+                memberInfoService().get({
+                    wxOpenid: window.localStorage.getItem("wxOpenId"),
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.customerName = body.customerName;
+                        this.sex = body.sex;
+                        this.brithday = body.brithday;
+//                        this.provice = body.provice;
+//                        this.city = body.city;
+//                        this.district = body.district;
+                        this.provice = '广东省';
+                        this.city = '广州市';
+                        this.district = '白云区';
+                        var attr = this.provice + ' ' + this.city + ' ' + this.district;
+                        this.attress = attr.split(" ");//地区文字转为数字，要数组
+                        var transValue = name2value(this.attress, ChinaAddressData); //把文字转为值
+                        this.attrValue = transValue.split(" ");//要数组
+                    } else {
+                        this.showNoScroll = true;
+                        this.warnText = body.msg;
+                    }
+                }, res => {
+
+                })
+            },
             logHide(str){
                 console.log('on-hide', str)
             },
@@ -93,23 +141,46 @@
                 this.attress = value2name(val, ChinaAddressData); //把值转为文字
                 // this.getCompany(this.address);
             },
+//            attress(val) {
+//                this.attrValue = name2value(val, ChinaAddressData); //把值转为文字
+//                // this.getCompany(this.address);
+//            },
         },
-        created(){
-        },
+
         computed: {}
     }
 </script>
 <style lang="less" rel="stylesheet/less">
-    .operate{
+    .dialog-demo {
+        font-size: .85rem;
+        .dialog-title {
+            height: 2rem;
+            line-height: 2rem;
+            font-size: .9rem;
+        }
+        .dialog-contain {
+            padding-bottom: .5rem;
+        }
+        .vux-close {
+            width: 2rem;
+            background: #CDBE86;
+            border: 0;
+            margin-bottom: .5rem;
+            color: #fff;
+        }
+    }
+
+    .operate {
         height: 2rem;
-        line-height:2rem;
+        line-height: 2rem;
         text-align: center;
         font-size: .75rem;
         background: #AB9236;
         color: #fff;
-        margin-top:1.25rem;
+        margin-top: 1.25rem;
         border-radius: .2rem;
     }
+
     .page_person {
         .weui-cells:before, .weui-cells:after,
         .weui-cell_access .weui-cell__ft:after,
@@ -154,7 +225,7 @@
             border-radius: .2rem;
             font-size: 0;
             span {
-                font-size: .6rem;
+                font-size: .7rem;
                 text-align: center;
                 color: #EC6941;
                 display: inline-block;
@@ -193,37 +264,37 @@
                     font-size: .7rem;
                 }
             }
-            .attress{
-                .vux-popup-picker-select span{
+            .attress {
+                .vux-popup-picker-select span {
                     color: #999;
                 }
             }
         }
-        .edit_material2{
+        .edit_material2 {
             width: 100%;
             height: auto;
-                li{
-                    background: none;
-                    position: relative;
-                    padding: 1rem 0;
-                    .weui-input{
-                        text-align: left;
-                    }
-                    .getCode{
-                        font-size: .7rem;
-                        position: absolute;
-                        right: 0;
-                        top: 50%;
-                        margin-top: -.55rem;
-                        border-bottom: 1px solid #EC6941;
-                        color: #EC6941;
-                        z-index: 100;
-                    }
-
+            li {
+                background: none;
+                position: relative;
+                padding: 1rem 0;
+                .weui-input {
+                    text-align: left;
+                }
+                .getCode {
+                    font-size: .7rem;
+                    position: absolute;
+                    right: 0;
+                    top: 50%;
+                    margin-top: -.55rem;
+                    border-bottom: 1px solid #EC6941;
+                    color: #EC6941;
+                    z-index: 100;
                 }
 
-            .code{
-                .weui-cell__ft{
+            }
+
+            .code {
+                .weui-cell__ft {
                     display: none;
                 }
             }

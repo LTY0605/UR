@@ -33,9 +33,6 @@
         <router-link to="contract">
             <cell title="协议" value="click me" is-link></cell>
         </router-link>
-        <router-link to="login">
-            <cell title="登录" value="click me" is-link></cell>
-        </router-link>
     </div>
 
 </template>
