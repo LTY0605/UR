@@ -46,7 +46,7 @@
                     </div>
                     <div class="submitBox">
                         <x-button type="primary" name="submit" action-type="submit" @click.native="onSubmit">提交注册</x-button>
-                        <alert v-model="show" title="提交" @on-show="onShow" @on-hide="onHide">123</alert>
+                        <alert v-model="show" title="提交注册吗？">{{text}}</alert>
                     </div>
                     <div class="agreementBox">
                         <router-link to="/contract" class="text">UR用户使用协议</router-link>
@@ -70,9 +70,11 @@
         },
         data () {
             return {
-                show: '',
+                show: false,
+                show1: false,
                 phone:'',
                 user:'',
+                text:'',
                 title: '默认为空',
                 iconType: '',
                 value2: '',
@@ -102,16 +104,12 @@
             },
             onSubmit () {
                 if(this.user==''||this.phone==''||this.user==''||this.value2==''||this.value3==''||this.selected==''){
-//                    alert('请完善表单信息')
+                  this.show =true;
+                    this.text = '请完善表单信息'
                 }else{
-                    alert('注册成功')
+                    this.show =true;
+                    this.text = '注册成功'
                 }
-            },
-            onShow () {
-                console.log('on show')
-            },
-            onHide () {
-                console.log('on hide')
             }
         },
         mounted(){
