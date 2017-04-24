@@ -39,7 +39,7 @@ const routes = [
         path: '/wallet',
         name: 'wallet',
         meta: {
-            title: '钱包'
+            title: '我的钱包'
         },
         component: resolve => require(['./components/wallet.vue'], resolve)
     },

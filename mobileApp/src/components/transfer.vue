@@ -10,21 +10,40 @@
                 <x-input placeholder="转赠金额"></x-input>
             </group>
             <p class="tran-remind"><span>*</span> 转赠金额需大于50</p>
-            <x-button><span class="btn-text">提 交</span></x-button>
+            <div @click="show">
+                <x-button><span class="btn-text">提 交</span></x-button>
+            </div>
         </div>
         <!--遮罩和密码框-->
+        <div @click="hide">
+            <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
+                <div @click.stop class="transferCode">
+                    <p class="transferCode-title">请输入密码</p>
+                    <x-input class="transferCode-input"></x-input>
+                    <x-button><span class="transferCode-text">确 定</span></x-button>
+                </div>
+            </x-dialog>
+        </div>
     </div>
 </template>
 
 <script>
-    import {XHeader,Group,XInput,XButton} from 'vux'
+    import {XHeader,Group,XInput,XButton,XDialog} from 'vux'
     export default{
         components:{
-            XHeader,Group,XInput,XButton
+            XHeader,Group,XInput,XButton,XDialog
         },
         data(){
             return{
-
+                showNoScroll:false
+            }
+        },
+        methods:{
+            show:function () {
+                this.showNoScroll = true;
+            },
+            hide:function () {
+                this.showNoScroll = false;
             }
         }
     }
@@ -35,9 +54,13 @@
         .vux-header {
             background-color: #AB9236 !important;
         }
-
         .vux-header .vux-header-title, .vux-header h1 {
             font-size: .85rem;
+        }
+        .weui-dialog{
+            width: auto !important;
+            max-width: none !important;
+            top: 43% !important;
         }
         .transferCon{
             padding: 1rem 1.75rem 0 1.75rem;
@@ -91,29 +114,49 @@
                 color: #FFFFFF;
             }
         }
-        .transfer-mask{
-            position: absolute;top: 0;width: 100%;height: 100%;background: rgba(0,0,0,0.6);
-            .code{
-                width: 12.55rem;
-                height: 9.2rem;
-                border-radius: 3px;
-                background: #FFFFFF;
-                padding-left: 1rem;
-                padding-right: 1rem;
-                margin: 7.5rem auto 0 auto;
-                flex-direction: column;
-                display: flex;
-                .code-text{
-                    font-size: .75rem;
-                    color: #AB9236;
-                    height: .85rem;
-                    margin: 1rem auto 1.5rem auto;
-                }
-                .tran-money{
-                    color: #333333;
-                    font-size: .75rem;
-                    margin-left: .5rem;
-                }
+        .transferCode{
+            width: 12.5rem;
+            height: auto;
+            padding: 1rem;
+            position: relative;
+            background: white;
+            .weui-cell{
+                border: 1px solid #D2D2D2;
+                border-radius: 4px;
+                height: 2rem;
+            }
+            .weui-cell:before{
+                border-top: none ;
+            }
+            .weui-cell:after{
+                border: none ;
+            }
+            .weui-input{
+                font-size: .75rem;
+                height: 2rem;
+                line-height: 2rem;
+            }
+            [class^="weui-icon-"]:before{
+                margin-bottom: .3rem;
+            }
+            .weui-btn:after{
+                border: none;
+                height: 2rem;
+            }
+            .weui-btn_default{
+                margin-top: 1rem;
+                background: #AB9236;
+                height: 2rem;
+            }
+            .transferCode-title{
+                font-size: .75rem;
+                color: #AB9236;
+                margin-bottom: 1.5rem;
+            }
+            .transferCode-text{
+                font-size: .75rem;
+                color: #FFFFFF;
+                display: block;
             }
         }
     }
