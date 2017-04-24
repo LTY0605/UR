@@ -16,10 +16,12 @@
                 <img class="listImg" slot="icon" width="16" src="../../assets/icon_home.png">
                 <img class="listRight" slot="icon" width="7" src="../../assets/icon_right_on.png">
             </cell>
-            <cell title="积分查询">
-                <img class="listImg" slot="icon" width="16" src="../../assets/icon_search.png">
-                <img class="listRight" slot="icon" width="7" src="../../assets/icon_right_on.png">
-            </cell>
+            <router-link to="/integralS">
+                <cell title="积分查询">
+                    <img class="listImg" slot="icon" width="16" src="../../assets/icon_search.png">
+                    <img class="listRight" slot="icon" width="7" src="../../assets/icon_right_on.png">
+                </cell>
+            </router-link>
         </group>
         <div @click="hide">
             <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
@@ -159,6 +161,15 @@
         }
         .integralList{
             margin-top: -1rem;
+            .weui-cell{
+                border-bottom: 1px solid #D9D9D9;
+            }
+            .weui-cell:before{
+                border: none;
+            }
+            .weui-cells:after {
+                border: none;
+            }
             .listImg{
                 display:inline-block;margin-right:.25rem;margin-top: .2rem;
             }

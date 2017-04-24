@@ -140,6 +140,7 @@
                 margin: .62rem 0 .62rem 0;
                 position: relative;
                 background: url("../../assets/money_back.png");
+                background-repeat: no-repeat;
                 background-size: 100%;
                 display: flex;
                 justify-content: center;

@@ -4,13 +4,13 @@
         <div class="transferCon">
             <p class="tran-money">余额：￥800</p>
             <group>
-                <x-input placeholder="转赠人手机"></x-input>
+                <x-input name="transfer_phone" v-model="phone" :is-type="isNumber" placeholder="转赠人手机"></x-input>
             </group>
             <group>
-                <x-input placeholder="转赠金额"></x-input>
+                <x-input name="transfer_money" v-model="money" :is-type="isMoney" placeholder="转赠金额"></x-input>
             </group>
             <p class="tran-remind"><span>*</span> 转赠金额需大于50</p>
-            <div @click="show">
+            <div @click="onSumbit">
                 <x-button><span class="btn-text">提 交</span></x-button>
             </div>
         </div>
@@ -35,12 +35,30 @@
         },
         data(){
             return{
-                showNoScroll:false
+                showNoScroll:false,
+                phone:'',
+                money:'',
+                isNumber:function (value) {
+                    return{
+                        valid: /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/.test(value),
+                        msg: '必须是数字'
+                    }
+                },
+                isMoney:function (value) {
+                    return{
+                        valid: /^[1-9][0-9]*$/.test(value),
+                        msg: '请输入正常的金额'
+                    }
+                }
             }
         },
         methods:{
-            show:function () {
-                this.showNoScroll = true;
+            onSumbit:function () {
+                if(this.phone=='' || this.money==''){
+                    console.log('请输入手机号和金额')
+                }else{
+                    this.showNoScroll=true;
+                }
             },
             hide:function () {
                 this.showNoScroll = false;
@@ -91,6 +109,15 @@
             }
             .weui-btn_default{
                 background: #AB9236;
+            }
+            .vux-x-input .vux-input-icon{
+                font-size: .7rem;
+            }
+            .vux-input-icon.weui-icon-warn:before, .vux-input-icon.weui-icon-success:before{
+                font-size: .7rem !important;
+            }
+            .weui-cell_warn{
+                color: #000000 !important;
             }
             .tran-money{
                 color: #333333;
