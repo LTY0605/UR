@@ -22,7 +22,12 @@
                 </li>
                 <li>
                     <group>
-                        <datetime v-model="brithday" title="出生日期" format="YYYY-MM-DD"></datetime>
+                        <datetime v-model="brithday"
+                                  title="出生日期"
+                                  format="YYYY-MM-DD"
+                                  cancelText="取消"
+                                  confirmText="确定"
+                                  :min-year=1900></datetime>
                         <!--<calendar v-model="time" title="出生日期" disable-future></calendar>-->
                     </group>
                 </li>
@@ -31,7 +36,7 @@
                                placeholder="请选择地址"></x-address>
                 </li>
             </ul>
-            <div class="operate">提交</div>
+            <div class="operate" @click="sureSubmit">提交</div>
         </div>
         <div class="materialItem" v-if="isPhone">
             <ul class="edit_material edit_material2">
@@ -66,10 +71,10 @@
 <script>
     import {
         XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, ChinaAddressData,
-        Value2nameFilter as value2name,Name2valueFilter as name2value, Datetime, XDialog
+        Value2nameFilter as value2name, Name2valueFilter as name2value, Datetime, XDialog
     } from 'vux'
     import {
-        memberInfoService,
+        memberInfoService,infoEditService
     } from '../../services/person.js'
     export default {
         components: {
@@ -94,6 +99,7 @@
                 provice: '',//省
                 city: '',//市
                 district: '',//县/区
+                cardcode:'',//会员卡号
             }
         },
         created(){
@@ -108,32 +114,52 @@
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {
+                        this.cardcode = body.cardcode;
                         this.customerName = body.customerName;
                         this.sex = body.sex;
                         this.brithday = body.brithday;
-//                        this.provice = body.provice;
-//                        this.city = body.city;
-//                        this.district = body.district;
-                        this.provice = '广东省';
-                        this.city = '广州市';
-                        this.district = '白云区';
-                        var attr = this.provice + ' ' + this.city + ' ' + this.district;
-                        this.attress = attr.split(" ");//地区文字转为数字，要数组
-                        var transValue = name2value(this.attress, ChinaAddressData); //把文字转为值
-                        this.attrValue = transValue.split(" ");//要数组
+                        this.provice = body.provice;
+                        this.city = body.city;
+                        this.district = body.district;
+                        if (this.provice != '' && this.city != '' && this.district != '') {
+                            var attr = this.provice + ' ' + this.city + ' ' + this.district;
+                            this.attress = attr.split(" ");//地区文字转为数字，要数组
+                            var transValue = name2value(this.attress, ChinaAddressData); //把文字转为值
+                            this.attrValue = transValue.split(" ");//要数组
+                        }
                     } else {
                         this.showNoScroll = true;
                         this.warnText = body.msg;
                     }
                 }, res => {
+                    this.showNoScroll = true;
+                    this.warnText = '请求错误';
+                })
+            },
+            sureSubmit(){
+                var pro = this.attress.split(" ")
+                console.log(pro)
+                return
+                infoEditService().save({
+                    customerName:this.customerName,
+                    cardcode:this.cardcode,
+                    wxOpenID:window.localStorage.getItem("wxOpenId"),
+                    sex:this.sex,
+                    provice:pro[0],
+                    city:pro[1],
+                    district:pro[2],
+                }).then(res => {
+
+
+                }, res => {
 
                 })
             },
             logHide(str){
-                console.log('on-hide', str)
+//                console.log('on-hide', str)
             },
             logShow(str){
-                console.log('on-show')
+//                console.log('on-show')
             },
         },
         watch: {
