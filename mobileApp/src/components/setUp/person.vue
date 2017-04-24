@@ -138,8 +138,6 @@
             },
             sureSubmit(){
                 var pro = this.attress.split(" ")
-                console.log(pro)
-                return
                 infoEditService().save({
                     customerName:this.customerName,
                     cardcode:this.cardcode,
@@ -148,8 +146,16 @@
                     provice:pro[0],
                     city:pro[1],
                     district:pro[2],
+                    brithday:this.brithday
                 }).then(res => {
-
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.showNoScroll = true;
+                        this.warnText = '修改成功';
+                    }else{
+                        this.showNoScroll = true;
+                        this.warnText ='修改失败';
+                    }
 
                 }, res => {
 
