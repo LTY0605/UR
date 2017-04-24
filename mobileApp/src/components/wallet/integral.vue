@@ -28,7 +28,7 @@
                 <div @click.stop class="integralCode">
                     <p class="integralCode-title">积分使用时交给店员扫一扫</p>
                     <img class="integralCode-img" src="../../assets/money_code.png" alt=""/>
-                    <p class="integralCode-code">111039</p>
+                    <p class="integralCode-code">{{code}}</p>
                     <div @click="hide" class="integralCode-close"></div>
                 </div>
             </x-dialog>
