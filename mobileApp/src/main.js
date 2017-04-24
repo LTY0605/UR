@@ -22,7 +22,7 @@ Vue.use(VueWechatTitle)
 
 
 Vue.use(Filters)
-
+Vue.http.options.emulateJSON = true
 //config http request show loading
 Vue.http.interceptors.push((request,next) => {
     //http before
