@@ -9,7 +9,7 @@
                     <div class="imgBox">
                         <img src="../assets/images/logo.png" alt="">
                     </div>
-                    <p>注册</p>
+                    <p>{{headerTit}}</p>
                 </div>
                 <div class="loginContent">
                     <div class="nameBox">
@@ -28,10 +28,10 @@
                     </div>
                     <ul class="radioBox">
                         <li class="female">
-                            <label class="text"><input name="radio" type="radio" v-model="selected" value="1"><span>女生</span></label>
+                            <label class="text" for="feman"><input id="feman" name="radio" type="radio" v-model="selected" value="1"><span>女生</span></label>
                         </li>
                         <li class="male">
-                            <label class="text checked"><input  name="radio" v-model="selected" type="radio" value="2"><span>男生</span></label>
+                            <label class="text checked" for="man"><input id="man"  name="radio" v-model="selected" type="radio" value="0"><span>男生</span></label>
                         </li>
                     </ul>
                     <div class="datatimeBox">
@@ -45,17 +45,18 @@
                         </group>
                     </div>
                     <div class="submitBox">
-                        <x-button type="primary" name="submit" action-type="submit" @click.native="onSubmit">提交注册</x-button>
+                        <x-button type="primary" name="submit" action-type="submit" @click.native="onSubmit">{{submitText}}</x-button>
                         <alert v-model="show" title="提交注册吗？">{{text}}</alert>
                     </div>
                     <div class="agreementBox">
-                        <router-link to="/contract" class="text">UR用户使用协议</router-link>
+                        <router-link to="/contract" class="text">{{contractText}}</router-link>
                     </div>
                 </div>
             </div>
     </div>
 </template>
 <script>
+    import { registerService  } from '../services/member.js'
     import { Alert,XHeader,Scroller,XInput,Datetime,XAddress,XButton,Group,ChinaAddressData  } from 'vux'
     export default {
         components: {
@@ -70,8 +71,10 @@
         },
         data () {
             return {
+                submitText: '提交注册',
+                headerTit: '注册',
+                contractText: 'UR用户使用协议',
                 show: false,
-                show1: false,
                 phone:'',
                 user:'',
                 text:'',
@@ -82,16 +85,11 @@
                 value3:[],
                 selected: '',
                 zhengze_name: function (value) {
-                    console.log(value)
                     return {
                         valid: /^[A-Za-z0-9_\u4e00-\u9fa5]{4,16}$/.test(value),
                         msg: 'Must be 4-16个字母（区分大小写），数字，下划线和汉字的组合'
                     }
-                },
-                options:[
-                    {"name":"feman"},
-                    {"name":"man"}
-                ]
+                }
             }
 
         },
@@ -106,10 +104,36 @@
                 if(this.user==''||this.phone==''||this.user==''||this.value2==''||this.value3==''||this.selected==''){
                   this.show =true;
                     this.text = '请完善表单信息'
-                }else{
-                    this.show =true;
-                    this.text = '注册成功'
+                    return
                 }
+                var memberData={
+                    customerName:this.user,
+                    mobileTel:this.phone,
+                    brithday:this.value2,
+                    sex:this.selected,
+                    wxOpenID:window.localStorage.getItem("wxOpenId"),
+                };
+                console.log(memberData)
+                registerService().save({
+                    customerName:this.user,
+                    mobileTel:this.phone,
+                    brithday:this.value2,
+                    sex:this.selected,
+                    wxOpenID:window.localStorage.getItem("wxOpenId")
+                }).then(res => {
+                    let body = res.body;
+                    console.log(body)
+                    if(body.errcode == 0){
+                        this.show =true;
+                        this.text = '注册成功'
+                    }else{
+                        this.show =true;
+                        this.text = '注册不成功'
+                    }
+
+                }, res => {
+                    //console.log(res);
+                })
             }
         },
         mounted(){

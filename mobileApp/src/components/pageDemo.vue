@@ -36,8 +36,11 @@
         methods: {
             submit(){
                 registerService().save({
-                    customerName:this.name,
-                    mobileTel:this.phone,
+                    customerName:'小玉',
+                    mobileTel:'15018580911',
+                    brithday:'1996-05-05',
+                    wxOpenID:window.localStorage.getItem("wxOpenId"),
+                    sex:1
                 }).then(res => {
 
 
