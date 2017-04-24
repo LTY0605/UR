@@ -6,7 +6,7 @@
         <router-link to="pageDemo">
             <cell title="Go to hello with router index" value="click me" is-link></cell>
         </router-link>
-        <router-link to="login">
+        <router-link to="register">
             <cell title="注册" value="click me" is-link></cell>
         </router-link>
         <router-link to="personMain">
@@ -32,6 +32,9 @@
         </router-link>
         <router-link to="contract">
             <cell title="协议" value="click me" is-link></cell>
+        </router-link>
+        <router-link to="login">
+            <cell title="登录" value="click me" is-link></cell>
         </router-link>
     </div>
 
