@@ -69,7 +69,7 @@
     .page_consume {
     .consumeTitle {
         /*width: 16.75rem;*/
-        width:97.6%;
+        width:auto;
         height: 1.3rem;
         line-height: 1.2rem;
         margin: 1rem 1rem 0rem 1rem;
