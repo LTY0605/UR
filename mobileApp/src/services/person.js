@@ -9,9 +9,13 @@ import {HTTP_REMOTE} from './index'
 export function registerService() {
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/register')
 }
-//会员信息接口
+//获取会员信息接口
 export function memberInfoService() {
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/info')
+}
+//修改会员信息接口
+export function infoEditService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/edit')
 }
 
 
