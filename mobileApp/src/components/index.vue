@@ -33,6 +33,12 @@
         <router-link to="contract">
             <cell title="协议" value="click me" is-link></cell>
         </router-link>
+        <router-link to="newAddress">
+            <cell title="新增地址" value="click me" is-link></cell>
+        </router-link>
+        <router-link to="reviseAddress">
+            <cell title="修改地址" value="click me" is-link></cell>
+        </router-link>
     </div>
 
 </template>

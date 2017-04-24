@@ -98,6 +98,22 @@ const routes = [
             title: '协议'
         },
         component: resolve => require(['./components/contract.vue'], resolve)
+    },
+    {
+        path: '/newAddress',
+        name: 'newAddress',
+        meta: {
+            title: '新增收货地址'
+        },
+        component: resolve => require(['./components/setUp/newAddress.vue'], resolve)
+    },
+    {
+        path: '/reviseAddress',
+        name: 'reviseAddress',
+        meta: {
+            title: '修改地址'
+        },
+        component: resolve => require(['./components/setUp/reviseAddress.vue'], resolve)
     }
 ]
 
