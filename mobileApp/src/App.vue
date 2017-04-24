@@ -23,7 +23,7 @@
         TransferDomDirective as TransferDom
     } from 'vux'
     import {mapState, mapActions} from 'vuex'
-    import {TestLoginService} from  './services/index'
+    import {openService} from  './services/index'
     export default {
         components: {Loading},
         mounted(){
@@ -35,9 +35,31 @@
             }
         },
         created(){
-//            TestLoginService().get().then(() => {
-//
-//            })
+            this.renderOpen();
+        },
+        methods: {
+            renderOpen(){
+                let wxOpenId = 'odaBLwEfMOFDB5ATyqZwQco5Aaxo';
+                window.localStorage.setItem("wxOpenId", wxOpenId);
+            },
+            getParams(paras) {
+                let url = decodeURI(location.href);
+                // let url = "http://yuantai.yt-hr.com/school/weixin/front?code=yuantai&menu=readIndex&JSESSIONID=D095CE34FFEAAAD376A6B5786E821199#!/";
+                let paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
+                let returnValue;
+
+                for (let i = 0; i < paraString.length; i++) {
+                    let tempParas = paraString[i].split('=')[0];
+                    let parasValue = paraString[i].split('=')[1];
+                    if (tempParas === paras)
+                        returnValue = parasValue;
+                }
+                if (typeof(returnValue) == "undefined") {
+                    return "";
+                } else {
+                    return returnValue;
+                }
+            },
         },
         computed: {
             ...mapState({

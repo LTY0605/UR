@@ -4,11 +4,10 @@
 
 import Vue from 'vue'
 export const HTTP_REMOTE = 'http://nianhui.ur.com.cn'
-const SERVER = 'http://mdzncf.testfoss.com/';
-export function MockService() {
-    return Vue.resource('/static/json/mock.json')
-}
-export function TestLoginService() {
-    return Vue.resource(`${SERVER}/api/weixin/login/testapi`)
+
+
+//获取openid
+export function openService() {
+    return Vue.resource('https://open.weixin.qq.com/connect/oauth2/authorize')
 }
 
