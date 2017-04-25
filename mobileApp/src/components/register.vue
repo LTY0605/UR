@@ -218,8 +218,11 @@
         .weui-cells{
             margin-top: 0 !important;
         }
+        .weui-cell{
+            height: 2rem;
+        }
         .nameBox{
-            padding-top: 0.75rem;
+            padding-top: 1.25rem;
             height:auto;
         }
         .input{
@@ -256,7 +259,6 @@
          }
         .adressBox{
             padding-top: 0.6rem;
-            height:auto;
         }
         .submitBox{
             padding-top: 1.25rem;
@@ -264,6 +266,11 @@
         }
         .weui-btn{
             background-color: #AB9236 !important;
+            padding: 0;
+        }
+        button{
+            padding: 0;
+            height: 2rem;
         }
         .weui-cells{
             margin-top: 0;

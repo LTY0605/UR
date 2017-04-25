@@ -19,28 +19,42 @@
                         </x-input>
                     </group>
                 </div>
+                <div class="submitBox">
+                    <x-button type="primary" name="submit" action-type="submit" @click.native="login_submit">{{submitText}}</x-button>
+                    <alert v-model="loginAlert" title="确定登录吗？">{{loginText}}</alert>
+                </div>
             </div>
         </div>
     </div>
 </template>
 <script>
-    import { XHeader,Scroller,Group,XInput  } from 'vux'
+    import { Alert,XButton,XHeader,Scroller,Group,XInput  } from 'vux'
     export default {
         components: {
             XHeader,
             Scroller,
             Group,
-            XInput
+            XInput,
+            XButton,
+            Alert,
         },
         data () {
             return {
                 headerTit:'登录',
                 phone: '',
+                submitText:'登录',
+                loginText:'登录',
+                loginAlert:false,
             }
 
         },
         methods: {
-
+            login_submit () {
+                if(this.phone == ''){
+                    this.loginAlert = true;
+                    this.loginText = '请完善表单信息'
+                }
+            }
         },
         mounted(){
         },
@@ -102,6 +116,18 @@
         }
         .weui-cells{
             margin-top: 0;
+        }
+        .submitBox{
+            padding-top: 1.25rem;
+            height:auto;
+        }
+        .weui-btn{
+            background-color: #AB9236 !important;
+            padding: 0;
+            height: 2rem;
+        }
+        button{
+            padding: 0;
         }
     }
 </style>
