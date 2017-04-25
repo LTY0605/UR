@@ -87,7 +87,7 @@
                 zhengze_name: function (value) {
                     return {
                         valid: /^[A-Za-z0-9_\u4e00-\u9fa5]{4,16}$/.test(value),
-                        msg: 'Must be 4-16个字母（区分大小写），数字，下划线和汉字的组合'
+                        msg: '字体长度不能超过20'
                     }
                 }
             }
@@ -215,6 +215,9 @@
             font-family: 'PingFang-SC-Medium';
             color: #999;
         }
+        .weui-cells:before,.weui-cells:after,.vux-cell-box:before{
+            border:0;
+        }
         .weui-cells{
             margin-top: 0 !important;
         }
@@ -289,6 +292,7 @@
         }
         .agreementBox a{
             font-size: 0.6rem;
+            color: #999;
             text-decoration:underline;
         }
         .weui-cell_access .weui-cell__ft:after{

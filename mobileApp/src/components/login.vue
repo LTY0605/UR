@@ -19,16 +19,34 @@
                         </x-input>
                     </group>
                 </div>
+                <div class="captcha">
+                    <group>
+                        <x-input title="发送验证码" class="weui-vcode">
+                            <x-button v-model="start" slot="right" type="primary" mini>发送验证码</x-button>
+
+                        </x-input>
+                        <div class="countDown">
+                            <group title="manually">
+                                <cell title="60s">
+                                    <countdown slot="value" v-model="timeNum" :start="start" @on-finish="finish2"></countdown>
+                                </cell>
+                            </group>
+                        </div>
+                    </group>
+                </div>
                 <div class="submitBox">
                     <x-button type="primary" name="submit" action-type="submit" @click.native="login_submit">{{submitText}}</x-button>
                     <alert v-model="loginAlert" title="确定登录吗？">{{loginText}}</alert>
+                </div>
+                <div class="agreementBox">
+                    <router-link to="/contract" class="text">{{contractText}}</router-link>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
-    import { Alert,XButton,XHeader,Scroller,Group,XInput  } from 'vux'
+    import { Countdown,Cell,Alert,XButton,XHeader,Scroller,Group,XInput  } from 'vux'
     export default {
         components: {
             XHeader,
@@ -37,6 +55,8 @@
             XInput,
             XButton,
             Alert,
+            Cell,
+            Countdown,
         },
         data () {
             return {
@@ -45,6 +65,9 @@
                 submitText:'登录',
                 loginText:'登录',
                 loginAlert:false,
+                contractText:'UR用户使用协议',
+                timeNum:60,
+                start: false,
             }
 
         },
@@ -54,6 +77,10 @@
                     this.loginAlert = true;
                     this.loginText = '请完善表单信息'
                 }
+            },
+            finish2 (index) {
+                this.start = false
+                this.timeNum = 20
             }
         },
         mounted(){
@@ -121,13 +148,34 @@
             padding-top: 1.25rem;
             height:auto;
         }
-        .weui-btn{
+        .submitBox .weui-btn{
             background-color: #AB9236 !important;
             padding: 0;
             height: 2rem;
         }
         button{
             padding: 0;
+        }
+        .weui-cells:before,.weui-cells:after,.vux-cell-box:before{
+            border:0;
+        }
+        .agreementBox{
+            text-align: center;
+            padding: 12.1rem 0 1.55rem;
+            height:auto;
+        }
+        .agreementBox a{
+            font-size: 0.6rem;
+            color: #999;
+            text-decoration:underline;
+        }
+        /*倒计时*/
+        .countDown{
+            width: 30%;
+            height: 2rem;
+            line-height: 2rem;
+            background: #D2D2D2;
+            text-align: center;
         }
     }
 </style>
