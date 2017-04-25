@@ -17,5 +17,9 @@ export function memberInfoService() {
 export function infoEditService() {
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/edit')
 }
+//添加会员地址接口
+export function addAddressService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/address/add')
+}
 
 

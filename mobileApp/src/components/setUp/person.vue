@@ -63,26 +63,28 @@
             </ul>
             <div class="operate">提交</div>
         </div>
-        <x-dialog v-model="showNoScroll" class="dialog-demo" :scroll="false">
-            <p class="dialog-title">温馨提示</p>
-            <div class="dialog-contain">
-                {{warnText}}
-            </div>
-            <button class="vux-close" @click="showNoScroll=false">关闭</button>
-        </x-dialog>
+        <!--<x-dialog v-model="showNoScroll" class="dialog-demo" :scroll="false">-->
+            <!--<p class="dialog-title">温馨提示</p>-->
+            <!--<div class="dialog-contain">-->
+                <!--{{warnText}}-->
+            <!--</div>-->
+            <!--<button class="vux-close" @click="showNoScroll=false">关闭</button>-->
+        <!--</x-dialog>-->
+        <alert v-model="showNoScroll" title="温馨提示">{{warnText}}</alert>
+
     </div>
 </template>
 <script>
     import {
         XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, ChinaAddressData,
-        Value2nameFilter as value2name, Name2valueFilter as name2value, Datetime, XDialog
+        Value2nameFilter as value2name, Name2valueFilter as name2value, Datetime, XDialog,Alert
     } from 'vux'
     import {
         memberInfoService, infoEditService
     } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, Datetime, XDialog
+            XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, Datetime, XDialog,Alert
         },
         data () {
             return {
@@ -146,6 +148,7 @@
                     let body = res.body;
                     if (body.errcode == 0) {
                         this.cardcode = body.cardcode;
+                        window.localStorage.setItem("cardcode",this.cardcode);
                         this.customerName = body.customerName;
                         this.sex = body.sex;
                         this.brithday = body.brithday;

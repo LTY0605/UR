@@ -4,8 +4,8 @@
             <ul class="edit_material">
                 <li>
                     <group>
-                        <x-input type="password" title="原密码" placeholder="原密码" :is-type="bePassWord"
-                                 v-model="password" :max="11"></x-input>
+                        <x-input type="password" title="原密码" placeholder="原密码"  :max="11" :is-type="bePassWord"
+                                 v-model="password"></x-input>
                     </group>
                 </li>
                 <li>
@@ -39,7 +39,7 @@
                 newPassword2: '',
                 bePassWord: function (value) {
                 return {
-                    valid: /[0-9a-zA-Z]{4,11}/.test(value),
+                    valid: /^[0-9a-zA-Z]{0,11}$/.test(value),
                     msg: 'Must be 2333'
                 }
             },
