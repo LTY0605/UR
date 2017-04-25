@@ -51,7 +51,7 @@
                 <cell title="我的钱包" link="./wallet"></cell>
                 <ul>
                     <li v-for="(wallet,index) in wallets">
-                        <p class="wallet-num">{{wallet.num}}可兑换</p>
+                        <p class="wallet-num">{{wallet.num}}</p>
                         <p>{{wallet.name}}</p>
                     </li>
                 </ul>
@@ -99,7 +99,7 @@
                 wallets:[
                     {num:'2',name:'礼品卡'},
                     {num:'3',name:'优惠券'},
-                    {num:'18800',name:'积分'}
+                    {num:'18800可兑换',name:'积分'}
                 ],
                 actions:[
                     {actionImg:'../assets/icon_save.png',actionText:'调查问卷'},
@@ -132,7 +132,7 @@
         .head{
             width: 100%;
             height: auto;
-            background: radial-gradient(rgba(171,146,54,0.7),rgba(171,146,54,1));
+            background: radial-gradient(rgba(171,146,54,0.6),rgba(171,146,54,1));
             display: flex;
             flex-direction: column;
             align-items: center;
