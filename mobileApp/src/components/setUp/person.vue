@@ -12,7 +12,7 @@
                 <!--</li>-->
                 <li>
                     <group>
-                        <x-input title="用户名" placeholder="请输入" v-model="customerName"></x-input>
+                        <x-input title="用户名" placeholder="请输入" v-model="customerName" :max="20"></x-input>
                     </group>
                 </li>
                 <li>
@@ -20,15 +20,15 @@
                         <selector v-model="sex" title="性别" :options="sexList"></selector>
                     </group>
                 </li>
-                <li>
+                <li class="birthday">
                     <group>
-                        <datetime v-model="brithday"
-                                  title="出生日期"
-                                  format="YYYY-MM-DD"
-                                  cancelText="取消"
-                                  confirmText="确定"
-                                  :min-year=1900></datetime>
-                        <!--<calendar v-model="time" title="出生日期" disable-future></calendar>-->
+                        <!--<datetime v-model="brithday"-->
+                                  <!--title="出生日期"-->
+                                  <!--format="YYYY-MM-DD"-->
+                                  <!--cancelText="取消"-->
+                                  <!--confirmText="确定"-->
+                                  <!--:min-year=1900></datetime>-->
+                        <x-input v-model="brithday" title="出生日期" disabled></x-input>
                     </group>
                 </li>
                 <li class="attress">
@@ -42,19 +42,21 @@
             <ul class="edit_material edit_material2">
                 <li>
                     <group>
-                        <x-input title="原手机号" placeholder="原手机号"></x-input>
+                        <x-input title="原手机号" placeholder="原手机号" v-model="mobileTel"  :max="11" :min="11" keyboard="number" is-type="china-mobile"></x-input>
                     </group>
                 </li>
                 <li>
                     <group>
-                        <x-input title="新手机号" placeholder="新手机号"></x-input>
+                        <x-input title="新手机号" placeholder="新手机号" v-model="newMobileTel" :max="11" :min="11" keyboard="number" is-type="china-mobile"></x-input>
                     </group>
                 </li>
                 <li class="code">
                     <group>
-                        <x-input title="验证码" placeholder="请输入短信验证码"></x-input>
+                        <x-input title="验证码" placeholder="请输入短信验证码" v-model="code"></x-input>
                     </group>
-                    <span class="getCode">获取验证码</span>
+                    <!--<span class="getCode" @click="getCode">获取验证码</span>-->
+                    <span v-show="!showMin" class="getCode" @click="getCode">获取验证码</span>
+                    <span v-show="showMin" class="getCode">{{time}}s后才能重发</span>
                 </li>
             </ul>
             <div class="operate">提交</div>
@@ -82,6 +84,9 @@
         },
         data () {
             return {
+                mobileTel:'',//原手机号
+                newMobileTel:'',//新手机号
+                code:'',//验证码
                 customerName: '',
                 showNoScroll: false,
                 brithday: '',
@@ -100,14 +105,32 @@
                 city: '',//市
                 district: '',//县/区
                 cardcode:'',//会员卡号
+                showMin:false,
+                time:60,
             }
         },
         created(){
-            this.renderData();
+            //this.renderData();
         },
         mounted(){
+            this.renderData();
         },
         methods: {
+            getCode(){
+                this.showMin = true;
+                this.finish();
+            },
+            finish:function(){
+                this.time = this.time - 1;
+                if (this.time > 0) {
+                    setTimeout(() => {
+                        this.finish();
+                    }, 1000)
+                } else {
+                    this.showMin = false;
+                    this.time = 60;
+                }
+            },
             renderData(){
                 memberInfoService().get({
                     wxOpenid: window.localStorage.getItem("wxOpenId"),
@@ -145,8 +168,7 @@
                     sex:this.sex,
                     provice:pro[0],
                     city:pro[1],
-                    district:pro[2],
-                    brithday:this.brithday
+                    district:pro[2]
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {
@@ -295,6 +317,9 @@
                     vertical-align: top;
                     font-size: .7rem;
                 }
+            }
+            .birthday{
+                background: none;
             }
             .attress {
                 .vux-popup-picker-select span {
