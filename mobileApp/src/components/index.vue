@@ -6,9 +6,9 @@
         <!--主页头部-->
         <div class="head">
             <x-header :left-options="{backText:''}"></x-header>
-            <p class="head-name">Ur前端</p>
+            <p class="head-name">Sara Chen</p>
             <div class="head-img">
-                <img src="../assets/logo.png" alt=""/>
+                <img src="../assets/header.png" alt=""/>
             </div>
             <div class="edit"></div>
             <div class="code"></div>
@@ -31,7 +31,7 @@
                     <p class="tab-text">所有订单</p>
                 </grid-item>
                 <grid-item>
-                    <badge class="tab-badge" text="2"></badge>
+                    <p class="tab-badge">{{badge}}</p>
                     <img class="tab-img" slot="icon" src="../assets/icon_book_on.png">
                     <p class="tab-text">待付款</p>
                 </grid-item>
@@ -79,7 +79,9 @@
                         <p class="action-text">{{action.actionText}}</p>
                     </li>
                 </ul>
-                <div class="action-img"></div>
+                <div class="action-img">
+                    <img src="../assets/banner.png" alt=""/>
+                </div>
             </group>
         </div>
     </div>
@@ -93,7 +95,7 @@
         },
         data(){
             return{
-                badge: '2',
+                badge: 3,
                 wallets:[
                     {num:'2',name:'礼品卡'},
                     {num:'3',name:'优惠券'},
@@ -139,10 +141,12 @@
                 width: 4.75rem;
                 height: 4.75rem;
                 border-radius: 50%;
-                border: .2rem solid rgba(255,255,255,0.4);
+                background: rgba(255,255,255,0.5);
                 margin-bottom: 1.5rem;
+                padding: 2px;
                 img{
                     width: 100%;
+                    height: 100%;
                     border-radius: 50%;
                 }
             }
@@ -251,6 +255,15 @@
             }
             .tab-badge{
                 position: absolute;
+                color: #FF0000;
+                width: .75rem;
+                height: .75rem;
+                font-size: .6rem;
+                line-height: .65rem;
+                border: 1px solid #FF0000;
+                border-radius: 50%;
+                background: #FFFFFF;
+                text-align: center;
                 top: .6rem;
                 right: 1.4rem;
             }
@@ -304,6 +317,13 @@
                 margin-left: .2rem;
             }
         }
+        .detail{
+            .weui-cell__hd{
+                img{
+                    margin-bottom: .1rem;
+                }
+            }
+        }
         .action{
             .vux-label{
                 font-size: .75rem;
@@ -347,8 +367,11 @@
         .action-img{
             width: 100%;
             height: 5rem;
-            background: #AB9236;
             margin-bottom: 1rem;
+            img{
+                width: 100%;
+                height: 100%;
+            }
         }
     }
 </style>
