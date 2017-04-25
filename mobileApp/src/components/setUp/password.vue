@@ -4,17 +4,19 @@
             <ul class="edit_material">
                 <li>
                     <group>
-                        <x-input type="password" title="原密码" placeholder="原密码"></x-input>
+                        <x-input type="password" title="原密码" placeholder="原密码" :is-type="bePassWord"
+                                 v-model="password" :max="11"></x-input>
                     </group>
                 </li>
                 <li>
                     <group>
-                        <x-input type="password" title="新密码" placeholder="新密码"></x-input>
+                        <x-input type="password" title="新密码" placeholder="新密码" v-model="newPassword"></x-input>
                     </group>
                 </li>
                 <li>
                     <group>
-                        <x-input type="password" title="确认新密码" placeholder="请再次确认新密码"></x-input>
+                        <x-input type="password" title="确认新密码" placeholder="请再次确认新密码" v-model="newPassword2"
+                                 :equal-with="newPassword"></x-input>
                     </group>
                 </li>
             </ul>
@@ -32,17 +34,25 @@
         },
         data () {
             return {
-
+                newPassword: '',
+                password: '',
+                newPassword2: '',
+                bePassWord: function (value) {
+                return {
+                    valid: /[0-9a-zA-Z]{4,11}/.test(value),
+                    msg: 'Must be 2333'
+                }
+            },
             }
         },
         mounted(){
         },
         methods: {
-
+            kk(val){
+                alert(val)
+            },
         },
-        watch: {
-
-        },
+        watch: {},
         created(){
         },
         computed: {}
@@ -130,13 +140,12 @@
                     font-size: .7rem;
                 }
             }
-            .attress{
-                .vux-popup-picker-select span{
+            .attress {
+                .vux-popup-picker-select span {
                     color: #999;
                 }
             }
         }
-
 
     }
 </style>
