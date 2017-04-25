@@ -39,7 +39,8 @@
         },
         methods: {
             renderOpen(){
-                let wxOpenId = 'odaBLwEfMOFDB5ATyqZwQco5Aaxo';
+//                let wxOpenId = this.getParams("wxOpenId");
+                let wxOpenId = 'o4r_GjkqReCgX_u9KFWL6oEIzbOU';
                 window.localStorage.setItem("wxOpenId", wxOpenId);
             },
             getParams(paras) {

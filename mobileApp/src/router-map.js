@@ -84,12 +84,12 @@ const routes = [
         component: resolve => require(['./components/transaction.vue'], resolve)
     },
     {
-        path: '/login',
-        name: 'login',
+        path: '/register',
+        name: 'register',
         meta: {
             title: '注册'
         },
-        component: resolve => require(['./components/login.vue'], resolve)
+        component: resolve => require(['./components/register.vue'], resolve)
     },
     {
         path: '/contract',
@@ -98,7 +98,31 @@ const routes = [
             title: '协议'
         },
         component: resolve => require(['./components/contract.vue'], resolve)
-    }
+    },
+    {
+        path: '/newAddress',
+        name: 'newAddress',
+        meta: {
+            title: '新增收货地址'
+        },
+        component: resolve => require(['./components/setUp/newAddress.vue'], resolve)
+    },
+    {
+        path: '/reviseAddress',
+        name: 'reviseAddress',
+        meta: {
+            title: '修改地址'
+        },
+        component: resolve => require(['./components/setUp/reviseAddress.vue'], resolve)
+    },
+    {
+        path: '/login',
+        name: 'login',
+        meta: {
+            title: '登录'
+        },
+        component: resolve => require(['./components/login.vue'], resolve)
+    },
 ]
 
 export default routes

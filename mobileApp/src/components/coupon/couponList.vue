@@ -33,7 +33,7 @@
                 </div>
                 <div @click="show" class="couList-code"></div>
             </div>
-    </div>
+        </div>
     </div>
 </template>
 <script>

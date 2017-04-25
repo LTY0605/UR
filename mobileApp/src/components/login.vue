@@ -1,140 +1,46 @@
 /**
-* Created by liangtianyou on 2017/4/13.
+* Created by liangtianyou on 2017/4/24.
 */
 <template>
     <div class="page_login">
         <x-header :left-options="{backText: ''}"></x-header>
-            <div>
-                <div class="header">
-                    <div class="imgBox">
-                        <img src="../assets/images/logo.png" alt="">
-                    </div>
-                    <p>{{headerTit}}</p>
+        <div>
+            <div class="header">
+                <div class="imgBox">
+                    <img src="../assets/images/logo.png" alt="">
                 </div>
-                <div class="loginContent">
-                    <div class="nameBox">
-                        <group>
-                            <x-input class="input input1 text" title="姓名" name="username" placeholder="用户名" :is-type="zhengze_name" v-model="user">
-                                <img class="userW" slot="label" src="../assets/images/user.png">
-                            </x-input>
-                        </group>
-                    </div>
-                    <div class="mobileBox">
-                        <group>
-                            <x-input is-type="china-mobile" class="input input1 text" placeholder="手机号" title="手机号码" name="mobile" v-model="phone">
-                                <img class="mobileW" slot="label" src="../assets/images/Mobile.png">
-                            </x-input>
-                        </group>
-                    </div>
-                    <ul class="radioBox">
-                        <li class="female">
-                            <label class="text" for="feman"><input id="feman" name="radio" type="radio" v-model="selected" value="1"><span>女生</span></label>
-                        </li>
-                        <li class="male">
-                            <label class="text checked" for="man"><input id="man"  name="radio" v-model="selected" type="radio" value="0"><span>男生</span></label>
-                        </li>
-                    </ul>
-                    <div class="datatimeBox">
-                        <group class="dateBox">
-                            <datetime v-model="value2" clear-text="clear" @on-clear="clearValue" class="input input1 text textPadding" @on-change="change" title="出生日期"></datetime>
-                        </group>
-                    </div>
-                    <div class="adressBox">
-                        <group>
-                            <x-address v-model="value3" class="input input1 text" title="选择地区" raw-value :list="addressData"></x-address>
-                        </group>
-                    </div>
-                    <div class="submitBox">
-                        <x-button type="primary" name="submit" action-type="submit" @click.native="onSubmit">{{submitText}}</x-button>
-                        <alert v-model="show" title="提交注册吗？">{{text}}</alert>
-                    </div>
-                    <div class="agreementBox">
-                        <router-link to="/contract" class="text">{{contractText}}</router-link>
-                    </div>
+                <p>{{headerTit}}</p>
+            </div>
+            <div class="loginContent">
+                <div class="mobileBox">
+                    <group>
+                        <x-input is-type="china-mobile" class="input input1 text" placeholder="手机号" title="手机号码" v-model="phone">
+                            <img class="mobileW" slot="label" src="../assets/images/Mobile.png">
+                        </x-input>
+                    </group>
                 </div>
             </div>
+        </div>
     </div>
 </template>
 <script>
-    import { registerService  } from '../services/member.js'
-    import { Alert,XHeader,Scroller,XInput,Datetime,XAddress,XButton,Group,ChinaAddressData  } from 'vux'
+    import { XHeader,Scroller,Group,XInput  } from 'vux'
     export default {
         components: {
             XHeader,
             Scroller,
-            XInput,
-            Datetime,
-            XAddress,
-            XButton,
             Group,
-            Alert
+            XInput
         },
         data () {
             return {
-                submitText: '提交注册',
-                headerTit: '注册',
-                contractText: 'UR用户使用协议',
-                show: false,
-                phone:'',
-                user:'',
-                text:'',
-                title: '默认为空',
-                iconType: '',
-                value2: '',
-                addressData: ChinaAddressData,
-                value3:[],
-                selected: '',
-                zhengze_name: function (value) {
-                    return {
-                        valid: /^[A-Za-z0-9_\u4e00-\u9fa5]{4,16}$/.test(value),
-                        msg: 'Must be 4-16个字母（区分大小写），数字，下划线和汉字的组合'
-                    }
-                }
+                headerTit:'登录',
+                phone: '',
             }
 
         },
         methods: {
-            change (value) {
-                console.log('change', value)
-            },
-            clearValue (value) {
-                this.$data.value2 = ''
-            },
-            onSubmit () {
-                if(this.user==''||this.phone==''||this.user==''||this.value2==''||this.value3==''||this.selected==''){
-                  this.show =true;
-                    this.text = '请完善表单信息'
-                    return
-                }
-                var memberData={
-                    customerName:this.user,
-                    mobileTel:this.phone,
-                    brithday:this.value2,
-                    sex:this.selected,
-                    wxOpenID:window.localStorage.getItem("wxOpenId"),
-                };
-                console.log(memberData)
-                registerService().save({
-                    customerName:this.user,
-                    mobileTel:this.phone,
-                    brithday:this.value2,
-                    sex:this.selected,
-                    wxOpenID:window.localStorage.getItem("wxOpenId")
-                }).then(res => {
-                    let body = res.body;
-                    console.log(body)
-                    if(body.errcode == 0){
-                        this.show =true;
-                        this.text = '注册成功'
-                    }else{
-                        this.show =true;
-                        this.text = '注册不成功'
-                    }
 
-                }, res => {
-                    //console.log(res);
-                })
-            }
         },
         mounted(){
         },
@@ -146,35 +52,6 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_login{
-        ul{
-            list-style: none;
-        }
-        .text{
-            font-size: 0.75rem;
-            color: #999 !important;
-            font-family: 'PingFang-SC-Medium';
-        }
-        .female{
-            float: left;
-            width: 50%;
-            padding-left: .8rem;
-        }
-        input[type="radio"]{
-            display: none;
-        }
-        input[type="radio"] + span{
-            width: .85rem;
-            height: .85rem;
-            line-height: .85rem;
-            background: url(../assets/images/circle.png) left center no-repeat;
-            background-size: .85rem .85rem;
-            padding-left: 1.3rem;
-            font-size: .75rem;
-        }
-        input[type="radio"]:checked + span{
-            background: url(../assets/images/circle_a.png) left center no-repeat;
-            background-size: .85rem .85rem;
-        }
         .vux-header {
             background-color: #AB9236 !important;
         }
@@ -182,6 +59,7 @@
             background-color: #AB9236;
             padding-top: 1.25rem;
             height:auto;
+            margin-top: -.04rem;
         }
         .imgBox{
             width: 4.55rem;
@@ -207,23 +85,6 @@
             background: #fff;
             height:auto;
         }
-        .vux-datetime p,.weui-label,.weui-input{
-            font-size: 0.75rem;
-            font-family: 'PingFang-SC-Medium';
-            color: #999;
-        }
-        .weui-btn:after{
-            font-size: 0.75rem;
-            font-family: 'PingFang-SC-Medium';
-            color: #999;
-        }
-        .weui-cells{
-            margin-top: 0 !important;
-        }
-        .nameBox{
-            padding-top: 0.75rem;
-            height:auto;
-        }
         .input{
             height: 2rem;
         }
@@ -231,63 +92,16 @@
             border-radius: 0.2rem;
             border: 0.02rem solid #D2D2D2;
         }
-        .userW{
-            width: 0.75rem;
-            height: 0.8rem;
-            margin: 0 10px -2px 0;
-        }
         .mobileBox{
-            padding-top: 0.6rem;
-            height:auto;
+            padding-top: 1.25rem;
         }
         .mobileW{
             height: 0.8rem;
             width: 0.6rem;
             margin: 0 10px -2px 0;
         }
-        .radioBox{
-            padding: 0.95rem 0 1rem;
-            height:auto;
-        }
-        .vux-x-icon {
-            fill: #AB9236;
-        }
-         .datatimeBox .weui-cell{
-             background: url("../assets/images/date.png") 98% center no-repeat;
-             background-size: 8%;
-         }
-        .adressBox{
-            padding-top: 0.6rem;
-            height:auto;
-        }
-        .submitBox{
-            padding-top: 1.25rem;
-            height:auto;
-        }
-        .weui-btn{
-            background-color: #AB9236 !important;
-        }
         .weui-cells{
             margin-top: 0;
-        }
-        .weui-label{
-            width: 3rem !important;
-        }
-        .weui-cell__ft{
-            padding-right: 1.25rem !important;
-        }
-        .agreementBox{
-            text-align: center;
-            padding-top: 1.25rem;//todo  4.75
-            padding: 1.25rem 0 1.2rem;
-            height:auto;
-        }
-        .agreementBox a{
-            font-size: 0.6rem;
-            text-decoration:underline;
-        }
-        .weui-cell_access .weui-cell__ft:after{
-            display: none !important;
         }
     }
 </style>
