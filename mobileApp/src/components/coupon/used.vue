@@ -91,138 +91,138 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_used {
-    .weui-dialog{
-        width: auto !important;
-        max-width: none !important;
-        top: 43% !important;
-    }
-    .couponCode{
-        width: 12.5rem;
-        height: 8rem;
-        position: relative;
-        background: white;
-    .couponCode-title{
-        width: 11rem;
-        height: 2rem;
-        line-height: 2rem;
-        margin: .75rem auto;
-        font-size: .6rem;
-        text-align: center;
-        color: #FF0018;
-        border-bottom: 1px solid #CDBE86;
-    }
-    .couponCode-img{
-        width: 7.85rem;
-        height: 2.2rem;
-    }
-    .couponCode-code{
-        font-size: .6rem;
-    }
-    .couponCode-close{
-        position: absolute;
-        width: .8rem;
-        height: .8rem;
-        background: url("../../assets/money_code3.png");
-        background-size: 100%;
-        top: -.15rem;
-        right: .6rem;
-    }
-    }
-    .couponCon {
-        width: 100%;
-        height: auto;
-        margin: 0 auto;
-        border-bottom: .35rem solid #E5E5E5;
-    .couList {
-        display: flex;
-        width: 89.6%;
-        height: auto;
-        margin: 0 auto 0 auto;
-        position: relative;
-    }
-    .couList-img {
-        width: 3.8rem;
-        height: 4.56rem;
-        margin: .62rem 0 .62rem 0;
-        position: relative;
-        background: url("../../assets/money_back.png");
-        background-repeat: no-repeat;
-        background-size: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-    }
-    .couList-imgText {
-        color: #C5B166;
-        padding: 0;
-        margin-top: -.3rem;
-    }
-    .imgText-symbol{
-        display: inline-block;
-        font-size:.55rem;
-        width: .2rem;
-    }
-    .imgText-money{
-        font-size: 1.25rem;
-        font-weight: 600;
-    }
-    .couList-imgType {
-        font-size: .45rem;
-        color: #C5B166;
-        margin-top: -.3rem;
-        -webkit-text-size-adjust: none;
-    }
-    .couList-text {
-        margin-left: .6rem;
-        margin-top: .75rem;
-        height: auto;
-        width: auto;
-        padding-bottom: .85rem;
-    }
-    .couponExplain {
-        color: #F68B79;
-        font-size: .6rem;
-        margin-top: .15rem;
-    }
-    .couponRight{
-        position: relative;
-    }
-    .couponRight:before {
-        content: '';
-        position: absolute;
-        height: 1px;
-        width: 2.8rem;
-        background: #F68B79;
-        left: -2.6rem;
-        bottom: -1px;
-    }
-    .coupon-text{
-        font-size: .6rem;
-        margin-top: .35rem;
-        width: 9.55rem;
-        height: 1.6rem;
-        color: #999999
-    }
-    .cou-type {
-        margin: .2rem 0 .2rem 0;
-        width: 2.9rem;
-        height: .95rem;
-        color: #FFFFFF;
-        font-size: .6rem;
-        line-height: .95rem;
-        text-align: center;
-        background: #F68B79;
-    }
-    .couList-code {
-        width: 1.5rem;
-        height: 1.5rem;
-        position: absolute;
-        top: 1.8rem;
-        right: 0;
-        background: url("../../assets/money_code2.png");
-        background-size: 100%;
-    }
-    }
+        .weui-dialog{
+            width: auto !important;
+            max-width: none !important;
+            top: 43% !important;
+        }
+        .couponCode{
+            width: 12.5rem;
+            height: 8rem;
+            position: relative;
+            background: white;
+            .couponCode-title{
+                width: 11rem;
+                height: 2rem;
+                line-height: 2rem;
+                margin: .75rem auto;
+                font-size: .6rem;
+                text-align: center;
+                color: #FF0018;
+                border-bottom: 1px solid #CDBE86;
+            }
+            .couponCode-img{
+                width: 7.85rem;
+                height: 2.2rem;
+            }
+            .couponCode-code{
+                font-size: .6rem;
+            }
+            .couponCode-close{
+                position: absolute;
+                width: .8rem;
+                height: .8rem;
+                background: url("../../assets/money_code3.png");
+                background-size: 100%;
+                top: -.15rem;
+                right: .6rem;
+            }
+        }
+        .couponCon {
+            width: 100%;
+            height: auto;
+            margin: 0 auto;
+            border-bottom: .35rem solid #E5E5E5;
+            .couList {
+                display: flex;
+                width: 89.6%;
+                height: auto;
+                margin: 0 auto 0 auto;
+                position: relative;
+            }
+            .couList-img {
+                width: 3.8rem;
+                height: 4.56rem;
+                margin: .62rem 0 .62rem 0;
+                position: relative;
+                background: url("../../assets/money_back.png");
+                background-repeat: no-repeat;
+                background-size: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+            .couList-imgText {
+                color: #C5B166;
+                padding: 0;
+                margin-top: -.3rem;
+            }
+            .imgText-symbol{
+                display: inline-block;
+                font-size:.55rem;
+                width: .2rem;
+            }
+            .imgText-money{
+                font-size: 1.25rem;
+                font-weight: 600;
+            }
+            .couList-imgType {
+                font-size: .45rem;
+                color: #C5B166;
+                margin-top: -.3rem;
+                -webkit-text-size-adjust: none;
+            }
+            .couList-text {
+                margin-left: .6rem;
+                margin-top: .75rem;
+                height: auto;
+                width: auto;
+                padding-bottom: .85rem;
+            }
+            .couponExplain {
+                color: #F68B79;
+                font-size: .6rem;
+                margin-top: .15rem;
+            }
+            .couponRight{
+                position: relative;
+            }
+            .couponRight:before {
+                content: '';
+                position: absolute;
+                height: 1px;
+                width: 2.8rem;
+                background: #F68B79;
+                left: -2.6rem;
+                bottom: -1px;
+            }
+            .coupon-text{
+                font-size: .6rem;
+                margin-top: .35rem;
+                width: 9.55rem;
+                height: 1.6rem;
+                color: #999999
+            }
+            .cou-type {
+                margin: .2rem 0 .2rem 0;
+                width: 2.9rem;
+                height: .95rem;
+                color: #FFFFFF;
+                font-size: .6rem;
+                line-height: .95rem;
+                text-align: center;
+                background: #F68B79;
+            }
+            .couList-code {
+                width: 1.5rem;
+                height: 1.5rem;
+                position: absolute;
+                top: 1.8rem;
+                right: 0;
+                background: url("../../assets/money_code2.png");
+                background-size: 100%;
+            }
+        }
     }
 </style>
