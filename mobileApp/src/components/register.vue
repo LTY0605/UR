@@ -87,7 +87,7 @@
                 zhengze_name: function (value) {
                     return {
                         valid: /^[A-Za-z0-9_\u4e00-\u9fa5]{4,16}$/.test(value),
-                        msg: 'Must be 4-16个字母（区分大小写），数字，下划线和汉字的组合'
+                        msg: '字体长度不能超过20'
                     }
                 }
             }
@@ -215,11 +215,17 @@
             font-family: 'PingFang-SC-Medium';
             color: #999;
         }
+        .weui-cells:before,.weui-cells:after,.vux-cell-box:before{
+            border:0;
+        }
         .weui-cells{
             margin-top: 0 !important;
         }
+        .weui-cell{
+            height: 2rem;
+        }
         .nameBox{
-            padding-top: 0.75rem;
+            padding-top: 1.25rem;
             height:auto;
         }
         .input{
@@ -256,7 +262,6 @@
          }
         .adressBox{
             padding-top: 0.6rem;
-            height:auto;
         }
         .submitBox{
             padding-top: 1.25rem;
@@ -264,6 +269,11 @@
         }
         .weui-btn{
             background-color: #AB9236 !important;
+            padding: 0;
+        }
+        button{
+            padding: 0;
+            height: 2rem;
         }
         .weui-cells{
             margin-top: 0;
@@ -282,6 +292,7 @@
         }
         .agreementBox a{
             font-size: 0.6rem;
+            color: #999;
             text-decoration:underline;
         }
         .weui-cell_access .weui-cell__ft:after{
