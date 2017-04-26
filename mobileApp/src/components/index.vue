@@ -102,8 +102,8 @@
                     {num:'18800可兑换',name:'积分'}
                 ],
                 actions:[
-                    {actionImg:'../assets/icon_save.png',actionText:'调查问卷'},
-                    {actionImg:'../assets/icon_dialog.png',actionText:'时尚体验'}
+                    {actionImg: require('../assets/icon_save.png'),actionText:'调查问卷'},
+                    {actionImg: require('../assets/icon_dialog.png'),actionText:'时尚体验'}
                 ]
             }
         },

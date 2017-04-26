@@ -1,12 +1,22 @@
 <template>
     <div class="page_wallet">
         <x-header :left-options="{backText: ''}">我的钱包</x-header>
-        <div class="tabTitle">
-            <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="titleTab = index">{{item.name}}</span>
+        <div class="tabDown">
+            <cell style="background: #C5B166" :border-intent="false" :arrow-direction="showContent004 ? 'up' : 'down'"
+                    @click.native="showContent004 = !showContent004" is-link>
+                <p>礼品卡</p>
+            </cell>
+
+            <div class="slide" :class="showContent004?'animate':''">
+                <div style="padding-top: .5rem;padding-bottom: .1rem;font-size: 0">
+                    <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="titleTab = index;showContent004=false">{{item.name}}</span>
+                </div>
+            </div>
         </div>
+
         <div class="tabContain">
             <div class="tabItem tab-swiper" v-if="titleTab==0">
-                111
+                <card></card>
             </div>
             <div class="tabItem" v-if="titleTab==1">
                 <coupon></coupon>
@@ -20,17 +30,20 @@
 <script>
     import Integral from './wallet/integral.vue'
     import Coupon from './wallet/coupon.vue'
-    import {XHeader, Scroller} from 'vux'
+    import Card from './wallet/card.vue'
+    import {XHeader, Scroller, Cell} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, Integral, Coupon
+            XHeader, Scroller, Integral, Coupon, Card, Cell
         },
         data () {
             return {
+                showContent004: false,
                 titleTab: 0,
                 list2: ['礼品卡', '优惠券', '积分'],
                 index: 1,
                 time: '',
+                tabTitle: '礼品卡',
                 titleList: [
                     {
                         code: 0,
@@ -50,6 +63,11 @@
         },
         mounted(){
         },
+        methods:{
+            downTab:function () {
+                this.showContent004 = false;
+            }
+        },
         watch: {},
         created(){
         },
@@ -58,6 +76,59 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_wallet {
+        .tabDown{
+            .vux-label{
+                text-align: center;
+            }
+            .weui-cell__ft{
+                padding: 0 !important;
+                width: 100%;
+                text-align: center;
+                p{
+                    font-size: .75rem !important;
+                    color: #FFFFFF !important;
+                }
+            }
+            .weui-cell__ft:after{
+                border-color: #FFFFFF !important;
+            }
+            .slide {
+                border-top: 1px solid #F2EDDA;
+                padding: 0 1rem;
+                width: 100%;
+                overflow: hidden;
+                max-height: 0;
+                position: absolute;
+                z-index: 1000;
+                background: rgba(200,185,120,1);
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                transition: max-height .5s cubic-bezier(0, 1, 0, 1) -.1s;
+            span{
+                display: inline-block;
+                width: 3.7rem;
+                height: 1.5rem;
+                line-height: 1.5rem;
+                text-align: center;
+                border-radius: .3rem;
+                font-size: .75rem;
+                margin: 0 .24rem .5rem .24rem;
+                background: #F2EDDA;
+                color: #CDBE86;
+            }
+            span.active {
+                 background: #CDBE86;
+                 color: #fff;
+                border: 1px solid #F2EDDA;
+            }
+        }
+    .animate {
+        max-height: 9999px;
+        transition-timing-function: cubic-bezier(0.5, 0, 1, 0);
+        transition-delay: 0s;
+    }
+        }
         .vux-header {
             background-color: #AB9236 !important;
         }
