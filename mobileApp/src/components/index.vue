@@ -180,6 +180,7 @@
                 height: 1rem;
                 background: url("../assets/icon_index_edit.png");
                 background-size: 100%;
+                background-repeat: no-repeat;
                 bottom: 3.3rem;
                 left: 1rem;
             }
@@ -400,10 +401,10 @@
         .couponCode{
             width: auto;
             height: auto;
-            padding: 1.5rem;
             position: relative;
             background: white;
             .couponCode-img{
+                margin: 2rem 2rem 1.75rem 2rem;
                 width: 8rem;
                 height: 8rem;
             }

@@ -96,8 +96,8 @@
                 background: #FFFFFF;
                 transition: max-height .5s cubic-bezier(0, 1, 0, 1) -.1s;
                 .slide-div{
-                    padding-top: .5rem;
-                    padding-bottom: .1rem;
+                    padding-top: 1rem;
+                    padding-bottom: .5rem;
                     font-size: 0;
                     display: flex;
                     flex-direction: row;
