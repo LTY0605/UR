@@ -13,9 +13,8 @@
                         <x-button>转赠</x-button>
                         <x-button>获取转赠</x-button>
                     </div>
-                    <div style="display: flex">
-                        <x-button>修改密码</x-button>
-                        <x-button class="last-btn" style="display: flex;justify-content: center">交易记录</x-button>
+                    <div style="display: flex;justify-content: center">
+                        <x-button class="last-btn" style="align-items: flex-start">交易记录</x-button>
                     </div>
                 </div>
             </li>
@@ -71,6 +70,9 @@
             border-radius: .1rem !important;
             line-height: 1.6rem !important;
         }
+        .weui-btn:after{
+            border: none !important;
+        }
         .weui-btn_default{
             color: #473A0C;
             background-color: #CDBE86;
@@ -80,7 +82,7 @@
         }
         .last-btn{
             display: inline-block;
-            margin-left: 1.35rem !important;
+            justify-content: center;
         }
     }
     }

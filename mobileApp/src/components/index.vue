@@ -10,8 +10,10 @@
             <div class="head-img">
                 <img src="../assets/header.png" alt=""/>
             </div>
-            <div class="edit"></div>
-            <div class="code"></div>
+            <router-link to="/personMain">
+                <div class="edit"></div>
+            </router-link>
+            <div  @click="show" class="code"></div>
             <flexbox :gutter="0">
                 <flexbox-item><div class="headTab vip">
                     <p class="vip-text">8urP18121300</p>
@@ -84,17 +86,26 @@
                 </div>
             </group>
         </div>
+        <!--二维码-->
+        <div @click="hide">
+            <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
+                <div @click.stop class="couponCode">
+                    <img class="couponCode-img" src="../assets/money_code2.png" alt=""/>
+                </div>
+            </x-dialog>
+        </div>
     </div>
 
 </template>
 <script>
-    import {XHeader, Flexbox, FlexboxItem, Grid, GridItem, Group, Cell, Badge} from 'vux'
+    import {XHeader, Flexbox, FlexboxItem, Grid, GridItem, Group, Cell, XDialog} from 'vux'
     export default {
         components: {
-            XHeader, Flexbox, FlexboxItem, Grid, GridItem, Group, Cell, Badge
+            XHeader, Flexbox, FlexboxItem, Grid, GridItem, Group, Cell, XDialog
         },
         data(){
             return{
+                showNoScroll:false,
                 badge: 3,
                 wallets:[
                     {num:'2',name:'礼品卡'},
@@ -111,6 +122,14 @@
         },
         watch: {},
         created(){
+        },
+        methods:{
+            show:function () {
+                this.showNoScroll = true;
+            },
+            hide:function () {
+                this.showNoScroll = false;
+            }
         },
         computed: {}
     }
@@ -371,6 +390,22 @@
             img{
                 width: 100%;
                 height: 100%;
+            }
+        }
+        .weui-dialog{
+            width: auto !important;
+            max-width: none !important;
+            top: 43% !important;
+        }
+        .couponCode{
+            width: auto;
+            height: auto;
+            padding: 1.5rem;
+            position: relative;
+            background: white;
+            .couponCode-img{
+                width: 8rem;
+                height: 8rem;
             }
         }
     }
