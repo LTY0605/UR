@@ -3,13 +3,12 @@
 */
 <template>
     <div class="page_register">
-        <x-header :left-options="{backText: ''}"></x-header>
+        <x-header title="注 册" :left-options="{backText: ''}"></x-header>
             <div>
                 <div class="header">
                     <div class="imgBox">
                         <img src="../assets/images/logo.png" alt="">
                     </div>
-                    <p>{{headerTit}}</p>
                 </div>
                 <div class="registerContent">
                     <div class="nameBox">
@@ -72,7 +71,6 @@
         data () {
             return {
                 submitText: '提交注册',
-                headerTit: '注册',
                 contractText: 'UR用户使用协议',
                 show: false,
                 phone:'',
@@ -165,7 +163,7 @@
             line-height: .85rem;
             background: url(../assets/images/circle.png) left center no-repeat;
             background-size: .85rem .85rem;
-            padding-left: 1.3rem;
+            padding-left: 1.2rem;
             font-size: .75rem;
         }
         input[type="radio"]:checked + span{
@@ -177,7 +175,7 @@
         }
         .header{
             background-color: #AB9236;
-            padding-top: 1.25rem;
+            padding: 1.25rem 0 1.75rem;
             height:auto;
             margin-top: -.04rem;
         }
@@ -192,13 +190,6 @@
         .imgBox img{
             width: 4.2rem;
             height: 4.2rem;
-        }
-        .header p{
-            font-family: "PingFang-SC-Medium";
-            font-size: .8rem;
-            text-align: center;
-            color: #fff;
-            padding: 0.4rem 0 0.65rem;
         }
         .registerContent{
             padding: 0 9.6%;
@@ -228,6 +219,9 @@
             padding-top: 1.25rem;
             height:auto;
         }
+        .nameBox input{
+            padding-left: .25rem;
+        }
         .input{
             height: 2rem;
         }
@@ -238,16 +232,19 @@
         .userW{
             width: 0.75rem;
             height: 0.8rem;
-            margin: 0 10px -2px 0;
+            margin-bottom: -.12rem;
         }
         .mobileBox{
             padding-top: 0.6rem;
             height:auto;
         }
+        .mobileBox input{
+            padding-left: 0.4rem;
+        }
         .mobileW{
             height: 0.8rem;
             width: 0.6rem;
-            margin: 0 10px -2px 0;
+            margin-bottom: -.12rem;
         }
         .radioBox{
             padding: 0.95rem 0 1rem;
