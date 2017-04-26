@@ -13,42 +13,91 @@
                 <div class="registerContent">
                     <div class="nameBox">
                         <group>
-                            <x-input class="input input1 text" title="姓名" name="username" placeholder="用户名" :is-type="zhengze_name" v-model="user">
+                            <x-input
+                                class="input input1 text"
+                                title="姓名" name="username"
+                                placeholder="用户名"
+                                :is-type="zhengze_name"
+                                v-model="user">
                                 <img class="userW" slot="label" src="../assets/images/user.png">
                             </x-input>
                         </group>
                     </div>
                     <div class="mobileBox">
                         <group>
-                            <x-input is-type="china-mobile" class="input input1 text" placeholder="手机号" title="手机号码" name="mobile" v-model="phone">
+                            <x-input
+                                is-type="china-mobile"
+                                class="input input1 text"
+                                placeholder="手机号" title="手机号码"
+                                name="mobile"
+                                v-model="phone">
                                 <img class="mobileW" slot="label" src="../assets/images/Mobile.png">
                             </x-input>
                         </group>
                     </div>
                     <ul class="radioBox">
                         <li class="female">
-                            <label class="text" for="feman"><input id="feman" name="radio" type="radio" v-model="selected" value="1"><span>女生</span></label>
+                            <label class="text" for="feman">
+                                <input
+                                    id="feman"
+                                    name="radio"
+                                    type="radio"
+                                    v-model="selected"
+                                    value="1">
+                                <span>女生</span>
+                            </label>
                         </li>
                         <li class="male">
-                            <label class="text checked" for="man"><input id="man"  name="radio" v-model="selected" type="radio" value="0"><span>男生</span></label>
+                            <label class="text checked" for="man">
+                                <input
+                                    id="man"
+                                    name="radio"
+                                    v-model="selected"
+                                    type="radio"
+                                    value="0">
+                                <span>男生</span>
+                            </label>
                         </li>
                     </ul>
                     <div class="datatimeBox">
                         <group class="dateBox">
-                            <datetime :min-year=1900 cancelText="取消" confirmText="确定" v-model="value2" clear-text="清空" @on-clear="clearValue" class="input input1 text textPadding" title="出生日期"></datetime>
+                            <datetime
+                                :min-year=1900
+                                cancelText="取消"
+                                confirmText="确定"
+                                v-model="value2"
+                                clear-text="清空"
+                                @on-clear="clearValue"
+                                class="input input1 text textPadding"
+                                title="出生日期"></datetime>
                         </group>
                     </div>
                     <div class="adressBox">
                         <group>
-                            <x-address v-model="value3" class="input input1 text" title="选择地区" raw-value :list="addressData"></x-address>
+                            <x-address
+                                v-model="value3"
+                                class="input input1 text"
+                                title="选择地区"
+                                raw-value :list="addressData"></x-address>
                         </group>
                     </div>
                     <div class="submitBox">
-                        <x-button type="primary" name="submit" action-type="submit" @click.native="onSubmit">{{submitText}}</x-button>
+                        <x-button
+                            type="primary"
+                            name="submit"
+                            action-type="submit"
+                            @click.native="onSubmit">{{submitText}}</x-button>
                         <alert v-model="show" title="提交注册吗？">{{text}}</alert>
+                        <x-dialog v-model="showNoScro" class="dialog-demo" :scroll="false">
+                            <p class="dialog-title">温馨提示</p>
+                            <div class="dialog-contain">
+                                {{warnText2}}
+                            </div>
+                            <span class="vux-close" @click="goLink">确定</span>
+                        </x-dialog>
                     </div>
                     <div class="agreementBox">
-                        <router-link to="/contract" class="text">{{contractText}}</router-link>
+                        <router-link :to="{name:'contract'}" class="text">{{contractText}}</router-link>
                     </div>
                 </div>
             </div>
@@ -56,9 +105,10 @@
 </template>
 <script>
     import { registerService  } from '../services/member.js'
-    import { Alert,XHeader,Scroller,XInput,Datetime,XAddress,XButton,Group,ChinaAddressData  } from 'vux'
+    import { XDialog,Alert,XHeader,Scroller,XInput,Datetime,XAddress,XButton,Group,ChinaAddressData  } from 'vux'
     export default {
         components: {
+            XDialog,
             XHeader,
             Scroller,
             XInput,
@@ -70,6 +120,8 @@
         },
         data () {
             return {
+                showNoScro: false,
+                warnText2: '',
                 submitText: '提交注册',
                 contractText: 'UR用户使用协议',
                 show: false,
@@ -108,7 +160,7 @@
                     sex:this.selected,
                     wxOpenID:window.localStorage.getItem("wxOpenId"),
                 };
-                console.log(memberData)
+                //console.log(memberData)
                 registerService().save({
                     customerName:this.user,
                     mobileTel:this.phone,
@@ -117,18 +169,24 @@
                     wxOpenID:window.localStorage.getItem("wxOpenId")
                 }).then(res => {
                     let body = res.body;
-                    console.log(body)
+                    //console.log(body)
                     if(body.errcode == 0){
-                        this.show =true;
-                        this.text = '注册成功'
+                        this.showNoScro =true;
+                        this.warnText2 = '注册成功';
                     }else{
-                        this.show =true;
-                        this.text = '注册不成功';
+                        this.showNoScro =true;
+                        this.warnText2 = '注册不成功';
                     }
-
-                }, res => {
                     //console.log(res);
+                }, res => {
+
                 })
+            },
+            goLink(){
+                this.showNoScro = false;
+                this.$router.push({
+                    name: 'login',
+                });
             }
         },
         mounted(){
@@ -295,6 +353,26 @@
         }
         .weui-cell_access .weui-cell__ft:after{
             display: none !important;
+        }
+        .dialog-demo {
+            font-size: .9rem;
+            .dialog-title {
+                font-size: 1rem;
+                height: 2.2rem;
+                line-height: 2.2rem;
+            }
+            .dialog-contain {
+                width: 100%;
+                padding: .5rem 0 1rem 0;
+                border-bottom: 1px solid #ddd;
+                color: #999999;
+            }
+            .vux-close {
+                height: 2rem;
+                line-height: 2rem;
+                color: #0BB20C;
+                background: none;
+            }
         }
     }
 </style>

@@ -13,7 +13,12 @@
             <div class="loginContent">
                 <div class="mobileBox">
                     <group>
-                        <x-input is-type="china-mobile" class="input input1 text" placeholder="手机号" title="手机号码" v-model="phone">
+                        <x-input
+                            is-type="china-mobile"
+                            class="input input1 text"
+                            placeholder="手机号"
+                            title="手机号码"
+                            v-model="phone">
                             <img class="mobileW" slot="label" src="../assets/images/Mobile.png">
                         </x-input>
                     </group>
@@ -28,20 +33,25 @@
                     <span v-show="showMin" class="countDown getCode">{{time}}<span cla>秒</span></span>
                 </div>
                 <div class="submitBox">
-                    <x-button type="primary" name="submit" action-type="submit" @click.native="login_submit">登 录</x-button>
+                    <x-button
+                        type="primary"
+                        name="submit"
+                        action-type="submit"
+                        @click.native="login_submit">登 录</x-button>
                     <alert v-model="loginAlert" title="确定登录吗？">{{loginText}}</alert>
                 </div>
                 <div class="forgetBox">
-                    <router-link to="/register">立即注册 <span class="toRight">》</span></router-link>
+                    <router-link :to="{name:'register'}">立即注册 <span class="toRight">》</span></router-link>
                 </div>
                 <div class="agreementBox">
-                    <router-link to="/contract">{{contractText}}</router-link>
+                    <router-link :to="{name:'contract'}">{{contractText}}</router-link>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
+    import { loginService  } from '../services/member.js'
     import { Alert,XButton,XHeader,Scroller,Group,XInput  } from 'vux'
     export default {
         components: {
@@ -69,8 +79,35 @@
                 if(this.phone == ''||this.code == ''||this.showMin == false){
                     this.loginAlert = true;
                     this.loginText = '请完善表单信息'
+                    return
                 }
+                var phoneData ={
+                    wxOpenID:window.localStorage.getItem("wxOpenId"),
+                    code:this.code,
+                    mobileTel:this.phone
+                }
+                //console.log(phoneData)
+                loginService().save({
+                    wxOpenID:window.localStorage.getItem("wxOpenId"),
+                    code:this.code,
+                    mobileTel:this.phone
+                }).then(res => {
+                    let body = res.body;
+                    console.log(body)
+                    if(body.code == 200){
+                        this.loginAlert =true;
+//                        window.localStorage.setItem("cardcode",this.cardcode);
+                        this.$router.push({
+                            name: 'index'
+                        })
+                    }else{
+                        this.loginAlert =true;
+                        this.loginText = '登录不成功';
+                    }
+                    //console.log(res);
+                }, res => {
 
+                })
             },
             getCode(){
                 this.showMin = true;
