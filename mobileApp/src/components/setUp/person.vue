@@ -23,11 +23,11 @@
                 <li class="birthday">
                     <group>
                         <!--<datetime v-model="brithday"-->
-                                  <!--title="出生日期"-->
-                                  <!--format="YYYY-MM-DD"-->
-                                  <!--cancelText="取消"-->
-                                  <!--confirmText="确定"-->
-                                  <!--:min-year=1900></datetime>-->
+                        <!--title="出生日期"-->
+                        <!--format="YYYY-MM-DD"-->
+                        <!--cancelText="取消"-->
+                        <!--confirmText="确定"-->
+                        <!--:min-year=1900></datetime>-->
                         <x-input v-model="brithday" title="出生日期" disabled></x-input>
                     </group>
                 </li>
@@ -42,12 +42,14 @@
             <ul class="edit_material edit_material2">
                 <li>
                     <group>
-                        <x-input title="原手机号" placeholder="原手机号" v-model="mobileTel"  :max="11" :min="11" keyboard="number" is-type="china-mobile"></x-input>
+                        <x-input title="原手机号" placeholder="原手机号" v-model="mobileTel" :max="11" :min="11"
+                                 keyboard="number" is-type="china-mobile"></x-input>
                     </group>
                 </li>
                 <li>
                     <group>
-                        <x-input title="新手机号" placeholder="新手机号" v-model="newMobileTel" :max="11" :min="11" keyboard="number" is-type="china-mobile"></x-input>
+                        <x-input title="新手机号" placeholder="新手机号" v-model="newMobileTel" :max="11" :min="11"
+                                 keyboard="number" is-type="china-mobile"></x-input>
                     </group>
                 </li>
                 <li class="code">
@@ -61,32 +63,40 @@
             </ul>
             <div class="operate">提交</div>
         </div>
-        <x-dialog v-model="showNoScroll" class="dialog-demo" :scroll="false">
-            <p class="dialog-title">温馨提示</p>
-            <div class="dialog-contain">
-                {{warnText}}
-            </div>
-            <button class="vux-close" @click="showNoScroll=false">关闭</button>
-        </x-dialog>
+        <!--<x-dialog v-model="showNoScroll" class="dialog-demo" :scroll="false">-->
+            <!--<p class="dialog-title">温馨提示</p>-->
+            <!--<div class="dialog-contain">-->
+                <!--{{warnText}}-->
+            <!--</div>-->
+            <!--<button class="vux-close" @click="showNoScroll=false">关闭</button>-->
+        <!--</x-dialog>-->
+        <alert v-model="showNoScroll" title="温馨提示">{{warnText}}</alert>
+
     </div>
 </template>
 <script>
     import {
         XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, ChinaAddressData,
-        Value2nameFilter as value2name, Name2valueFilter as name2value, Datetime, XDialog
+        Value2nameFilter as value2name, Name2valueFilter as name2value, Datetime, XDialog,Alert
     } from 'vux'
     import {
-        memberInfoService,infoEditService
+        memberInfoService, infoEditService
     } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, Datetime, XDialog
+            XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, Datetime, XDialog,Alert
         },
         data () {
             return {
-                mobileTel:'',//原手机号
-                newMobileTel:'',//新手机号
-                code:'',//验证码
+                mobileTel: '',//原手机号
+                newMobileTel: '',//新手机号
+                beTel: function (value) {
+                    return {
+                        valid: /^(?=\d{11}$)^1(?:3\d|4[57]|5[^4\D]|7[^249\D]|8\d)\d{8}$/.test(value),
+                        msg: ''
+                    }
+                },
+                code: '',//验证码
                 customerName: '',
                 showNoScroll: false,
                 brithday: '',
@@ -104,9 +114,9 @@
                 provice: '',//省
                 city: '',//市
                 district: '',//县/区
-                cardcode:'',//会员卡号
-                showMin:false,
-                time:60,
+                cardcode: '',//会员卡号
+                showMin: false,
+                time: 60,
             }
         },
         created(){
@@ -120,7 +130,7 @@
                 this.showMin = true;
                 this.finish();
             },
-            finish:function(){
+            finish: function () {
                 this.time = this.time - 1;
                 if (this.time > 0) {
                     setTimeout(() => {
@@ -138,6 +148,7 @@
                     let body = res.body;
                     if (body.errcode == 0) {
                         this.cardcode = body.cardcode;
+                        window.localStorage.setItem("cardcode",this.cardcode);
                         this.customerName = body.customerName;
                         this.sex = body.sex;
                         this.brithday = body.brithday;
@@ -162,21 +173,21 @@
             sureSubmit(){
                 var pro = this.attress.split(" ")
                 infoEditService().save({
-                    customerName:this.customerName,
-                    cardcode:this.cardcode,
-                    wxOpenID:window.localStorage.getItem("wxOpenId"),
-                    sex:this.sex,
-                    provice:pro[0],
-                    city:pro[1],
-                    district:pro[2]
+                    customerName: this.customerName,
+                    cardcode: this.cardcode,
+                    wxOpenID: window.localStorage.getItem("wxOpenId"),
+                    sex: this.sex,
+                    provice: pro[0],
+                    city: pro[1],
+                    district: pro[2]
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {
                         this.showNoScroll = true;
                         this.warnText = '修改成功';
-                    }else{
+                    } else {
                         this.showNoScroll = true;
-                        this.warnText ='修改失败';
+                        this.warnText = '修改失败';
                     }
 
                 }, res => {
@@ -318,7 +329,7 @@
                     font-size: .7rem;
                 }
             }
-            .birthday{
+            .birthday {
                 background: none;
             }
             .attress {

@@ -29,7 +29,7 @@
     export default {
         components: {
             XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Person,
-            Calendar, Cell, Group, InlineCalendar,Password,Unbound,AddressMange
+            Calendar, Cell, Group, InlineCalendar, Password, Unbound, AddressMange
         },
         data () {
             return {
@@ -56,12 +56,13 @@
                 ],
             }
         },
-        watch: {
-
-        },
+        watch: {},
         mounted(){
         },
         created(){
+            if (this.$route.query.tab) {
+                this.titleTab = this.$route.query.tab;
+            }
         },
         computed: {}
     }
