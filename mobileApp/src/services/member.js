@@ -9,4 +9,7 @@ import {HTTP_REMOTE} from './index'
 export function registerService() {
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/register')
 }
-
+//登录接口
+export function loginService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/login')
+}
