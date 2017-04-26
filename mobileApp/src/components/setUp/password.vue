@@ -20,17 +20,18 @@
                     </group>
                 </li>
             </ul>
-            <div class="operate">提交</div>
+            <div class="operate" @click="passWordEdit">提交</div>
         </div>
+        <alert v-model="showNoScroll" title="温馨提示">{{warnText}}</alert>
     </div>
 </template>
 <script>
     import {
-        XHeader, Scroller, XInput, Group, Selector
+        XHeader, Scroller, XInput, Group, Selector,Alert
     } from 'vux'
     export default {
         components: {
-            XHeader, Scroller, XInput, Group, Selector
+            XHeader, Scroller, XInput, Group, Selector,Alert
         },
         data () {
             return {
@@ -48,8 +49,8 @@
         mounted(){
         },
         methods: {
-            kk(val){
-                alert(val)
+            passWordEdit(){
+
             },
         },
         watch: {},

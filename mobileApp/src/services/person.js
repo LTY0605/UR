@@ -21,5 +21,20 @@ export function infoEditService() {
 export function addAddressService() {
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/address/add')
 }
-
+//会员地址列表接口
+export function addressListService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/address/list')
+}
+//会员地址列表删除接口
+export function removeService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/address/del')
+}
+//会员修改手机号接口
+export function mobileEditService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/mobile/edit')
+}
+//会员修改密码接口
+export function bindEditService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/wx/unbind')
+}
 

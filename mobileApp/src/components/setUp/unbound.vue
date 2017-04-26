@@ -4,37 +4,87 @@
             <ul class="edit_material">
                 <li>
                     <group>
-                        <x-input title="手机号" placeholder="手机号"></x-input>
+                        <x-input title="手机号" placeholder="手机号" :max="11" :min="11"
+                                 keyboard="number" is-type="china-mobile" v-model="mobileTel"></x-input>
                     </group>
                 </li>
                 <li class="code">
                     <group>
-                        <x-input title="验证码" placeholder="请输入短信验证码"></x-input>
+                        <x-input title="验证码" placeholder="请输入短信验证码" v-model="code"></x-input>
                     </group>
-                    <span class="getCode">获取验证码</span>
+                    <span v-show="!showMin" class="getCode" @click="getCode">获取验证码</span>
+                    <span v-show="showMin" class="getCode">{{time}}s后才能重发</span>
                 </li>
             </ul>
-            <div class="operate">提交</div>
+            <div class="operate" @click="boundSubmit">提交</div>
         </div>
+        <alert v-model="showNoScroll" title="温馨提示">{{warnText}}</alert>
     </div>
 </template>
 <script>
     import {
-        XHeader, Scroller, XInput, Group, Selector
+        XHeader, Scroller, XInput, Group, Selector,Alert
     } from 'vux'
+    import {
+        bindEditService
+    } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, XInput, Group, Selector
+            XHeader, Scroller, XInput, Group, Selector,Alert
         },
         data () {
             return {
-
+                mobileTel:'',
+                code:'',
+                showMin:false,
+                time:60,
+                showNoScroll: false,
+                warnText: '提示',
             }
         },
         mounted(){
         },
         methods: {
+            boundSubmit(){
+                if(this.mobileTel == ''  || this.code == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请全部填写';
+                    return
+                }
+                bindEditService().save({
+                    mobileTel:this.mobileTel,
+                    code:this.code,
+                    cardcode: window.localStorage.getItem("cardcode"),
+                    wxOpenID: window.localStorage.getItem("wxOpenId"),
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.showNoScroll = true;
+                        this.warnText = '修改成功';
+                    } else {
+                        this.showNoScroll = true;
+                        this.warnText = body.errmsg;
+                    }
 
+                }, res => {
+
+                })
+            },
+            getCode(){
+                this.showMin = true;
+                this.finish();
+            },
+            finish() {
+                this.time = this.time - 1;
+                if (this.time > 0) {
+                    setTimeout(() => {
+                        this.finish();
+                    }, 1000)
+                } else {
+                    this.showMin = false;
+                    this.time = 60;
+                }
+            },
         },
         watch: {
 
