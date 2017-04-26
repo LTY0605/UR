@@ -43,50 +43,8 @@
                     </li>
                 </ul>
             </div>
-            <div class="address_item">
-                <ul>
-                    <li>
-                        <span class="liName">张小姐</span>
-                        <span class="liCode">13800138000</span>
-                    </li>
-                    <li>
-                        <span class="addressItem">广东省 广州市 天河区</span>
-                    </li>
-                    <li>
-                        <span>体育西183号</span>
-                    </li>
-                    <li>
-                        <span class="editAtt">默认地址</span>
-                        <span class="eddOprate">
-                          <span class="edit">编辑</span>
-                          <span class="delete">删除</span>
-                      </span>
-                    </li>
-                </ul>
-            </div>
-            <div class="address_item">
-                <ul>
-                    <li>
-                        <span class="liName">张小姐</span>
-                        <span class="liCode">13800138000</span>
-                    </li>
-                    <li>
-                        <span class="addressItem">广东省 广州市 天河区</span>
-                    </li>
-                    <li>
-                        <span>体育西183号</span>
-                    </li>
-                    <li>
-                        <span class="editAtt">默认地址</span>
-                        <span class="eddOprate">
-                          <span class="edit">编辑</span>
-                          <span class="delete">删除</span>
-                      </span>
-                    </li>
-                </ul>
-            </div>
         </div>
-        <div class="operate"><span class="plus">+</span>新增地址</div>
+        <div class="operate" @click="addAddress"><span class="plus">+</span>新增地址</div>
 
     </div>
 </template>
@@ -94,6 +52,7 @@
     import {
         XHeader, Scroller, XInput, Group, Selector
     } from 'vux'
+
     export default {
         components: {
             XHeader, Scroller, XInput, Group, Selector
@@ -103,7 +62,13 @@
         },
         mounted(){
         },
-        methods: {},
+        methods: {
+            addAddress(){
+                this.$router.push({
+                    name: 'newAddress',
+                });
+            },
+        },
         watch: {},
         created(){
         },
