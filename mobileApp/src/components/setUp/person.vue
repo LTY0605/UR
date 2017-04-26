@@ -61,7 +61,7 @@
                     <span v-show="showMin" class="getCode">{{time}}s后才能重发</span>
                 </li>
             </ul>
-            <div class="operate">提交</div>
+            <div class="operate" @click="editTel">提交</div>
         </div>
         <!--<x-dialog v-model="showNoScroll" class="dialog-demo" :scroll="false">-->
             <!--<p class="dialog-title">温馨提示</p>-->
@@ -80,7 +80,7 @@
         Value2nameFilter as value2name, Name2valueFilter as name2value, Datetime, XDialog,Alert
     } from 'vux'
     import {
-        memberInfoService, infoEditService
+        memberInfoService, infoEditService,mobileEditService
     } from '../../services/person.js'
     export default {
         components: {
@@ -126,11 +126,37 @@
             this.renderData();
         },
         methods: {
+            editTel(){
+                if(this.mobileTel == '' || this.newMobileTel == '' || this.code == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请全部填写';
+                    return
+                }
+                mobileEditService().save({
+                    mobileTel:this.mobileTel,
+                    newMobileTel:this.newMobileTel,
+                    code:this.code,
+                    cardcode: window.localStorage.getItem("cardcode"),
+                    wxOpenID: window.localStorage.getItem("wxOpenId"),
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.showNoScroll = true;
+                        this.warnText = '修改成功';
+                    } else {
+                        this.showNoScroll = true;
+                        this.warnText = body.errmsg;
+                    }
+
+                }, res => {
+
+                })
+            },
             getCode(){
                 this.showMin = true;
                 this.finish();
             },
-            finish: function () {
+            finish() {
                 this.time = this.time - 1;
                 if (this.time > 0) {
                     setTimeout(() => {
@@ -191,7 +217,8 @@
                     }
 
                 }, res => {
-
+                    this.showNoScroll = true;
+                    this.warnText = '请求出错';
                 })
             },
             logHide(str){

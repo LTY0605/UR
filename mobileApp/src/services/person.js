@@ -29,5 +29,12 @@ export function addressListService() {
 export function removeService() {
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/address/del')
 }
-
+//会员修改手机号接口
+export function mobileEditService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/mobile/edit')
+}
+//会员修改密码接口
+export function bindEditService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/wx/unbind')
+}
 
