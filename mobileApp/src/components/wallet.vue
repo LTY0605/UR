@@ -2,14 +2,13 @@
     <div class="page_wallet">
         <x-header :left-options="{backText: ''}">我的钱包</x-header>
         <div class="tabDown">
-            <cell style="background: #C5B166" :border-intent="false" :arrow-direction="showContent004 ? 'up' : 'down'"
-                    @click.native="showContent004 = !showContent004" is-link>
+            <cell style="background: #f2edda" is-link :border-intent="false" :arrow-direction="show ? 'up' : 'down'" @click.native="show = !show">
                 <p>礼品卡</p>
             </cell>
 
-            <div class="slide" :class="showContent004?'animate':''">
-                <div style="padding-top: .5rem;padding-bottom: .1rem;font-size: 0">
-                    <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="titleTab = index;showContent004=false">{{item.name}}</span>
+            <div class="slide" :class="show?'animate':''">
+                <div class="slide-div">
+                    <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="titleTab = index;show = false">{{item.name}}</span>
                 </div>
             </div>
         </div>
@@ -38,7 +37,7 @@
         },
         data () {
             return {
-                showContent004: false,
+                show: false,
                 titleTab: 0,
                 list2: ['礼品卡', '优惠券', '积分'],
                 index: 1,
@@ -63,11 +62,6 @@
         },
         mounted(){
         },
-        methods:{
-            downTab:function () {
-                this.showContent004 = false;
-            }
-        },
         watch: {},
         created(){
         },
@@ -86,42 +80,47 @@
                 text-align: center;
                 p{
                     font-size: .75rem !important;
-                    color: #FFFFFF !important;
+                    color: #ab9236 !important;
                 }
             }
             .weui-cell__ft:after{
-                border-color: #FFFFFF !important;
+                border-color: #ab9236;
             }
             .slide {
-                border-top: 1px solid #F2EDDA;
                 padding: 0 1rem;
                 width: 100%;
                 overflow: hidden;
                 max-height: 0;
                 position: absolute;
                 z-index: 1000;
-                background: rgba(200,185,120,1);
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
+                background: #FFFFFF;
                 transition: max-height .5s cubic-bezier(0, 1, 0, 1) -.1s;
-            span{
-                display: inline-block;
-                width: 3.7rem;
-                height: 1.5rem;
-                line-height: 1.5rem;
-                text-align: center;
-                border-radius: .3rem;
-                font-size: .75rem;
-                margin: 0 .24rem .5rem .24rem;
-                background: #F2EDDA;
-                color: #CDBE86;
-            }
-            span.active {
-                 background: #CDBE86;
-                 color: #fff;
-                border: 1px solid #F2EDDA;
-            }
+                .slide-div{
+                    padding-top: .5rem;
+                    padding-bottom: .1rem;
+                    font-size: 0;
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                    span{
+                        display: inline-block;
+                        width: 4.2rem;
+                        height: 1.6rem;
+                        line-height: 1.5rem;
+                        text-align: center;
+                        border-radius: .15rem;
+                        font-size: .75rem;
+                        margin: 0 0 .5rem 0;
+                        border: 1px solid #CDBE86;
+                        background: #FFFFFF;
+                        color: #999999;
+                    }
+                    span.active {
+                        background: #CDBE86;
+                        color: #fff;
+                    }
+                }
         }
     .animate {
         max-height: 9999px;

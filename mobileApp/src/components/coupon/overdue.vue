@@ -138,33 +138,34 @@
         height: 4.56rem;
         margin: .62rem 0 .62rem 0;
         position: relative;
-        background: url("../../assets/money_back.png");
+        background: url("../../assets/money_new.png");
         background-repeat: no-repeat;
         background-size: 100%;
         display: flex;
-        justify-content: center;
         align-items: center;
         flex-direction: column;
+        font-size: 0;
     }
     .couList-imgText {
         color: #C5B166;
         padding: 0;
-        margin-top: -.3rem;
+        margin-top: 1.25rem;
     }
     .imgText-symbol{
         display: inline-block;
         font-size:.55rem;
-        width: .2rem;
     }
     .imgText-money{
-        font-size: 1.25rem;
+        font-size: 1rem;
         font-weight: 600;
     }
     .couList-imgType {
         font-size: .45rem;
-        color: #C5B166;
-        margin-top: -.3rem;
-        -webkit-text-size-adjust: none;
+        color: #FFFFFF;
+        margin-top: .65rem;
+        transform: scale(.8);
+        width: 120%;
+        text-align: center;
     }
     .couList-text {
         margin-left: .6rem;
