@@ -4,9 +4,8 @@
         <div class="tabDown">
             <cell style="background: #C5B166" :border-intent="false" :arrow-direction="showContent004 ? 'up' : 'down'"
                     @click.native="showContent004 = !showContent004" is-link>
-                <p>礼品卡</p>
+                <p>{{titleList[titleTab].name}}</p>
             </cell>
-
             <div class="slide" :class="showContent004?'animate':''">
                 <div style="padding-top: .5rem;padding-bottom: .1rem;font-size: 0">
                     <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="titleTab = index;showContent004=false">{{item.name}}</span>
