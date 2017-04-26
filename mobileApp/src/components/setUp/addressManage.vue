@@ -1,81 +1,121 @@
 <template>
     <div class="page_address">
         <div class="address_main">
-            <div class="address_item">
+            <div class="address_item" v-for="(item,index) in dataList">
                 <ul>
                     <li>
-                        <span class="liName">张小姐</span>
-                        <span class="liCode">13800138000</span>
+                        <span class="liName">{{item.consignee}}</span>
+                        <span class="liCode">{{item.mobileTel}}</span>
                     </li>
                     <li>
                         <span class="addressItem">广东省 广州市 天河区</span>
                     </li>
                     <li>
-                        <span>体育西183号</span>
+                        <span>{{item.address}}</span>
                     </li>
                     <li>
-                        <span class="editAtt">默认地址</span>
+                        <span class="editAtt" v-if="item.default == 0">默认地址</span>
                         <span class="eddOprate">
                           <span class="edit">编辑</span>
-                          <span class="delete">删除</span>
+                          <span class="delete" @click="deleteItem(item.uid,index)">删除</span>
                       </span>
                     </li>
                 </ul>
             </div>
-            <div class="address_item">
-                <ul>
-                    <li>
-                        <span class="liName">张小姐</span>
-                        <span class="liCode">13800138000</span>
-                    </li>
-                    <li>
-                        <span class="addressItem">广东省 广州市 天河区</span>
-                    </li>
-                    <li>
-                        <span>体育西183号</span>
-                    </li>
-                    <li>
-                        <span class="editAtt">默认地址</span>
-                        <span class="eddOprate">
-                          <span class="edit">编辑</span>
-                          <span class="delete">删除</span>
-                      </span>
-                    </li>
-                </ul>
-            </div>
+
         </div>
         <div class="operate" @click="addAddress"><span class="plus">+</span>新增地址</div>
-
+        <x-dialog v-model="showNoScro" class="dialog-demo" :scroll="false">
+            <p class="dialog-title">温馨提示</p>
+            <div class="dialog-contain">
+                {{warnText2}}
+            </div>
+            <span class="vux-close" @click="showNoScro=false">确定</span>
+        </x-dialog>
     </div>
 </template>
 <script>
     import {
-        XHeader, Scroller, XInput, Group, Selector
+        XHeader, Scroller, XInput, Group, Selector,XDialog
     } from 'vux'
-
+    import {
+        addressListService,removeService
+    } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, XInput, Group, Selector
+            XHeader, Scroller, XInput, Group, Selector,XDialog
         },
         data () {
-            return {}
+            return {
+                dataList:[],
+                showNoScro:false,
+                warnText2:'',
+            }
+        },
+        created(){
+            this.renderData();
         },
         mounted(){
         },
         methods: {
+            renderData(){
+                addressListService().save({
+                    cardcode:window.localStorage.getItem("cardcode"),
+                    wxOpenID:window.localStorage.getItem("wxOpenId"),
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.dataList = body.list;
+                    }
+                }, res => {
+
+                })
+            },
             addAddress(){
                 this.$router.push({
                     name: 'newAddress',
                 });
             },
+            deleteItem(uid,index){
+                removeService().save({
+                    uid:uid,
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.showNoScro = true;
+                        this.warnText2 = '删除成功';
+                        this.dataList.splice(index, 1);
+                    }
+                }, res => {
+
+                })
+            },
         },
         watch: {},
-        created(){
-        },
         computed: {}
     }
 </script>
 <style lang="less" rel="stylesheet/less">
+    .dialog-demo {
+        font-size: .9rem;
+        .dialog-title {
+            font-size: 1rem;
+            height: 2.2rem;
+            line-height: 2.2rem;
+        }
+        .dialog-contain {
+            width: 100%;
+            padding: .5rem 0 1rem 0;
+            border-bottom: 1px solid #ddd;
+            color: #999999;
+        }
+        .vux-close {
+            height: 2rem;
+            line-height: 2rem;
+            color: #0BB20C;
+            background: none;
+        }
+    }
     .page_address {
         .operate {
             margin: 1rem;

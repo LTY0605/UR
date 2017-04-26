@@ -21,5 +21,13 @@ export function infoEditService() {
 export function addAddressService() {
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/address/add')
 }
+//会员地址列表接口
+export function addressListService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/address/list')
+}
+//会员地址列表删除接口
+export function removeService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/address/del')
+}
 
 
