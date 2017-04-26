@@ -188,8 +188,11 @@
             margin: auto;
         }
         .imgBox img{
-            width: 4.2rem;
-            height: 4.2rem;
+            /*width: 4.2rem;*/
+            /*height: 4.2rem;*/
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
         }
         .registerContent{
             padding: 0 9.6%;
