@@ -61,6 +61,9 @@
         },
         watch: {},
         created(){
+            if (this.$route.query.tab) {
+                this.titleTab = this.$route.query.tab;
+            }
         },
         methods:{
             tabChange(index){
