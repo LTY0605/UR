@@ -166,7 +166,7 @@
     .couList-imgType {
         font-size: .45rem;
         color: #FFFFFF;
-        margin-top: .65rem;
+        margin-top: .7rem;
         transform: scale(.8);
         width: 120%;
         text-align: center;
@@ -219,7 +219,7 @@
         top: 1.8rem;
         right: 0;
         background: url("../../assets/money_code2.png");
-        background-size: cover;
+        background-size: cov;
     }
     }
     }
