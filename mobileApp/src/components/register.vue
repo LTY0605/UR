@@ -321,7 +321,7 @@
         }
          .datatimeBox .weui-cell{
              background: url("../assets/images/date.png") 98% center no-repeat;
-             background-size: 8%;
+             background-size: 6% 50%;
          }
         .adressBox{
             padding-top: 0.6rem;
