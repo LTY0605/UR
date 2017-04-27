@@ -67,10 +67,9 @@
         methods: {
             tabChange(index){
                 this.titleTab = index;
-                    this.$router.push({
-                        name: 'personMain',
-                        query: {tab: index},
-                    });
+//                    this.$router.push({
+//                        query: {tab: index},
+//                    });
             },
         },
         computed: {}

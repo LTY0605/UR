@@ -28,31 +28,37 @@
 
         </div>
         <div class="operate" @click="addAddress"><span class="plus">+</span>新增地址</div>
+        <alert v-model="showNoScroll" title="温馨提示">{{warnText}}</alert>
         <x-dialog v-model="showNoScro" class="dialog-demo" :scroll="false">
             <p class="dialog-title">温馨提示</p>
             <div class="dialog-contain">
                 {{warnText2}}
             </div>
-            <span class="vux-close" @click="showNoScro=false">确定</span>
+            <span class="vux-close" @click="sureDelete" style="margin-right: 2.2rem;">确定</span>
+            <span class="vux-close" @click="showNoScro=false">取消</span>
         </x-dialog>
     </div>
 </template>
 <script>
     import {
-        XHeader, Scroller, XInput, Group, Selector,XDialog
+        XHeader, Scroller, XInput, Group, Selector,XDialog,Alert
     } from 'vux'
     import {
         addressListService,removeService
     } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, XInput, Group, Selector,XDialog
+            XHeader, Scroller, XInput, Group, Selector,XDialog,Alert
         },
         data () {
             return {
                 dataList:[],
                 showNoScro:false,
                 warnText2:'',
+                showNoScroll:false,
+                warnText:'',
+                currentIndex:0,
+                currentUid:0,
             }
         },
         created(){
@@ -83,14 +89,21 @@
                 });
             },
             deleteItem(uid,index){
+                this.currentIndex = index;
+                this.currentUid = uid;
+                this.showNoScro = true;
+                this.warnText2 = '确定删除吗？';
+            },
+            sureDelete(){
+                this.showNoScro = false;
                 removeService().save({
-                    uid:uid,
+                    uid:this.currentUid,
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {
-                        this.showNoScro = true;
-                        this.warnText2 = '删除成功';
-                        this.dataList.splice(index, 1);
+                        this.showNoScroll = true;
+                        this.warnText = '删除成功';
+                        this.dataList.splice(this.currentIndex, 1);
                     }
                 }, res => {
 
