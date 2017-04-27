@@ -21,6 +21,7 @@
                 <div @click.stop class="transferCode">
                     <p class="transferCode-title">请输入密码</p>
                     <x-input type="password" v-model="password" class="transferCode-input" required></x-input>
+                    <p v-if="warnShow" class="warn-text">密码错误</p>
                     <div @click="enter"><x-button><span class="transferCode-text">确 定</span></x-button></div>
                 </div>
             </x-dialog>
@@ -32,6 +33,7 @@
 
 <script>
     import {XHeader,Group,XInput,XButton,XDialog,Alert} from 'vux'
+    import { addAddressService } from '../services/person.js'
     export default{
         components:{
             XHeader,Group,XInput,XButton,XDialog,Alert
@@ -40,6 +42,7 @@
             return{
                 show2:false,
                 showNoScroll:false,
+                warnShow:false,
                 phone:'',  //转赠人手机
                 money:'',  //金额
                 password:'',  //密码
@@ -71,6 +74,19 @@
                     this.warnText='你有信息未填写';
                 }else{
                     this.showNoScroll=true;
+                    addAddressService().save({
+                        cardcode: window.localStorage.getItem("cardcode"),
+                        wxOpenID: window.localStorage.getItem("wxOpenId"),
+                        phone:this.phone,
+                        money:this.money
+                    }).then(res => {
+                        let body = res.body;
+                        if(body.errcode==0){
+                            console.log('保存成功')
+                        }
+                    },res =>{
+                        console.log('2333333')
+                    })
                     return
                 }
             },
@@ -79,8 +95,10 @@
             },
             enter() {
                 if(this.password == '' || this.password != 'qq123123'){
+                    this.warnShow = true;
                     console.log('密码错误')
                 } else{
+                    this.warnShow = false;
                     this.$router.push({
                         name: 'wallet',
                         query: {tab: 3},
@@ -225,6 +243,12 @@
                 [class^="weui-icon-"]:before, [class*=" weui-icon-"]:before{
                     margin-bottom: .3rem;
                 }
+            }
+            .warn-text{
+                font-size: .6rem;
+                transform: scale(.8);
+                color: #F67982;
+                position: absolute;
             }
         }
     }
