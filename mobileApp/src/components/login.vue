@@ -52,7 +52,7 @@
     </div>
 </template>
 <script>
-    import { loginService  } from '../services/member.js'
+    import { loginService,codeService  } from '../services/member.js'
     import { Alert,XButton,XHeader,Scroller,Group,XInput  } from 'vux'
     export default {
         components: {
@@ -116,8 +116,24 @@
                     this.loginText = '请输入手机号';
                     return
                 }
-                this.showMin = true;
-                this.finish();
+                codeService().save({
+                    scope:'login',
+                    mobileTel:this.mobileTel,
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.loginAlert = true;
+                        this.loginText = '验证码发送成功';
+                        this.showMin = true;
+                        this.finish();
+                    } else {
+                        this.loginAlert = true;
+                        this.loginText = '验证码发送失败，请稍后再试';
+                    }
+
+                }, res => {
+
+                })
             },
             finish:function(){
                 this.time = this.time - 1;
