@@ -28,7 +28,9 @@
                             <x-input
                                 is-type="china-mobile"
                                 class="input input1 text"
-                                placeholder="手机号" title="手机号码"
+                                placeholder="手机号"
+                                title="手机号码"
+                                :max="11" :min="11"
                                 name="mobile"
                                 v-model="phone">
                                 <img class="mobileW" slot="label" src="../assets/images/Mobile.png">
@@ -354,8 +356,7 @@
         }
         .agreementBox{
             text-align: center;
-            padding-top: 1.25rem;//todo  4.75
-            padding: 1.25rem 0 1.2rem;
+            padding: 3.76rem 0 1.55rem;
             height:auto;
             a{
                 font-size: 0.6rem;

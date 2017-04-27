@@ -18,6 +18,7 @@
                             class="input input1 text"
                             placeholder="手机号"
                             title="手机号码"
+                            :max="11" :min="11"
                             v-model="phone">
                             <img class="mobileW" slot="label" src="../assets/images/Mobile.png">
                         </x-input>
@@ -110,6 +111,11 @@
                 })
             },
             getCode(){
+                if(this.phone == ''){
+                    this.loginAlert = true;
+                    this.loginText = '请输入手机号';
+                    return
+                }
                 this.showMin = true;
                 this.finish();
             },
@@ -221,7 +227,7 @@
         }
         .agreementBox{
             text-align: center;
-            padding: 5.1rem 0 1.55rem;
+            padding: 8.81rem 0 1.55rem;
             height:auto;
             a{
                 font-size: 0.6rem;
