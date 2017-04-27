@@ -14,7 +14,10 @@
                         <span>{{item.address}}</span>
                     </li>
                     <li>
-                        <span class="editAtt" v-if="item.default == 0">默认地址</span>
+                        <label class="editAtt" @click="changeDefalt(index)">
+                            <input class="check" type="radio" name="radio1" :checked="item.default==0"  :value="item.uid">
+                            <span>默认地址</span>
+                        </label>
                         <span class="eddOprate">
                           <span class="edit">编辑</span>
                           <span class="delete" @click="deleteItem(item.uid,index)">删除</span>
@@ -58,6 +61,9 @@
         mounted(){
         },
         methods: {
+            changeDefalt(index){
+                this.dataList[index].default = 0;
+            },
             renderData(){
                 addressListService().save({
                     cardcode:window.localStorage.getItem("cardcode"),
@@ -161,9 +167,21 @@
                         }
                         .editAtt {
                             width: 30%;
-                            background: url("../../assets/icon_on.png") no-repeat left center;
-                            background-size: .8rem;
-                            padding-left: 1rem;
+                            font-size: .75rem;
+                            display: inline-block;
+                            input[type="radio"] {
+                                display: none;
+                            }
+                            input[type="radio"] + span {
+                                background: url(../../assets/images/circle.png) left center no-repeat;
+                                background-size: .85rem .85rem;
+                                padding-left: 1.3rem;
+                                font-size: .75rem;
+                            }
+                            input[type="radio"]:checked + span {
+                                background: url(../../assets/images/circle_a.png) left center no-repeat;
+                                background-size: .85rem .85rem;
+                            }
                         }
                         .eddOprate {
                             width: 70%;
