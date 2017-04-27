@@ -137,8 +137,7 @@
    .page_giftC {
    .gift1 {
       margin: 1.2rem 1rem;
-      padding: .7rem 1rem;
-      width: 16.8rem;
+      padding: .65rem 1rem;
       height: auto;
       font-family: PingFang-SC-Medium;
       font-size: .8rem;
@@ -181,7 +180,8 @@
       margin: auto 0;
       height: auto;
    }
-   .Box1 ,.Box2 ,.Box3{
+   .Box1,.Box2,.Box3{
+       font-size: .75rem;
       background-color: #CDBE86;
       color: #473A0C;
       margin: 0rem;
@@ -190,7 +190,9 @@
       height: 1.6rem;
       margin-right:8.45%;
    }
+
    .Box3 {
+       font-size: .75rem;
       margin-right: 0;
       padding: 0rem;
    }
@@ -311,7 +313,7 @@
    .gift2 {
       margin: 1.2rem 1rem;
       padding: .7rem 1rem;
-      width: 16.8rem;
+      /*width: 16.8rem;*/
       height: auto;
       font-family: PingFang-SC-Medium;
       font-size: .8rem;
@@ -345,6 +347,7 @@
       margin: auto 0;
    }
    .Box4,.Box5,.Box7,.Box8{
+       font-size: .75rem;
       background-color:#CDBE86;
       color:#473A0C;
       margin: 0rem;
@@ -354,6 +357,7 @@
       margin-right:8.45%;
    }
    .Box6{
+       font-size: .75rem;
       background-color:#CDBE86;
       color:#473A0C;
       margin: 0rem;
