@@ -297,7 +297,7 @@
         }
         .toRight{
             padding-left: .2rem;
-            font-size: .86rem;
+            font-size: .75rem;
         }
     }
 </style>
