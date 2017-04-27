@@ -318,6 +318,9 @@
          }
         .adressBox{
             padding-top: 0.6rem;
+            .weui-cell__ft{
+                display: none;
+            }
         }
         .submitBox{
             padding-top: 1.25rem;
@@ -341,7 +344,7 @@
             width: 3rem !important;
         }
         .weui-cell__ft{
-            padding-right: 1.25rem !important;
+            padding-right: 10% !important;
         }
         .agreementBox{
             text-align: center;
@@ -376,6 +379,12 @@
                 color: #0BB20C;
                 background: none;
             }
+        }
+        .vux-popup-picker-select span{
+            padding-right: 0;
+        }
+        .vux-popup-picker-value{
+            font-size: .7rem;
         }
     }
 </style>
