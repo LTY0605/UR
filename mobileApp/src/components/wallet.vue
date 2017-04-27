@@ -8,7 +8,7 @@
 
             <div class="slide" :class="show?'animate':''">
                 <div class="slide-div">
-                    <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="titleTab = index;show = false">{{item.name}}</span>
+                    <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="tabChange(index)">{{item.name}}</span>
                 </div>
             </div>
         </div>
@@ -39,10 +39,7 @@
             return {
                 show: false,
                 titleTab: 0,
-                list2: ['礼品卡', '优惠券', '积分'],
                 index: 1,
-                time: '',
-                tabTitle: '礼品卡',
                 titleList: [
                     {
                         code: 0,
@@ -64,6 +61,16 @@
         },
         watch: {},
         created(){
+        },
+        methods:{
+            tabChange(index){
+                this.titleTab = index;
+                this.$router.push({
+                    name:'wallet',
+                    query:{tab: index},
+                })
+                this.show=false;
+            }
         },
         computed: {}
     }

@@ -109,7 +109,7 @@
                     this.warnShow = false;
                     this.$router.push({
                         name: 'wallet',
-                        query: {tab: 3},
+                        query: {tab: 0},
                     });
                 }
             }
