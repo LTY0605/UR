@@ -37,4 +37,7 @@ export function mobileEditService() {
 export function bindEditService() {
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/wx/unbind')
 }
-
+//验证码接口
+export function codeService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/wx/verification_code')
+}
