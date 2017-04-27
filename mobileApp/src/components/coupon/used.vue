@@ -6,7 +6,7 @@
                 <div @click.stop class="couponCode">
                     <p class="couponCode-title">付款时交给店员扫一扫</p>
                     <img class="couponCode-img" src="../../assets/money_code.png" alt=""/>
-                    <p class="couponCode-code">8999305128</p>
+                    <p class="couponCode-code">{{moneyCode}}</p>
                     <div @click="hide" class="couponCode-close"></div>
                 </div>
             </x-dialog>
@@ -26,9 +26,9 @@
                     <p class="cou-type">{{coupon.shop}}</p>
                     <p style="margin:0;font-size: .6rem;color: #999999">有效期：{{coupon.startTime}}～{{coupon.endTime}}</p>
                     <div style="height: auto">
-                        <p @click="explainList = index" class="couponExplain">礼券说明
-                            <span v-if="explainList != index" class="couponRight">></span></p>
-                        <p v-if="explainList == index" class="coupon-text">本券只限于购买正价商品，每个订单 限用一张。</p>
+                        <p @click="explainList = index+1" class="couponExplain">礼券说明
+                            <span v-if="explainList != index+1" class="couponRight">></span></p>
+                        <p v-if="explainList == index+1" class="coupon-text">本券只限于购买正价商品，每个订单 限用一张。</p>
                     </div>
                 </div>
                 <div @click="show" class="couList-code"></div>
@@ -49,6 +49,7 @@
                 showRight:true,
                 showText:false,
                 showNoScroll:false,
+                moneyCode:'8999301128',
                 couponList: [
                     {
                         money: '50', type: '二次生日礼券', number: '8999305128', shop:'线下门店',

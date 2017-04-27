@@ -1,13 +1,14 @@
 <template>
     <div class="page_transfer">
         <x-header :left-options="{backText: ''}">转 赠</x-header>
+        <!--页面主体-->
         <div class="transferCon">
             <p class="tran-money">余额：￥800</p>
             <group>
-                <x-input name="transfer_phone" v-model="phone" :is-type="isNumber" placeholder="转赠人手机"></x-input>
+                <x-input v-model="phone" :is-type="isNumber" placeholder="转赠人手机" required></x-input>
             </group>
             <group>
-                <x-input name="transfer_money" v-model="money" :is-type="isMoney" placeholder="转赠金额"></x-input>
+                <x-input v-model="money" :is-type="isMoney" placeholder="转赠金额" required></x-input>
             </group>
             <p class="tran-remind"><span>*</span> 转赠金额需大于50</p>
             <div @click="onSumbit">
@@ -19,25 +20,30 @@
             <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
                 <div @click.stop class="transferCode">
                     <p class="transferCode-title">请输入密码</p>
-                    <x-input class="transferCode-input"></x-input>
-                    <x-button><span class="transferCode-text">确 定</span></x-button>
+                    <x-input type="password" v-model="password" class="transferCode-input" required></x-input>
+                    <div @click="enter"><x-button><span class="transferCode-text">确 定</span></x-button></div>
                 </div>
             </x-dialog>
         </div>
+        <!--提示-->
+        <alert class="prompt" v-model="show2" title="温馨提示">{{warnText}}</alert>
     </div>
 </template>
 
 <script>
-    import {XHeader,Group,XInput,XButton,XDialog} from 'vux'
+    import {XHeader,Group,XInput,XButton,XDialog,Alert} from 'vux'
     export default{
         components:{
-            XHeader,Group,XInput,XButton,XDialog
+            XHeader,Group,XInput,XButton,XDialog,Alert
         },
         data(){
             return{
+                show2:false,
                 showNoScroll:false,
-                phone:'',
-                money:'',
+                phone:'',  //转赠人手机
+                money:'',  //金额
+                password:'',  //密码
+                warnText:'',  //错误提示文字
                 isNumber:function (value) {
                     return{
                         valid: /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/.test(value),
@@ -46,24 +52,43 @@
                 },
                 isMoney:function (value) {
                     return{
-                        valid: /^[1-9][0-9]*$/.test(value),
+                        valid: /^[1-9][0-9]*$/.test(value)&&value>=50,  //转赠金额大于50
                         msg: '请输入正常的金额'
                     }
                 }
             }
         },
+        mounted(){
+        },
+        watch: {
+        },
+        created(){
+        },
         methods:{
-            onSumbit:function () {
-                if(this.phone=='' || this.money==''){
-                    console.log('请输入手机号和金额')
+            onSumbit() {
+                if(this.phone == '' || this.money == ''){
+                    this.show2 = true;
+                    this.warnText='你有信息未填写';
                 }else{
                     this.showNoScroll=true;
+                    return
                 }
             },
-            hide:function () {
+            hide() {
                 this.showNoScroll = false;
+            },
+            enter() {
+                if(this.password == '' || this.password != 'qq123123'){
+                    console.log('密码错误')
+                } else{
+                    this.$router.push({
+                        name: 'wallet',
+                        query: {tab: 3},
+                    });
+                }
             }
-        }
+        },
+        computed: {}
     }
 </script>
 
@@ -75,10 +100,18 @@
         .vux-header .vux-header-title, .vux-header h1 {
             font-size: .85rem;
         }
+        .left-arrow:before{
+            border-color: #FFFFFF !important;
+        }
         .weui-dialog{
             width: auto !important;
             max-width: none !important;
             top: 43% !important;
+        }
+        .prompt{
+            .weui-dialog{
+                width: 80% !important;
+            }
         }
         .transferCon{
             padding: 1rem 1.75rem 0 1.75rem;
@@ -184,6 +217,14 @@
                 font-size: .75rem;
                 color: #FFFFFF;
                 display: block;
+            }
+            .transferCode-input{
+                .weui-icon-warn:before{
+                    font-size: .75rem;
+                }
+                [class^="weui-icon-"]:before, [class*=" weui-icon-"]:before{
+                    margin-bottom: .3rem;
+                }
             }
         }
     }

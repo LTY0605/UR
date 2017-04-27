@@ -26,9 +26,9 @@
                     <p class="cou-type">{{coupon.shop}}</p>
                     <p style="margin:0;font-size: .6rem;color: #999999">有效期：{{coupon.startTime}}～{{coupon.endTime}}</p>
                     <div style="height: auto">
-                        <p @click="explainList = index" class="couponExplain">礼券说明
-                            <span v-if="explainList != index" class="couponRight">></span></p>
-                        <p v-if="explainList == index" class="coupon-text">本券只限于购买正价商品，每个订单 限用一张。</p>
+                        <p @click="explainList = index+1" class="couponExplain">礼券说明
+                            <span v-if="explainList != index+1" class="couponRight">></span></p>
+                        <p v-if="explainList == index+1" class="coupon-text">本券只限于购买正价商品，每个订单 限用一张。</p>
                     </div>
                 </div>
                 <div @click="show" class="couList-code"></div>
