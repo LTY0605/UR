@@ -143,6 +143,18 @@
             padding: 1.25rem 0 1.75rem;
             height:auto;
             margin-top: -.04rem;
+            .imgBox{
+                width: 4.55rem;
+                height: 4.55rem;
+                border: 0.2rem solid #cdbe86;
+                border-radius: 50%;
+                overflow: hidden;
+                margin: auto;
+                img{
+                    width: 4.2rem;
+                    height: 4.2rem;
+                }
+            }
         }
         .imgBox{
             width: 4.55rem;
@@ -151,10 +163,10 @@
             border-radius: 50%;
             overflow: hidden;
             margin: auto;
-        }
-        .imgBox img{
-            width: 4.2rem;
-            height: 4.2rem;
+            img{
+                width: 4.2rem;
+                height: 4.2rem;
+            }
         }
         .loginContent{
             padding: 0 9.6%;
@@ -170,9 +182,9 @@
         }
         .mobileBox{
             padding-top: 1.25rem;
-        }
-        .mobileBox input{
-            padding-left: .4rem;
+            input{
+                padding-left: .4rem;
+            }
         }
         .mobileW{
             height: 0.8rem;
@@ -185,14 +197,15 @@
         .submitBox{
             padding-top: 1.25rem;
             height:auto;
+            button{
+                color: #fff;
+                line-height: 2rem;
+            }
         }
         .submitBox .weui-btn{
             background-color: #AB9236 !important;
             padding: 0;
             height: 2rem;
-        }
-        .submitBox button{
-            color: #fff;
         }
         button{
             padding: 0;
@@ -204,11 +217,11 @@
             text-align: center;
             padding: 5.1rem 0 1.55rem;
             height:auto;
-        }
-        .agreementBox a{
-            font-size: 0.6rem;
-            color: #999;
-            text-decoration:underline;
+            a{
+                font-size: 0.6rem;
+                color: #999;
+                text-decoration:underline;
+            }
         }
         .codeBox{
             width: 59.7%;
@@ -217,14 +230,14 @@
         .captcha{
             padding-top: .6rem;
             overflow: auto;
-        }
-        .captcha img{
-            width: .7rem;
-            height: .75rem;
-            margin-bottom: -.12rem;
-        }
-        .captcha input{
-            padding-left: .25rem;
+            img{
+                width: .7rem;
+                height: .75rem;
+                margin-bottom: -.12rem;
+            }
+            input{
+                padding-left: .25rem;
+            }
         }
         .countDown{
             font-size: .75rem;
@@ -244,10 +257,10 @@
         .forgetBox{
             padding-top: 1.5rem;
             text-align: center;
-        }
-        .forgetBox a{
-            color: #999;
-            font-size: .75rem;
+            a{
+                color: #999;
+                font-size: .75rem;
+            }
         }
         .toRight{
             padding-left: .2rem;

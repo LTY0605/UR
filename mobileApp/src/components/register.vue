@@ -322,6 +322,9 @@
         .submitBox{
             padding-top: 1.25rem;
             height:auto;
+            button{
+                line-height: 2rem;
+            }
         }
         .weui-btn{
             background-color: #AB9236 !important;
