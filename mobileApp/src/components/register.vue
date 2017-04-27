@@ -89,7 +89,7 @@
                             name="submit"
                             action-type="submit"
                             @click.native="onSubmit">{{submitText}}</x-button>
-                        <alert v-model="show" title="提交注册吗？">{{text}}</alert>
+                        <alert v-model="show" title="温馨提示">{{text}}</alert>
                         <x-dialog v-model="showNoScro" class="dialog-demo" :scroll="false">
                             <p class="dialog-title">温馨提示</p>
                             <div class="dialog-contain">

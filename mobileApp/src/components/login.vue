@@ -39,7 +39,7 @@
                         name="submit"
                         action-type="submit"
                         @click.native="login_submit">登 录</x-button>
-                    <alert v-model="loginAlert" title="确定登录吗？">{{loginText}}</alert>
+                    <alert v-model="loginAlert" title="温馨提示">{{loginText}}</alert>
                 </div>
                 <div class="forgetBox">
                     <router-link :to="{name:'register'}">立即注册 <span class="toRight">》</span></router-link>
@@ -77,7 +77,7 @@
         },
         methods: {
             login_submit () {
-                if(this.phone == ''||this.code == ''||this.showMin == false){
+                if(this.phone == ''||this.code == ''){
                     this.loginAlert = true;
                     this.loginText = '请完善表单信息'
                     return
@@ -290,11 +290,14 @@
             a{
                 color: #999;
                 font-size: .75rem;
+                height: .7rem;
+                line-height: .7rem;
+                vertical-align: baseline;
             }
         }
         .toRight{
             padding-left: .2rem;
-            font-size: .88rem;
+            font-size: .86rem;
         }
     }
 </style>
