@@ -116,7 +116,7 @@
         width: .8rem;
         height: .8rem;
         background: url("../../assets/money_code3.png");
-        background-size: 100%;
+        background-size: cover;
         top: -.15rem;
         right: .6rem;
     }
@@ -140,7 +140,7 @@
         position: relative;
         background: url("../../assets/money_new.png");
         background-repeat: no-repeat;
-        background-size: 100%;
+        background-size: contain;
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -215,7 +215,7 @@
         top: 1.8rem;
         right: 0;
         background: url("../../assets/money_code2.png");
-        background-size: 100%;
+        background-size: contain;
     }
     }
     }

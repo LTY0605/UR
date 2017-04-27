@@ -115,7 +115,7 @@
                 width: .8rem;
                 height: .8rem;
                 background: url("../../assets/money_code3.png");
-                background-size: 100%;
+                background-size: cover;
                 top: -.15rem;
                 right: .6rem;
             }
@@ -126,14 +126,14 @@
             width: 100%;
             height: 16rem;
             background: url("../../assets/background1.png");
-            background-size: 100%;
+            background-size: contain;
         }
         .integralTop-img{
             display: inline-block;
             width: 12rem;
             height: 14rem;
             background: url("../../assets/background2.png");
-            background-size: 100%;
+            background-size: contain;
             margin: .85rem auto 0 auto;
             display: flex;
             flex-direction: column;
