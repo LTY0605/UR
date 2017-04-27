@@ -219,7 +219,7 @@
         top: 1.8rem;
         right: 0;
         background: url("../../assets/money_code2.png");
-        background-size: cov;
+        background-size: cover;
     }
     }
     }
