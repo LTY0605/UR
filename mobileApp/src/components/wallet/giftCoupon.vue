@@ -199,6 +199,7 @@
       justify-content: center;
       .weui-dialog{
           width: auto;
+          max-width:none;
       }
 
    }
