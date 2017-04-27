@@ -57,6 +57,7 @@
             <div @click.stop class="payCode">
                <div class="tabTitle">
                   <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="titleTab = index">{{item.name}}</span>
+                   <span @click="showNoScroll=false" class="close"></span>
                </div>
                <div class="tabContain">
                   <div class="tabItem tab-swiper" v-if="titleTab==0">
@@ -225,6 +226,7 @@
       width: 100%;
       height: auto;
       font-size: 0;
+       position: relative;
       span{
          font-size: .75rem;
          display: inline-block;
@@ -235,6 +237,17 @@
          height: 2.5rem;
          text-align: center;
          padding-top: .25rem;
+
+      }
+      .close{
+          border-left:0;
+          width: 1rem;
+          height: 1rem;
+          background: url("../../assets/money_code3.png");
+          background-size: 100%;
+          top: 0rem;
+          right:0rem;
+          position: absolute;
 
       }
 
