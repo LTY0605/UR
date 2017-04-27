@@ -12,13 +12,15 @@
          </div>
          <div class="imgbox">
             <p class="picture">
-               <img width="100%" src="../../assets/icon_money_code.png">
+               <img @click="showNoScroll=!showNoScroll" width="100%" src="../../assets/icon_money_code.png">
             </p>
          </div>
          <div class="buttonBox">
-            <button class="Box1">扫码支付</button>
-            <button class="Box2">修改密码</button>
-            <button class="Box3">交易记录</button>
+            <button @click="showNoScroll=!showNoScroll" class="Box1">扫码支付</button>
+             <router-link :to="{name:'personMain',query:{tab:1}}">
+                 <button class="Box7">修改密码</button>
+             </router-link>
+             <router-link to="transaction"><button class="Box3">交易记录</button></router-link>
          </div>
       </div>
       <div class="gift2">
@@ -33,44 +35,44 @@
          </div>
          <div class="imgbox1">
             <p class="picture1">
-               <img  width="100%" src="../../assets/icon_money_code.png">
+               <img @click="showNoScroll=!showNoScroll" width="100%" src="../../assets/icon_money_code.png">
             </p>
          </div>
          <div class="buttonBox1">
             <div class="btnUp">
-               <button class="Box4">扫码支付</button>
-               <button class="Box5">转赠</button>
+               <button @click="showNoScroll=!showNoScroll" class="Box4">扫码支付</button>
+               <router-link to="transfer"><button class="Box5">转赠</button></router-link>
                <button class="Box6">获取转赠</button>
             </div>
             <div class="btnDown">
-               <button class="Box7">修改密码</button>
-               <button class="Box8">交易记录</button>
+                <router-link :to="{name:'personMain',query:{tab:1}}">
+                    <button class="Box7">修改密码</button>
+                </router-link>
+                <router-link to="transaction"><button class="Box8">交易记录</button></router-link>
             </div>
          </div>
       </div>
-      <div  class="page_pay">
-         <!--<x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">-->
-            <div  class="payCode">
+      <div @click="showNoScroll=false" class="page_pay">
+         <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
+            <div @click.stop class="payCode">
                <div class="tabTitle">
                   <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="titleTab = index">{{item.name}}</span>
                </div>
                <div class="tabContain">
                   <div class="tabItem tab-swiper" v-if="titleTab==0">
                      <div >
-                        <!--<x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">-->
-                           <div  class="scanPay">
-                              <p class="scanPay-title">京东储值卡</p>
-                              <div class="pay-box">
-                                 <img class="scanPay-img1" src="../../assets/money_code.png" alt=""/>
-                              </div>
-                              <p class="scanPay-number">URV00000018</p>
-                              <div class="pay-box">
-                                 <img class="scanPay-img2" src="../../assets/money_code.png" alt=""/>
-                              </div>
-                              <p class="scanPay-massege">如不能扫描请刮开密码</p>
-                              <div class="scanPay-close"></div>
+                        <div  class="scanPay">
+                           <p class="scanPay-title">京东储值卡</p>
+                           <div class="pay-box">
+                              <img class="scanPay-img1" src="../../assets/money_code.png" alt=""/>
                            </div>
-                        <!--</x-dialog>-->
+                           <p class="scanPay-number">URV00000018</p>
+                           <div class="pay-box">
+                              <img class="scanPay-img2" src="../../assets/money_code.png" alt=""/>
+                           </div>
+                           <p class="scanPay-massege">如不能扫描请刮开密码</p>
+                           <div class="scanPay-close"></div>
+                        </div>
                      </div>
                   </div>
                   <div class="tabItem" v-if="titleTab==1">
@@ -79,16 +81,16 @@
                   </div>
                </div>
             </div>
-         <!--</x-dialog>-->
+         </x-dialog>
       </div>
    </div>
 </template>
 
 <script>
-    import {XHeader, Scroller} from 'vux'
+    import {XHeader, Scroller, XDialog} from 'vux'
    export default{
        components: {
-           XHeader, Scroller
+           XHeader, Scroller, XDialog
        },
        data(){
            return{
@@ -103,6 +105,7 @@
                    number:'URV00000018',
                    money:'￥10000.00'
                }],
+               showNoScroll:false,
                titleTab: 0,
                list2: ['扫扫支付', '付款码'],
                index: 1,
@@ -193,6 +196,9 @@
    .page_pay{
       display: flex;
       justify-content: center;
+      .weui-dialog{
+          width: auto;
+      }
 
    }
    .payCode{
@@ -251,7 +257,8 @@
       font-size: .7rem;
       text-align: center;
       color: #000000;
-      margin: .5rem 4.5rem;
+       margin: .5rem auto;
+       width: 80%;
 
    }
    .pay-box{
