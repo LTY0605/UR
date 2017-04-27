@@ -64,10 +64,13 @@
                 this.titleTab = this.$route.query.tab;
             }
         },
-        methods:{
+        methods: {
             tabChange(index){
                 this.titleTab = index;
-                //this.$route.query.tab = 1;
+                    this.$router.push({
+                        name: 'personMain',
+                        query: {tab: index},
+                    });
             },
         },
         computed: {}

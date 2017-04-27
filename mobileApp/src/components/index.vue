@@ -10,7 +10,7 @@
             <div class="head-img">
                 <img src="../assets/header.png" alt=""/>
             </div>
-            <router-link to="/personMain">
+            <router-link :to="{name:'personMain',query:{tab:0}}">
                 <div class="edit"></div>
             </router-link>
             <div  @click="show" class="code"></div>
