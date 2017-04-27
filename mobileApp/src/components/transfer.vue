@@ -73,10 +73,13 @@
                 if(this.phone == '' || this.money == ''){
                     this.show2 = true;
                     this.warnText='你有信息未填写';
-                }else if(this.balance < this.money){
+                } else if(this.balance < this.money){
                     this.show2 = true;
                     this.warnText = '余额不足';
-                }else{
+                } else if(this.money < 50){
+                    this.show2 = true;
+                    this.warnText = '转赠金额不能小于50'
+                } else{
                     this.showNoScroll=true;
                     addAddressService().save({
                         cardcode: window.localStorage.getItem("cardcode"),
