@@ -132,7 +132,7 @@
                     }
 
                 }, res => {
-
+                    alert(111)
                 })
             },
             finish:function(){
@@ -159,9 +159,6 @@
     .page_login{
         .vux-header {
             background-color: #AB9236 !important;
-            .vux-header-title span{
-                font-size: .8rem;
-            }
         }
         .header{
             background-color: #AB9236;
