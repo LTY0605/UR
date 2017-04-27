@@ -230,6 +230,9 @@
         }
         .vux-header {
             background-color: #AB9236 !important;
+            .vux-header-title span{
+                font-size: .8rem;
+            }
         }
         .header{
             background-color: #AB9236;
@@ -244,11 +247,11 @@
             border-radius: 50%;
             overflow: hidden;
             margin: auto;
-        }
-        .imgBox img{
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
+            img{
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+            }
         }
         .registerContent{
             padding: 0 9.6%;
@@ -277,9 +280,11 @@
         .nameBox{
             padding-top: 1.25rem;
             height:auto;
-        }
-        .nameBox input{
-            padding-left: .25rem;
+            input{
+                padding-left: .25rem;
+                font-size: .75rem;
+                color: #999;
+            }
         }
         .input{
             height: 2rem;
@@ -296,9 +301,9 @@
         .mobileBox{
             padding-top: 0.6rem;
             height:auto;
-        }
-        .mobileBox input{
-            padding-left: 0.4rem;
+            input{
+                padding-left: 0.4rem;
+            }
         }
         .mobileW{
             height: 0.8rem;
@@ -327,6 +332,7 @@
             height:auto;
             button{
                 line-height: 2rem;
+                font-size: .75rem;
             }
         }
         .weui-btn{
@@ -351,11 +357,11 @@
             padding-top: 1.25rem;//todo  4.75
             padding: 1.25rem 0 1.2rem;
             height:auto;
-        }
-        .agreementBox a{
-            font-size: 0.6rem;
-            color: #999;
-            text-decoration:underline;
+            a{
+                font-size: 0.6rem;
+                color: #999;
+                text-decoration:underline;
+            }
         }
         .weui-cell_access .weui-cell__ft:after{
             display: none !important;

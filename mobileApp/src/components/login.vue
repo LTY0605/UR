@@ -137,6 +137,9 @@
     .page_login{
         .vux-header {
             background-color: #AB9236 !important;
+            .vux-header-title span{
+                font-size: .8rem;
+            }
         }
         .header{
             background-color: #AB9236;
@@ -184,6 +187,8 @@
             padding-top: 1.25rem;
             input{
                 padding-left: .4rem;
+                font-size: .75rem;
+                color: #999;
             }
         }
         .mobileW{
@@ -200,6 +205,7 @@
             button{
                 color: #fff;
                 line-height: 2rem;
+                font-size: .75rem;
             }
         }
         .submitBox .weui-btn{
@@ -237,6 +243,8 @@
             }
             input{
                 padding-left: .25rem;
+                font-size: .75rem;
+                color: #999;
             }
         }
         .countDown{
