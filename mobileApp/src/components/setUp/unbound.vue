@@ -26,7 +26,7 @@
         XHeader, Scroller, XInput, Group, Selector,Alert
     } from 'vux'
     import {
-        bindEditService
+        bindEditService,codeService
     } from '../../services/person.js'
     export default {
         components: {
@@ -71,8 +71,29 @@
                 })
             },
             getCode(){
-                this.showMin = true;
-                this.finish();
+                if(this.mobileTel == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请填写原手机号';
+                    return
+                }
+                codeService().save({
+                    scope:'unbind',
+                    mobileTel:this.mobileTel,
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.showNoScroll = true;
+                        this.warnText = '验证码发送成功';
+                        this.showMin = true;
+                        this.finish();
+                    } else {
+                        this.showNoScroll = true;
+                        this.warnText = '验证码发送失败，请稍后再试';
+                    }
+
+                }, res => {
+
+                })
             },
             finish() {
                 this.time = this.time - 1;

@@ -80,7 +80,7 @@
         Value2nameFilter as value2name, Name2valueFilter as name2value, Datetime, XDialog,Alert
     } from 'vux'
     import {
-        memberInfoService, infoEditService,mobileEditService
+        memberInfoService, infoEditService,mobileEditService,codeService
     } from '../../services/person.js'
     export default {
         components: {
@@ -153,8 +153,29 @@
                 })
             },
             getCode(){
-                this.showMin = true;
-                this.finish();
+                if(this.mobileTel == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请填写原手机号';
+                    return
+                }
+                codeService().save({
+                    scope:'mobileTel',
+                    mobileTel:this.mobileTel,
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.showNoScroll = true;
+                        this.warnText = '验证码发送成功';
+                        this.showMin = true;
+                        this.finish();
+                    } else {
+                        this.showNoScroll = true;
+                        this.warnText = '验证码发送失败，请稍后再试';
+                    }
+
+                }, res => {
+
+                })
             },
             finish() {
                 this.time = this.time - 1;
