@@ -1,6 +1,6 @@
 <template>
     <div class="page_personMain">
-        <x-header>设置</x-header>
+        <x-header :left-options="{backText:''}">设置</x-header>
         <div class="tabTitle">
             <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="tabChange(index)">{{item.name}}</span>
         </div>

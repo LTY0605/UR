@@ -91,6 +91,7 @@
             <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
                 <div @click.stop class="couponCode">
                     <img class="couponCode-img" src="../assets/money_code2.png" alt=""/>
+                    <div @click="hide" class="couponCode-close"></div>
                 </div>
             </x-dialog>
         </div>
@@ -407,6 +408,15 @@
                 margin: 2rem 2rem 1.75rem 2rem;
                 width: 8rem;
                 height: 8rem;
+            }
+            .couponCode-close{
+                position: absolute;
+                width: .8rem;
+                height: .8rem;
+                background: url("../assets/money_code3.png");
+                background-size: 100%;
+                top: .6rem;
+                right: .6rem;
             }
         }
     }
