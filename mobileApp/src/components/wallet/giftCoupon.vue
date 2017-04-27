@@ -144,7 +144,8 @@
       color: #ffffff;
       background-image: url("../../assets/giftBack1.png");
       background-repeat: no-repeat;
-      background-size: 100%;
+      background-size: 100% 100%;
+
       position: relative;
    }
    .massege1 {
@@ -320,7 +321,7 @@
       color: #ffffff;
       background-image: url("../../assets/giftBack2.png");
       background-repeat: no-repeat;
-      background-size: 100%;
+      background-size: 100% 100%;
       position: relative;
    }
    .list1 {
