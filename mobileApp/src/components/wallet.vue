@@ -3,7 +3,7 @@
         <x-header :left-options="{backText: ''}">我的钱包</x-header>
         <div class="tabDown">
             <cell style="background: #f2edda" is-link :border-intent="false" :arrow-direction="show ? 'up' : 'down'" @click.native="show = !show">
-                <p>礼品卡</p>
+                <p>{{titleList[titleTab].name}}</p>
             </cell>
 
             <div class="slide" :class="show?'animate':''">
@@ -15,7 +15,7 @@
 
         <div class="tabContain">
             <div class="tabItem tab-swiper" v-if="titleTab==0">
-                <card></card>
+                <giftCoupon></giftCoupon>
             </div>
             <div class="tabItem" v-if="titleTab==1">
                 <coupon></coupon>
@@ -29,11 +29,11 @@
 <script>
     import Integral from './wallet/integral.vue'
     import Coupon from './wallet/coupon.vue'
-    import Card from './wallet/card.vue'
+    import giftCoupon from './wallet/giftCoupon.vue'
     import {XHeader, Scroller, Cell} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, Integral, Coupon, Card, Cell
+            XHeader, Scroller, Integral, Coupon, giftCoupon, Cell
         },
         data () {
             return {
