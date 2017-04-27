@@ -74,7 +74,7 @@
         <!--活动-->
         <div class="action">
             <group>
-                <cell title="会员活动" link="./wallet"></cell>
+                <cell title="会员活动" link="./"></cell>
                 <ul>
                     <li v-for="(action,index) in actions">
                         <img width="24" :src="action.actionImg"></img>
