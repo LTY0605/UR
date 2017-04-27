@@ -35,6 +35,8 @@
         },
         data () {
             return {
+                showNoScroll:false,
+                warnText:'',
                 newPassword: '',
                 password: '',
                 newPassword2: '',
