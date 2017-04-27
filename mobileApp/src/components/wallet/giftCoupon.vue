@@ -72,7 +72,6 @@
                               <img class="scanPay-img2" src="../../assets/money_code.png" alt=""/>
                            </div>
                            <p class="scanPay-massege">如不能扫描请刮开密码</p>
-                           <div class="scanPay-close"></div>
                         </div>
                      </div>
                   </div>
@@ -245,12 +244,12 @@
       }
       .close{
           border-left:0;
-          width: 1rem;
-          height: 1rem;
+          width: .8rem;
+          height: .8rem;
           background: url("../../assets/money_code3.png");
           background-size: 100%;
-          top: 0rem;
-          right:0rem;
+          top: 0.3rem;
+          right:0.3rem;
           position: absolute;
 
       }

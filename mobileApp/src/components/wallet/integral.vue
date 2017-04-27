@@ -127,6 +127,7 @@
             height: 16rem;
             background: url("../../assets/background1.png");
             background-size: contain;
+            background-repeat: no-repeat;
         }
         .integralTop-img{
             display: inline-block;

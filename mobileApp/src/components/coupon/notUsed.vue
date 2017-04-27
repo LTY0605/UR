@@ -166,7 +166,7 @@
     .couList-imgType {
         font-size: .45rem;
         color: #FFFFFF;
-        margin-top: .65rem;
+        margin-top: .7rem;
         transform: scale(.8);
         width: 120%;
         text-align: center;
