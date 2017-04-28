@@ -107,10 +107,9 @@
                     console.log('密码错误')
                 } else{
                     this.warnShow = false;
-                    this.$router.push({
-                        name: 'wallet',
-                        query: {tab: 0},
-                    });
+                    this.showNoScroll = false;
+                    this.show2 = true;
+                    this.warnText = '转赠成功'
                 }
             }
         },
