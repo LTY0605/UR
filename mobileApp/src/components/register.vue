@@ -68,8 +68,6 @@
                                 cancelText="取消"
                                 confirmText="确定"
                                 v-model="value2"
-                                clear-text="清空"
-                                @on-clear="clearValue"
                                 class="input input1 text textPadding"
                                 title="出生日期"></datetime>
                         </group>
@@ -146,9 +144,6 @@
 
         },
         methods: {
-            clearValue (value) {
-                this.$data.value2 = ''
-            },
             onSubmit () {
                 if(this.user==''||this.phone==''||this.user==''||this.value2==''||this.value3==''||this.selected==''){
                   this.show =true;
