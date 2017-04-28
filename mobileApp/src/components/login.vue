@@ -82,12 +82,12 @@
                     this.loginText = '请输入手机号或者验证码'
                     return
                 }
-                var phoneData ={
+                /*var phoneData ={
                     wxOpenID:window.localStorage.getItem("wxOpenId"),
                     code:this.code,
                     mobileTel:this.phone
                 }
-                console.log(phoneData)
+                console.log(phoneData)*/
                 loginService().save({
                     wxOpenID:window.localStorage.getItem("wxOpenId"),
                     code:this.code,
@@ -105,7 +105,7 @@
                         this.loginAlert =true;
                         this.loginText = body.msg;
                     }
-                    //console.log(res);
+
                 }, res => {
 
                 })
@@ -116,11 +116,6 @@
                     this.loginText = '请输入手机号';
                     return
                 }
-                var dataCode = {
-                    scope:'login',
-                    mobileTel:this.phone,
-                }
-                //.console.log(dataCode)
                 codeService().save({
                     scope:'login',
                     mobileTel:this.phone
@@ -131,15 +126,12 @@
                         this.loginText = '验证码发送成功';
                         this.showMin = true;
                         this.finish();
-                    } else if (body.errcode == 2001) {
-                        this.loginAlert = true;
-                        this.loginText = '验证码不正确';
                     } else {
                         this.loginAlert = true;
                         this.loginText = '验证码发送失败，请稍后再试';
                     }
                 }, res => {
-                    //alert(111)
+
                 })
             },
             finish:function(){
