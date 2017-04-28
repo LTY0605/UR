@@ -103,7 +103,7 @@
                         })
                     }else{
                         this.loginAlert =true;
-                        this.loginText = '登录不成功';
+                        this.loginText = body.msg;
                     }
                     //console.log(res);
                 }, res => {
@@ -125,11 +125,7 @@
                     scope:'login',
                     mobileTel:this.phone
                 }).then(res => {
-                    console.log(res)
-                    return
                     let body = res.body;
-                    console.log(body)
-                    return
                     if (body.errcode == 0) {
                         this.loginAlert = true;
                         this.loginText = '验证码发送成功';
