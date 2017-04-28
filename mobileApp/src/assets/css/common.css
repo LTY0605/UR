@@ -13,6 +13,7 @@ html, body {
     height: 100%;
     padding: 0px;
     margin: 0px;
+    font-family: 'Verdana', "Hiragino Sans GB";
     -webkit-tap-highlight-color: transparent;
     /*overflow: hidden;*/
 }
