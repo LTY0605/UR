@@ -42,7 +42,7 @@
             <div class="btnUp">
                <button @click="showNoScroll=!showNoScroll" class="Box4">扫码支付</button>
                <router-link to="transfer"><button class="Box5">转赠</button></router-link>
-               <button class="Box6">获取转赠</button>
+               <button @click="showNoScroll2=true" class="Box6">获取转赠</button>
             </div>
             <div class="btnDown">
                 <router-link :to="{name:'personMain',query:{tab:1}}">
@@ -83,6 +83,17 @@
             </div>
          </x-dialog>
       </div>
+       <div @click="showNoScroll2=false" class="page_tran">
+           <div @click="hide2">
+               <x-dialog v-model="showNoScroll2"  class="dialog-demo" :scroll="false">
+                   <div @click.stop class="giftCode">
+                       <div class="giftCode-img"></div>
+                       <p class="giftCode-text">暂无转赠信息</p>
+                       <div @click="hide2" class="giftCode-close"></div>
+                   </div>
+               </x-dialog>
+           </div>
+       </div>
    </div>
 </template>
 
@@ -106,6 +117,7 @@
                    money:'￥10000.00'
                }],
                showNoScroll:false,
+               showNoScroll2:false,
                titleTab: 0,
                list2: ['扫扫支付', '付款码'],
                index: 1,
@@ -128,12 +140,56 @@
        },
        created(){
        },
+       methods:{
+           show() {
+               this.showNoScroll2 = true;
+           },
+           hide2() {
+               this.showNoScroll2 = false;
+           },
+       },
        computed: {}
    }
 
 </script>
 <style lang="less" rel="stylesheet/less">
    .page_giftC {
+   .page_tran{
+       .weui-dialog{
+           width: 12.5rem !important;
+           max-width: none !important;
+       }
+       .giftCode{
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           width: 12.5rem;
+           height: auto;
+           position: relative;
+           padding: 2.2rem;
+           background: white;
+           .giftCode-img{
+               width: 3rem;
+               height: 3rem;
+               background: url("../../assets/warn.png");
+               background-size: 100% 100%;
+           }
+           .giftCode-text{
+               font-size: .9rem;
+               margin-top: 1rem;
+               color: #ec6941;
+           }
+           .giftCode-close{
+               position: absolute;
+               width: .8rem;
+               height: .8rem;
+               background: url("../../assets/money_code3.png");
+               background-size: cover;
+               top: .6rem;
+               right: .6rem;
+           }
+       }
+   }
    .gift1 {
       margin: 1.2rem 1rem;
       padding: .65rem 1rem;
