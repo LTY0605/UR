@@ -79,7 +79,7 @@
             login_submit () {
                 if(this.phone == ''||this.code == ''){
                     this.loginAlert = true;
-                    this.loginText = '请完善表单信息'
+                    this.loginText = '请输入手机号或者验证码'
                     return
                 }
                 var phoneData ={
@@ -87,7 +87,7 @@
                     code:this.code,
                     mobileTel:this.phone
                 }
-                //console.log(phoneData)
+                console.log(phoneData)
                 loginService().save({
                     wxOpenID:window.localStorage.getItem("wxOpenId"),
                     code:this.code,
@@ -95,7 +95,7 @@
                 }).then(res => {
                     let body = res.body;
                     console.log(body)
-                    if(body.code == 200){
+                    if(body.errcode == 0){
                         this.loginAlert =true;
 //                        window.localStorage.setItem("cardcode",this.cardcode);
                         this.$router.push({
@@ -116,23 +116,34 @@
                     this.loginText = '请输入手机号';
                     return
                 }
+                var dataCode = {
+                    scope:'login',
+                    mobileTel:this.phone,
+                }
+                //.console.log(dataCode)
                 codeService().save({
                     scope:'login',
-                    mobileTel:this.mobileTel,
+                    mobileTel:this.phone
                 }).then(res => {
+                    console.log(res)
+                    return
                     let body = res.body;
+                    console.log(body)
+                    return
                     if (body.errcode == 0) {
                         this.loginAlert = true;
                         this.loginText = '验证码发送成功';
                         this.showMin = true;
                         this.finish();
+                    } else if (body.errcode == 2001) {
+                        this.loginAlert = true;
+                        this.loginText = '验证码不正确';
                     } else {
                         this.loginAlert = true;
                         this.loginText = '验证码发送失败，请稍后再试';
                     }
-
                 }, res => {
-                    alert(111)
+                    //alert(111)
                 })
             },
             finish:function(){
