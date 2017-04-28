@@ -164,7 +164,6 @@
             }
             .imgText-money{
                 font-size: 1rem;
-                font-weight: 600;
             }
             .couList-imgType {
                 font-size: .45rem;
