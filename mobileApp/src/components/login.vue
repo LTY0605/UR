@@ -82,19 +82,18 @@
                     this.loginText = '请输入手机号或者验证码'
                     return
                 }
-                /*var phoneData ={
+                var phoneData ={
                     wxOpenID:window.localStorage.getItem("wxOpenId"),
                     code:this.code,
                     mobileTel:this.phone
                 }
-                console.log(phoneData)*/
+                console.log(phoneData)
                 loginService().save({
                     wxOpenID:window.localStorage.getItem("wxOpenId"),
                     code:this.code,
                     mobileTel:this.phone
                 }).then(res => {
                     let body = res.body;
-                    console.log(body)
                     if(body.errcode == 0){
                         this.loginAlert =true;
 //                        window.localStorage.setItem("cardcode",this.cardcode);
