@@ -68,8 +68,6 @@
                                 cancelText="取消"
                                 confirmText="确定"
                                 v-model="value2"
-                                clear-text="清空"
-                                @on-clear="clearValue"
                                 class="input input1 text textPadding"
                                 title="出生日期"></datetime>
                         </group>
@@ -89,7 +87,7 @@
                             name="submit"
                             action-type="submit"
                             @click.native="onSubmit">{{submitText}}</x-button>
-                        <alert v-model="show" title="提交注册吗？">{{text}}</alert>
+                        <alert v-model="show" title="温馨提示">{{text}}</alert>
                         <x-dialog v-model="showNoScro" class="dialog-demo" :scroll="false">
                             <p class="dialog-title">温馨提示</p>
                             <div class="dialog-contain">
@@ -146,9 +144,6 @@
 
         },
         methods: {
-            clearValue (value) {
-                this.$data.value2 = ''
-            },
             onSubmit () {
                 if(this.user==''||this.phone==''||this.user==''||this.value2==''||this.value3==''||this.selected==''){
                   this.show =true;
@@ -232,9 +227,6 @@
         }
         .vux-header {
             background-color: #AB9236 !important;
-            .vux-header-title span{
-                font-size: .8rem;
-            }
         }
         .header{
             background-color: #AB9236;
@@ -321,7 +313,7 @@
         }
          .datatimeBox .weui-cell{
              background: url("../assets/images/date.png") 98% center no-repeat;
-             background-size: 8%;
+             background-size: 6% 50%;
          }
         .adressBox{
             padding-top: 0.6rem;
