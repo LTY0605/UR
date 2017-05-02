@@ -173,14 +173,14 @@
    #scratch{
        width: 65%;
        height: 2.2rem;
-       font-size: .75rem;
+       font-size: .7rem;
        /* line-height: 2.2rem; */
        margin: .5rem auto;
        #card {
            width: 100%;
            height: 2.2rem;
            line-height: 2.2rem;
-           font-size: .75rem;
+           font-size: .7rem;
            text-align: center;
            background: #FAFAFA;
        }

@@ -29,6 +29,9 @@
     import {
         XHeader, Scroller, XInput, Group, Selector,Alert
     } from 'vux'
+    import {
+        passwordService
+    } from '../../services/person.js'
     export default {
         components: {
             XHeader, Scroller, XInput, Group, Selector,Alert

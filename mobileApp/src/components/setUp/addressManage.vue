@@ -20,7 +20,7 @@
                         </label>
                         <span class="eddOprate">
                           <span class="edit">编辑</span>
-                          <span class="delete" @click="deleteItem(item.uid,index)">删除</span>
+                          <span class="delete" @click="deleteItem(item.id,index)">删除</span>
                       </span>
                     </li>
                 </ul>
@@ -97,7 +97,8 @@
             sureDelete(){
                 this.showNoScro = false;
                 removeService().save({
-                    uid:this.currentUid,
+                    id:this.currentUid,
+                    cardcode:window.localStorage.getItem('cardcode')
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {

@@ -41,3 +41,7 @@ export function bindEditService() {
 export function codeService() {
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/wx/verification_code')
 }
+//密码修改接口
+export function passwordService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/password/edit')
+}
