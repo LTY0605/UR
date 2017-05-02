@@ -6,7 +6,7 @@
         <!--主页头部-->
         <div class="head">
             <x-header :left-options="{backText:''}"></x-header>
-            <p class="head-name">Sara Chen</p>
+            <p class="head-name">{{customerName}}</p>
             <div class="head-img">
                 <img src="../assets/header.png" alt=""/>
             </div>
@@ -16,11 +16,11 @@
             <div  @click="show" class="code"></div>
             <flexbox :gutter="0">
                 <flexbox-item><div class="headTab vip">
-                    <p class="vip-text">8urP18121300</p>
+                    <p class="vip-text">{{cardcode}}</p>
                     <p class="vip-title">银卡会员</p>
                 </div></flexbox-item>
                 <flexbox-item><div class="headTab integral">
-                    <p class="vip-text">18800</p>
+                    <p class="vip-text">{{integral}}</p>
                     <p class="vip-title">积分</p>
                 </div></flexbox-item>
             </flexbox>
@@ -33,7 +33,7 @@
                     <p class="tab-text">所有订单</p>
                 </grid-item>
                 <grid-item>
-                    <p class="tab-badge">{{badge}}</p>
+                    <p v-if="showUnpaid" class="tab-badge">{{unpaid}}</p>
                     <img class="tab-img" slot="icon" src="../assets/icon_book_on.png">
                     <p class="tab-text">待付款</p>
                 </grid-item>
@@ -52,9 +52,17 @@
             <group>
                 <cell title="我的钱包" link="./wallet"></cell>
                 <ul>
-                    <li v-for="(wallet,index) in wallets">
-                        <p class="wallet-num">{{wallet.num}}</p>
-                        <p>{{wallet.name}}</p>
+                    <li>
+                        <p class="wallet-num">{{mycards}}</p>
+                        <p>礼品卡</p>
+                    </li>
+                    <li>
+                        <p class="wallet-num">{{coupon}}</p>
+                        <p>优惠券</p>
+                    </li>
+                    <li>
+                        <p class="wallet-num">{{integral}}可兑换</p>
+                        <p>积分</p>
                     </li>
                 </ul>
             </group>
@@ -95,41 +103,83 @@
                 </div>
             </x-dialog>
         </div>
+        <!--提示-->
+        <alert class="alert" v-model="showNoScroll2" title="温馨提示">{{warnText}}</alert>
     </div>
 
 </template>
 <script>
-    import {XHeader, Flexbox, FlexboxItem, Grid, GridItem, Group, Cell, XDialog} from 'vux'
+    import {indexService} from '../services/wallet.js'
+    import {XHeader, Flexbox, FlexboxItem, Grid, GridItem, Group, Cell, XDialog, Alert} from 'vux'
     export default {
         components: {
-            XHeader, Flexbox, FlexboxItem, Grid, GridItem, Group, Cell, XDialog
+            XHeader, Flexbox, FlexboxItem, Grid, GridItem, Group, Cell, XDialog, Alert
         },
         data(){
             return{
+                integral:'',    //积分
+                mycards:'',    //礼品卡
+                coupon:'',     //优惠券
+                unpaid:'',     //待付款
+                cardcode:'',    //会员卡号
+                customerName:'',    //会员姓名
+                headimgurl:'',  //头像地址
+                warnText:'',
+                customerName:'',
+                showUnpaid:true,
                 showNoScroll:false,
-                badge: 3,
-                wallets:[
-                    {num:'2',name:'礼品卡'},
-                    {num:'3',name:'优惠券'},
-                    {num:'18800可兑换',name:'积分'}
-                ],
+                showNoScroll2:false,
                 actions:[
                     {actionImg: require('../assets/icon_save.png'),actionText:'调查问卷'},
                     {actionImg: require('../assets/icon_dialog.png'),actionText:'时尚体验'}
                 ]
             }
         },
-        mounted(){
-        },
         watch: {},
         created(){
+            /*if(this.customerName == '' || this.customerName == undefined){
+                console.log('233');
+                this.$router.push({
+                    name:'login'
+                })
+            }*/
+        },
+        mounted(){
+            this.renderData();
+            //待付款没有时不显示红点数字
+            if(this.unpaid == null || this.unpaid == 0 || this.unpaid == ''){
+                this.showUnpaid = false;
+            }
         },
         methods:{
-            show:function () {
+            show() {
                 this.showNoScroll = true;
             },
-            hide:function () {
+            hide() {
                 this.showNoScroll = false;
+            },
+            renderData(){
+                indexService().get({
+                    wxOpenid: window.localStorage.getItem('wxOpenId'),
+                    cardcode: window.localStorage.getItem('cardcode'),
+                    customerName: window.localStorage.getItem('customerName'),
+                    headimgurl: window.localStorage.getItem('headimgurl')
+                }).then(res =>{
+                    let body = res.body;
+                    if(body.errcode == 0){
+                        this.cardcode = body.cardcode;
+                        this.integral = body.integral;
+                        this.mycards = body.mycards;
+                        this.unpaid = body.unpaid;
+                    } else{
+                        this.showNoScroll2 = true;
+                        this.warnText = body.msg;
+                        console.log('233');
+                    }
+                },res =>{
+                    this.showNoScroll2 = true;
+                    this.warnText = '请求错误';
+                })
             }
         },
         computed: {}
@@ -148,6 +198,11 @@
         .vux-header .vux-header-left .left-arrow:before{
             border: 1px solid #FFFFFF;
             border-width: 1px 0 0 1px;
+        }
+        .alert{
+            .weui-dialog{
+                width: 80% !important;
+            }
         }
         .head{
             width: 100%;
@@ -197,7 +252,7 @@
             }
             .headTab{
                 width: 100%;
-                height: auto;
+                height: 2.75rem;
                 padding: .5rem 0 .5rem 0;
                 border-top: 1px solid #C9B774;
                 border-left: 1px solid #C9B774;
