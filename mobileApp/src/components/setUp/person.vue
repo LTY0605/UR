@@ -120,10 +120,10 @@
             }
         },
         created(){
-            //this.renderData();
+            // this.renderData();
+            this.getData();
         },
         mounted(){
-            this.renderData();
         },
         methods: {
             editTel(){
@@ -193,6 +193,22 @@
                     this.time = 60;
                 }
             },
+            getData(){
+                if (window.localStorage.getItem("customerName")) {
+                    this.customerName = window.localStorage.getItem("customerName");
+                    this.sex = window.localStorage.getItem("sex");
+                    this.brithday = window.localStorage.getItem("brithday");
+                    this.provice = window.localStorage.getItem("provice");
+                    this.city = window.localStorage.getItem("city");
+                    this.district = window.localStorage.getItem("district");
+                    if (this.provice != '' && this.city != '' && this.district != '') {
+                        var attr = this.provice + ' ' + this.city + ' ' + this.district;
+                        this.attress = attr.split(" ");//地区文字转为数字，要数组
+                        var transValue = name2value(this.attress, ChinaAddressData); //把文字转为值
+                        this.attrValue = transValue.split(" ");//要数组
+                    }
+                }
+            },
             renderData(){
                 memberInfoService().get({
                     wxOpenid: window.localStorage.getItem("wxOpenId"),
@@ -226,7 +242,7 @@
                 var pro = this.attress.split(" ")
                 infoEditService().save({
                     customerName: this.customerName,
-                    cardcode: this.cardcode,
+                    cardcode: window.localStorage.getItem("cardcode"),
                     wxOpenID: window.localStorage.getItem("wxOpenId"),
                     sex: this.sex,
                     provice: pro[0],
@@ -257,11 +273,9 @@
         watch: {
             attrValue(val) {
                 this.attress = value2name(val, ChinaAddressData); //把值转为文字
-                // this.getCompany(this.address);
             },
 //            attress(val) {
 //                this.attrValue = name2value(val, ChinaAddressData); //把值转为文字
-//                // this.getCompany(this.address);
 //            },
         },
 
