@@ -16,7 +16,7 @@
             </p>
          </div>
          <div class="buttonBox">
-            <button @click="showNoScroll=!showNoScroll" class="Box1">扫码支付</button>
+            <button @click="payCard" class="Box1">扫码支付</button>
              <router-link :to="{name:'personMain',query:{tab:1}}">
                  <button class="Box7">修改密码</button>
              </router-link>
@@ -57,7 +57,6 @@
             <div @click.stop class="payCode">
                <div class="tabTitle">
                   <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="titleTab = index">{{item.name}}</span>
-                   <span @click="showNoScroll=false" class="close"></span>
                </div>
                <div class="tabContain">
                   <div class="tabItem tab-swiper" v-if="titleTab==0">
@@ -72,12 +71,16 @@
                               <img class="scanPay-img2" src="../../assets/money_code.png" alt=""/>
                            </div>
                            <p class="scanPay-massege">如不能扫描请刮开密码</p>
+                            <div id="scratch">
+                                <div id="card">￥5000000元</div>
+                            </div>
+                            <p class="pay-text"><a href="javascript:void(0)" @click="showNoScroll=false">返 回</a></p>
                         </div>
                      </div>
                   </div>
                   <div class="tabItem" v-if="titleTab==1">
                      <img class="pay-img" src="../../assets/money_code2.png" alt=""/>
-                     <p class="pay-text"><a href="#">返 回</a></p>
+                      <p class="pay-text"><a href="javascript:void(0)" @click="showNoScroll=false">返 回</a></p>
                   </div>
                </div>
             </div>
@@ -99,6 +102,7 @@
 
 <script>
     import {XHeader, Scroller, XDialog} from 'vux'
+    import LuckyCard from "../../tools/luckyCar/lucky-card";
    export default{
        components: {
            XHeader, Scroller, XDialog
@@ -137,10 +141,21 @@
            }
        },
        mounted(){
+
        },
        created(){
        },
        methods:{
+           payCard(){
+               this.showNoScroll = true;
+               LuckyCard.case({
+                   ratio: .7,
+                   coverColor:'red',
+               }, function() {
+                   alert('至于你信不信，我反正不信！');
+                   this.clearCover();
+               });
+           },
            show() {
                this.showNoScroll2 = true;
            },
@@ -153,7 +168,26 @@
 
 </script>
 <style lang="less" rel="stylesheet/less">
+    @import "../../tools/luckyCar/lucky-card.css";
    .page_giftC {
+   #scratch{
+       width: 80%;
+       height: 2.2rem;
+       font-size: .75rem;
+       /* line-height: 2.2rem; */
+       padding: .6rem;
+       margin: .5rem auto;
+       #card {
+           height: 100%;
+           font-size: .75rem;
+           text-align: center;
+           background: #FAFAFA;
+       }
+       #cover{
+           width: 100%;
+           height: 100%;
+       }
+   }
    .page_tran{
        .weui-dialog{
            width: 12.5rem !important;

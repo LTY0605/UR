@@ -64,11 +64,11 @@
             <div class="operate" @click="editTel">提交</div>
         </div>
         <!--<x-dialog v-model="showNoScroll" class="dialog-demo" :scroll="false">-->
-            <!--<p class="dialog-title">温馨提示</p>-->
-            <!--<div class="dialog-contain">-->
-                <!--{{warnText}}-->
-            <!--</div>-->
-            <!--<button class="vux-close" @click="showNoScroll=false">关闭</button>-->
+        <!--<p class="dialog-title">温馨提示</p>-->
+        <!--<div class="dialog-contain">-->
+        <!--{{warnText}}-->
+        <!--</div>-->
+        <!--<button class="vux-close" @click="showNoScroll=false">关闭</button>-->
         <!--</x-dialog>-->
         <alert v-model="showNoScroll" title="温馨提示">{{warnText}}</alert>
 
@@ -77,14 +77,14 @@
 <script>
     import {
         XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, ChinaAddressData,
-        Value2nameFilter as value2name, Name2valueFilter as name2value, Datetime, XDialog,Alert
+        Value2nameFilter as value2name, Name2valueFilter as name2value, Datetime, XDialog, Alert
     } from 'vux'
     import {
-        memberInfoService, infoEditService,mobileEditService,codeService
+        memberInfoService, infoEditService, mobileEditService, codeService
     } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, Datetime, XDialog,Alert
+            XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, Datetime, XDialog, Alert
         },
         data () {
             return {
@@ -127,15 +127,20 @@
         },
         methods: {
             editTel(){
-                if(this.mobileTel == '' || this.newMobileTel == '' || this.code == ''){
+                if (this.mobileTel == '' || this.newMobileTel == '' || this.code == '') {
                     this.showNoScroll = true;
                     this.warnText = '请全部填写';
                     return
                 }
+                if (this.newMobileTel == this.mobileTel) {
+                    this.showNoScroll = true;
+                    this.warnText = '新旧手机号不能一样';
+                    return
+                }
                 mobileEditService().save({
-                    mobileTel:this.mobileTel,
-                    newMobileTel:this.newMobileTel,
-                    code:this.code,
+                    mobileTel: this.mobileTel,
+                    newMobileTel: this.newMobileTel,
+                    code: this.code,
                     cardcode: window.localStorage.getItem("cardcode"),
                     wxOpenID: window.localStorage.getItem("wxOpenId"),
                 }).then(res => {
@@ -153,14 +158,14 @@
                 })
             },
             getCode(){
-                if(this.mobileTel == ''){
+                if (this.mobileTel == '') {
                     this.showNoScroll = true;
                     this.warnText = '请填写原手机号';
                     return
                 }
                 codeService().save({
-                    scope:'mobileTel',
-                    mobileTel:this.mobileTel,
+                    scope: 'mobileTel',
+                    mobileTel: this.mobileTel,
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {
@@ -195,7 +200,7 @@
                     let body = res.body;
                     if (body.errcode == 0) {
                         this.cardcode = body.cardcode;
-                        window.localStorage.setItem("cardcode",this.cardcode);
+                        window.localStorage.setItem("cardcode", this.cardcode);
                         this.customerName = body.customerName;
                         this.sex = body.sex;
                         this.brithday = body.brithday;
