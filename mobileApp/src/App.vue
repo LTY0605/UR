@@ -42,8 +42,8 @@
         },
         methods: {
             renderOpen(){
-                let wxOpenId = this.getParams("wxOpenId");
-                //let wxOpenId = 'odaBLwEfMOFDB5ATyqZwQco5Aaxo';
+                //let wxOpenId = this.getParams("wxOpenId");
+                let wxOpenId = 'odaBLwEfMOFDB5ATyqZwQco5Aaxo';
 //                let wxOpenId = 'o4r_GjkqReCgX_u9KFWL6oEIzbOU';
                 if (wxOpenId && wxOpenId != '') {
                     window.localStorage.setItem("wxOpenId", wxOpenId);
