@@ -252,7 +252,7 @@
             }
             .headTab{
                 width: 100%;
-                height: 2.75rem;
+                height: auto;
                 padding: .5rem 0 .5rem 0;
                 border-top: 1px solid #C9B774;
                 border-left: 1px solid #C9B774;
