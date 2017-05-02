@@ -8,7 +8,7 @@
             <x-header :left-options="{backText:''}"></x-header>
             <p class="head-name">{{customerName}}</p>
             <div class="head-img">
-                <img :src="imgHead" alt=""/>
+                <img :src="headimgurl" alt=""/>
             </div>
             <router-link :to="{name:'personMain',query:{tab:0}}">
                 <div class="edit"></div>
@@ -117,14 +117,13 @@
         },
         data(){
             return{
-                imgHead:require('../assets/header.png'),
                 integral:'',    //积分
                 mycards:'',    //礼品卡
                 coupon:'',     //优惠券
                 unpaid:'',     //待付款
                 cardcode:'',    //会员卡号
                 customerName:'',    //会员姓名
-                headimgurl:'',  //头像地址
+                headimgurl: require('../assets/header.png'),  //头像地址
                 warnText:'',
                 customerName:'',
                 showUnpaid:true,
@@ -138,27 +137,25 @@
         },
         watch: {},
         created(){
-            this.kk();
-            /*if(this.customerName == '' || this.customerName == undefined){
-                console.log('233');
-                this.$router.push({
-                    name:'login'
-                })
-            }*/
+            this.personData();
         },
         mounted(){
             this.renderData();
             //待付款没有时不显示红点数字
-            if(this.unpaid == null || this.unpaid == 0 || this.unpaid == ''){
-                this.showUnpaid = false;
-            }
+            this.payment();
         },
         methods:{
-            kk(){
-                if(window.localStorage.getItem('headimgurl') && window.localStorage.getItem('headimgurl')!=''){
-                    this.imgHead = window.localStorage.getItem('headimgurl');
+            personData(){
+                if(window.localStorage.getItem('headimgurl') && window.localStorage.getItem('headimgurl') != ''){
+                    this.headimgurl = window.localStorage.getItem('headimgurl');
                 }
-                this.customerName = window.localStorage.getItem('customerName')
+                this.customerName = window.localStorage.getItem('customerName');
+                this.cardcode = window.localStorage.getItem('cardcode');
+                if(this.customerName == '' || this.customerName == undefined || this.customerName == null){
+                    this.$router.push({
+                        name: 'login'
+                    })
+                }
             },
             show() {
                 this.showNoScroll = true;
@@ -166,12 +163,14 @@
             hide() {
                 this.showNoScroll = false;
             },
+            payment(){
+                if(this.unpaid == null || this.unpaid == 0 || this.unpaid == ''){
+                    this.showUnpaid = false;
+                }
+            },
             renderData(){
                 indexService().get({
-                    wxOpenid: window.localStorage.getItem('wxOpenId'),
-                    cardcode: window.localStorage.getItem('cardcode'),
-                    customerName: window.localStorage.getItem('customerName'),
-                    headimgurl: window.localStorage.getItem('headimgurl')
+                    cardcode: window.localStorage.getItem('cardcode')
                 }).then(res =>{
                     let body = res.body;
                     if(body.errcode == 0){
@@ -260,7 +259,7 @@
             }
             .headTab{
                 width: 100%;
-                height: auto;
+                height: 2.75rem;
                 padding: .5rem 0 .5rem 0;
                 border-top: 1px solid #C9B774;
                 border-left: 1px solid #C9B774;
