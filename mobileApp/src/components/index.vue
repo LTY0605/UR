@@ -8,7 +8,7 @@
             <x-header :left-options="{backText:''}"></x-header>
             <p class="head-name">{{customerName}}</p>
             <div class="head-img">
-                <img src="../assets/header.png" alt=""/>
+                <img :src="imgHead" alt=""/>
             </div>
             <router-link :to="{name:'personMain',query:{tab:0}}">
                 <div class="edit"></div>
@@ -117,6 +117,7 @@
         },
         data(){
             return{
+                imgHead:require('../assets/header.png'),
                 integral:'',    //积分
                 mycards:'',    //礼品卡
                 coupon:'',     //优惠券
@@ -137,6 +138,7 @@
         },
         watch: {},
         created(){
+            this.kk();
             /*if(this.customerName == '' || this.customerName == undefined){
                 console.log('233');
                 this.$router.push({
@@ -152,6 +154,12 @@
             }
         },
         methods:{
+            kk(){
+                if(window.localStorage.getItem('headimgurl') && window.localStorage.getItem('headimgurl')!=''){
+                    this.imgHead = window.localStorage.getItem('headimgurl');
+                }
+                this.customerName = window.localStorage.getItem('customerName')
+            },
             show() {
                 this.showNoScroll = true;
             },
