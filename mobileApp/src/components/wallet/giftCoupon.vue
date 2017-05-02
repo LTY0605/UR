@@ -59,7 +59,7 @@
                   <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="titleTab = index">{{item.name}}</span>
                </div>
                <div class="tabContain">
-                  <div class="tabItem tab-swiper" v-if="titleTab==0">
+                  <div class="tabItem tab-swiper" v-show="titleTab==0">
                      <div >
                         <div  class="scanPay">
                            <p class="scanPay-title">京东储值卡</p>
@@ -78,7 +78,7 @@
                         </div>
                      </div>
                   </div>
-                  <div class="tabItem" v-if="titleTab==1">
+                  <div class="tabItem" v-show="titleTab==1">
                      <img class="pay-img" src="../../assets/money_code2.png" alt=""/>
                       <p class="pay-text"><a href="javascript:void(0)" @click="showNoScroll=false">返 回</a></p>
                   </div>
