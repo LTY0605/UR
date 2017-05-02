@@ -253,6 +253,11 @@
                     if (body.errcode == 0) {
                         this.showNoScroll = true;
                         this.warnText = '修改成功';
+                        window.localStorage.setItem("sex", this.sex);
+                        window.localStorage.setItem("provice", pro[0]);
+                        window.localStorage.setItem("customerName", this.customerName);
+                        window.localStorage.setItem("district", pro[2]);
+                        window.localStorage.setItem("city", pro[1]);
                     } else {
                         this.showNoScroll = true;
                         this.warnText = '修改失败';
