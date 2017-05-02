@@ -80,6 +80,7 @@
                     this.warnText = '您有信息未填写';
                     return
                 }
+                var pro = this.address.split(" ");
                 var selected = 1;
                 if (this.selected == true) {
                     selected = 0;
@@ -92,8 +93,11 @@
                     consignee: this.consignee,
                     mobileTel: this.mobileTel,
                     wxOpenID: window.localStorage.getItem("wxOpenId"),
-                    address: this.address + this.addressDeep,
-                    default: selected
+                    address: this.addressDeep,
+                    provice: pro[0],
+                    city: pro[1],
+                    district: pro[2],
+                    isdefault: selected
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {

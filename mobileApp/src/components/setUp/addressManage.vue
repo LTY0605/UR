@@ -8,14 +8,14 @@
                         <span class="liCode">{{item.mobileTel}}</span>
                     </li>
                     <li>
-                        <span class="addressItem">广东省 广州市 天河区</span>
+                        <span class="addressItem">{{item.provice}} {{item.city}} {{item.district}}</span>
                     </li>
                     <li>
                         <span>{{item.address}}</span>
                     </li>
                     <li>
                         <label class="editAtt" @click="changeDefalt(index)">
-                            <input class="check" type="radio" name="radio1" :checked="item.default==0"  :value="item.uid">
+                            <input class="check" type="radio" name="radio1" :checked="item.isdefault==0"  :value="item.uid">
                             <span>默认地址</span>
                         </label>
                         <span class="eddOprate">
@@ -68,7 +68,7 @@
         },
         methods: {
             changeDefalt(index){
-                this.dataList[index].default = 0;
+                this.dataList[index].isdefault = 0;
             },
             renderData(){
                 addressListService().save({
