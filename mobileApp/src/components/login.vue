@@ -60,7 +60,7 @@
 </template>
 <script>
     import { loginService,codeService  } from '../services/member.js'
-    import { Alert,XButton,XHeader,Scroller,Group,XInput  } from 'vux'
+    import { Alert,XButton,XHeader,Scroller,Group,XInput,XDialog  } from 'vux'
     export default {
         components: {
             XHeader,
@@ -69,6 +69,7 @@
             XInput,
             XButton,
             Alert,
+            XDialog
         },
         data () {
             return {
