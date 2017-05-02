@@ -75,10 +75,10 @@
                     <div class="adressBox">
                         <group>
                             <x-address
-                                v-model="value3"
+                                v-model="attrValue"
                                 class="input input1 text"
                                 title="选择地区"
-                                raw-value :list="addressData"></x-address>
+                                :list="addressData"></x-address>
                         </group>
                     </div>
                     <div class="submitBox">
@@ -105,7 +105,8 @@
 </template>
 <script>
     import { registerService  } from '../services/member.js'
-    import { XDialog,Alert,XHeader,Scroller,XInput,Datetime,XAddress,XButton,Group,ChinaAddressData  } from 'vux'
+    import { XDialog,Alert,XHeader,Scroller,XInput,Datetime,XAddress,XButton,Group,ChinaAddressData,
+        Value2nameFilter as value2name, Name2valueFilter as name2value} from 'vux'
     export default {
         components: {
             XDialog,
@@ -132,8 +133,8 @@
                 iconType: '',
                 value2: '',
                 addressData: ChinaAddressData,
-                value3:[],
-                selected: '',
+                attrValue:[],
+                selected: 1,
                 zhengze_name: function (value) {
                     return {
                         valid: /^[A-Za-z0-9_\u4e00-\u9fa5]{4,16}$/.test(value),
@@ -143,27 +144,26 @@
             }
 
         },
+
         methods: {
             onSubmit () {
-                if(this.user==''||this.phone==''||this.user==''||this.value2==''||this.value3==''||this.selected==''){
+                if(this.user == ''|| this.phone=='' || this.value2=='' || this.attrValue.length == 0){
                   this.show =true;
                     this.text = '请完善表单信息'
                     return
                 }
-                var memberData={
-                    customerName:this.user,
-                    mobileTel:this.phone,
-                    brithday:this.value2,
-                    sex:this.selected,
-                    wxOpenID:window.localStorage.getItem("wxOpenId"),
-                };
-                //console.log(memberData)
+                var attress = value2name(this.attrValue, ChinaAddressData);
+                var pro = attress.split(" ");
+                //console.log(pro,'9999')
                 registerService().save({
                     customerName:this.user,
                     mobileTel:this.phone,
                     brithday:this.value2,
                     sex:this.selected,
-                    wxOpenID:window.localStorage.getItem("wxOpenId")
+                    wxOpenID:window.localStorage.getItem("wxOpenId"),
+                    provice: pro[0],
+                    city: pro[1],
+                    district: pro[2]
                 }).then(res => {
                     let body = res.body;
                     //console.log(body)

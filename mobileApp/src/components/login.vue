@@ -49,6 +49,13 @@
                 </div>
             </div>
         </div>
+        <x-dialog v-model="showNoScroll" class="dialog-demo" :scroll="false">
+        <p class="dialog-title">温馨提示</p>
+        <div class="dialog-contain">
+        {{warnText}}
+        </div>
+        <button class="vux-close" @click="goLink">确定</button>
+        </x-dialog>
     </div>
 </template>
 <script>
@@ -65,6 +72,8 @@
         },
         data () {
             return {
+                showNoScroll:false,
+                warnText:'',
                 phone: '',
                 loginText:'登录',
                 loginAlert:false,
@@ -76,6 +85,12 @@
 
         },
         methods: {
+            goLink(){
+                this.showNoScroll = false;
+                this.$router.push({
+                    name: 'index',
+                });
+            },
             login_submit () {
                 if(this.phone == ''||this.code == ''){
                     this.loginAlert = true;
@@ -97,10 +112,20 @@
                     console.log(body)
                     if(body.errcode == 0){
                         this.loginAlert =true;
-//                        window.localStorage.setItem("cardcode",this.cardcode);
-                        this.$router.push({
-                            name: 'index'
-                        })
+                        this.loginText = '登录成功';
+                        //window.localStorage.setItem("wxOpenId", body.wxOpenId);
+                        window.localStorage.setItem("cardcode", body.cardcode);
+                        window.localStorage.setItem("sex", body.sex);
+                        window.localStorage.setItem("provice", body.provice);
+                        window.localStorage.setItem("brithday", body.brithday);
+                        window.localStorage.setItem("customerName", body.customerName);
+                        window.localStorage.setItem("district", body.district);
+                        window.localStorage.setItem("city", body.city);
+                        window.localStorage.setItem("mobileTel", body.mobileTel);
+                        window.localStorage.setItem("headimgurl", body.headimgurl);
+                            this.$router.push({
+                                name: 'index'
+                            })
                     }else{
                         this.loginAlert =true;
                         this.loginText = body.msg;
