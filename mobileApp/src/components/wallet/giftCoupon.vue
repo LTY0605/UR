@@ -40,7 +40,7 @@
          </div>
          <div class="buttonBox1">
             <div class="btnUp">
-               <button @click="showNoScroll=!showNoScroll" class="Box4">扫码支付</button>
+               <button @click="payCard" class="Box4">扫码支付</button>
                <router-link to="transfer"><button class="Box5">转赠</button></router-link>
                <button @click="showNoScroll2=true" class="Box6">获取转赠</button>
             </div>
@@ -102,7 +102,7 @@
 
 <script>
     import {XHeader, Scroller, XDialog} from 'vux'
-    import LuckyCard from "../../tools/luckyCar/lucky-card";
+    import LuckyCard from "../../tools/luckyCar/lucky-card.min";
    export default{
        components: {
            XHeader, Scroller, XDialog
@@ -148,13 +148,13 @@
        methods:{
            payCard(){
                this.showNoScroll = true;
-               LuckyCard.case({
-                   ratio: .7,
-                   coverColor:'red',
-               }, function() {
-                   alert('至于你信不信，我反正不信！');
-                   this.clearCover();
-               });
+               setTimeout(function () {
+                   LuckyCard.case({
+                       ratio: .9,
+                   }, function() {
+                       this.clearCover();
+                   });
+               },300)
            },
            show() {
                this.showNoScroll2 = true;
@@ -171,14 +171,15 @@
     @import "../../tools/luckyCar/lucky-card.css";
    .page_giftC {
    #scratch{
-       width: 80%;
+       width: 65%;
        height: 2.2rem;
        font-size: .75rem;
        /* line-height: 2.2rem; */
-       padding: .6rem;
        margin: .5rem auto;
        #card {
-           height: 100%;
+           width: 100%;
+           height: 2.2rem;
+           line-height: 2.2rem;
            font-size: .75rem;
            text-align: center;
            background: #FAFAFA;
@@ -354,7 +355,7 @@
    }
    .scanPay{
       width: 12.5rem;
-      height:15.1rem;
+      height:auto;
       position: relative;
       background: white;
       font-size: 0;
