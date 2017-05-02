@@ -97,10 +97,21 @@
                     console.log(body)
                     if(body.errcode == 0){
                         this.loginAlert =true;
-//                        window.localStorage.setItem("cardcode",this.cardcode);
-                        this.$router.push({
-                            name: 'index'
-                        })
+                        this.loginText = '登录成功,正在跳转...';
+                        window.localStorage.setItem("cardcode", body.cardcode);
+                        window.localStorage.setItem("sex", body.sex);
+                        window.localStorage.setItem("provice", body.provice);
+                        window.localStorage.setItem("brithday", body.brithday);
+                        window.localStorage.setItem("customerName", body.customerName);
+                        window.localStorage.setItem("district", body.district);
+                        window.localStorage.setItem("city", body.city);
+                        window.localStorage.setItem("mobileTel", body.mobileTel);
+                        window.localStorage.setItem("headimgurl", body.headimgurl);
+                        setTimeout(function () {
+                            this.$router.push({
+                                name: 'index'
+                            })
+                        },300)
                     }else{
                         this.loginAlert =true;
                         this.loginText = body.msg;
