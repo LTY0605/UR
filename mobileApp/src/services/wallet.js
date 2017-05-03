@@ -7,5 +7,5 @@ import {HTTP_REMOTE} from './index'
 
 //主页
 export function indexService() {
-    return Vue.resource(HTTP_REMOTE)
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/homepage/info')
 }
