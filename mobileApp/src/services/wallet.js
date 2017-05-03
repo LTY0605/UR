@@ -9,3 +9,7 @@ import {HTTP_REMOTE} from './index'
 export function indexService() {
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/homepage/info')
 }
+//积分使用码
+export function integralCode(){
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member//integral/total')
+}

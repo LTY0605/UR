@@ -1,12 +1,14 @@
 <template>
     <div class="page_integral">
+        <!--积分头部-->
         <div class="integralTop">
             <div class="integralTop-img">
                 <h1 class="integralTop-h1">{{integral}}</h1>
                 <p class="integralTop-p">可用积分</p>
             </div>
-            <span class="integralTop-text">积分规则</span>
+            <span @click="show2" class="integralTop-text">积分规则</span>
         </div>
+        <!--积分列表-->
         <group class="integralList">
             <div @click="show">
                 <cell title="积分使用码">
@@ -25,43 +27,87 @@
                 </cell>
             </router-link>
         </group>
+        <!--积分使用码-->
         <div @click="hide">
             <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
                 <div @click.stop class="integralCode">
                     <p class="integralCode-title">积分使用时交给店员扫一扫</p>
                     <img class="integralCode-img" src="../../assets/money_code.png" alt=""/>
-                    <p class="integralCode-code">{{code}}</p>
+                    <p class="integralCode-code">{{paymentCode}}</p>
                     <div @click="hide" class="integralCode-close"></div>
                 </div>
             </x-dialog>
         </div>
+        <!--温馨提示-->
+        <alert class="alert" v-model="showNoScroll2" title="温馨提示">{{warnText}}</alert>
     </div>
 </template>
 <script>
-    import {XHeader,XDialog, Scroller, Group, Cell} from 'vux'
+    import {indexService,integralCode} from '../../services/wallet.js'
+    import {XHeader,XDialog, Scroller, Group, Cell, Alert} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, Group, Cell,XDialog
+            XHeader, Scroller, Group, Cell, XDialog, Alert
         },
         data () {
             return {
-                integral: '18800',
-                code: '111039',
+                integralTotal: '',   //可用积分
+                paymentCode: '',    //积分使用码
+                warnText: '',
                 showNoScroll:false,
+                showNoScroll2:false
             }
         },
         methods:{
-            show:function () {
+            show(){
                 this.showNoScroll = true;
             },
-            hide:function () {
+            show2(){
+                this.showNoScroll2 = true;
+                this.warnText = '积分使用码过期时间5分钟';
+            },
+            hide(){
                 this.showNoScroll = false;
+            },
+            codeData(){
+                integralCode().get({
+                    cardcode:window.localStorage.getItem('cardcode')
+                }).then(res =>{
+                    let body = res.body;
+                    if(body.errcode==0){
+                        this.paymentCode = body.paymentCode;
+                    } else{
+                        this.showNoScroll2 = true;
+                        this.warnText = body.msg;
+                    }
+                }),res =>{
+                    this.showNoScroll2 = true;
+                    this.warnText = '请求错误';
+                }
+            },
+            integralData(){
+                indexService().get({
+                    cardcode:window.localStorage.getItem('cardcode')
+                }).then(res =>{
+                    let body = res.body;
+                    if(body.errcode==0){
+                        this.integralTotal = body.integralTotal;
+                    }else{
+                        this.showNoScroll2 = true;
+                        this.warnText = body.msg;
+                    }
+                }), res =>{
+                    this.showNoScroll2 = true;
+                    this.warnText = '请求错误';
+                }
             }
         },
         mounted(){
+            this.codeData();
         },
         watch: {},
         created(){
+            this.integralData();
         },
         computed: {}
     }
@@ -89,6 +135,11 @@
             width: auto !important;
             max-width: none !important;
             top: 35% !important;
+        }
+        .alert{
+            .weui-dialog{
+                width: 80% !important;
+            }
         }
         .integralCode{
             width: 12.5rem;
