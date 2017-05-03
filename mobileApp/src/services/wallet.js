@@ -10,6 +10,10 @@ export function indexService() {
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/homepage/info')
 }
 //积分使用码
+export function paymentCode() {
+    return Vue.resource(HTTP_REMOTE + 'ur_crm/admin/sys/member/integral/paymentCode')
+}
+//可用积分
 export function integralCode(){
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member//integral/total')
 }
