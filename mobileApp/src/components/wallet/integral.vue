@@ -3,7 +3,7 @@
         <!--积分头部-->
         <div class="integralTop">
             <div class="integralTop-img">
-                <h1 class="integralTop-h1">{{integral}}</h1>
+                <h1 class="integralTop-h1">{{integralTotal}}</h1>
                 <p class="integralTop-p">可用积分</p>
             </div>
             <span @click="show2" class="integralTop-text">积分规则</span>
@@ -43,7 +43,7 @@
     </div>
 </template>
 <script>
-    import {integralCode} from '../../services/wallet.js'
+    import {paymentCode,integralCode} from '../../services/wallet.js'
     import {XHeader,XDialog, Scroller, Group, Cell, Alert} from 'vux'
     export default {
         components: {
@@ -80,10 +80,8 @@
                         this.showNoScroll2 = true;
                         this.warnText = body.msg;
                     }
-                }),res =>{
-                    this.showNoScroll2 = true;
-                    this.warnText = '请求错误';
-                }
+                },res =>{
+                })
             },
             integralData(){
                 integralCode().get({
@@ -96,10 +94,8 @@
                         this.showNoScroll2 = true;
                         this.warnText = body.msg;
                     }
-                }), res =>{
-                    this.showNoScroll2 = true;
-                    this.warnText = '请求错误';
-                }
+                }, res =>{
+                })
             }
         },
         mounted(){
