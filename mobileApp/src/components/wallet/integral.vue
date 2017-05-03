@@ -43,7 +43,7 @@
     </div>
 </template>
 <script>
-    import {indexService,integralCode} from '../../services/wallet.js'
+    import {integralCode} from '../../services/wallet.js'
     import {XHeader,XDialog, Scroller, Group, Cell, Alert} from 'vux'
     export default {
         components: {
@@ -70,7 +70,7 @@
                 this.showNoScroll = false;
             },
             codeData(){
-                integralCode().get({
+                paymentCode().get({
                     cardcode:window.localStorage.getItem('cardcode')
                 }).then(res =>{
                     let body = res.body;
@@ -86,7 +86,7 @@
                 }
             },
             integralData(){
-                indexService().get({
+                integralCode().get({
                     cardcode:window.localStorage.getItem('cardcode')
                 }).then(res =>{
                     let body = res.body;
@@ -103,10 +103,10 @@
             }
         },
         mounted(){
-            this.codeData();
         },
         watch: {},
         created(){
+            this.codeData();
             this.integralData();
         },
         computed: {}

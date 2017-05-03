@@ -138,11 +138,11 @@
         watch: {},
         created(){
             this.personData();
-        },
-        mounted(){
             this.renderData();
             //待付款没有时不显示红点数字
             this.payment();
+        },
+        mounted(){
         },
         methods:{
             personData(){
