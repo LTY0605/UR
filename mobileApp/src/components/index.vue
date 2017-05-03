@@ -151,12 +151,6 @@
                 }
                 this.customerName = window.localStorage.getItem('customerName');
                 this.cardcode = window.localStorage.getItem('cardcode');
-                //检测是否登录
-                if(this.customerName == '' || this.customerName == undefined || this.customerName == null){
-                    this.$router.push({
-                        name: 'login'
-                    })
-                }
             },
             show() {
                 this.showNoScroll = true;
