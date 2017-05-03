@@ -11,12 +11,6 @@
                 <!--{{time1 | date('YYYY-MM-DD HH:mm:ss')}}-->
                 <sample :dataList="dataList"></sample>
             </div>
-            <!--<div class="tabItem" v-if="titleTab==1">-->
-            <!--<sample></sample>-->
-            <!--</div>-->
-            <!--<div class="tabItem" v-if="titleTab==2">-->
-            <!--<sample></sample>-->
-            <!--</div>-->
         </div>
         <!--</scroller>-->
         <alert v-model="showNoScroll" title="温馨提示">{{warnText}}</alert>
@@ -28,13 +22,12 @@
         integralService
     } from '../services/integral.js'
     import sample from './myBill/sample.vue'
-    import sampleT from './myBill/sampleT.vue'
     import {XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar,
         Cell, Group, InlineCalendar,Alert} from 'vux'
     export default {
         components: {
             XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar, Cell, Group,
-            InlineCalendar, sampleT, sample,Alert
+            InlineCalendar, sample,Alert
         },
         data () {
             return {
@@ -45,21 +38,7 @@
                 index: 1,
                 time: '',
                 currentCode: 0,
-                dataList: [
-                    {
-                        integralBillNO: 'OS201704120289',
-                        integralTypeName: '消费',
-                        integralType: "2",
-                        integralDate: '2017-04-12 15:30:28',
-                        integral: '300.00'
-                    },
-                    {
-                        integralDate: "2016-05-26T07:37:58.413Z",
-                        integralTypeName: "兑换",
-                        integralType: "7",
-                        integral: -1000,
-                    }
-                ],
+                dataList: [],
                 titleList: [
                     {
                         code: 0,
