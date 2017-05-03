@@ -5,7 +5,7 @@
                 <li>
                     <group>
                         <x-input type="password" title="原密码" placeholder="原密码"  :max="11" :is-type="bePassWord"
-                                 v-model="password"></x-input>
+                                 v-model="oldPassword"></x-input>
                     </group>
                 </li>
                 <li>
@@ -41,7 +41,7 @@
                 showNoScroll:false,
                 warnText:'',
                 newPassword: '',
-                password: '',
+                oldPassword: '',
                 newPassword2: '',
                 bePassWord: function (value) {
                 return {
@@ -55,7 +55,34 @@
         },
         methods: {
             passWordEdit(){
+                if (this.oldPassword == '' || this.newPassword == '' || this.newPassword2 == '') {
+                    this.showNoScroll = true;
+                    this.warnText = '您有信息未填写';
+                    return
+                }
+                if (this.newPassword2 != this.newPassword) {
+                    this.showNoScroll = true;
+                    this.warnText = '两次输入的密码不一致';
+                    return
+                }
+                passwordService().save({
+                    oldpassword:this.oldPassword,
+                    newpassword:this.newPassword,
+                    confirmpassword:this.newPassword2,
+                    cardcode: window.localStorage.getItem("cardcode"),
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.showNoScroll = true;
+                        this.warnText = '修改成功';
+                    }else{
+                        this.showNoScroll = true;
+                        this.warnText = body.errmsg;
+                    }
 
+                }, res => {
+
+                })
             },
         },
         watch: {},
