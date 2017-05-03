@@ -175,7 +175,6 @@
                 }).then(res =>{
                     let body = res.body;
                     if(body.errcode == 0){
-                        this.cardcode = body.cardcode;
                         this.integral = body.integral;
                         this.mycards = body.mycards;
                         this.unpaid = body.unpaid;
