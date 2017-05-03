@@ -8,10 +8,12 @@
             <span class="integralTop-text">积分规则</span>
         </div>
         <group class="integralList">
-            <cell title="积分使用码">
-                <img class="listImg" slot="icon" width="16" src="../../assets/icon_gift.png">
-                <img class="listRight" @click="show" slot="icon" width="15" src="../../assets/icon_money_code.png">
-            </cell>
+            <div @click="show">
+                <cell title="积分使用码">
+                    <img class="listImg" slot="icon" width="16" src="../../assets/icon_gift.png">
+                    <img class="listRight" @click="show" slot="icon" width="15" src="../../assets/icon_money_code.png">
+                </cell>
+            </div>
             <cell title="积分商城">
                 <img class="listImg" slot="icon" width="16" src="../../assets/icon_home.png">
                 <img class="listRight" slot="icon" width="7" src="../../assets/icon_right_on.png">
@@ -126,7 +128,7 @@
             width: 100%;
             height: 16rem;
             background: url("../../assets/background1.png");
-            background-size: contain;
+            background-size: 100% 100%;
             background-repeat: no-repeat;
         }
         .integralTop-img{
