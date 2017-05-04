@@ -93,6 +93,7 @@
                 });
             },
             login_submit () {
+                let _this = this;
                 if(this.phone == ''||this.code == ''){
                     this.loginAlert = true;
                     this.loginText = '请输入手机号或者验证码'
@@ -124,9 +125,12 @@
                         window.localStorage.setItem("city", body.city);
                         window.localStorage.setItem("mobileTel", body.mobileTel);
                         window.localStorage.setItem("headimgurl", body.headimgurl);
-                            this.$router.push({
+                        setTimeout(function () {
+                            _this.$router.push({
                                 name: 'index'
                             })
+                        },1000)
+
                     }else{
                         this.loginAlert =true;
                         this.loginText = body.msg;

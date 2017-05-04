@@ -45,8 +45,8 @@
                 id:this.$route.query.id,
                 showNoScro:false,
                 warnText2:'',
-                showNoScroll:true,
-                warnText:'1313',
+                showNoScroll:false,
+                warnText:'',
             }
         },
         mounted(){
@@ -64,6 +64,7 @@
             },
             sureDelete(){
                 this.showNoScro = false;
+                let _this = this;
                 removeService().save({
                     id:this.id,
                     cardcode:window.localStorage.getItem('cardcode')
@@ -73,12 +74,11 @@
                         this.showNoScroll = true;
                         this.warnText = '删除成功';
                         setTimeout(function () {
-                            this.$router.push({
+                            _this.$router.push({
                                 name: 'personMain',
                                 query: {tab: 3},
                             });
-                        },300)
-
+                        },1000)
                     }else{
                         this.showNoScroll = true;
                         this.warnText = '删除失败';
@@ -87,6 +87,7 @@
 
                 })
             },
+
         },
         computed: {}
     }
