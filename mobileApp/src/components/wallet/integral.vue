@@ -32,18 +32,18 @@
             <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
                 <div @click.stop class="integralCode">
                     <p class="integralCode-title">积分使用时交给店员扫一扫</p>
-                    <img class="integralCode-img" src="../../assets/money_code.png" alt=""/>
-                    <p class="integralCode-code">{{paymentCode}}</p>
+                    <img class="integralCode-img" :src="barcode+'?text='+paymentCode" alt=""/>
                     <div @click="hide" class="integralCode-close"></div>
                 </div>
             </x-dialog>
         </div>
         <!--温馨提示-->
         <toast v-model="showNoScroll2" type="text" :time="1000">{{warnText}}</toast>
-        <alert class="alert" v-model="showNoScroll3" title="积分规则">{{integralRule}}</alert>
+        <alert class="alert" v-model="showNoScroll2" title="温馨提示">{{integralRule}}</alert>
     </div>
 </template>
 <script>
+    import {URL_getBarcode} from '../../services/index.js'
     import {paymentCode,integralCode} from '../../services/wallet.js'
     import {XHeader,XDialog, Scroller, Group, Cell, Alert, Toast} from 'vux'
     export default {
@@ -54,6 +54,7 @@
             return {
                 integralTotal: '',   //可用积分
                 paymentCode: '',    //积分使用码
+                barcode:'',
                 warnText: '',
                 integralRule:'',
                 showNoScroll:false,
@@ -107,6 +108,7 @@
         created(){
             this.codeData();
             this.integralData();
+            this.barcode = URL_getBarcode;
         },
         computed: {}
     }
@@ -157,7 +159,7 @@
             }
             .integralCode-img{
                 width: 7.85rem;
-                height: 2.2rem;
+                height: 3.5rem;
             }
             .integralCode-code{
                 font-size: .6rem;

@@ -17,11 +17,3 @@ export function paymentCode() {
 export function integralCode(){
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member//integral/total')
 }
-//条形码接口
-export function barCode() {
-    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/barcode/getBarcode')
-}
-//二维码接口
-export  function twoCode() {
-    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/qrcode/getQRCode')
-}
