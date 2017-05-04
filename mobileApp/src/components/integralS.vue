@@ -13,7 +13,8 @@
             </div>
         </div>
         <!--</scroller>-->
-        <alert v-model="showNoScroll" title="温馨提示">{{warnText}}</alert>
+        <toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>
+        <!--<alert v-model="showNoScroll" title="温馨提示">{{warnText}}</alert>-->
     </div>
 </template>
 
@@ -22,12 +23,10 @@
         integralService
     } from '../services/integral.js'
     import sample from './myBill/sample.vue'
-    import {XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar,
-        Cell, Group, InlineCalendar,Alert} from 'vux'
+    import {XHeader,Alert,Toast} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar, Cell, Group,
-            InlineCalendar, sample,Alert
+            XHeader, sample, Alert, Toast
         },
         data () {
             return {
