@@ -98,7 +98,7 @@
         <div @click="hide">
             <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
                 <div @click.stop class="couponCode">
-                    <img class="couponCode-img" :src="barcodeUrl+'?text='+cardcode+'&width=300&height=300'">
+                    <img class="couponCode-img" :src="barcodeUrl+'?text='+cardcode+'&width=200&height=200'">
                     <div @click="hide" class="couponCode-close"></div>
                 </div>
             </x-dialog>
@@ -465,9 +465,8 @@
             position: relative;
             background: white;
             .couponCode-img{
-                margin: 2rem 2rem 1.75rem 2rem;
-                width: 8rem;
-                height: 8rem;
+                width: auto;
+                height: auto;
             }
             .couponCode-close{
                 position: absolute;
