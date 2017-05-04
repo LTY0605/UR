@@ -39,7 +39,7 @@
         </div>
         <!--温馨提示-->
         <toast v-model="showNoScroll2" type="text" :time="1000">{{warnText}}</toast>
-        <alert class="alert" v-model="showNoScroll2" title="温馨提示">{{integralRule}}</alert>
+        <alert class="alert" v-model="showNoScroll3" title="温馨提示">{{integralRule}}</alert>
     </div>
 </template>
 <script>
