@@ -97,9 +97,9 @@
         <!--二维码-->
         <div @click="hide">
             <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
+                <div @click="hide" class="couponCode-close"></div>
                 <div @click.stop class="couponCode">
-                    <img class="couponCode-img" src="../assets/money_code2.png" alt=""/>
-                    <div @click="hide" class="couponCode-close"></div>
+                    <div class="couponCode-img">{{text}}</div>
                 </div>
             </x-dialog>
         </div>
@@ -110,7 +110,7 @@
 
 </template>
 <script>
-    import {indexService} from '../services/wallet.js'
+    import {twoCode,indexService} from '../services/wallet.js'
     import {XHeader, Flexbox, FlexboxItem, Grid, GridItem, Group, Cell, XDialog, Alert, Toast} from 'vux'
     export default {
         components: {
@@ -124,6 +124,9 @@
                 unpaid:'',     //待付款
                 cardcode:'',    //会员卡号
                 customerName:'',    //会员姓名
+                text:'',    //二维码接口内容
+                width:'8rem',
+                height:'8rem',
                 headimgurl: require('../assets/header.png'),  //头像地址
                 warnText:'',
                 customerName:'',
@@ -181,6 +184,21 @@
                 },res =>{
                     this.showNoScroll2 = true;
                     this.warnText = '请求错误';
+                })
+            },
+            getCode(){
+                twoCode().save({
+                    width:this.width,
+                    height:this.height
+                }).then(res =>{
+                    let body = res.body;
+                    if(errcode = 0){
+                        this.text = body.text;
+                    } else {
+                        this.showNoScroll2=true;
+                        this.warnText='获取二维码失败'
+                    }
+                },res =>{
                 })
             }
         },
@@ -456,24 +474,24 @@
             max-width: none !important;
             top: 43% !important;
         }
+        .couponCode-close{
+            position: absolute;
+            width: .8rem;
+            height: .8rem;
+            background: url("../assets/money_code3.png");
+            background-size: 100%;
+            top: .6rem;
+            right: .6rem;
+        }
         .couponCode{
             width: auto;
             height: auto;
             position: relative;
             background: white;
             .couponCode-img{
-                margin: 2rem 2rem 1.75rem 2rem;
+                margin: 1.75rem;
                 width: 8rem;
                 height: 8rem;
-            }
-            .couponCode-close{
-                position: absolute;
-                width: .8rem;
-                height: .8rem;
-                background: url("../assets/money_code3.png");
-                background-size: 100%;
-                top: .6rem;
-                right: .6rem;
             }
         }
     }
