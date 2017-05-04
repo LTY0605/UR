@@ -14,21 +14,39 @@
             </group>
         </div>
         <div class="address-foot">
-            <p class="remove-address">删除地址</p>
+            <p class="remove-address" @click="deleteItem">删除地址</p>
             <x-button><span class="add-btn">保 存</span></x-button>
         </div>
+        <toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>
+        <x-dialog v-model="showNoScro" class="dialog-demo" :scroll="false">
+            <p class="dialog-title">温馨提示</p>
+            <div class="dialog-contain">
+                {{warnText2}}
+            </div>
+            <span class="vux-close" @click="sureDelete" style="margin-right: 2.2rem;">确定</span>
+            <span class="vux-close" @click="showNoScro=false">取消</span>
+        </x-dialog>
     </div>
 </template>
 <script>
-    import {XHeader, Scroller, Group, XInput, ChinaAddressData, XAddress, XTextarea, XButton} from 'vux'
+    import {XHeader, Scroller, Group, XInput, ChinaAddressData, XAddress, XTextarea,
+        XButton,Alert,XDialog,Toast} from 'vux'
+    import {
+        removeService
+    } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, Group, XInput, XAddress, XTextarea, XButton
+            XHeader, Scroller, Group, XInput, XAddress, XTextarea, XButton,Alert,XDialog,Toast
         },
         data () {
             return {
                 addressData: ChinaAddressData,
-                addressValue: []
+                addressValue: [],
+                id:this.$route.query.id,
+                showNoScro:false,
+                warnText2:'',
+                showNoScroll:true,
+                warnText:'1313',
             }
         },
         mounted(){
@@ -39,7 +57,36 @@
         methods:{
             change (val) {
                 console.log('change', val)
-            }
+            },
+            deleteItem(){
+                this.showNoScro = true;
+                this.warnText2 = '确定删除吗？';
+            },
+            sureDelete(){
+                this.showNoScro = false;
+                removeService().save({
+                    id:this.id,
+                    cardcode:window.localStorage.getItem('cardcode')
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.showNoScroll = true;
+                        this.warnText = '删除成功';
+                        setTimeout(function () {
+                            this.$router.push({
+                                name: 'personMain',
+                                query: {tab: 3},
+                            });
+                        },300)
+
+                    }else{
+                        this.showNoScroll = true;
+                        this.warnText = '删除失败';
+                    }
+                }, res => {
+
+                })
+            },
         },
         computed: {}
     }

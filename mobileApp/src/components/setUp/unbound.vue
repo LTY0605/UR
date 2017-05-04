@@ -18,19 +18,19 @@
             </ul>
             <div class="operate" @click="boundSubmit">提交</div>
         </div>
-        <alert v-model="showNoScroll" title="温馨提示">{{warnText}}</alert>
+        <toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>
     </div>
 </template>
 <script>
     import {
-        XHeader, Scroller, XInput, Group, Selector,Alert
+        XHeader, Scroller, XInput, Group, Selector,Toast
     } from 'vux'
     import {
         bindEditService,codeService
     } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, XInput, Group, Selector,Alert
+            XHeader, Scroller, XInput, Group, Selector,Toast
         },
         data () {
             return {
@@ -60,7 +60,7 @@
                     let body = res.body;
                     if (body.errcode == 0) {
                         this.showNoScroll = true;
-                        this.warnText = '修改成功';
+                        this.warnText = '解绑成功';
                     } else {
                         this.showNoScroll = true;
                         this.warnText = body.errmsg;

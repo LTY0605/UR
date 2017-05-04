@@ -22,19 +22,19 @@
             </ul>
             <div class="operate" @click="passWordEdit">提交</div>
         </div>
-        <alert v-model="showNoScroll" title="温馨提示">{{warnText}}</alert>
+        <toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>
     </div>
 </template>
 <script>
     import {
-        XHeader, Scroller, XInput, Group, Selector,Alert
+        XHeader, Scroller, XInput, Group, Selector,Alert,Toast
     } from 'vux'
     import {
         passwordService
     } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, XInput, Group, Selector,Alert
+            XHeader, Scroller, XInput, Group, Selector,Alert,Toast
         },
         data () {
             return {

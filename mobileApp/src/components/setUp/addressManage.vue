@@ -19,7 +19,7 @@
                             <span>默认地址</span>
                         </label>
                         <span class="eddOprate">
-                          <span class="edit">编辑</span>
+                          <span class="edit" @click="editItem(item.id)">编辑</span>
                           <span class="delete" @click="deleteItem(item.id,index)">删除</span>
                       </span>
                     </li>
@@ -94,6 +94,12 @@
                 this.showNoScro = true;
                 this.warnText2 = '确定删除吗？';
             },
+            editItem(id){
+                this.$router.push({
+                    name: 'reviseAddress',
+                    query: {id: id},
+                });
+            },
             sureDelete(){
                 this.showNoScro = false;
                 removeService().save({
@@ -105,6 +111,9 @@
                         this.showNoScroll = true;
                         this.warnText = '删除成功';
                         this.dataList.splice(this.currentIndex, 1);
+                    }else{
+                        this.showNoScroll = true;
+                        this.warnText = '删除失败';
                     }
                 }, res => {
 

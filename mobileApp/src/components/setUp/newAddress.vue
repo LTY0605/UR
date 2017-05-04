@@ -21,7 +21,7 @@
             </label>
             <div class="operate" @click="save">保存</div>
         </div>
-        <alert v-model="showNoScroll" title="温馨提示">{{warnText}}</alert>
+        <toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>
         <x-dialog v-model="showNoScro" class="dialog-demo" :scroll="false">
             <p class="dialog-title">温馨提示</p>
             <div class="dialog-contain">
@@ -34,14 +34,14 @@
 <script>
     import {
         XHeader, Scroller, Group, XInput, ChinaAddressData, XAddress, XTextarea, Checklist,
-        XButton, Value2nameFilter as value2name, Name2valueFilter as name2value, Alert, XDialog
+        XButton, Value2nameFilter as value2name, Name2valueFilter as name2value, Alert, XDialog,Toast
     } from 'vux'
     import {
         addAddressService
     } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, Group, XInput, XAddress, XTextarea, Checklist, XButton, Alert, XDialog
+            XHeader, Scroller, Group, XInput, XAddress, XTextarea, Checklist, XButton, Alert, XDialog,Toast
         },
         data () {
             return {
