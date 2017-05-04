@@ -39,7 +39,6 @@
                         name="submit"
                         action-type="submit"
                         @click.native="login_submit">登 录</x-button>
-                    <alert v-model="loginAlert" title="温馨提示">{{loginText}}</alert>
                 </div>
                 <div class="forgetBox">
                     <router-link :to="{name:'register'}">立即注册 <span class="toRight">》</span></router-link>
@@ -49,6 +48,7 @@
                 </div>
             </div>
         </div>
+        <toast v-model="loginAlert" type="text" :time="1000">{{loginText}}</toast>
         <x-dialog v-model="showNoScroll" class="dialog-demo" :scroll="false">
         <p class="dialog-title">温馨提示</p>
         <div class="dialog-contain">
@@ -60,7 +60,7 @@
 </template>
 <script>
     import { loginService,codeService  } from '../services/member.js'
-    import { Alert,XButton,XHeader,Scroller,Group,XInput,XDialog  } from 'vux'
+    import { Toast,XButton,XHeader,Scroller,Group,XInput,XDialog  } from 'vux'
     export default {
         components: {
             XHeader,
@@ -68,7 +68,7 @@
             Group,
             XInput,
             XButton,
-            Alert,
+            Toast,
             XDialog
         },
         data () {
@@ -93,6 +93,7 @@
                 });
             },
             login_submit () {
+                let _this = this;
                 if(this.phone == ''||this.code == ''){
                     this.loginAlert = true;
                     this.loginText = '请输入手机号或者验证码'
@@ -124,9 +125,12 @@
                         window.localStorage.setItem("city", body.city);
                         window.localStorage.setItem("mobileTel", body.mobileTel);
                         window.localStorage.setItem("headimgurl", body.headimgurl);
-                            this.$router.push({
+                        setTimeout(function () {
+                            _this.$router.push({
                                 name: 'index'
                             })
+                        },1000)
+
                     }else{
                         this.loginAlert =true;
                         this.loginText = body.msg;

@@ -70,21 +70,20 @@
         <!--</div>-->
         <!--<button class="vux-close" @click="showNoScroll=false">关闭</button>-->
         <!--</x-dialog>-->
-        <alert v-model="showNoScroll" title="温馨提示">{{warnText}}</alert>
-
+        <toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>
     </div>
 </template>
 <script>
     import {
         XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, ChinaAddressData,
-        Value2nameFilter as value2name, Name2valueFilter as name2value, Datetime, XDialog, Alert
+        Value2nameFilter as value2name, Name2valueFilter as name2value, Datetime, XDialog,Toast
     } from 'vux'
     import {
         memberInfoService, infoEditService, mobileEditService, codeService
     } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, Datetime, XDialog, Alert
+            XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, Datetime, XDialog,Toast
         },
         data () {
             return {

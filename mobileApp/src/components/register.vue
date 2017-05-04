@@ -87,25 +87,25 @@
                             name="submit"
                             action-type="submit"
                             @click.native="onSubmit">{{submitText}}</x-button>
-                        <alert v-model="show" title="温馨提示">{{text}}</alert>
-                        <x-dialog v-model="showNoScro" class="dialog-demo" :scroll="false">
-                            <p class="dialog-title">温馨提示</p>
-                            <div class="dialog-contain">
-                                {{warnText2}}
-                            </div>
-                            <span class="vux-close" @click="goLink">确定</span>
-                        </x-dialog>
                     </div>
                     <div class="agreementBox">
                         <router-link :to="{name:'contract'}" class="text">{{contractText}}</router-link>
                     </div>
                 </div>
             </div>
+        <toast v-model="show" type="text" :time="1000">{{text}}</toast>
+        <x-dialog v-model="showNoScro" class="dialog-demo" :scroll="false">
+            <p class="dialog-title">温馨提示</p>
+            <div class="dialog-contain">
+                {{warnText2}}
+            </div>
+            <span class="vux-close" @click="goLink">确定</span>
+        </x-dialog>
     </div>
 </template>
 <script>
     import { registerService  } from '../services/member.js'
-    import { XDialog,Alert,XHeader,Scroller,XInput,Datetime,XAddress,XButton,Group,ChinaAddressData,
+    import { XDialog,Toast,XHeader,Scroller,XInput,Datetime,XAddress,XButton,Group,ChinaAddressData,
         Value2nameFilter as value2name, Name2valueFilter as name2value} from 'vux'
     export default {
         components: {
@@ -117,7 +117,7 @@
             XAddress,
             XButton,
             Group,
-            Alert
+            Toast
         },
         data () {
             return {
