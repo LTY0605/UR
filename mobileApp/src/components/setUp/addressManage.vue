@@ -5,7 +5,7 @@
                 <ul>
                     <li>
                         <span class="liName">{{item.consignee}}</span>
-                        <span class="liCode">{{item.mobileTel}}</span>
+                        <span class="liCode">{{item.mobile}}</span>
                     </li>
                     <li>
                         <span class="addressItem">{{item.provice}} {{item.city}} {{item.district}}</span>
