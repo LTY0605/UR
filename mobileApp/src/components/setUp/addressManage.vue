@@ -14,7 +14,7 @@
                         <span>{{item.address}}</span>
                     </li>
                     <li>
-                        <label class="editAtt" @click="changeDefalt(index)">
+                        <label class="editAtt" @click="changeDefalt(index,item.id)">
                             <input class="check" type="radio" name="radio1" :checked="item.isdefault==0"  :value="item.uid">
                             <span>默认地址</span>
                         </label>
@@ -28,7 +28,7 @@
 
         </div>
         <div class="operate" @click="addAddress"><span class="plus">+</span>新增地址</div>
-        <alert v-model="showNoScroll" title="温馨提示">{{warnText}}</alert>
+        <toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>
         <x-dialog v-model="showNoScro" class="dialog-demo" :scroll="false">
             <p class="dialog-title">温馨提示</p>
             <div class="dialog-contain">
@@ -41,14 +41,14 @@
 </template>
 <script>
     import {
-        XHeader, Scroller, XInput, Group, Selector,XDialog,Alert
+        XHeader, Scroller, XInput, Group, Selector,XDialog,Toast
     } from 'vux'
     import {
-        addressListService,removeService
+        addressListService,removeService,attrDefalutService
     } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, XInput, Group, Selector,XDialog,Alert
+            XHeader, Scroller, XInput, Group, Selector,XDialog,Toast
         },
         data () {
             return {
@@ -67,8 +67,23 @@
         mounted(){
         },
         methods: {
-            changeDefalt(index){
-                this.dataList[index].isdefault = 0;
+            changeDefalt(index,id){
+                attrDefalutService().save({
+                    cardcode:window.localStorage.getItem("cardcode"),
+                    id:id
+                }).then(res => {
+                    let body = res.body;
+                if (body.errcode == 0) {
+                    this.showNoScroll = true;
+                    this.warnText = '设置成功';
+                    this.renderData();
+                }else{
+                    this.showNoScroll = true;
+                    this.warnText = '设置失败'
+                }
+            }, res => {
+
+                })
             },
             renderData(){
                 addressListService().save({

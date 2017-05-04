@@ -12,6 +12,7 @@
                            :list="addressData"
                            value-text-align="left"></x-address>
                 <x-textarea class="address-text" placeholder="详细地址" v-model="addressDeep" required></x-textarea>
+                <x-input title="邮政编码" placeholder="邮政编码" v-model="postcode" required type="number"></x-input>
             </group>
         </div>
         <div class="address-foot">
@@ -58,6 +59,7 @@
                 showNoScro: false,
                 warnText2:'',
                 warnText: '',
+                postcode:'',
             }
         },
         mounted(){
@@ -75,7 +77,7 @@
                 console.log('change', val)
             },
             save(){
-                if (this.consignee == '' || this.mobileTel == '' || this.address == '' || this.addressDeep == '') {
+                if (this.consignee == '' || this.mobileTel == '' || this.address == '' || this.addressDeep == '' || this.postcode == '') {
                     this.showNoScroll = true;
                     this.warnText = '您有信息未填写';
                     return
@@ -97,7 +99,8 @@
                     provice: pro[0],
                     city: pro[1],
                     district: pro[2],
-                    isdefault: selected
+                    isdefault: selected,
+                    postcode:this.postcode,
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {
