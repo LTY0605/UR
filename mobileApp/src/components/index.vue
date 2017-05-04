@@ -50,7 +50,7 @@
         <!--钱包-->
         <div class="wallet">
             <group>
-                <cell title="我的钱包" link="./wallet"></cell>
+                <cell title="我的钱包" link="./wallet?tab=2"></cell>
                 <ul>
                     <li>
                         <p class="wallet-num">{{mycards}}</p>
