@@ -93,7 +93,7 @@
                 addAddressService().save({
                     cardcode: window.localStorage.getItem("cardcode"),
                     consignee: this.consignee,
-                    mobileTel: this.mobileTel,
+                    mobile: this.mobileTel,
                     wxOpenID: window.localStorage.getItem("wxOpenId"),
                     address: this.addressDeep,
                     provice: pro[0],

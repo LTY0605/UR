@@ -121,6 +121,7 @@
                     postcode:this.postcode,
                     address:this.address,
                     mobile:this.mobile,
+                    consignee:this.consignee
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {
