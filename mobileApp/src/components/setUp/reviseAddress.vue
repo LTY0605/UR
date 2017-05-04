@@ -5,17 +5,17 @@
         </x-header>
         <div class="address-con">
             <group>
-                <x-input class="consignee" title="收货人姓名"></x-input>
-                <x-input title="联系电话"></x-input>
-                <x-address class="address-select" placeholder="请选择" title="所在地区" v-model="addressValue" raw-value
-                           :list="addressData"
-                           value-text-align="left"></x-address>
-                <x-textarea class="address-text" placeholder="详细地址"></x-textarea>
+                <x-input class="consignee" title="收货人姓名" v-model="consignee"></x-input>
+                <x-input title="联系电话" v-model="mobile"></x-input>
+                <x-address title="地区" v-model="attrValue" :list="addressData"
+                           placeholder="请选择地址"></x-address>
+                <x-textarea class="address-text" placeholder="详细地址" v-model="address"></x-textarea>
+                <x-input title="邮政编码" v-model="postcode"></x-input>
             </group>
         </div>
         <div class="address-foot">
             <p class="remove-address" @click="deleteItem">删除地址</p>
-            <x-button><span class="add-btn">保 存</span></x-button>
+            <div class="operate" @click="saveItem">保存</div>
         </div>
         <toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>
         <x-dialog v-model="showNoScro" class="dialog-demo" :scroll="false">
@@ -29,34 +29,113 @@
     </div>
 </template>
 <script>
-    import {XHeader, Scroller, Group, XInput, ChinaAddressData, XAddress, XTextarea,
-        XButton,Alert,XDialog,Toast} from 'vux'
     import {
-        removeService
+        XHeader, Scroller, Group, XInput, ChinaAddressData, XAddress, XTextarea,
+        XButton, Alert, XDialog, Toast, Value2nameFilter as value2name, Name2valueFilter as name2value
+    } from 'vux'
+    import {
+        removeService, detailService, editAttrService
     } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, Group, XInput, XAddress, XTextarea, XButton,Alert,XDialog,Toast
+            XHeader, Scroller, Group, XInput, XAddress, XTextarea, XButton, Alert, XDialog, Toast
         },
         data () {
             return {
                 addressData: ChinaAddressData,
-                addressValue: [],
-                id:this.$route.query.id,
-                showNoScro:false,
-                warnText2:'',
-                showNoScroll:false,
-                warnText:'',
+                attrValue: [],
+                attress: '',
+                id: this.$route.query.id,
+                showNoScro: false,
+                warnText2: '',
+                showNoScroll: false,
+                warnText: '',
+                isdefault: 1,
+                provice: "",
+                status: 0,
+                consignee: "",
+                postcode: "",
+                city: "",
+                address: "",
+                district: "",
+                mobile: ""
             }
         },
         mounted(){
         },
-        watch: {},
-        created(){
+        watch: {
+            attrValue(val) {
+                console.log(val);
+                this.attress = value2name(val, ChinaAddressData); //把值转为文字
+            }
         },
-        methods:{
-            change (val) {
-                console.log('change', val)
+        created(){
+            this.renderData();
+
+        },
+        methods: {
+            renderData(){
+                detailService().save({
+                    id: this.id,
+                    cardcode: window.localStorage.getItem('cardcode')
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.isdefault = body.isdefault;
+                        this.provice = body.provice;
+                        this.consignee = body.consignee;
+                        this.postcode = body.postcode;
+                        this.city = body.city;
+                        this.address = body.address;
+                        this.district = body.district;
+                        this.mobile = body.mobile;
+                        if (this.provice != '' && this.city != '' && this.district != '') {
+                            var attr = this.provice + ' ' + this.city + ' ' + this.district;
+                            this.attress = attr.split(" ");//地区文字转为数字，要数组
+                            var transValue = name2value(this.attress, ChinaAddressData); //把文字转为值
+                            this.attrValue = transValue.split(" ");//要数组
+                        }
+                    } else {
+                        this.showNoScroll = true;
+                        this.warnText = '初始化失败';
+                    }
+                }, res => {
+
+                })
+            },
+            saveItem(){
+                var pro = this.attress.split(" ");
+                let _this = this;
+                if (this.consignee == '' || this.mobileTel == '' || this.address == '' || this.postcode == '' || this.attrValue.length == 0) {
+                    this.showNoScroll = true;
+                    this.warnText = '您有信息未填写';
+                    return
+                }
+                editAttrService().save({
+                    id: this.id,
+                    isdefault: this.isdefault,
+                    cardcode: window.localStorage.getItem('cardcode'),
+                    provice: pro[0],
+                    city: pro[1],
+                    district: pro[2],
+                    postcode:this.postcode,
+                    address:this.address,
+                    mobile:this.mobile,
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.showNoScroll = true;
+                        this.warnText = '保存成功';
+                        setTimeout(function () {
+                            _this.goLink();
+                        }, 1000)
+                    } else {
+                        this.showNoScroll = true;
+                        this.warnText = '初始化失败';
+                    }
+                }, res => {
+
+                })
             },
             deleteItem(){
                 this.showNoScro = true;
@@ -66,20 +145,17 @@
                 this.showNoScro = false;
                 let _this = this;
                 removeService().save({
-                    id:this.id,
-                    cardcode:window.localStorage.getItem('cardcode')
+                    id: this.id,
+                    cardcode: window.localStorage.getItem('cardcode')
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {
                         this.showNoScroll = true;
                         this.warnText = '删除成功';
                         setTimeout(function () {
-                            _this.$router.push({
-                                name: 'personMain',
-                                query: {tab: 3},
-                            });
-                        },1000)
-                    }else{
+                            _this.goLink();
+                        }, 1000)
+                    } else {
                         this.showNoScroll = true;
                         this.warnText = '删除失败';
                     }
@@ -87,6 +163,12 @@
 
                 })
             },
+            goLink(){
+                this.$router.push({
+                    name: 'personMain',
+                    query: {tab: 3},
+                });
+            }
 
         },
         computed: {}
@@ -241,16 +323,16 @@
                 margin-bottom: .2rem;
             }
         }
-        .address-foot{
+        .address-foot {
             padding: 0 1rem;
-            .weui-cells:before{
+            .weui-cells:before {
                 border: none;
             }
-            .add-btn{
+            .add-btn {
                 font-size: .75rem;
                 display: block;
             }
-            .remove-address{
+            .remove-address {
                 font-size: .6rem;
                 color: #EC6941;
                 margin: .65rem 0 1rem 0;
