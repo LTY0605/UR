@@ -10,7 +10,7 @@
                 </li>
                 <li>
                     <group>
-                        <x-input type="password" title="新密码" placeholder="新密码" v-model="newPassword"></x-input>
+                        <x-input type="password" title="新密码" placeholder="新密码" v-model="newPassword" :max="11" :is-type="bePassWord"></x-input>
                     </group>
                 </li>
                 <li>
@@ -46,7 +46,7 @@
                 bePassWord: function (value) {
                 return {
                     valid: /^[0-9a-zA-Z]{0,11}$/.test(value),
-                    msg: 'Must be 2333'
+                    msg: '密码只能字母跟数字，长度不能大于11位'
                 }
             },
             }
@@ -58,6 +58,11 @@
                 if (this.oldPassword == '' || this.newPassword == '' || this.newPassword2 == '') {
                     this.showNoScroll = true;
                     this.warnText = '您有信息未填写';
+                    return
+                }
+                if(!this.bePassWord(this.oldPassword).valid || !this.bePassWord(this.newPassword).valid || !this.bePassWord(this.newPassword2).valid){
+                    this.showNoScroll = true;
+                    this.warnText = '密码只能字母跟数字，长度不能大于11位';
                     return
                 }
                 if (this.newPassword2 != this.newPassword) {

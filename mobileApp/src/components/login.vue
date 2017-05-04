@@ -43,9 +43,9 @@
                 <div class="forgetBox">
                     <router-link :to="{name:'register'}">立即注册 <span class="toRight">》</span></router-link>
                 </div>
-                <div class="agreementBox">
-                    <router-link :to="{name:'contract'}">{{contractText}}</router-link>
-                </div>
+                <!--<div class="agreementBox">-->
+                    <!--<router-link :to="{name:'contract'}">{{contractText}}</router-link>-->
+                <!--</div>-->
             </div>
         </div>
         <toast v-model="loginAlert" type="text" :time="1000">{{loginText}}</toast>
@@ -133,7 +133,7 @@
 
                     }else{
                         this.loginAlert =true;
-                        this.loginText = body.msg;
+                        this.loginText = body.errmsg;
                     }
 
                 }, res => {
