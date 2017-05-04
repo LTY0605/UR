@@ -66,12 +66,14 @@
                         window.localStorage.setItem("mobileTel", body.mobileTel);
                         window.localStorage.setItem("headimgurl", body.headimgurl);
                     } else {
-//                        this.$router.push({
-//                            name: 'login',
-//                        });
+                        this.$router.push({
+                            name: 'login',
+                        });
                     }
                 }, res => {
-
+                    this.$router.push({
+                        name: 'login',
+                    });
                 })
             },
             getParams(paras) {

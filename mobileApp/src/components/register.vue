@@ -88,9 +88,9 @@
                             action-type="submit"
                             @click.native="onSubmit">{{submitText}}</x-button>
                     </div>
-                    <div class="agreementBox">
-                        <router-link :to="{name:'contract'}" class="text">{{contractText}}</router-link>
-                    </div>
+                    <!--<div class="agreementBox">-->
+                        <!--<router-link :to="{name:'contract'}" class="text">{{contractText}}</router-link>-->
+                    <!--</div>-->
                 </div>
             </div>
         <toast v-model="show" type="text" :time="1000">{{text}}</toast>
