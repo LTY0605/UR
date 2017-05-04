@@ -10,4 +10,8 @@ export const HTTP_REMOTE = 'http://nianhui.ur.com.cn'
 export function openService() {
     return Vue.resource('https://open.weixin.qq.com/connect/oauth2/authorize')
 }
+//条形码地址
+export const URL_getBarcode= `${HTTP_REMOTE}/ur_crm/admin/sys/barcode/getBarcode`
+//二维码地址
+export const URL_getQRCode= `${HTTP_REMOTE}/ur_crm/admin/sys/qrcode/getQRCode`
 

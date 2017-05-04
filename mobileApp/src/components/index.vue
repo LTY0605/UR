@@ -98,7 +98,7 @@
         <div @click="hide">
             <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
                 <div @click.stop class="couponCode">
-                    <img class="couponCode-img" src="../assets/money_code2.png" alt=""/>
+                    <img class="couponCode-img" :src="barcodeUrl+'?text='+cardcode+'&width=300&height=300'">
                     <div @click="hide" class="couponCode-close"></div>
                 </div>
             </x-dialog>
@@ -111,6 +111,7 @@
 </template>
 <script>
     import {indexService} from '../services/wallet.js'
+    import {URL_getQRCode} from '../services/index.js'
     import {XHeader, Flexbox, FlexboxItem, Grid, GridItem, Group, Cell, XDialog, Alert, Toast} from 'vux'
     export default {
         components: {
@@ -118,6 +119,7 @@
         },
         data(){
             return{
+                barcodeUrl:'',
                 integral:'',    //积分
                 mycards:'',    //礼品卡
                 coupon:'',     //优惠券
@@ -142,6 +144,7 @@
             this.renderData();
             //待付款没有时不显示红点数字
             this.payment();
+            this.barcodeUrl = URL_getQRCode;
         },
         mounted(){
         },

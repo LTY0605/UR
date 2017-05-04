@@ -25,7 +25,6 @@
                     </li>
                 </ul>
             </div>
-
         </div>
         <div class="operate" @click="addAddress"><span class="plus">+</span>新增地址</div>
         <toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>

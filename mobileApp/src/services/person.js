@@ -57,3 +57,4 @@ export function codeService() {
 export function passwordService() {
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/password/edit')
 }
+
