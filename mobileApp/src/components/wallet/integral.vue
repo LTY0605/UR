@@ -6,7 +6,9 @@
                 <h1 class="integralTop-h1">{{integralTotal}}</h1>
                 <p class="integralTop-p">可用积分</p>
             </div>
-            <span @click="show2" class="integralTop-text">积分规则</span>
+            <router-link to="http://www.ur.cn/wap/member_role.html">
+                <span class="integralTop-text">积分规则</span>
+            </router-link>
         </div>
         <!--积分列表-->
         <group class="integralList">
@@ -39,7 +41,7 @@
         </div>
         <!--温馨提示-->
         <toast v-model="showNoScroll2" type="text" :time="1000">{{warnText}}</toast>
-        <alert class="alert" v-model="showNoScroll3" title="温馨提示">{{integralRule}}</alert>
+        <!--<alert class="alert" v-model="showNoScroll3" title="积分规则">{{integralRule}}</alert>-->
     </div>
 </template>
 <script>
@@ -56,19 +58,15 @@
                 paymentCode: '',    //积分使用码
                 barcode:'',
                 warnText: '',
-                integralRule:'',
                 showNoScroll:false,
                 showNoScroll2:false,
-                showNoScroll3:false
+//                integralRule:'',
+//                showNoScroll3:false
             }
         },
         methods:{
             show(){
                 this.showNoScroll = true;
-            },
-            show2(){
-                this.showNoScroll3 = true;
-                this.integralRule = '积分使用码过期时间5分钟';
             },
             hide(){
                 this.showNoScroll = false;

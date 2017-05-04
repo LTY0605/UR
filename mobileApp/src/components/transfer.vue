@@ -5,7 +5,7 @@
         <div class="transferCon">
             <p class="tran-money">余额：￥{{balance}}</p>
             <group>
-                <x-input v-model="phone" :is-type="isNumber" placeholder="转赠人手机" required></x-input>
+                <x-input v-model="phone" keyboard="number" is-type="china-mobile" :max="11" :min="11" placeholder="转赠人手机" required></x-input>
             </group>
             <group>
                 <x-input v-model="money" :is-type="isMoney" placeholder="转赠金额" required></x-input>
@@ -21,7 +21,7 @@
                 <div @click.stop class="transferCode">
                     <p class="transferCode-title">请输入密码</p>
                     <x-input type="password" v-model="password" class="transferCode-input" required></x-input>
-                    <p v-if="warnShow" class="warn-text">密码错误</p>
+                    <!--<p v-if="warnShow" class="warn-text">密码错误</p>-->
                     <div @click="enter"><x-button><span class="transferCode-text">确 定</span></x-button></div>
                 </div>
             </x-dialog>
@@ -104,8 +104,10 @@
             },
             enter() {
                 if(this.password == '' || this.password != 'qq123123'){
-                    this.warnShow = true;
-                    console.log('密码错误')
+//                    this.warnShow = true;
+//                    console.log('密码错误')
+                    this.show2 = true;
+                    this.warnText = '密码错误'
                 } else{
                     this.warnShow = false;
                     this.showNoScroll = false;
