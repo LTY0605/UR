@@ -104,16 +104,17 @@
             </x-dialog>
         </div>
         <!--提示-->
-        <alert class="alert" v-model="showNoScroll2" title="温馨提示">{{warnText}}</alert>
+        <toast v-model="showNoScroll2" type="text" :time="1000">{{warnText}}</toast>
+        <!--<alert class="alert" v-model="showNoScroll2" title="温馨提示">{{warnText}}</alert>-->
     </div>
 
 </template>
 <script>
     import {indexService} from '../services/wallet.js'
-    import {XHeader, Flexbox, FlexboxItem, Grid, GridItem, Group, Cell, XDialog, Alert} from 'vux'
+    import {XHeader, Flexbox, FlexboxItem, Grid, GridItem, Group, Cell, XDialog, Alert, Toast} from 'vux'
     export default {
         components: {
-            XHeader, Flexbox, FlexboxItem, Grid, GridItem, Group, Cell, XDialog, Alert
+            XHeader, Flexbox, FlexboxItem, Grid, GridItem, Group, Cell, XDialog, Alert, Toast
         },
         data(){
             return{
@@ -174,7 +175,7 @@
                         this.unpaid = body.unpaid;
                     } else{
                         this.showNoScroll2 = true;
-                        this.warnText = body.msg;
+                        this.warnText = body.errmsg;
 //                        console.log('233');
                     }
                 },res =>{

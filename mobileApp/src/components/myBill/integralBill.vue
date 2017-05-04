@@ -1,52 +1,48 @@
 <template>
    <div class="page_integralBill">
       <div class="integralTitle">
-         <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="titleTab = index">
-            {{item.name}}
-         </span>
+         <span :class="{active:titleTab==index}" v-for="(item, index) in titleList"
+               @click="changeItem(index,item.code)">{{item.name}}</span>
       </div>
       <div class="tabContain">
-         <div class="tabItem tab-swiper" v-if="titleTab==0">
-            <sampleT></sampleT>
-            <sample></sample>
+         <div class="tabItem tab-swiper">
+            <sample :dataList="dataList"></sample>
          </div>
-         <div class="tabItem" v-if="titleTab==1">
-            <sampleT></sampleT>
-         </div>
-         <div class="tabItem" v-if="titleTab==2">
-            <sample></sample>
-         </div>
-
       </div>
-   
+       <toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>
    </div>
 </template>
 
 <script>
-  import sample from './sample.vue'
-  import sampleT from './sampleT.vue'
-    import {XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar, Cell, Group, InlineCalendar} from 'vux'
+    import {
+        integralService
+    } from '../../services/integral.js'
+    import sample from './sample.vue'
+    import {XHeader, Toast} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar, Cell, Group, InlineCalendar,sampleT,sample
+            XHeader, sample, Toast
         },
         data () {
             return {
                 titleTab: 0,
-                list2: ['全部', '消费', '兑换'],
                 index: 1,
                 time: '',
+                warnText:'',
+                showNoScroll:false,
+                currentCode:0,
+                dataList:[],
                 titleList: [
                     {
                         code: 0,
                         name: '全部'
                     },
                     {
-                        code: 1,
+                        code: 2,
                         name: '消费'
                     },
                     {
-                        code: 2,
+                        code: 6,
                         name: '兑换'
                     }
                 ],
@@ -57,6 +53,30 @@
         },
         watch: {},
         created(){
+            this.renderData()
+        },
+        methods:{
+            changeItem(index,code){
+                this.titleTab = index;
+                this.currentCode = code;
+                this.renderData();
+            },
+            renderData(){
+                integralService().save({
+                    cardcode:window.localStorage.getItem('cardcode'),
+                    integralType:this.currentCode
+                }).then(res =>{
+                    let body = res.body;
+                    if(body.errcode == 0){
+                        this.dataList = body.list;
+                    } else{
+                        this.showNoScroll = true;
+                        this.warnText = body.errmsg;
+                    }
+                },res =>{
+
+                })
+            },
         },
         computed: {}
     }

@@ -39,23 +39,26 @@
             </x-dialog>
         </div>
         <!--温馨提示-->
-        <alert class="alert" v-model="showNoScroll2" title="温馨提示">{{warnText}}</alert>
+        <toast v-model="showNoScroll2" type="text" :time="1000">{{warnText}}</toast>
+        <alert class="alert" v-model="showNoScroll3" title="积分规则">{{integralRule}}</alert>
     </div>
 </template>
 <script>
     import {paymentCode,integralCode} from '../../services/wallet.js'
-    import {XHeader,XDialog, Scroller, Group, Cell, Alert} from 'vux'
+    import {XHeader,XDialog, Scroller, Group, Cell, Alert, Toast} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, Group, Cell, XDialog, Alert
+            XHeader, Scroller, Group, Cell, XDialog, Alert, Toast
         },
         data () {
             return {
                 integralTotal: '',   //可用积分
                 paymentCode: '',    //积分使用码
                 warnText: '',
+                integralRule:'',
                 showNoScroll:false,
-                showNoScroll2:false
+                showNoScroll2:false,
+                showNoScroll3:false
             }
         },
         methods:{
@@ -63,8 +66,8 @@
                 this.showNoScroll = true;
             },
             show2(){
-                this.showNoScroll2 = true;
-                this.warnText = '积分使用码过期时间5分钟';
+                this.showNoScroll3 = true;
+                this.integralRule = '积分使用码过期时间5分钟';
             },
             hide(){
                 this.showNoScroll = false;
@@ -92,7 +95,7 @@
                         this.integralTotal = body.integralTotal;
                     }else{
                         this.showNoScroll2 = true;
-                        this.warnText = body.msg;
+                        this.warnText = body.errmsg;
                     }
                 }, res =>{
                 })

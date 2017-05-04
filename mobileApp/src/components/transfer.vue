@@ -27,16 +27,17 @@
             </x-dialog>
         </div>
         <!--提示-->
-        <alert class="prompt" v-model="show2" title="温馨提示">{{warnText}}</alert>
+        <toast v-model="show2" type="text" :time="1000">{{warnText}}</toast>
+        <!--<alert class="prompt" v-model="show2" title="温馨提示">{{warnText}}</alert>-->
     </div>
 </template>
 
 <script>
-    import {XHeader,Group,XInput,XButton,XDialog,Alert} from 'vux'
+    import {XHeader,Group,XInput,XButton,XDialog,Alert,Toast} from 'vux'
     import { addAddressService } from '../services/person.js'
     export default{
         components:{
-            XHeader,Group,XInput,XButton,XDialog,Alert
+            XHeader,Group,XInput,XButton,XDialog,Alert,Toast
         },
         data(){
             return{
