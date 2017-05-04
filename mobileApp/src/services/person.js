@@ -45,6 +45,10 @@ export function mobileEditService() {
 export function bindEditService() {
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/wx/unbind')
 }
+//会员地址设为默认接口
+export function attrDefalutService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/address/default')
+}
 //验证码接口
 export function codeService() {
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/wx/verification_code')
