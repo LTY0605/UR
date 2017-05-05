@@ -72,7 +72,7 @@
                 this.showNoScroll = false;
             },
             codeData(){
-                paymentCode().get({
+                paymentCode().save({
                     cardcode:window.localStorage.getItem('cardcode')
                 }).then(res =>{
                     let body = res.body;
@@ -86,7 +86,7 @@
                 })
             },
             integralData(){
-                integralCode().get({
+                integralCode().save({
                     cardcode:window.localStorage.getItem('cardcode')
                 }).then(res =>{
                     let body = res.body;

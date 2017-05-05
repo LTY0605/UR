@@ -168,7 +168,7 @@
                 }
             },
             renderData(){
-                indexService().get({
+                indexService().save({
                     cardcode: window.localStorage.getItem('cardcode')
                 }).then(res =>{
                     let body = res.body;
