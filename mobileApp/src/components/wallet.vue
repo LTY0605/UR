@@ -68,10 +68,10 @@
         methods:{
             tabChange(index){
                 this.titleTab = index;
-                this.$router.push({
-                    name:'wallet',
-                    query:{tab: index},
-                })
+//                this.$router.push({
+//                    name:'wallet',
+//                    query:{tab: index},
+//                })
                 this.show=false;
             }
         },

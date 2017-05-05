@@ -129,7 +129,7 @@
                             _this.$router.push({
                                 name: 'index'
                             })
-                        },1000)
+                        },500)
 
                     }else{
                         this.loginAlert =true;
