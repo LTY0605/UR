@@ -186,7 +186,7 @@
             width: 12rem;
             height: 14rem;
             background: url("../../assets/background2.png");
-            background-size: contain;
+            background-size: 100% 100%;
             margin: .85rem auto 0 auto;
             display: flex;
             flex-direction: column;
