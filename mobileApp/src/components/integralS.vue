@@ -91,11 +91,13 @@
     .vux-header {
         background-color: #AB9236 !important;
     }
-
     .vux-header .vux-header-title, .vux-header h1 {
         font-size: .85rem;
     }
-
+    .vux-header .vux-header-left .left-arrow:before{
+        border: 1px solid #fff !important;
+        border-width: 1px 0 0 1px !important;
+    }
     .page_integralS {
         .tabTitle {
             width: 100%;

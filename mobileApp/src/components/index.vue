@@ -176,10 +176,10 @@
                         this.integral = body.integral;
                         this.mycards = body.mycards;
                         this.unpaid = body.unpaid;
+                        this.coupon = body.coupon;
                     } else{
                         this.showNoScroll2 = true;
                         this.warnText = body.errmsg;
-//                        console.log('233');
                     }
                 },res =>{
                     this.showNoScroll2 = true;
