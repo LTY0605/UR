@@ -3,8 +3,8 @@
  */
 
 import Vue from 'vue'
-export const HTTP_REMOTE = 'http://nianhui.ur.com.cn'
-
+// export const HTTP_REMOTE = 'http://nianhui.ur.com.cn'
+export const HTTP_REMOTE = window.location.origin;
 
 //获取openid
 export function openService() {
