@@ -84,10 +84,20 @@
             <group>
                 <cell title="会员活动" link="./"></cell>
                 <ul>
-                    <li v-for="(action,index) in actions">
-                        <img width="24" :src="action.actionImg"></img>
-                        <p class="action-text">{{action.actionText}}</p>
+                    <li>
+                        <img width="24" src="../assets/icon_save.png"/>
+                        <p class="action-text">调查问卷</p>
                     </li>
+                    <li>
+                        <img width="24" src="../assets/icon_dialog.png"/>
+                        <p class="action-text">时尚体验</p>
+                    </li>
+                    <router-link to="http://weixin.ur.com.cn/app/index.php?i=2&c=mc&a=store">
+                        <li>
+                            <img width="24" src="../assets/icon_dialog.png"/>
+                            <p class="action-text">适用门店</p>
+                        </li>
+                    </router-link>
                 </ul>
                 <div class="action-img">
                     <img src="../assets/banner.png" alt=""/>
@@ -132,10 +142,10 @@
                 showUnpaid:true,
                 showNoScroll:false,
                 showNoScroll2:false,
-                actions:[
+              /*  actions:[
                     {actionImg: require('../assets/icon_save.png'),actionText:'调查问卷'},
                     {actionImg: require('../assets/icon_dialog.png'),actionText:'时尚体验'}
-                ]
+                ]*/
             }
         },
         watch: {},
