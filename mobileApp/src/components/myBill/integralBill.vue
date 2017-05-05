@@ -93,7 +93,7 @@
       border-radius: .2rem;
       font-size: 0;
    span {
-      font-size: .6rem;
+      font-size: .7rem;
       text-align: center;
       color: #EC6941;
       display: inline-block;

@@ -82,7 +82,7 @@
             font-size: 0;
             margin: 1rem auto .45rem auto;
             span {
-                font-size: .6rem;
+                font-size: .7rem;
                 display: inline-block;
                 height: 1.25rem;
                 line-height: 1.15rem;
