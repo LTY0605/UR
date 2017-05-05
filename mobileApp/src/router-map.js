@@ -116,6 +116,14 @@ const routes = [
         component: resolve => require(['./components/setUp/reviseAddress.vue'], resolve)
     },
     {
+        path: '/questPage',
+        name: 'questPage',
+        meta: {
+            title: '调查问卷页'
+        },
+        component: resolve => require(['./components/questPage.vue'], resolve)
+    },
+    {
         path: '/login',
         name: 'login',
         meta: {

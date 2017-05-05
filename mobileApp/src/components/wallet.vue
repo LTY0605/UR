@@ -132,11 +132,11 @@
                     }
                 }
         }
-    .animate {
-        max-height: 9999px;
-        transition-timing-function: cubic-bezier(0.5, 0, 1, 0);
-        transition-delay: 0s;
-    }
+        .animate {
+            max-height: 9999px;
+            transition-timing-function: cubic-bezier(0.5, 0, 1, 0);
+            transition-delay: 0s;
+        }
         }
         .vux-header {
             background-color: #AB9236 !important;
