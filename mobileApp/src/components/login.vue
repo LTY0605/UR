@@ -106,7 +106,7 @@
                 }
                 console.log(phoneData)*/
                 loginService().save({
-                    wxOpenid:window.localStorage.getItem("wxOpenId"),
+                    wxOpenID:window.localStorage.getItem("wxOpenId"),
                     code:this.code,
                     mobileTel:this.phone
                 }).then(res => {
