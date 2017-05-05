@@ -12,6 +12,14 @@ const routes = [
         component: resolve => require(['./components/index.vue'], resolve)
     },
     {
+        path: '/index',
+        name: 'index',
+        meta: {
+            title: '主页'
+        },
+        component: resolve => require(['./components/index.vue'], resolve)
+    },
+    {
         path: '/pageDemo',
         name: 'pageDemo',
         meta: {
@@ -130,6 +138,14 @@ const routes = [
             title: '登录'
         },
         component: resolve => require(['./components/login.vue'], resolve)
+    },
+    {
+        path: '/queryIndex',
+        name: 'queryIndex',
+        meta: {
+            title: '通用查询'
+        },
+        component: resolve => require(['./components/queryIndex.vue'], resolve)
     },
 ]
 
