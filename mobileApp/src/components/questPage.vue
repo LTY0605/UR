@@ -2,20 +2,24 @@
     <div class="page_questPage">
         <x-header :left-options="{backText:''}">UR问卷调研</x-header>
         <div class="quest_con">
-            <one></one>
+            <one v-if="one"></one>
+            <two v-if="two"></two>
         </div>
     </div>
 </template>
 
 <script>
     import one from './quest/one.vue'
+    import two from './quest/two.vue'
     import {XHeader, Group, Cell, XButton} from 'vux'
     export default{
         components:{
-            XHeader, XButton, one
+            XHeader, XButton, one, two
         },
         data(){
             return{
+                one:false,
+                two:true
             }
         },
         methods:{
@@ -40,6 +44,10 @@
         .quest_con{
             padding: 1.25rem 1.75rem .7rem 1.75rem;
             font-size: 0;
+            background: url("../assets/query_05.png") no-repeat;
+            background-size: 80% 68%;
+            background-position: 1.75rem 4.5rem;
+            height: auto;
         }
     }
 </style>

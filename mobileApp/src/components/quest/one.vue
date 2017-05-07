@@ -35,10 +35,6 @@
 <style lang="less" rel="stylesheet/less">
     .page_one{
         .con_back{
-            padding-bottom: .7rem;
-            background: url("../../assets/query_05.png") no-repeat;
-            background-size: 100% 86.5%;
-            background-position: 0 1.4rem;
         }
         .con_p{
             margin-bottom: 1.25rem;
