@@ -1,44 +1,40 @@
 <template>
     <div class="page_consume">
         <div class="consumeTitle">
-            <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="titleTab = index">
-                {{item.name}}
+            <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="changeItem(index,item.code)">{{item.name}}
             </span>
         </div>
 
         <div class="tabContain">
-            <div class="tabItem" v-if="titleTab==0">
-                <consumeList></consumeList>
-                <returnBack></returnBack>
+
+            <div class="tabItem">
+                <consumeList :consumeListlists="consumeListlists"></consumeList>
             </div>
-            <div class="tabItem" v-if="titleTab==1">
-                <consumeList></consumeList>
-            </div>
-            <div class="tabItem" v-if="titleTab==2">
-                <returnBack></returnBack>
-            </div>
+
 
         </div>
-
-
+        <toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>
     </div>
 </template>
 
 <script>
+    import {consumeService} from '../../services/consume.js'
     import sample from './sample.vue'
     import consumeList from './consumeList.vue'
-    import returnBack from './returnBack.vue'
-    import {XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar,CellFormPreview, Cell, Group, InlineCalendar} from 'vux'
+    import {XHeader, Toast} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar, CellFormPreview,Cell, Group,returnBack,
-          InlineCalendar,sample,consumeList
+            XHeader, consumeList,Toast
         },
         data () {
             return {
                 titleTab: 0,
                 list2: ['全部', '消费', '退货'],
                 index: 1,
+                currentCode:0,
+                showNoScroll:false,
+                warnText:'',
+                consumeListlists:[],
                 time: '',
                 titleList: [
                     {
@@ -46,11 +42,11 @@
                         name: '全部'
                     },
                     {
-                        code: 1,
+                        code: 2,
                         name: '消费'
                     },
                     {
-                        code: 2,
+                        code: 3,
                         name: '退货'
                     }
                 ],
@@ -60,6 +56,31 @@
         },
         watch: {},
         created(){
+            this.renderData()
+        },
+        methods:{
+            changeItem(index,code){
+                this.titleTab = index;
+                this.currentCode = code;
+                this.renderData();
+            },
+            renderData(){
+                consumeService().save({
+//                    cardcode:'8urp0070227',
+                  cardcode:window.localStorage.getItem('cardcode'),
+                    saleType:this.currentCode
+                }).then(res =>{
+                    let body = res.body;
+                    if(body.errcode == 0){
+                        this.consumeListlists = body.list;
+                    } else{
+                        this.showNoScroll = true;
+                        this.warnText = body.errmsg;
+                    }
+                },res =>{
+
+                })
+            },
         },
         computed: {}
     }

@@ -11,7 +11,7 @@
                     <p class="list-money red">+{{item.integral}}</p>
                     </template>
                     <template v-else>
-                        <p class="list-money">-{{item.integral}}</p>
+                        <p class="list-money">{{item.integral}}</p>
                     </template>
                 </li>
             </ul>
