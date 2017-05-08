@@ -62,7 +62,7 @@
                   <div class="tabItem tab-swiper" v-show="titleTab==0">
                      <div >
                         <div  class="scanPay">
-                           <p class="scanPay-title">京东储值卡</p>
+                           <p class="scanPay-title">礼品卡</p>
                            <div class="pay-box">
                               <img class="scanPay-img1" src="../../assets/money_code.png" alt=""/>
                            </div>
