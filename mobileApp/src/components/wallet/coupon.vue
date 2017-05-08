@@ -1,22 +1,26 @@
 <template>
     <div class="page_coupon">
         <div class="couponTab">
-            <span :class="{active:titleTab==index}" v-for="(item,index) in titleList" @click="titleTab = index">
+            <span :class="{active:titleTab==index}" v-for="(item,index) in titleList" @click="changeItem(index,item.code)">
                 {{item.name}}
             </span>
         </div>
-        <div v-if="titleTab==0">
-            <notUsed></notUsed>
+
+        <div class="tabItem">
+            <used :couponList="couponList"></used>
         </div>
-        <div class="tabItem" v-if="titleTab==1">
-            <used></used>
-        </div>
-        <div class="tabItem" v-if="titleTab==2">
-            <overdue></overdue>
-        </div>
+        <!--<div v-if="titleTab==0">-->
+            <!--<notUsed></notUsed>-->
+        <!--</div>-->
+        <!--<div class="tabItem" v-if="titleTab==2">-->
+            <!--<overdue></overdue>-->
+        <!--</div>-->
     </div>
 </template>
 <script>
+    import {
+        couponListService
+    } from '../../services/wallet.js'
     import NotUsed from '../coupon/notUsed.vue'
     import Used from '../coupon/used.vue'
     import Overdue from '../coupon/overdue.vue'
@@ -28,6 +32,7 @@
         data () {
             return {
                 titleTab: 0,
+                currentCode:0,
                 list2: ['礼品卡', '优惠券', '积分'],
                 index: 1,
                 time: '',
@@ -46,26 +51,38 @@
                         name: '过期'
                     }
                 ],
-                couponList: [
-                    {
-                        money: '50', type: '生日礼券', number: '8999305128', shop:'线下门店',
-                        startTime:'2017.04.12',endTime:'2017.04.30'
-                    },
-                    {
-                        money: '30', type: '购物礼券', number: '8229305128', shop:'线上网店',
-                        startTime:'2017.04.12',endTime:'2017.04.30'
-                    },
-                    {
-                        money: '50', type: '生日礼券', number: '8999305128', shop:'线下门店',
-                        startTime:'2017.04.12',endTime:'2017.04.30'
-                    }
-                ]
+                couponList: []
             }
         },
         mounted(){
         },
         watch: {},
         created(){
+            this.renderData();
+        },
+        methods:{
+            changeItem(index, code){
+                this.currentCode = code;
+                this.titleTab = index;
+                this.renderData();
+            },
+            renderData(){
+                couponListService().save({
+                    cardcode: window.localStorage.getItem("cardcode"),
+                    status:this.currentCode
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.couponList = body.list;
+                    }else{
+                        this.showNoScroll = true;
+                        this.warnText = body.errmsg;
+                    }
+
+                }, res => {
+
+                })
+            },
         },
         computed: {}
     }

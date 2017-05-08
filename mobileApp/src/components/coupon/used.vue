@@ -1,88 +1,81 @@
 <template>
     <div class="page_used">
         <!--扫码和遮罩-->
-        <div @click="hide">
-            <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
-                <div @click.stop class="couponCode">
-                    <p class="couponCode-title">付款时交给店员扫一扫</p>
-                    <img class="couponCode-img" src="../../assets/money_code.png" alt=""/>
-                    <p class="couponCode-code">8999305128</p>
-                    <div @click="hide" class="couponCode-close"></div>
-                </div>
-            </x-dialog>
-        </div>
+        <x-dialog v-model="showNoScroll" class="dialog-demo" :scroll="false">
+            <div @click.stop class="couponCode">
+                <p class="couponCode-title">付款时交给店员扫一扫</p>
+                <img class="couponCode-img" :src="barcodeUrl+'?text='+currentCode" alt=""/>
+                <p class="couponCode-code">{{currentCode}}</p>
+                <div @click="hide" class="couponCode-close"></div>
+            </div>
+        </x-dialog>
         <!--优惠券-->
-        <div class="couponCon" v-for="(coupon,index) in couponList">
+        <no-data v-show="couponList.length==0"></no-data>
+        <div class="couponCon" v-for="(coupon,index) in couponList" v-show="couponList.length!=0">
             <div class="couList">
                 <div class="couList-img">
                     <p class="couList-imgText">
                         <span class="imgText-symbol">￥</span>
-                        <span class="imgText-money">{{coupon.money}}</span>
+                        <span class="imgText-money">50</span>
                     </p>
-                    <p class="couList-imgType">{{coupon.type}}</p>
+                    <p class="couList-imgType">{{coupon.thqName}}</p>
                 </div>
                 <div class="couList-text">
-                    <p style="margin:0;font-size: .75rem;color: #333333">券号：{{coupon.number}}</p>
-                    <p class="cou-type">{{coupon.shop}}</p>
-                    <p style="margin:0;font-size: .6rem;color: #999999">有效期：{{coupon.startTime}}～{{coupon.endTime}}</p>
+                    <p style="margin:0;font-size: .7rem;color: #333333">券号：{{coupon.thqno}}</p>
+                    <p class="cou-type">{{coupon.scope}}</p>
+                    <p style="margin:0;font-size: .6rem;color: #999999">有效期：{{coupon.startDate | date('YYYY-MM-DD')}}～{{coupon.endDate | date('YYYY-MM-DD')}}</p>
                     <div style="height: auto">
                         <p @click="explainShow(index+1)" class="couponExplain">礼券说明
                             <span v-if="explainList != index+1" class="couponRight">></span></p>
-                        <p v-if="explainList == index+1" class="coupon-text">本券只限于购买正价商品，每个订单 限用一张。</p>
+                        <p v-if="explainList == index+1" class="coupon-text">
+                            <span v-if="coupon.msg">{{coupon.msg}}</span>
+                            <span v-else>暂无说明</span>
+                        </p>
                     </div>
                 </div>
-                <div @click="show" class="couList-code"></div>
+                <div @click="showCode(coupon.thqno)" class="couList-code"></div>
             </div>
         </div>
     </div>
 </template>
 <script>
     import {XHeader, Scroller, XDialog} from 'vux'
+    import noData from '../common/noData.vue'
+    import {URL_getBarcode} from '../../services/index.js'
     export default {
         components: {
-            XHeader, Scroller, XDialog
+            XHeader, Scroller, XDialog,noData
+        },
+        props: {
+            couponList:Array,
         },
         data () {
             return {
-                explainList:'',
-                index:null,
-                showRight:true,
-                showText:false,
-                showNoScroll:false,
-                couponList: [
-                    {
-                        money: '50', type: '二次生日礼券', number: '8999305128', shop:'线下门店',
-                        startTime:'2017.04.12',endTime:'2017.04.30'
-                    },
-                    {
-                        money: '130', type: '购物礼券', number: '8229305128', shop:'线上网店',
-                        startTime:'2017.04.12',endTime:'2017.04.30'
-                    },
-                    {
-                        money: '30', type: '生日礼券', number: '8999305128', shop:'线下门店',
-                        startTime:'2017.04.12',endTime:'2017.04.30'
-                    },
-                    {
-                        money: '20', type: '生日礼券', number: '8999305128', shop:'线下门店',
-                        startTime:'2017.04.12',endTime:'2017.04.30'
-                    }
-                ]
+                explainList: '',
+                index: null,
+                showRight: true,
+                showText: false,
+                showNoScroll: false,
+                currentCode:'',
+                barcodeUrl:'',
             }
         },
         mounted(){
         },
         watch: {},
         created(){
+            this.barcodeUrl = URL_getBarcode;
         },
-        methods:{
-            show:function () {
+        methods: {
+            showCode(code) {
                 this.showNoScroll = true;
+                this.currentCode = code;
             },
-            hide:function () {
+            hide() {
                 this.showNoScroll = false;
             },
             explainShow(index){
-                if(this.explainList == index){
+                if (this.explainList == index) {
                     this.explainList = null
                 } else {
                     this.explainList = index
@@ -94,17 +87,17 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_used {
-        .weui-dialog{
+        .weui-dialog {
             width: auto !important;
             max-width: none !important;
             top: 43% !important;
         }
-        .couponCode{
+        .couponCode {
             width: 12.5rem;
             height: 8rem;
             position: relative;
             background: white;
-            .couponCode-title{
+            .couponCode-title {
                 width: 11rem;
                 height: 2rem;
                 line-height: 2rem;
@@ -114,14 +107,14 @@
                 color: #FF0018;
                 border-bottom: 1px solid #CDBE86;
             }
-            .couponCode-img{
+            .couponCode-img {
                 width: 7.85rem;
                 height: 2.2rem;
             }
-            .couponCode-code{
+            .couponCode-code {
                 font-size: .6rem;
             }
-            .couponCode-close{
+            .couponCode-close {
                 position: absolute;
                 width: .8rem;
                 height: .8rem;
@@ -161,11 +154,11 @@
                 padding: 0;
                 margin-top: 1.25rem;
             }
-            .imgText-symbol{
+            .imgText-symbol {
                 display: inline-block;
-                font-size:.55rem;
+                font-size: .55rem;
             }
-            .imgText-money{
+            .imgText-money {
                 font-size: 1rem;
             }
             .couList-imgType {
@@ -188,7 +181,7 @@
                 font-size: .6rem;
                 margin-top: .15rem;
             }
-            .couponRight{
+            .couponRight {
                 position: relative;
             }
             .couponRight:before {
@@ -200,7 +193,7 @@
                 left: -2.6rem;
                 bottom: -1px;
             }
-            .coupon-text{
+            .coupon-text {
                 font-size: .6rem;
                 margin-top: .35rem;
                 width: 9.55rem;

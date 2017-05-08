@@ -17,3 +17,7 @@ export function paymentCode() {
 export function integralCode(){
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member//integral/total')
 }
+//优惠券明细
+export function couponListService(){
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/coupon/list')
+}
