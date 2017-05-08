@@ -21,7 +21,7 @@
                     <p class="couList-imgType">{{coupon.thqName}}</p>
                 </div>
                 <div class="couList-text">
-                    <p style="margin:0;font-size: .7rem;color: #333333">券号：{{coupon.thqno}}</p>
+                    <p style="margin:0;font-size: .7rem;color: #333333">券号：{{coupon.thqNO}}</p>
                     <p class="cou-type">{{coupon.scope}}</p>
                     <p style="margin:0;font-size: .6rem;color: #999999">有效期：{{coupon.startDate | date('YYYY-MM-DD')}}～{{coupon.endDate | date('YYYY-MM-DD')}}</p>
                     <div style="height: auto">
@@ -33,7 +33,7 @@
                         </p>
                     </div>
                 </div>
-                <div @click="showCode(coupon.thqno)" class="couList-code"></div>
+                <div @click="showCode(coupon.thqNO)" class="couList-code"></div>
             </div>
         </div>
     </div>

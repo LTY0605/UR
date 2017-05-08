@@ -150,7 +150,7 @@
                this.showNoScroll = true;
                setTimeout(function () {
                    LuckyCard.case({
-                       ratio: .9,
+                       ratio: .7,
                    }, function() {
                        this.clearCover();
                    });
