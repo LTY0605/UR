@@ -137,7 +137,8 @@
                     }
 
                 }, res => {
-
+                    this.loginAlert =true;
+                    this.loginText = "网络不给力";
                 })
             },
             getCode(){
