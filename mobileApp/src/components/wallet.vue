@@ -95,6 +95,9 @@
             }
             .weui-cell__ft:after{
                 border-color: #ab9236;
+                -webkit-transform:matrix(0.71 ,0.71, 0.71, -0.71, 0, 0);
+                transform:matrix(0.71 ,0.71, 0.71, -0.71, 0, 0);
+                margin-top: -6px;
             }
             .slide {
                 padding: 0 1rem;

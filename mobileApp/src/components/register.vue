@@ -143,8 +143,14 @@
                 selected: 1,
                 zhengze_name: function (value) {
                     return {
-                        valid: /^[A-Za-z0-9_\u4e00-\u9fa5]{4,16}$/.test(value),
+                        valid: /^[A-Za-z0-9_\u4e00-\u9fa5]{4,20}$/.test(value),
                         msg: '字体长度不能超过20'
+                    }
+                },
+                beTel: function (value) {
+                    return {
+                        valid: /^(?=\d{11}$)^1(?:3\d|4[57]|5[^4\D]|7[^249\D]|8\d)\d{8}$/.test(value),
+                        msg: ''
                     }
                 },
 
@@ -158,6 +164,16 @@
                 if (this.user == '' || this.phone == '' || this.value2 == '' || this.attrValue.length == 0) {
                     this.show = true;
                     this.text = '请完善表单信息'
+                    return
+                }
+                if(!this.beTel(this.phone).valid){
+                    this.show = true;
+                    this.text = '请输入正确的手机号'
+                    return
+                }
+                if(!this.zhengze_name(this.user).valid){
+                    this.show = true;
+                    this.text = '用户名格式不对，字数在4到20之间'
                     return
                 }
                 var attress = value2name(this.attrValue, ChinaAddressData);
@@ -376,7 +392,7 @@
             width: 3rem !important;
         }
         .weui-cell__ft {
-            padding-right: 10% !important;
+            /*padding-right: 10% !important;*/
         }
         .agreementBox {
             text-align: center;

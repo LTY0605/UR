@@ -131,6 +131,11 @@
                     this.warnText = '请全部填写';
                     return
                 }
+                if(!this.beTel(this.newMobileTel).valid || !this.beTel(this.mobileTel).valid){
+                    this.showNoScroll = true;
+                    this.warnText = '请输入正确的手机号'
+                    return
+                }
                 if (this.newMobileTel == this.mobileTel) {
                     this.showNoScroll = true;
                     this.warnText = '新旧手机号不能一样';
