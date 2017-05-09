@@ -12,7 +12,7 @@
                 <!--</li>-->
                 <li>
                     <group>
-                        <x-input title="用户名" placeholder="请输入" v-model="customerName" :max="20"></x-input>
+                        <x-input title="用户名" placeholder="请输入用户名" v-model="customerName" :max="20" :is-type="zhengze_name"></x-input>
                     </group>
                 </li>
                 <li>
@@ -116,6 +116,12 @@
                 cardcode: '',//会员卡号
                 showMin: false,
                 time: 60,
+                zhengze_name: function (value) {
+                    return {
+                        valid: /^[A-Za-z0-9_\u4e00-\u9fa5]{4,20}$/.test(value),
+                        msg: '字体长度不能超过20'
+                    }
+                },
             }
         },
         created(){
@@ -244,6 +250,16 @@
             },
             sureSubmit(){
                 var pro = this.attress.split(" ")
+                if(this.customerName == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请输入用户名';
+                    return
+                }
+                if(!this.zhengze_name(this.customerName).valid){
+                    this.showNoScroll = true;
+                    this.warnText = '用户名格式不对，字数在4到20之间'
+                    return
+                }
                 infoEditService().save({
                     customerName: this.customerName,
                     cardcode: window.localStorage.getItem("cardcode"),

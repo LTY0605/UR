@@ -46,6 +46,7 @@
         },
         methods: {
             boundSubmit(){
+                let _this = this;
                 if(this.mobileTel == ''  || this.code == ''){
                     this.showNoScroll = true;
                     this.warnText = '请全部填写';
@@ -61,6 +62,11 @@
                     if (body.errcode == 0) {
                         this.showNoScroll = true;
                         this.warnText = '解绑成功';
+                        setTimeout(function () {
+                            _this.$router.push({
+                                name: 'login',
+                            });
+                        },300)
                     } else {
                         this.showNoScroll = true;
                         this.warnText = body.errmsg;
