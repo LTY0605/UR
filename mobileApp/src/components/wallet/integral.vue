@@ -18,10 +18,12 @@
                     <img class="listRight" @click="show" slot="icon" width="15" src="../../assets/icon_money_code.png">
                 </cell>
             </div>
-            <cell title="积分商城">
-                <img class="listImg" slot="icon" width="16" src="../../assets/icon_home.png">
-                <img class="listRight" slot="icon" width="7" src="../../assets/icon_right_on.png">
-            </cell>
+            <div @click="goLink">
+                <cell title="积分商城">
+                    <img class="listImg" slot="icon" width="16" src="../../assets/icon_home.png">
+                    <img class="listRight" slot="icon" width="7" src="../../assets/icon_right_on.png">
+                </cell>
+            </div>
             <router-link to="/integralS">
                 <cell title="积分查询">
                     <img class="listImg" slot="icon" width="16" src="../../assets/icon_search.png">
@@ -30,15 +32,13 @@
             </router-link>
         </group>
         <!--积分使用码-->
-        <div @click="hide">
-            <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
-                <div @click.stop class="integralCode">
-                    <p class="integralCode-title">积分使用时交给店员扫一扫</p>
-                    <img class="integralCode-img" :src="barcode+'?text='+paymentCode" alt=""/>
-                    <div @click="hide" class="integralCode-close"></div>
-                </div>
-            </x-dialog>
-        </div>
+        <x-dialog v-model="showNoScroll" class="dialog-demo" :scroll="false">
+            <div @click.stop class="integralCode">
+                <p class="integralCode-title">积分使用时交给店员扫一扫</p>
+                <img class="integralCode-img" :src="barcode+'?text='+paymentCode" alt=""/>
+                <div @click="hide" class="integralCode-close"></div>
+            </div>
+        </x-dialog>
         <!--温馨提示-->
         <toast v-model="showNoScroll2" type="text" :time="1000">{{warnText}}</toast>
         <!--<alert class="alert" v-model="showNoScroll3" title="积分规则">{{integralRule}}</alert>-->
@@ -46,8 +46,8 @@
 </template>
 <script>
     import {URL_getBarcode} from '../../services/index.js'
-    import {paymentCode,integralCode} from '../../services/wallet.js'
-    import {XHeader,XDialog, Scroller, Group, Cell, Alert, Toast} from 'vux'
+    import {paymentCode, integralCode} from '../../services/wallet.js'
+    import {XHeader, XDialog, Scroller, Group, Cell, Alert, Toast} from 'vux'
     export default {
         components: {
             XHeader, Scroller, Group, Cell, XDialog, Alert, Toast
@@ -56,15 +56,19 @@
             return {
                 integralTotal: '',   //可用积分
                 paymentCode: '',    //积分使用码
-                barcode:'',
+                barcode: '',
                 warnText: '',
-                showNoScroll:false,
-                showNoScroll2:false,
+                showNoScroll: false,
+                showNoScroll2: false,
 //                integralRule:'',
 //                showNoScroll3:false
             }
         },
-        methods:{
+        methods: {
+            goLink(){
+                this.showNoScroll2 = true;
+                this.warnText = "敬请期待";
+            },
             show(){
                 this.showNoScroll = true;
             },
@@ -73,30 +77,30 @@
             },
             codeData(){
                 paymentCode().save({
-                    cardcode:window.localStorage.getItem('cardcode')
-                }).then(res =>{
+                    cardcode: window.localStorage.getItem('cardcode')
+                }).then(res => {
                     let body = res.body;
-                    if(body.errcode==0){
+                    if (body.errcode == 0) {
                         this.paymentCode = body.paymentCode;
-                    } else{
+                    } else {
                         this.showNoScroll2 = true;
                         this.warnText = body.msg;
                     }
-                },res =>{
+                }, res => {
                 })
             },
             integralData(){
                 integralCode().save({
-                    cardcode:window.localStorage.getItem('cardcode')
-                }).then(res =>{
+                    cardcode: window.localStorage.getItem('cardcode')
+                }).then(res => {
                     let body = res.body;
-                    if(body.errcode==0){
+                    if (body.errcode == 0) {
                         this.integralTotal = body.integralTotal;
-                    }else{
+                    } else {
                         this.showNoScroll2 = true;
                         this.warnText = body.errmsg;
                     }
-                }, res =>{
+                }, res => {
                 })
             }
         },
@@ -112,40 +116,40 @@
     }
 </script>
 <style lang="less" rel="stylesheet/less">
-    .page_integral{
-        .vux-label{
+    .page_integral {
+        .vux-label {
             font-size: .75rem;
             color: #564712;
         }
-        .weui-cells{
+        .weui-cells {
             margin-left: 1rem;
             margin-right: 1rem;
         }
-        .weui-cells:before{
+        .weui-cells:before {
             top: -1px !important;
         }
-        .weui-cell{
+        .weui-cell {
             padding: 10px 0 !important;
         }
-        .weui-cell:before{
+        .weui-cell:before {
             left: 0 !important;
         }
-        .weui-dialog{
+        .weui-dialog {
             width: auto !important;
             max-width: none !important;
             top: 35% !important;
         }
-        .alert{
-            .weui-dialog{
+        .alert {
+            .weui-dialog {
                 width: 80% !important;
             }
         }
-        .integralCode{
+        .integralCode {
             width: 12.5rem;
             height: 8rem;
             position: relative;
             background: white;
-            .integralCode-title{
+            .integralCode-title {
                 width: 11rem;
                 height: 2rem;
                 line-height: 2rem;
@@ -155,14 +159,14 @@
                 color: #FF0018;
                 border-bottom: 1px solid #CDBE86;
             }
-            .integralCode-img{
+            .integralCode-img {
                 width: 7.85rem;
                 height: 3.5rem;
             }
-            .integralCode-code{
+            .integralCode-code {
                 font-size: .6rem;
             }
-            .integralCode-close{
+            .integralCode-close {
                 position: absolute;
                 width: .8rem;
                 height: .8rem;
@@ -172,7 +176,7 @@
                 right: .6rem;
             }
         }
-        .integralTop{
+        .integralTop {
             position: relative;
             display: inline-block;
             width: 100%;
@@ -181,7 +185,7 @@
             background-size: 100% 100%;
             background-repeat: no-repeat;
         }
-        .integralTop-img{
+        .integralTop-img {
             display: inline-block;
             width: 12rem;
             height: 14rem;
@@ -193,41 +197,45 @@
             justify-content: center;
             align-items: center;
         }
-        .integralTop-h1{
+        .integralTop-h1 {
             margin-top: 1.2rem;
             margin-bottom: 0;
             font-size: 3rem;
             font-weight: 100;
             color: #AB9236;
         }
-        .integralTop-p{
+        .integralTop-p {
             margin-top: -.3rem;
             font-size: .75rem;
             color: #AB9236;
         }
-        .integralTop-text{
+        .integralTop-text {
             position: absolute;
             right: 1.05rem;
             bottom: .9rem;
             font-size: .75rem;
             color: #F67982;
         }
-        .integralList{
+        .integralList {
             margin-top: -1rem;
-            .weui-cell{
+            .weui-cell {
                 border-bottom: 1px solid #D9D9D9;
             }
-            .weui-cell:before{
+            .weui-cell:before {
                 border: none;
             }
             .weui-cells:after {
                 border: none;
             }
-            .listImg{
-                display:inline-block;margin-right:.25rem;margin-top: .2rem;
+            .listImg {
+                display: inline-block;
+                margin-right: .25rem;
+                margin-top: .2rem;
             }
-            .listRight{
-                position: absolute; right: 0;top:.75rem;
+            .listRight {
+                position: absolute;
+                right: 0;
+                top: .75rem;
             }
         }
     }
