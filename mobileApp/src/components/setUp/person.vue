@@ -43,7 +43,7 @@
                 <li>
                     <group>
                         <x-input title="原手机号" placeholder="原手机号" v-model="mobileTel" :max="11" :min="11"
-                                 keyboard="number" is-type="china-mobile"></x-input>
+                                 keyboard="number" is-type="china-mobile" disabled></x-input>
                     </group>
                 </li>
                 <li>
@@ -127,17 +127,19 @@
         created(){
             // this.renderData();
             this.getData();
+            this.mobileTel = window.localStorage.getItem("mobileTel");
         },
         mounted(){
         },
         methods: {
             editTel(){
-                if (this.mobileTel == '' || this.newMobileTel == '' || this.code == '') {
+                let _this = this;
+                if (this.newMobileTel == '' || this.code == '') {
                     this.showNoScroll = true;
                     this.warnText = '请全部填写';
                     return
                 }
-                if(!this.beTel(this.newMobileTel).valid || !this.beTel(this.mobileTel).valid){
+                if(!this.beTel(this.newMobileTel).valid){
                     this.showNoScroll = true;
                     this.warnText = '请输入正确的手机号'
                     return
@@ -158,6 +160,11 @@
                     if (body.errcode == 0) {
                         this.showNoScroll = true;
                         this.warnText = '修改成功';
+                        setTimeout(function () {
+                            _this.$router.push({
+                                name: 'login',
+                            });
+                        },300)
                     } else {
                         this.showNoScroll = true;
                         this.warnText = body.errmsg;
