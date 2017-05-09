@@ -189,7 +189,8 @@
                     }
                     //console.log(res);
                 }, res => {
-
+                    this.showNoScro = true;
+                    this.warnText2 = '网络不给力';
                 })
             },
             goLink(){
