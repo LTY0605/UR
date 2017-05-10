@@ -52,7 +52,7 @@
             <group>
                 <cell title="我的钱包" link="./wallet?tab=2"></cell>
                 <ul>
-                    <li>
+                    <li class="li-card">
                         <p class="wallet-num">{{mycards}}</p>
                         <router-link class="color-style" to="./wallet?tab=0">礼品卡</router-link>
                     </li>
@@ -60,7 +60,7 @@
                         <p class="wallet-num">{{coupon}}</p>
                         <router-link class="color-style" to="./wallet?tab=1">优惠券</router-link>
                     </li>
-                    <li>
+                    <li class="li-integral">
                         <p class="wallet-num">{{integral}}可兑换</p>
                         <router-link class="color-style" to="./wallet?tab=2">积分
                         </router-link>
@@ -362,6 +362,12 @@
         }
         .wallet{
             border-bottom: .35rem solid #E5E5E5;
+            .li-card{
+                margin-left: -7%;
+            }
+            .li-integral{
+                margin-right: 0 !important;
+            }
             ul{
                 list-style: none;
                 font-size: 0;
@@ -375,6 +381,7 @@
                 padding: 0;
                 font-size: .6rem;
                 margin-top: .4rem;
+                margin-right: 3.5%;
                 text-align: center;
                 color: #333333;
                 .color-style{
