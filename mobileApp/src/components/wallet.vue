@@ -2,7 +2,7 @@
     <div class="page_wallet">
         <x-header :left-options="{backText: ''}">我的钱包</x-header>
         <div class="tabDown">
-            <cell style="background: #f2edda" is-link :border-intent="false" :arrow-direction="show ? 'up' : 'down'" @click.native="show = !show">
+            <cell style="background: #f2edda;z-index: 222;" is-link :border-intent="false" :arrow-direction="show ? 'up' : 'down'" @click.native="show = !show">
                 <p>{{titleList[titleTab].name}}</p>
             </cell>
 

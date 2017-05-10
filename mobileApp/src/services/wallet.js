@@ -21,3 +21,7 @@ export function integralCode(){
 export function couponListService(){
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/coupon/list')
 }
+//京东存值卡明细
+export function jdCardInfoService(){
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/jdcard/info')
+}

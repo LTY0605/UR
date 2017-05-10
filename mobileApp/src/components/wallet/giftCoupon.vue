@@ -2,8 +2,28 @@
    <div class="page_giftC">
       <!--<div class="gift1" >-->
           <div class="massegel1List">
-              <div class="gift1">
-                  <div v-for="list in massege1List" class="list">
+              <div class="gift1" v-for="list in massege1List">
+                  <div class="list">
+                      <p class="Type">京东存值卡</p>
+                      <p class="Id">{{list.Id}}</p>
+                      <p class="money">余额：{{list.money}}</p>
+                  </div>
+                  <div class="imgbox">
+                      <p class="picture">
+                          <img @click="showNoScroll=!showNoScroll" width="100%" src="../../assets/icon_money_code.png">
+                      </p>
+                  </div>
+                  <div class="buttonBox">
+                      <button @click="payCard" class="Box1">扫码支付</button>
+                      <router-link :to="{name:'personMain',query:{tab:1}}">
+                          <button class="Box7">修改密码</button>
+                      </router-link>
+                      <router-link to="transaction"><button class="Box3">交易记录</button></router-link>
+                  </div>
+              </div>
+
+              <div class="gift1" v-for="list in massege1List">
+                  <div class="list">
                       <p class="Type">{{list.type}}</p>
                       <p class="Id">{{list.Id}}</p>
                       <p class="money">余额：{{list.money}}</p>
@@ -21,8 +41,8 @@
                       <router-link to="transaction"><button class="Box3">交易记录</button></router-link>
                   </div>
               </div>
-              <div class="gift2">
-                  <div v-for="list1 in massege2List1" class="list1">
+              <div class="gift2" v-for="list1 in massege2List1">
+                  <div class="list1">
                       <p class="Type">{{list1.type}}</p>
                       <p class="number">{{list1.number}}</p>
                       <p class="money">余额：{{list1.money}}</p>
@@ -46,62 +66,8 @@
                       </div>
                   </div>
               </div>
-
-
           </div>
-         <!--<div class="massege1">-->
-            <!--<ul class="massegel1List">-->
-               <!--<li v-for="list in massege1List" class="list">-->
-                  <!--<p class="Type">{{list.type}}</p>-->
-                  <!--<p class="Id">{{list.Id}}</p>-->
-                  <!--<p class="money">余额：{{list.money}}</p>-->
-               <!--</li>-->
-            <!--</ul>-->
-         <!--</div>-->
-         <!--<div class="imgbox">-->
-            <!--<p class="picture">-->
-               <!--<img @click="showNoScroll=!showNoScroll" width="100%" src="../../assets/icon_money_code.png">-->
-            <!--</p>-->
-         <!--</div>-->
-         <!--<div class="buttonBox">-->
-            <!--<button @click="payCard" class="Box1">扫码支付</button>-->
-             <!--<router-link :to="{name:'personMain',query:{tab:1}}">-->
-                 <!--<button class="Box7">修改密码</button>-->
-             <!--</router-link>-->
-             <!--<router-link to="transaction"><button class="Box3">交易记录</button></router-link>-->
-         <!--</div>-->
-      <!--</div>-->
-      <!--<div class="gift2">-->
-         <!--<div class="massege2">-->
-            <!--<ul class="massegel2List1">-->
-               <!--<li v-for="list1 in massege2List1" class="list1">-->
-                  <!--<p class="Type">{{list1.type}}</p>-->
-                  <!--<p class="number">{{list1.number}}</p>-->
-                  <!--<p class="money">余额：{{list1.money}}</p>-->
-               <!--</li>-->
-            <!--</ul>-->
-         <!--</div>-->
-         <!--<div class="imgbox1">-->
-            <!--<p class="picture1">-->
-               <!--<img @click="showNoScroll=!showNoScroll" width="100%" src="../../assets/icon_money_code.png">-->
-            <!--</p>-->
-         <!--</div>-->
-         <!--<div class="buttonBox1">-->
-            <!--<div class="btnUp">-->
-               <!--<button @click="payCard" class="Box4">扫码支付</button>-->
-               <!--<router-link to="transfer"><button class="Box5">转赠</button></router-link>-->
-               <!--<button @click="showNoScroll2=true" class="Box6">获取转赠</button>-->
-            <!--</div>-->
-            <!--<div class="btnDown">-->
-                <!--<router-link :to="{name:'personMain',query:{tab:1}}">-->
-                    <!--<button class="Box7">修改密码</button>-->
-                <!--</router-link>-->
-                <!--<router-link to="transaction"><button class="Box8">交易记录</button></router-link>-->
-            <!--</div>-->
-         <!--</div>-->
-      <!--</div>-->
-      <div @click="showNoScroll=false" class="page_pay">
-         <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
+         <x-dialog v-model="showNoScroll"  class="dialog-demo page_pay" :scroll="false">
             <div @click.stop class="payCode">
                <div class="tabTitle">
                   <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="titleTab = index">{{item.name}}</span>
@@ -133,7 +99,6 @@
                </div>
             </div>
          </x-dialog>
-      </div>
        <div @click="showNoScroll2=false" class="page_tran">
            <div @click="hide2">
                <x-dialog v-model="showNoScroll2"  class="dialog-demo" :scroll="false">
@@ -145,15 +110,17 @@
                </x-dialog>
            </div>
        </div>
+       <toast v-model="showNoScro" type="text" :time="1000">{{warnText}}</toast>
    </div>
 </template>
 
 <script>
-    import {XHeader, Scroller, XDialog} from 'vux'
+    import {XHeader, Scroller, XDialog,Toast} from 'vux'
     import LuckyCard from "../../tools/luckyCar/lucky-card.min";
+    import {jdCardInfoService} from '../../services/wallet.js'
    export default{
        components: {
-           XHeader, Scroller, XDialog
+           XHeader, Scroller, XDialog,Toast
        },
        data(){
            return{
@@ -168,6 +135,8 @@
                    number:'URV00000018',
                    money:'￥10000.00'
                }],
+               showNoScro:false,
+               warnText:'',
                showNoScroll:false,
                showNoScroll2:false,
                titleTab: 0,
@@ -192,8 +161,25 @@
 
        },
        created(){
+           this.renderjdCard();
        },
        methods:{
+           renderjdCard(){
+               jdCardInfoService().save({
+                   cardcode: window.localStorage.getItem('cardcode'),
+               }).then(res => {
+                   let body = res.body;
+                   if (body.errcode == 0) {
+                       this.integralTotal = body.integralTotal;
+                   } else {
+                       this.showNoScro = true;
+                       this.warnText = body.errmsg;
+                   }
+               }, res => {
+                   this.showNoScro = true;
+                   this.warnText = "网络超时，请重试";
+               })
+           },
            payCard(){
                this.showNoScroll = true;
                setTimeout(function () {

@@ -87,6 +87,8 @@
                         this.warnText = body.msg;
                     }
                 }, res => {
+                    this.showNoScroll2 = true;
+                    this.warnText = "网络超时，请重试";
                 })
             },
             integralData(){
@@ -101,6 +103,8 @@
                         this.warnText = body.errmsg;
                     }
                 }, res => {
+                    this.showNoScroll2 = true;
+                    this.warnText = "网络超时，请重试";
                 })
             }
         },
