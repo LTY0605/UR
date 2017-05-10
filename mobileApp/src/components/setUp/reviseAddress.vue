@@ -72,7 +72,6 @@
         },
         watch: {
             attrValue(val) {
-                console.log(val);
                 this.attress = value2name(val, ChinaAddressData); //把值转为文字
             }
         },

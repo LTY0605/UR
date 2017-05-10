@@ -79,9 +79,6 @@
         created(){
         },
         methods: {
-            change (val) {
-                console.log('change', val)
-            },
             save(){
                 if (this.consignee == '' || this.mobileTel == '' || this.address == '' || this.addressDeep == '' || this.postcode == '') {
                     this.showNoScroll = true;
