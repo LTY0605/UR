@@ -5,7 +5,7 @@
                 <li>
                     <group>
                         <x-input title="手机号" placeholder="手机号" :max="11" :min="11"
-                                 keyboard="number" is-type="china-mobile" v-model="mobileTel"></x-input>
+                                 keyboard="number" :is-type="beTel" v-model="mobileTel" required ref="kk"></x-input>
                     </group>
                 </li>
                 <li class="code">
@@ -40,6 +40,12 @@
                 time:60,
                 showNoScroll: false,
                 warnText: '提示',
+                beTel: function (value) {
+                    return {
+                        valid: /^(?=\d{11}$)^1(?:3\d|4[57]|5[^4\D]|7[^249\D]|8\d)\d{8}$/.test(value),
+                        msg: ''
+                    }
+                },
             }
         },
         mounted(){
@@ -47,9 +53,18 @@
         methods: {
             boundSubmit(){
                 let _this = this;
+//                debugger
+//                let a = this.$refs.kk;
+//                console.log(a.msg,'--------')
+//                return
                 if(this.mobileTel == ''  || this.code == ''){
                     this.showNoScroll = true;
                     this.warnText = '请全部填写';
+                    return
+                }
+                if(!this.beTel(this.mobileTel).valid){
+                    this.showNoScroll = true;
+                    this.warnText = '请输入正确的手机号'
                     return
                 }
                 bindEditService().save({
