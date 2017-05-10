@@ -22,7 +22,18 @@ html, body {
     height: auto;
     width: 100%;
 }
-
+/*页面公共样式*/
+.operate {
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    font-size: .75rem;
+    background: #AB9236;
+    color: #fff;
+    margin-top: 1.25rem;
+    border-radius: .2rem;
+}
+/*end*/
 body, .page {
     /*background-color: #FBF9FE;*/
     background-color: #fff;

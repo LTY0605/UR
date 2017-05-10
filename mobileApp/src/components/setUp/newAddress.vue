@@ -1,12 +1,12 @@
 <template>
     <div class="page_newAddress">
         <x-header :left-options="{backText: ''}">新增收货地址
-            <a slot="right">保存</a>
+            <a slot="right" href="javascript:void(0)" @click="save">保存</a>
         </x-header>
         <div class="address-con">
             <group>
-                <x-input class="consignee" title="收货人姓名" v-model="consignee" placeholder="收货人姓名" required></x-input>
-                <x-input title="收货人电话" placeholder="收货人电话" v-model="mobileTel" required :max="11" :min="11"
+                <x-input class="consignee" title="收货人姓名" v-model="consignee" placeholder="收货人姓名"></x-input>
+                <x-input title="收货人电话" placeholder="收货人电话" v-model="mobileTel" :max="11" :min="11"
                          keyboard="number" is-type="china-mobile"></x-input>
                 <x-address class="address-select" placeholder="请选择" title="所在地区" v-model="attrValue" raw-value
                            :list="addressData"

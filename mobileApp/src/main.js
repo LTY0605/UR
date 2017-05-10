@@ -53,11 +53,11 @@ router.beforeEach(function (to, from, next) {
     const toIndex = history.getItem(to.path)
     const fromIndex = history.getItem(from.path)
     //create by xyc on 2017/5/5
-    // if (from.name == 'wallet' && to.name == 'wallet') {
-    //     next()
-    //     router.replace('/');
-    //     return
-    // }
+    if (from.name == 'newAddress' && to.name == 'personMain') {
+        next()
+        router.replace('/personMain?tab=3');
+        return
+    }
     //end
 
     if (toIndex) {

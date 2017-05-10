@@ -107,6 +107,7 @@
 </template>
 <script>
     import {registerService} from '../services/member.js'
+    import {memberInfoService} from '../services/person.js'
     import {
         XDialog, Toast, XHeader, Scroller, XInput, Datetime, XAddress, XButton, Group, ChinaAddressData,
         Value2nameFilter as value2name, Name2valueFilter as name2value
@@ -160,7 +161,7 @@
 
         methods: {
             onSubmit () {
-                let _this = this;
+
                 if (this.user == '' || this.phone == '' || this.value2 == '' || this.attrValue.length == 0) {
                     this.show = true;
                     this.text = '请完善表单信息'
@@ -178,7 +179,6 @@
                 }
                 var attress = value2name(this.attrValue, ChinaAddressData);
                 var pro = attress.split(" ");
-                //console.log(pro,'9999')
                 registerService().save({
                     customerName: this.user,
                     mobileTel: this.phone,
@@ -194,6 +194,35 @@
                     if (body.errcode == 0) {
                         this.showNoScro = true;
                         this.warnText2 = '注册成功';
+                        window.localStorage.setItem("mobileTel", this.phone);
+                        this.putLocal();
+
+                    } else {
+                        this.showNoScro = true;
+                        this.warnText2 = '注册不成功';
+                    }
+                }, res => {
+                    this.showNoScro = true;
+                    this.warnText2 = '网络不给力';
+                })
+            },
+            putLocal(){
+                let _this = this;
+                memberInfoService().get({
+                    wxOpenID: window.localStorage.getItem("wxOpenId"),
+                    mobileTel: window.localStorage.getItem("mobileTel")
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        window.localStorage.setItem("cardcode", body.cardcode);
+                        window.localStorage.setItem("sex", body.sex);
+                        window.localStorage.setItem("provice", body.provice);
+                        window.localStorage.setItem("brithday", body.brithday);
+                        window.localStorage.setItem("customerName", body.customerName);
+                        window.localStorage.setItem("district", body.district);
+                        window.localStorage.setItem("city", body.city);
+                        window.localStorage.setItem("mobileTel", body.mobileTel);
+                        window.localStorage.setItem("headimgurl", body.headimgurl);
                         setTimeout(function () {
                             _this.$router.push({
                                 name: 'index',
@@ -201,12 +230,15 @@
                         },300)
                     } else {
                         this.showNoScro = true;
-                        this.warnText2 = '注册不成功';
+                        this.warnText2 = '网络不给力,请重新登录';
+                        setTimeout(function () {
+                            _this.$router.push({
+                                name: 'login',
+                            });
+                        },300)
                     }
-                    //console.log(res);
                 }, res => {
-                    this.showNoScro = true;
-                    this.warnText2 = '网络不给力';
+
                 })
             },
             goLink(){

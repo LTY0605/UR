@@ -147,6 +147,14 @@ const routes = [
         },
         component: resolve => require(['./components/queryIndex.vue'], resolve)
     },
+    {
+        path: '/carPassword',
+        name: 'carPassword',
+        meta: {
+            title: '修改密码'
+        },
+        component: resolve => require(['./components/wallet/carPassword.vue'], resolve)
+    },
 ]
 
 export default routes
