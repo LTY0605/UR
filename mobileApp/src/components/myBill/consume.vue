@@ -78,7 +78,8 @@
                         this.warnText = body.errmsg;
                     }
                 },res =>{
-
+                    this.showNoScroll = true;
+                    this.warnText = "网络超时，请重试";
                 })
             },
         },
