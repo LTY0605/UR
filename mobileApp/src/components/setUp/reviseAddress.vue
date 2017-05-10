@@ -121,7 +121,7 @@
                 }
                 if(!this.beTel(this.mobileTel).valid){
                     this.showNoScroll = true;
-                    this.warnText = '请输入正确的手机号'
+                    this.warnText = '请输入正确的收货人电话'
                     return
                 }
                 editAttrService().save({
