@@ -48,11 +48,19 @@
                 if (wxOpenId && wxOpenId != '') {
                     window.localStorage.setItem("wxOpenId", wxOpenId);
                 }
-                this.putLocal();
+                //如果缓存中没有mobileTel，就重新登录
+                if (window.localStorage.getItem("mobileTel") == "") {
+                    this.$router.push({
+                        name: 'login',
+                    });
+                } else {
+                    this.putLocal();
+                }
             },
             putLocal(){
                 memberInfoService().get({
-                    wxOpenid: window.localStorage.getItem("wxOpenId")
+                    wxOpenID: window.localStorage.getItem("wxOpenId"),
+                    mobileTel: window.localStorage.getItem("mobileTel")
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {

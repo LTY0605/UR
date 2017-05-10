@@ -5,12 +5,12 @@
         </x-header>
         <div class="address-con">
             <group>
-                <x-input class="consignee" title="收货人姓名" v-model="consignee"></x-input>
-                <x-input title="联系电话" v-model="mobile"></x-input>
+                <x-input class="consignee" title="收货人姓名" v-model="consignee" placeholder="收货人姓名"></x-input>
+                <x-input title="联系电话" v-model="mobile"  placeholder="联系电话"></x-input>
                 <x-address title="地区" v-model="attrValue" :list="addressData"
                            placeholder="请选择地址"></x-address>
                 <x-textarea class="address-text" placeholder="详细地址" v-model="address"></x-textarea>
-                <x-input title="邮政编码" v-model="postcode"></x-input>
+                <x-input title="邮政编码" v-model="postcode" placeholder="邮政编码"></x-input>
             </group>
         </div>
         <div class="address-foot">
