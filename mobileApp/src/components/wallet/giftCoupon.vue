@@ -1,13 +1,13 @@
 <template>
    <div class="page_giftC">
       <!--<div class="gift1" >-->
-          <ul class="massegel1List">
+          <div class="massegel1List">
               <div class="gift1">
-                  <li v-for="list in massege1List" class="list">
+                  <div v-for="list in massege1List" class="list">
                       <p class="Type">{{list.type}}</p>
                       <p class="Id">{{list.Id}}</p>
                       <p class="money">余额：{{list.money}}</p>
-                  </li>
+                  </div>
                   <div class="imgbox">
                       <p class="picture">
                           <img @click="showNoScroll=!showNoScroll" width="100%" src="../../assets/icon_money_code.png">
@@ -22,11 +22,11 @@
                   </div>
               </div>
               <div class="gift2">
-                  <li v-for="list1 in massege2List1" class="list1">
+                  <div v-for="list1 in massege2List1" class="list1">
                       <p class="Type">{{list1.type}}</p>
                       <p class="number">{{list1.number}}</p>
                       <p class="money">余额：{{list1.money}}</p>
-                  </li>
+                  </div>
                   <div class="imgbox1">
                       <p class="picture1">
                           <img @click="showNoScroll=!showNoScroll" width="100%" src="../../assets/icon_money_code.png">
@@ -48,7 +48,7 @@
               </div>
 
 
-          </ul>
+          </div>
          <!--<div class="massege1">-->
             <!--<ul class="massegel1List">-->
                <!--<li v-for="list in massege1List" class="list">-->
