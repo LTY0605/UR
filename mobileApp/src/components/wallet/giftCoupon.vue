@@ -2,11 +2,11 @@
    <div class="page_giftC">
       <!--<div class="gift1" >-->
           <div class="massegel1List">
-              <div class="gift1" v-for="list in massege1List">
+              <div class="gift1">
                   <div class="list">
-                      <p class="Type">京东存值卡</p>
-                      <p class="Id">{{list.Id}}</p>
-                      <p class="money">余额：{{list.money}}</p>
+                      <p class="Type">{{jdCard.cardTypeName}}</p>
+                      <p class="Id">{{jdCard.JDcardcode}}</p>
+                      <p class="money">余额：{{jdCard.remainAmount}}</p>
                   </div>
                   <div class="imgbox">
                       <p class="picture">
@@ -14,8 +14,8 @@
                       </p>
                   </div>
                   <div class="buttonBox">
-                      <button @click="payCard" class="Box1">扫码支付</button>
-                      <router-link :to="{name:'personMain',query:{tab:1}}">
+                      <button @click="payCard(jdCard.cardTypeName,jdCard.JDcardcode,jdCard.password)" class="Box1">扫码支付</button>
+                      <router-link :to="{name:'carPassword',query:{tab:1}}">
                           <button class="Box7">修改密码</button>
                       </router-link>
                       <router-link to="transaction"><button class="Box3">交易记录</button></router-link>
@@ -35,7 +35,7 @@
                   </div>
                   <div class="buttonBox">
                       <button @click="payCard" class="Box1">扫码支付</button>
-                      <router-link :to="{name:'personMain',query:{tab:1}}">
+                      <router-link :to="{name:'carPassword',query:{tab:1}}">
                           <button class="Box7">修改密码</button>
                       </router-link>
                       <router-link to="transaction"><button class="Box3">交易记录</button></router-link>
@@ -59,7 +59,7 @@
                           <button @click="showNoScroll2=true" class="Box6">获取转赠</button>
                       </div>
                       <div class="btnDown">
-                          <router-link :to="{name:'personMain',query:{tab:1}}">
+                          <router-link :to="{name:'carPassword',query:{tab:1}}">
                               <button class="Box7">修改密码</button>
                           </router-link>
                           <router-link to="transaction"><button class="Box8">交易记录</button></router-link>
@@ -76,24 +76,24 @@
                   <div class="tabItem tab-swiper" v-show="titleTab==0">
                      <div >
                         <div  class="scanPay">
-                           <p class="scanPay-title">礼品卡</p>
+                           <p class="scanPay-title">{{currentName}}</p>
                            <div class="pay-box">
-                              <img class="scanPay-img1" src="../../assets/money_code.png" alt=""/>
+                              <img class="scanPay-img1" :src="barcodeUrl+'?text='+currentCode" alt=""/>
                            </div>
-                           <p class="scanPay-number">URV00000018</p>
+                           <p class="scanPay-number">{{currentCode}}</p>
                            <div class="pay-box">
-                              <img class="scanPay-img2" src="../../assets/money_code.png" alt=""/>
+                              <img class="scanPay-img2" :src="barcodeUrl+'?text='+currentPSW" alt=""/>
                            </div>
                            <p class="scanPay-massege">如不能扫描请刮开密码</p>
                             <div id="scratch">
-                                <div id="card">￥5000000元</div>
+                                <div id="card">{{currentPSW}}</div>
                             </div>
                             <p class="pay-text"><a href="javascript:void(0)" @click="showNoScroll=false">返 回</a></p>
                         </div>
                      </div>
                   </div>
                   <div class="tabItem" v-show="titleTab==1">
-                     <img class="pay-img" src="../../assets/money_code2.png" alt=""/>
+                     <img class="pay-img" :src="qRcodeUrl+'?text='+currentCode+'&width=150&height=150'" alt=""/>
                       <p class="pay-text"><a href="javascript:void(0)" @click="showNoScroll=false">返 回</a></p>
                   </div>
                </div>
@@ -118,12 +118,14 @@
     import {XHeader, Scroller, XDialog,Toast} from 'vux'
     import LuckyCard from "../../tools/luckyCar/lucky-card.min";
     import {jdCardInfoService} from '../../services/wallet.js'
+    import {URL_getQRCode,URL_getBarcode} from '../../services/index.js'
    export default{
        components: {
            XHeader, Scroller, XDialog,Toast
        },
        data(){
            return{
+               jdCard:[],
                massege1List:[{
                    type: '礼品卡',
                    Id: '7165 1560 1084 4001',
@@ -153,8 +155,12 @@
                        name: '付款码'
                    },
 
-               ]
-
+               ],
+               currentPSW:'',
+               currentCode:'',
+               currentName:'',
+               qRcodeUrl:'',
+               barcodeUrl:'',
            }
        },
        mounted(){
@@ -162,15 +168,18 @@
        },
        created(){
            this.renderjdCard();
+           this.qRcodeUrl = URL_getQRCode;
+           this.barcodeUrl=URL_getBarcode;
        },
        methods:{
            renderjdCard(){
                jdCardInfoService().save({
-                   cardcode: window.localStorage.getItem('cardcode'),
+//                   cardcode: window.localStorage.getItem('cardcode'),
+                   cardcode:'8urp0000118',
                }).then(res => {
                    let body = res.body;
                    if (body.errcode == 0) {
-                       this.integralTotal = body.integralTotal;
+                       this.jdCard = body;
                    } else {
                        this.showNoScro = true;
                        this.warnText = body.errmsg;
@@ -180,7 +189,10 @@
                    this.warnText = "网络超时，请重试";
                })
            },
-           payCard(){
+           payCard(name,code,passWord){
+               this.currentName = name;
+               this.currentCode = code;
+               this.currentPSW = passWord;
                this.showNoScroll = true;
                setTimeout(function () {
                    LuckyCard.case({
@@ -384,9 +396,7 @@
    .pay-img{
       width: 7.5rem;
       height: 7.5rem;
-      margin:2.75rem 2.5rem 1.2rem ;
-
-
+      margin: .75rem 2.5rem 1rem;
    }
    .scanPay{
       width: 12.5rem;
@@ -415,7 +425,7 @@
    }
    .scanPay-img1,.scanPay-img2{
       width: 7.85rem;
-      height: 2.2rem;
+      height: 2.6rem;
 
    }
    .scanPay-img2{
