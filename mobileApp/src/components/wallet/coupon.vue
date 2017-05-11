@@ -8,7 +8,7 @@
         </div>
 
         <div class="tabItem">
-            <used :couponList="couponList"></used>
+            <used :couponList="couponList" :isShow="isShow"></used>
         </div>
         <!--<div v-if="titleTab==0">-->
             <!--<notUsed></notUsed>-->
@@ -33,6 +33,7 @@
         },
         data () {
             return {
+                isShow:true,
                 titleTab: 0,
                 currentCode:0,
                 list2: ['礼品卡', '优惠券', '积分'],
@@ -64,6 +65,11 @@
         },
         methods:{
             changeItem(index, code){
+                if(index == 0){
+                    this.isShow = true;
+                }else{
+                    this.isShow = false;
+                }
                 this.currentCode = code;
                 this.titleTab = index;
                 this.renderData();
