@@ -90,10 +90,6 @@
     }
 </script>
 <style lang="less" rel="stylesheet/less">
-    .left-arrow:before{
-        border: 1px solid #FFFFFF !important;
-        border-width: 1px 0 0 1px !important;
-    }
     .page_coupon {
         .couponTab {
             width: 89.6%;

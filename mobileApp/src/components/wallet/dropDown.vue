@@ -9,10 +9,10 @@
             <div class="slide" :class="show?'animate':''">
                 <div class="slide-div">
                     <span :class="{active:titleTab==index}"
-                              v-for="(item, index) in titleList"
-                              @click="tabChange(index)">
+                          v-for="(item, index) in titleList"
+                          @click="tabChange(index)">
                         <!--<router-link :to="titleList[titleTab].type">-->
-                            {{item.name}}
+                        {{item.name}}
                         <!--</router-link>-->
                     </span>
                 </div>
@@ -35,6 +35,7 @@
             return {
                 show: false,
                 index: 0,
+                downTab:'',
                 titleList: [
                     {
                         code: 0,
@@ -65,9 +66,9 @@
         },
         methods:{
             tabChange(index){
-                this.titleTab = index;
+                this.downTab = index;
                 this.$router.push({
-                    name:this.titleList[this.titleTab].type,
+                    name:this.titleList[this.downTab].type,
 //                    query:{tab: index},
                 })
                 this.show=false;
@@ -81,7 +82,6 @@
         .vux-header {
             background-color: #AB9236 !important;
         }
-
         .vux-header .vux-header-title, .vux-header h1 {
             font-size: .85rem;
         }
@@ -96,34 +96,34 @@
                 padding: 0 !important;
                 width: 100%;
                 text-align: center;
-                p{
-                    font-size: .75rem !important;
-                    color: #ab9236 !important;
-                }
+            p{
+                font-size: .75rem !important;
+                color: #ab9236 !important;
             }
-            .weui-cell__ft:after{
-                border-color: #ab9236;
-                -webkit-transform:matrix(0.71 ,0.71, 0.71, -0.71, 0, 0);
-                transform:matrix(0.71 ,0.71, 0.71, -0.71, 0, 0);
-                margin-top: -6px;
-            }
-            .slide {
-                padding: 0 1rem;
-                width: 100%;
-                overflow: hidden;
-                max-height: 0;
-                position: absolute;
-                z-index: 1000;
-                background: #FFFFFF;
-                transition: max-height .5s cubic-bezier(0, 1, 0, 1) -.1s;
-                .slide-div{
-                    padding-top: 1rem;
-                    padding-bottom: .5rem;
-                    font-size: 0;
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    justify-content: space-between;
+        }
+        .weui-cell__ft:after{
+            border-color: #ab9236;
+            -webkit-transform:matrix(0.71 ,0.71, 0.71, -0.71, 0, 0);
+            transform:matrix(0.71 ,0.71, 0.71, -0.71, 0, 0);
+            margin-top: -6px;
+        }
+        .slide {
+            padding: 0 1rem;
+            width: 100%;
+            overflow: hidden;
+            max-height: 0;
+            position: absolute;
+            z-index: 1000;
+            background: #FFFFFF;
+            transition: max-height .5s cubic-bezier(0, 1, 0, 1) -.1s;
+            .slide-div{
+                padding-top: 1rem;
+                padding-bottom: .5rem;
+                font-size: 0;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
                 span{
                     display: inline-block;
                     width: 4.2rem;
@@ -136,12 +136,12 @@
                     border: 1px solid #CDBE86;
                     background: #FFFFFF;
                     color: #999999;
-                   /* a{
-                        color: #999999;
-                        width: 100%;
-                        height: 100%;
-                        display: inline-block;
-                    }*/
+                    /* a{
+                         color: #999999;
+                         width: 100%;
+                         height: 100%;
+                         display: inline-block;
+                     }*/
                 }
                 span.active {
                     background: #CDBE86;

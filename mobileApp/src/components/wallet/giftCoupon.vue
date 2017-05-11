@@ -374,13 +374,28 @@
          font-size: .75rem;
          display: inline-block;
          width: 50%;
-         background: #ffffff;
+         background: rgb(242,237,218);
          color: #000000;
          border-left: 1px solid #CDBE86;
          height: 2.5rem;
+         line-height: 2rem;
          text-align: center;
          padding-top: .25rem;
-
+      }
+      span.active{
+          background: #CDBE86;
+          position: relative;
+      }
+      span.active:after{
+          content: '';
+          border-style: solid;
+          border-width: .35rem;
+          border-color: transparent transparent #fff transparent;
+          position: absolute;
+          bottom: -1px;
+          left: 48%;
+          margin-left: -0.175rem;
+          display: block;
       }
       .close{
           border-left:0;

@@ -4,6 +4,7 @@
         <div class="quest_con">
             <one v-if="one"></one>
             <two v-if="two"></two>
+            <three v-if="three"></three>
         </div>
     </div>
 </template>
@@ -11,15 +12,17 @@
 <script>
     import one from './quest/one.vue'
     import two from './quest/two.vue'
+    import three from './quest/three.vue'
     import {XHeader, Group, Cell, XButton} from 'vux'
     export default{
         components:{
-            XHeader, XButton, one, two
+            XHeader, XButton, one, two, three
         },
         data(){
             return{
                 one:false,
-                two:false
+                two:false,
+                three:true
             }
         },
         methods:{
