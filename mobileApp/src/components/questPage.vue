@@ -19,7 +19,7 @@
         data(){
             return{
                 one:false,
-                two:true
+                two:false
             }
         },
         methods:{

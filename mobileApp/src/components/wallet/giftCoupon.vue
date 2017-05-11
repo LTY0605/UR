@@ -1,5 +1,6 @@
 <template>
    <div class="page_giftC">
+       <dropDown title="礼品卡" :titleTab="0"></dropDown>
       <!--<div class="gift1" >-->
           <div class="massegel1List">
               <div class="gift1">
@@ -115,13 +116,14 @@
 </template>
 
 <script>
+    import dropDown from './dropDown.vue'
     import {XHeader, Scroller, XDialog,Toast} from 'vux'
     import LuckyCard from "../../tools/luckyCar/lucky-card.min";
     import {jdCardInfoService} from '../../services/wallet.js'
     import {URL_getQRCode,URL_getBarcode} from '../../services/index.js'
    export default{
        components: {
-           XHeader, Scroller, XDialog,Toast
+           XHeader, Scroller, XDialog,Toast,dropDown
        },
        data(){
            return{

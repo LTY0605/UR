@@ -1,5 +1,6 @@
 <template>
     <div class="page_integral">
+        <dropDown title="积分" :titleTab="2"></dropDown>
         <!--积分头部-->
         <div class="integralTop">
             <div class="integralTop-img">
@@ -45,12 +46,13 @@
     </div>
 </template>
 <script>
+    import dropDown from './dropDown.vue'
     import {URL_getBarcode} from '../../services/index.js'
     import {paymentCode, integralCode} from '../../services/wallet.js'
     import {XHeader, XDialog, Scroller, Group, Cell, Alert, Toast} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, Group, Cell, XDialog, Alert, Toast
+            XHeader, Scroller, Group, Cell, XDialog, Alert, Toast, dropDown
         },
         data () {
             return {
@@ -221,7 +223,7 @@
             color: #F67982;
         }
         .integralList {
-            margin-top: -1rem;
+            margin-top: -.62rem;
             .weui-cell {
                 border-bottom: 1px solid #D9D9D9;
             }

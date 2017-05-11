@@ -50,19 +50,19 @@
         <!--钱包-->
         <div class="wallet">
             <group>
-                <cell title="我的钱包" link="./wallet?tab=2"></cell>
+                <cell title="我的钱包" link="./integral"></cell>
                 <ul>
                     <li class="li-card">
                         <p class="wallet-num">{{mycards}}</p>
-                        <router-link class="color-style" to="./wallet?tab=0">礼品卡</router-link>
+                        <router-link class="color-style" to="giftCoupon">礼品卡</router-link>
                     </li>
                     <li>
                         <p class="wallet-num">{{coupon}}</p>
-                        <router-link class="color-style" to="./wallet?tab=1">优惠券</router-link>
+                        <router-link class="color-style" to="coupon">优惠券</router-link>
                     </li>
                     <li class="li-integral">
                         <p class="wallet-num">{{integral}}可兑换</p>
-                        <router-link class="color-style" to="./wallet?tab=2">积分
+                        <router-link class="color-style" to="integral">积分
                         </router-link>
                     </li>
                 </ul>

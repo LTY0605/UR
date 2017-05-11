@@ -1,5 +1,6 @@
 <template>
     <div class="page_coupon">
+        <dropDown title="优惠券" :titleTab="1"></dropDown>
         <div class="couponTab">
             <span :class="{active:titleTab==index}" v-for="(item,index) in titleList" @click="changeItem(index,item.code)">
                 {{item.name}}
@@ -18,6 +19,7 @@
     </div>
 </template>
 <script>
+    import dropDown from './dropDown.vue'
     import {
         couponListService
     } from '../../services/wallet.js'
@@ -27,7 +29,7 @@
     import {XHeader, Scroller} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, NotUsed, Used, Overdue
+            XHeader, Scroller, NotUsed, Used, Overdue, dropDown
         },
         data () {
             return {

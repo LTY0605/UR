@@ -155,6 +155,30 @@ const routes = [
         },
         component: resolve => require(['./components/wallet/carPassword.vue'], resolve)
     },
+    {
+        path: '/integral',
+        name: 'integral',
+        meta: {
+            title: '积分'
+        },
+        component: resolve => require(['./components/wallet/integral.vue'], resolve)
+    },
+    {
+        path: '/coupon',
+        name: 'coupon',
+        meta: {
+            title: '优惠券'
+        },
+        component: resolve => require(['./components/wallet/coupon.vue'], resolve)
+    },
+    {
+        path: '/giftCoupon',
+        name: 'giftCoupon',
+        meta: {
+            title: '礼品卡'
+        },
+        component: resolve => require(['./components/wallet/giftCoupon.vue'], resolve)
+    },
 ]
 
 export default routes
