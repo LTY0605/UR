@@ -25,3 +25,7 @@ export function couponListService(){
 export function jdCardInfoService(){
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/jdcard/info')
 }
+//会员绑定的卡列表
+export function cardListService(){
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/card/list')
+}
