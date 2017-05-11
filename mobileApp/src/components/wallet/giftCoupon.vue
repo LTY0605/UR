@@ -2,7 +2,7 @@
    <div class="page_giftC">
       <!--<div class="gift1" >-->
           <div class="massegel1List">
-              <div class="gift1">
+              <div class="gift1" v-if="jdCard.length > 0">
                   <div class="list">
                       <p class="Type">{{jdCard.cardTypeName}}</p>
                       <p class="Id">{{jdCard.JDcardcode}}</p>
