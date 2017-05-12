@@ -61,11 +61,11 @@
                   <div class="buttonBox1">
                       <div class="btnUp">
                           <button @click="payCard(item.cardName,item.cardcode,item.password)" class="Box1">扫码支付</button>
-                          <router-link to="transfer"><button class="Box5">转赠</button></router-link>
+                          <router-link :to="{name:'transfer',query:{cardName:item.cardName,remainAmount:item.remainAmount}}"><button class="Box5">转赠</button></router-link>
                           <button @click="showNoScroll2=true" class="Box6">获取转赠</button>
                       </div>
                       <div class="btnDown">
-                          <router-link :to="{name:'carPassword',query:{tab:1}}">
+                          <router-link :to="{name:'carPassword',query:{cardName:item.cardName,remainAmount:item.remainAmount}}">
                               <button class="Box7">修改密码</button>
                           </router-link>
                           <router-link to="transaction"><button class="Box8">交易记录</button></router-link>

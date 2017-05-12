@@ -22,6 +22,7 @@ html, body {
     height: auto;
     width: 100%;
 }
+
 /*页面公共样式*/
 .operate {
     height: 2rem;
@@ -258,4 +259,9 @@ button.orangeBtn{
 .vux-header .vux-header-left .left-arrow:before{
     border:1px solid #FFFFFF !important;
     border-width: 1px 0 0 1px !important;
+}
+.vux-input-icon.weui-icon-warn:before, .vux-input-icon.weui-icon-success:before{
+    font-size: .8rem !important;
+    margin-top: 2px;
+    vertical-align: top;
 }
