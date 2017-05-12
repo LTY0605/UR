@@ -85,10 +85,12 @@
             <group>
                 <cell title="会员活动" link="./"></cell>
                 <ul>
-                    <li>
-                        <img width="24" src="../assets/icon_save.png"/>
-                        <p class="action-text">调查问卷</p>
-                    </li>
+                    <router-link to="quest">
+                        <li>
+                            <img width="24" src="../assets/icon_save.png"/>
+                            <p class="action-text">调查问卷</p>
+                        </li>
+                    </router-link>
                     <li>
                         <img width="24" src="../assets/icon_dialog.png"/>
                         <p class="action-text">时尚体验</p>

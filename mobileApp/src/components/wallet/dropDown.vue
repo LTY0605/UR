@@ -122,10 +122,10 @@
                 border-color: #ab9236;
                 border-style: solid;
                 transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
-                transform: rotate(-45deg);
+                transform: rotate(135deg);
                 position: absolute;
                 top: 50%;
-                margin-top: -2px;
+                margin-top: -.18rem;
                 right: .75rem;
             }
             .weui-cell_access .weui-cell__ft:after{
