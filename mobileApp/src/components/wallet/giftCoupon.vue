@@ -1,13 +1,38 @@
 <template>
    <div class="page_giftC">
        <dropDown title="礼品卡" :titleTab="0"></dropDown>
-      <!--<div class="gift1" >-->
           <div class="massegel1List">
-              <div class="gift1" v-if="jdCard.length > 0">
+              <!--<div class="gift2" v-if="jdCard.length!=0">-->
+                  <!--<div class="list1">-->
+                      <!--<p class="Type">{{jdCard.cardTypeName}}</p>-->
+                      <!--<p class="Id">{{jdCard.JDcardcode}}</p>-->
+                      <!--<p class="money">余额：{{jdCard.remainAmount}}</p>-->
+                  <!--</div>-->
+                  <!--<div class="imgbox1">-->
+                      <!--<p class="picture1">-->
+                          <!--<img @click="showNoScroll=!showNoScroll" width="100%" src="../../assets/icon_money_code.png">-->
+                      <!--</p>-->
+                  <!--</div>-->
+                  <!--<div class="buttonBox1">-->
+                      <!--<div class="btnUp">-->
+                          <!--<button @click="payCard(jdCard.cardTypeName,jdCard.JDcardcode,jdCard.password)" class="Box1">扫码支付</button>-->
+                          <!--<router-link to="transfer"><button class="Box5">转赠</button></router-link>-->
+                          <!--<button @click="showNoScroll2=true" class="Box6">获取转赠</button>-->
+                      <!--</div>-->
+                      <!--<div class="btnDown">-->
+                          <!--<router-link :to="{name:'carPassword',query:{tab:1}}">-->
+                              <!--<button class="Box7">修改密码</button>-->
+                          <!--</router-link>-->
+                          <!--<router-link to="transaction"><button class="Box8">交易记录</button></router-link>-->
+                      <!--</div>-->
+                  <!--</div>-->
+              <!--</div>-->
+              <template v-for="item in cardList">
+              <div class="gift1" v-if="item.cardName!='京东存值卡'">
                   <div class="list">
-                      <p class="Type">{{jdCard.cardTypeName}}</p>
-                      <p class="Id">{{jdCard.JDcardcode}}</p>
-                      <p class="money">余额：{{jdCard.remainAmount}}</p>
+                      <p class="Type">{{item.cardName}}</p>
+                      <p class="Id">{{item.cardcode}}</p>
+                      <p class="money">余额：{{item.remainAmount}}</p>
                   </div>
                   <div class="imgbox">
                       <p class="picture">
@@ -15,38 +40,18 @@
                       </p>
                   </div>
                   <div class="buttonBox">
-                      <button @click="payCard(jdCard.cardTypeName,jdCard.JDcardcode,jdCard.password)" class="Box1">扫码支付</button>
+                      <button @click="payCard(item.cardTypeName,item.JDcardcode,item.password)" class="Box1">扫码支付</button>
                       <router-link :to="{name:'carPassword',query:{tab:1}}">
                           <button class="Box7">修改密码</button>
                       </router-link>
                       <router-link to="transaction"><button class="Box3">交易记录</button></router-link>
                   </div>
               </div>
-
-              <div class="gift1" v-for="list in massege1List">
-                  <div class="list">
-                      <p class="Type">{{list.type}}</p>
-                      <p class="Id">{{list.Id}}</p>
-                      <p class="money">余额：{{list.money}}</p>
-                  </div>
-                  <div class="imgbox">
-                      <p class="picture">
-                          <img @click="showNoScroll=!showNoScroll" width="100%" src="../../assets/icon_money_code.png">
-                      </p>
-                  </div>
-                  <div class="buttonBox">
-                      <button @click="payCard" class="Box1">扫码支付</button>
-                      <router-link :to="{name:'carPassword',query:{tab:1}}">
-                          <button class="Box7">修改密码</button>
-                      </router-link>
-                      <router-link to="transaction"><button class="Box3">交易记录</button></router-link>
-                  </div>
-              </div>
-              <div class="gift2" v-for="list1 in massege2List1">
+              <div class="gift2"  v-if="item.cardName=='京东存值卡'">
                   <div class="list1">
-                      <p class="Type">{{list1.type}}</p>
-                      <p class="number">{{list1.number}}</p>
-                      <p class="money">余额：{{list1.money}}</p>
+                      <p class="Type">{{item.cardName}}</p>
+                      <p class="Id">{{item.cardcode}}</p>
+                      <p class="money">余额：{{item.remainAmount}}</p>
                   </div>
                   <div class="imgbox1">
                       <p class="picture1">
@@ -55,7 +60,7 @@
                   </div>
                   <div class="buttonBox1">
                       <div class="btnUp">
-                          <button @click="payCard" class="Box4">扫码支付</button>
+                          <button @click="payCard(item.cardName,item.cardcode,item.password)" class="Box1">扫码支付</button>
                           <router-link to="transfer"><button class="Box5">转赠</button></router-link>
                           <button @click="showNoScroll2=true" class="Box6">获取转赠</button>
                       </div>
@@ -67,6 +72,7 @@
                       </div>
                   </div>
               </div>
+              </template>
           </div>
          <x-dialog v-model="showNoScroll"  class="dialog-demo page_pay" :scroll="false">
             <div @click.stop class="payCode">
@@ -119,7 +125,7 @@
     import dropDown from './dropDown.vue'
     import {XHeader, Scroller, XDialog,Toast} from 'vux'
     import LuckyCard from "../../tools/luckyCar/lucky-card.min";
-    import {jdCardInfoService} from '../../services/wallet.js'
+    import {jdCardInfoService,cardListService} from '../../services/wallet.js'
     import {URL_getQRCode,URL_getBarcode} from '../../services/index.js'
    export default{
        components: {
@@ -128,6 +134,7 @@
        data(){
            return{
                jdCard:[],
+               cardList:[],
                massege1List:[{
                    type: '礼品卡',
                    Id: '7165 1560 1084 4001',
@@ -169,11 +176,29 @@
 
        },
        created(){
-           this.renderjdCard();
+//           this.renderjdCard();
+           this.renderCardList();
            this.qRcodeUrl = URL_getQRCode;
-           this.barcodeUrl=URL_getBarcode;
+           this.barcodeUrl = URL_getBarcode;
        },
        methods:{
+           renderCardList(){
+               cardListService().save({
+//                   cardcode: window.localStorage.getItem('cardcode'),
+                   cardcode:'8urp0000118',
+               }).then(res => {
+                   let body = res.body;
+                   if (body.errcode == 0) {
+                      this.cardList = body.list;
+                   } else {
+                       this.showNoScro = true;
+                       this.warnText = body.errmsg;
+                   }
+               }, res => {
+                   this.showNoScro = true;
+                   this.warnText = "网络超时，请重试";
+               })
+           },
            renderjdCard(){
                jdCardInfoService().save({
 //                   cardcode: window.localStorage.getItem('cardcode'),

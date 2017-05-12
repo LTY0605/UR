@@ -33,7 +33,7 @@
                         </p>
                     </div>
                 </div>
-                <div @click="showCode(coupon.thqNO)" class="couList-code"></div>
+                <div v-show="isShow"  @click="showCode(coupon.thqNO)" class="couList-code"></div>
             </div>
         </div>
     </div>
@@ -48,6 +48,7 @@
         },
         props: {
             couponList:Array,
+            isShow:Boolean
         },
         data () {
             return {
