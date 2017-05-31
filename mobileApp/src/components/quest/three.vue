@@ -64,7 +64,7 @@
         },
         data(){
             return{
-                selected: 0,
+                selected: 6,
                 other: true
             }
         },
@@ -76,6 +76,7 @@
                 } else{
                     this.other = true
                 }
+                console.log(this.selected);
             }
         },
         mounted(){
@@ -157,9 +158,9 @@
         .txt{
             background: none;
             border: none;
+            /*border-bottom: 1px solid #999999;*/
             margin: .6rem 0 0 1.2rem;
             width: 85%;
-            /*outline: none;*/
         }
     }
     }

@@ -6,7 +6,7 @@
             <two v-if="two"></two>
             <three v-if="three"></three>
             <four v-if="four"></four>
-            <button class="quest-btn" @click="next">继 续（{{num}} /10）</button>
+            <button id="btnText" class="quest-btn" @click="next">继 续（{{num}} /10）</button>
         </div>
     </div>
 </template>
@@ -32,6 +32,7 @@
         },
         methods:{
             next(){
+                let fBtn = document.getElementById('btnText');
                 if(this.one == true){
                     this.one = false;
                     this.num=2;
@@ -43,6 +44,7 @@
                 }else if(this.three == true){
                     this.three = false;
                     this.num=4;
+                    fBtn.innerHTML = '提交';
                     this.four = true;
                 }
             }
