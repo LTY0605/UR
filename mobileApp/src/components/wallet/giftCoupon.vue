@@ -41,9 +41,9 @@
                   </div>
                   <div class="buttonBox">
                       <button @click="payCard(item.cardTypeName,item.JDcardcode,item.password)" class="Box1">扫码支付</button>
-                      <router-link :to="{name:'carPassword',query:{tab:1}}">
-                          <button class="Box7">修改密码</button>
-                      </router-link>
+                      <!--<router-link :to="{name:'carPassword',query:{tab:1}}">-->
+                          <!--<button class="Box7">修改密码</button>-->
+                      <!--</router-link>-->
                       <router-link to="transaction"><button class="Box3">交易记录</button></router-link>
                   </div>
               </div>
