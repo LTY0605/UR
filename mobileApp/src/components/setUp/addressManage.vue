@@ -5,30 +5,29 @@
                 <ul>
                     <li>
                         <span class="liName">{{item.consignee}}</span>
-                        <span class="liCode">{{item.mobileTel}}</span>
+                        <span class="liCode">{{item.mobile}}</span>
                     </li>
                     <li>
-                        <span class="addressItem">广东省 广州市 天河区</span>
+                        <span class="addressItem">{{item.provice}} {{item.city}} {{item.district}}</span>
                     </li>
                     <li>
                         <span>{{item.address}}</span>
                     </li>
                     <li>
-                        <label class="editAtt" @click="changeDefalt(index)">
-                            <input class="check" type="radio" name="radio1" :checked="item.default==0"  :value="item.uid">
+                        <label class="editAtt" @click="changeDefalt(index,item.id)">
+                            <input class="check" type="radio" name="radio1" :checked="item.isdefault==0"  :value="item.uid">
                             <span>默认地址</span>
                         </label>
                         <span class="eddOprate">
-                          <span class="edit">编辑</span>
-                          <span class="delete" @click="deleteItem(item.uid,index)">删除</span>
+                          <span class="edit" @click="editItem(item.id)">编辑</span>
+                          <span class="delete" @click="deleteItem(item.id,index)">删除</span>
                       </span>
                     </li>
                 </ul>
             </div>
-
         </div>
         <div class="operate" @click="addAddress"><span class="plus">+</span>新增地址</div>
-        <alert v-model="showNoScroll" title="温馨提示">{{warnText}}</alert>
+        <toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>
         <x-dialog v-model="showNoScro" class="dialog-demo" :scroll="false">
             <p class="dialog-title">温馨提示</p>
             <div class="dialog-contain">
@@ -41,14 +40,14 @@
 </template>
 <script>
     import {
-        XHeader, Scroller, XInput, Group, Selector,XDialog,Alert
+        XHeader, Scroller, XInput, Group, Selector,XDialog,Toast
     } from 'vux'
     import {
-        addressListService,removeService
+        addressListService,removeService,attrDefalutService
     } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, XInput, Group, Selector,XDialog,Alert
+            XHeader, Scroller, XInput, Group, Selector,XDialog,Toast
         },
         data () {
             return {
@@ -67,8 +66,24 @@
         mounted(){
         },
         methods: {
-            changeDefalt(index){
-                this.dataList[index].default = 0;
+            changeDefalt(index,id){
+                attrDefalutService().save({
+                    cardcode:window.localStorage.getItem("cardcode"),
+                    id:id
+                }).then(res => {
+                    let body = res.body;
+                if (body.errcode == 0) {
+                    this.showNoScroll = true;
+                    this.warnText = '设置成功';
+                    this.renderData();
+                }else{
+                    this.showNoScroll = true;
+                    this.warnText = '设置失败'
+                }
+            }, res => {
+                    this.showNoScroll = true;
+                    this.warnText = '网络超时，请重试';
+                })
             },
             renderData(){
                 addressListService().save({
@@ -80,7 +95,8 @@
                         this.dataList = body.list;
                     }
                 }, res => {
-
+                    this.showNoScroll = true;
+                    this.warnText = '网络超时，请重试';
                 })
             },
             addAddress(){
@@ -94,19 +110,30 @@
                 this.showNoScro = true;
                 this.warnText2 = '确定删除吗？';
             },
+            editItem(id){
+                this.$router.push({
+                    name: 'reviseAddress',
+                    query: {id: id},
+                });
+            },
             sureDelete(){
                 this.showNoScro = false;
                 removeService().save({
-                    uid:this.currentUid,
+                    id:this.currentUid,
+                    cardcode:window.localStorage.getItem('cardcode')
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {
                         this.showNoScroll = true;
                         this.warnText = '删除成功';
                         this.dataList.splice(this.currentIndex, 1);
+                    }else{
+                        this.showNoScroll = true;
+                        this.warnText = '删除失败';
                     }
                 }, res => {
-
+                    this.showNoScroll = true;
+                    this.warnText = '网络超时，请重试';
                 })
             },
         },

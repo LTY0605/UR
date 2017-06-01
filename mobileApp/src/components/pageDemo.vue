@@ -23,15 +23,8 @@
         },
         mounted(){
         },
-        data () {
-            return{
-            id:'',
-            }
-        },
         watch: {},
         created(){
-//            this.id = this.$route.query.id;
-//            alert(this.id);
         },
         methods: {
             submit(){

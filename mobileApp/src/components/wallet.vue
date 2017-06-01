@@ -1,8 +1,9 @@
 <template>
     <div class="page_wallet">
-        <x-header :left-options="{backText: ''}">我的钱包</x-header>
-        <div class="tabDown">
-            <cell style="background: #f2edda" is-link :border-intent="false" :arrow-direction="show ? 'up' : 'down'" @click.native="show = !show">
+        <!--
+            <x-header :left-options="{backText: ''}">我的钱包</x-header>
+            <div class="tabDown">
+            <cell style="background: #f2edda;z-index: 222;" is-link :border-intent="false" :arrow-direction="show ? 'up' : 'down'" @click.native="show = !show">
                 <p>{{titleList[titleTab].name}}</p>
             </cell>
 
@@ -11,8 +12,7 @@
                     <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="tabChange(index)">{{item.name}}</span>
                 </div>
             </div>
-        </div>
-
+        </div>-->
         <div class="tabContain">
             <div class="tabItem tab-swiper" v-if="titleTab==0">
                 <giftCoupon></giftCoupon>
@@ -27,13 +27,14 @@
     </div>
 </template>
 <script>
+    import dropDown from './wallet/dropDown.vue'
     import Integral from './wallet/integral.vue'
     import Coupon from './wallet/coupon.vue'
     import giftCoupon from './wallet/giftCoupon.vue'
     import {XHeader, Scroller, Cell} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, Integral, Coupon, giftCoupon, Cell
+            XHeader, Scroller, Integral, Coupon, giftCoupon, Cell, dropDown
         },
         data () {
             return {
@@ -68,10 +69,10 @@
         methods:{
             tabChange(index){
                 this.titleTab = index;
-                this.$router.push({
-                    name:'wallet',
-                    query:{tab: index},
-                })
+//                this.$router.push({
+//                    name:'wallet',
+//                    query:{tab: index},
+//                })
                 this.show=false;
             }
         },
@@ -80,7 +81,7 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_wallet {
-        .tabDown{
+        /*.tabDown{
             .vux-label{
                 text-align: center;
             }
@@ -95,6 +96,9 @@
             }
             .weui-cell__ft:after{
                 border-color: #ab9236;
+                -webkit-transform:matrix(0.71 ,0.71, 0.71, -0.71, 0, 0);
+                transform:matrix(0.71 ,0.71, 0.71, -0.71, 0, 0);
+                margin-top: -6px;
             }
             .slide {
                 padding: 0 1rem;
@@ -132,12 +136,12 @@
                     }
                 }
         }
-    .animate {
-        max-height: 9999px;
-        transition-timing-function: cubic-bezier(0.5, 0, 1, 0);
-        transition-delay: 0s;
-    }
+        .animate {
+            max-height: 9999px;
+            transition-timing-function: cubic-bezier(0.5, 0, 1, 0);
+            transition-delay: 0s;
         }
+        }*/
         .vux-header {
             background-color: #AB9236 !important;
         }

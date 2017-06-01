@@ -26,7 +26,7 @@
                     <p class="cou-type">{{coupon.shop}}</p>
                     <p style="margin:0;font-size: .6rem;color: #999999">有效期：{{coupon.startTime}}～{{coupon.endTime}}</p>
                     <div style="height: auto">
-                        <p @click="explainList = index+1" class="couponExplain">礼券说明
+                        <p @click="explainShow(index+1)" class="couponExplain">礼券说明
                             <span v-if="explainList != index+1" class="couponRight">></span></p>
                         <p v-if="explainList == index+1" class="coupon-text">本券只限于购买正价商品，每个订单 限用一张。</p>
                     </div>
@@ -74,9 +74,12 @@
             hide:function () {
                 this.showNoScroll = false;
             },
-            hideRight:function () {
-                this.showText = !this.showText;
-                this.showRight = !this.showRight;
+            explainShow(index){
+                if(this.explainList == index){
+                    this.explainList = null
+                } else {
+                    this.explainList = index
+                }
             }
         },
         computed: {}
@@ -157,7 +160,6 @@
     }
     .imgText-money{
         font-size: 1rem;
-        font-weight: 600;
     }
     .couList-imgType {
         font-size: .45rem;
@@ -200,11 +202,11 @@
     }
     .cou-type {
         margin: .2rem 0 .2rem 0;
-        width: 2.9rem;
-        height: .95rem;
+        width: 3.5rem;
+        height: 1rem;
         color: #FFFFFF;
         font-size: .6rem;
-        line-height: .95rem;
+        line-height: 1rem;
         text-align: center;
         background: #F68B79;
     }
@@ -212,7 +214,7 @@
         width: 1.5rem;
         height: 1.5rem;
         position: absolute;
-        top: 1.8rem;
+        top: 1.5rem;
         right: 0;
         background: url("../../assets/money_code2.png");
         background-size: contain;

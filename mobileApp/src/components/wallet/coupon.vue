@@ -1,33 +1,41 @@
 <template>
     <div class="page_coupon">
+        <dropDown title="优惠券" :titleTab="1"></dropDown>
         <div class="couponTab">
-            <span :class="{active:titleTab==index}" v-for="(item,index) in titleList" @click="titleTab = index">
+            <span :class="{active:titleTab==index}" v-for="(item,index) in titleList" @click="changeItem(index,item.code)">
                 {{item.name}}
             </span>
         </div>
-        <div v-if="titleTab==0">
-            <notUsed></notUsed>
+
+        <div class="tabItem">
+            <used :couponList="couponList" :isShow="isShow"></used>
         </div>
-        <div class="tabItem" v-if="titleTab==1">
-            <used></used>
-        </div>
-        <div class="tabItem" v-if="titleTab==2">
-            <overdue></overdue>
-        </div>
+        <!--<div v-if="titleTab==0">-->
+            <!--<notUsed></notUsed>-->
+        <!--</div>-->
+        <!--<div class="tabItem" v-if="titleTab==2">-->
+            <!--<overdue></overdue>-->
+        <!--</div>-->
     </div>
 </template>
 <script>
+    import dropDown from './dropDown.vue'
+    import {
+        couponListService
+    } from '../../services/wallet.js'
     import NotUsed from '../coupon/notUsed.vue'
     import Used from '../coupon/used.vue'
     import Overdue from '../coupon/overdue.vue'
     import {XHeader, Scroller} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, NotUsed, Used, Overdue
+            XHeader, Scroller, NotUsed, Used, Overdue, dropDown
         },
         data () {
             return {
+                isShow:true,
                 titleTab: 0,
+                currentCode:0,
                 list2: ['礼品卡', '优惠券', '积分'],
                 index: 1,
                 time: '',
@@ -46,35 +54,48 @@
                         name: '过期'
                     }
                 ],
-                couponList: [
-                    {
-                        money: '50', type: '生日礼券', number: '8999305128', shop:'线下门店',
-                        startTime:'2017.04.12',endTime:'2017.04.30'
-                    },
-                    {
-                        money: '30', type: '购物礼券', number: '8229305128', shop:'线上网店',
-                        startTime:'2017.04.12',endTime:'2017.04.30'
-                    },
-                    {
-                        money: '50', type: '生日礼券', number: '8999305128', shop:'线下门店',
-                        startTime:'2017.04.12',endTime:'2017.04.30'
-                    }
-                ]
+                couponList: []
             }
         },
         mounted(){
         },
         watch: {},
         created(){
+            this.renderData();
+        },
+        methods:{
+            changeItem(index, code){
+                if(index == 0){
+                    this.isShow = true;
+                }else{
+                    this.isShow = false;
+                }
+                this.currentCode = code;
+                this.titleTab = index;
+                this.renderData();
+            },
+            renderData(){
+                couponListService().save({
+                    cardcode: window.localStorage.getItem("cardcode"),
+                    status:this.currentCode
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.couponList = body.list;
+                    }else{
+                        this.showNoScroll = true;
+                        this.warnText = body.errmsg;
+                    }
+
+                }, res => {
+
+                })
+            },
         },
         computed: {}
     }
 </script>
 <style lang="less" rel="stylesheet/less">
-    .left-arrow:before{
-        border: 1px solid #FFFFFF !important;
-        border-width: 1px 0 0 1px !important;
-    }
     .page_coupon {
         .couponTab {
             width: 89.6%;
@@ -82,7 +103,7 @@
             font-size: 0;
             margin: 1rem auto .45rem auto;
             span {
-                font-size: .6rem;
+                font-size: .7rem;
                 display: inline-block;
                 height: 1.25rem;
                 line-height: 1.15rem;

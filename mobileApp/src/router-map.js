@@ -12,6 +12,14 @@ const routes = [
         component: resolve => require(['./components/index.vue'], resolve)
     },
     {
+        path: '/index',
+        name: 'index',
+        meta: {
+            title: '主页'
+        },
+        component: resolve => require(['./components/index.vue'], resolve)
+    },
+    {
         path: '/pageDemo',
         name: 'pageDemo',
         meta: {
@@ -116,6 +124,14 @@ const routes = [
         component: resolve => require(['./components/setUp/reviseAddress.vue'], resolve)
     },
     {
+        path: '/questPage',
+        name: 'questPage',
+        meta: {
+            title: '调查问卷页'
+        },
+        component: resolve => require(['./components/questPage.vue'], resolve)
+    },
+    {
         path: '/login',
         name: 'login',
         meta: {
@@ -123,6 +139,54 @@ const routes = [
         },
         component: resolve => require(['./components/login.vue'], resolve)
     },
+    {
+        path: '/queryIndex',
+        name: 'queryIndex',
+        meta: {
+            title: '通用查询'
+        },
+        component: resolve => require(['./components/queryIndex.vue'], resolve)
+    },
+    {
+        path: '/carPassword',
+        name: 'carPassword',
+        meta: {
+            title: '修改密码'
+        },
+        component: resolve => require(['./components/wallet/carPassword.vue'], resolve)
+    },
+    {
+        path: '/integral',
+        name: 'integral',
+        meta: {
+            title: '积分'
+        },
+        component: resolve => require(['./components/wallet/integral.vue'], resolve)
+    },
+    {
+        path: '/coupon',
+        name: 'coupon',
+        meta: {
+            title: '优惠券'
+        },
+        component: resolve => require(['./components/wallet/coupon.vue'], resolve)
+    },
+    {
+        path: '/giftCoupon',
+        name: 'giftCoupon',
+        meta: {
+            title: '礼品卡'
+        },
+        component: resolve => require(['./components/wallet/giftCoupon.vue'], resolve)
+    },
+    {
+        path: '/quest',
+        name: 'quest',
+        meta: {
+            title: '调查问卷'
+        },
+        component: resolve => require(['./components/quest.vue'], resolve)
+    }
 ]
 
 export default routes

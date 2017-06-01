@@ -1,12 +1,18 @@
 <template>
    <div class="page_consumeList">
       <div class="detail">
-         <ul class="consumeListlist">
-            <li v-for="list in consumeListlists" class="list">
-               <p>单号：<span class="list-number">{{list.number}}</span></p>
-               <p class="list-mar">类型：{{list.type}}</p>
-               <p>日期：{{list.time}}</p>
-               <p class="list-money ">{{list.money}}</p>
+         <no-data v-show="consumeListlists.length==0"></no-data>
+         <ul class="consumeListlist" v-show="consumeListlists.length!=0">
+            <li v-for="item in consumeListlists" class="list">
+               <p>单号：<span class="list-number">{{item.billNO}}</span></p>
+               <p class="list-mar">类型：{{item.saleTypeName}}</p>
+               <p>日期：{{item.billDate}}</p>
+               <template v-if="item.saleType == 0 || item.saleType == 3">
+                  <p class="list-money red">+{{item.payAmount}}</p>
+               </template>
+               <template v-else>
+                  <p class="list-money">{{item.payAmount}}</p>
+               </template>
             </li>
          </ul>
       </div>
@@ -14,25 +20,15 @@
 </template>
 
 <script>
+    import noData from '../common/noData.vue'
   export default {
-    components: {
-    },
+    components: {noData},
+      props: {
+          consumeListlists:Array,
+      },
     data () {
       return {
-        consumeListlists:[
-          {
-            number: 'OS201704120289',
-            type: '消费',
-            time: '2017-04-12 15:30:28',
-            money: '-800.00'
-          },
-          {
-            number: 'OS201703021888',
-            type: '消费',
-            time: '2017-03-02 09:38:21',
-            money: '-600.00'
-          }
-        ]
+
 
       }
     },
@@ -72,6 +68,9 @@
       font-size: 1rem;
       color: #333333;
       font-weight: 100;
+   }
+   .red{
+      color:#F67982;
    }
    }
    }

@@ -1,6 +1,8 @@
 <template>
     <div class="page_password">
+        <x-header :left-options="{backText: ''}">密码修改</x-header>
         <div class="materialItem">
+            <p class="title">京东卡密码修改</p>
             <ul class="edit_material">
                 <li>
                     <group>
@@ -44,11 +46,11 @@
                 oldPassword: '',
                 newPassword2: '',
                 bePassWord: function (value) {
-                return {
-                    valid: /^[0-9a-zA-Z]{0,11}$/.test(value),
-                    msg: '密码只能字母跟数字，长度不能大于11位'
-                }
-            },
+                    return {
+                        valid: /^[0-9a-zA-Z]{0,11}$/.test(value),
+                        msg: '密码只能字母跟数字，长度不能大于11位'
+                    }
+                },
             }
         },
         mounted(){
@@ -86,8 +88,7 @@
                     }
 
                 }, res => {
-                    this.showNoScroll = true;
-                    this.warnText = '网络超时，请重试';
+
                 })
             },
         },
@@ -99,6 +100,19 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_password {
+        .vux-header {
+            background-color: #AB9236 !important;
+        }
+        .title{
+            padding-bottom: .5rem;
+            border-bottom: 1px solid #ddd;
+            color: #AB9236;
+            font-size: .9rem;
+        }
+
+        .vux-header .vux-header-title, .vux-header h1 {
+            font-size: .85rem;
+        }
         .weui-cells:before, .weui-cells:after,
         .weui-cell_access .weui-cell__ft:after,
         .vux-cell-box:before {

@@ -3,11 +3,11 @@
 */
 <template>
     <div class="page_login">
-        <x-header title="登 录" :left-options="{backText: ''}"></x-header>
+        <x-header title="登 录" :left-options="{showBack: false}"></x-header>
         <div>
             <div class="header">
                 <div class="imgBox">
-                    <img src="../assets/images/logo.png" alt="">
+                    <img class="logo" src="../assets/images/logo.png" alt="">
                 </div>
             </div>
             <div class="loginContent">
@@ -39,21 +39,28 @@
                         name="submit"
                         action-type="submit"
                         @click.native="login_submit">登 录</x-button>
-                    <alert v-model="loginAlert" title="温馨提示">{{loginText}}</alert>
                 </div>
                 <div class="forgetBox">
                     <router-link :to="{name:'register'}">立即注册 <span class="toRight">》</span></router-link>
                 </div>
-                <div class="agreementBox">
-                    <router-link :to="{name:'contract'}">{{contractText}}</router-link>
-                </div>
+                <!--<div class="agreementBox">-->
+                    <!--<router-link :to="{name:'contract'}">{{contractText}}</router-link>-->
+                <!--</div>-->
             </div>
         </div>
+        <toast v-model="loginAlert" type="text" :time="1000">{{loginText}}</toast>
+        <x-dialog v-model="showNoScroll" class="dialog-demo" :scroll="false">
+        <p class="dialog-title">温馨提示</p>
+        <div class="dialog-contain">
+        {{warnText}}
+        </div>
+        <button class="vux-close" @click="goLink">确定</button>
+        </x-dialog>
     </div>
 </template>
 <script>
     import { loginService,codeService  } from '../services/member.js'
-    import { Alert,XButton,XHeader,Scroller,Group,XInput  } from 'vux'
+    import { Toast,XButton,XHeader,Scroller,Group,XInput,XDialog  } from 'vux'
     export default {
         components: {
             XHeader,
@@ -61,10 +68,13 @@
             Group,
             XInput,
             XButton,
-            Alert,
+            Toast,
+            XDialog
         },
         data () {
             return {
+                showNoScroll:false,
+                warnText:'',
                 phone: '',
                 loginText:'登录',
                 loginAlert:false,
@@ -76,7 +86,14 @@
 
         },
         methods: {
+            goLink(){
+                this.showNoScroll = false;
+                this.$router.push({
+                    name: 'index',
+                });
+            },
             login_submit () {
+                let _this = this;
                 if(this.phone == ''||this.code == ''){
                     this.loginAlert = true;
                     this.loginText = '请输入手机号或者验证码'
@@ -96,17 +113,31 @@
                     let body = res.body;
                     if(body.errcode == 0){
                         this.loginAlert =true;
-//                        window.localStorage.setItem("cardcode",this.cardcode);
-                        this.$router.push({
-                            name: 'index'
-                        })
+                        this.loginText = '登录成功';
+                        //window.localStorage.setItem("wxOpenId", body.wxOpenId);
+                        window.localStorage.setItem("cardcode", body.cardcode);
+                        window.localStorage.setItem("sex", body.sex);
+                        window.localStorage.setItem("provice", body.provice);
+                        window.localStorage.setItem("brithday", body.brithday);
+                        window.localStorage.setItem("customerName", body.customerName);
+                        window.localStorage.setItem("district", body.district);
+                        window.localStorage.setItem("city", body.city);
+                        window.localStorage.setItem("mobileTel", body.mobileTel);
+                        window.localStorage.setItem("headimgurl", body.headimgurl);
+                        setTimeout(function () {
+                            _this.$router.push({
+                                name: 'index'
+                            })
+                        },500)
+
                     }else{
                         this.loginAlert =true;
-                        this.loginText = body.msg;
+                        this.loginText = body.errmsg;
                     }
 
                 }, res => {
-
+                    this.loginAlert =true;
+                    this.loginText = "网络超时，请重试";
                 })
             },
             getCode(){
@@ -130,7 +161,8 @@
                         this.loginText = '验证码发送失败，请稍后再试';
                     }
                 }, res => {
-
+                    this.loginAlert =true;
+                    this.loginText = "网络超时，请重试";
                 })
             },
             finish:function(){
@@ -164,30 +196,24 @@
             height:auto;
             margin-top: -.04rem;
             .imgBox{
+                background-color: #ffffff;
                 width: 4.55rem;
                 height: 4.55rem;
                 border: 0.2rem solid #cdbe86;
                 border-radius: 50%;
                 overflow: hidden;
                 margin: auto;
-                img{
-                    width: 4.2rem;
-                    height: 4.2rem;
+
+                .logo{
+                    width: 100%;
+                    margin-top: 16%;
+                    padding-left: .5rem;
+                    padding-right: .5rem;
+
                 }
             }
         }
-        .imgBox{
-            width: 4.55rem;
-            height: 4.55rem;
-            border: 0.2rem solid #cdbe86;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: auto;
-            img{
-                width: 4.2rem;
-                height: 4.2rem;
-            }
-        }
+
         .loginContent{
             padding: 0 9.6%;
             background: #fff;

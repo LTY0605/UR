@@ -52,6 +52,15 @@ router.beforeEach(function (to, from, next) {
 
     const toIndex = history.getItem(to.path)
     const fromIndex = history.getItem(from.path)
+    //create by xyc on 2017/5/5
+    const namesToPerson = ['newAddress', 'reviseAddress'] //拦截路由，返回到个人中心
+    if (namesToPerson.indexOf(from.name) > -1  && to.name == 'personMain') {
+        next()
+        router.replace('/personMain?tab=3');
+        return
+    }
+    //end
+
     if (toIndex) {
         if (toIndex > fromIndex || !fromIndex || (toIndex === '0' && fromIndex === '0')) {
             store.commit('updateDirection', {direction: 'forward'})
