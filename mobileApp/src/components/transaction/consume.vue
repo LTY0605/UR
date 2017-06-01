@@ -1,12 +1,13 @@
 <template>
     <div class="page_consume">
         <div class="consume">
-            <ul class="tranlist">
+            <no-data v-show="tranlists.length==0"></no-data>
+            <ul class="tranlist" v-show="tranlists.length!=0">
                 <li v-for="list in tranlists" class="list">
-                    <p>单号：<span class="list-number">{{list.number}}</span></p>
-                    <p class="list-mar">类型：{{list.type}}</p>
-                    <p>日期：{{list.time}}</p>
-                    <p class="list-money">{{list.money}}</p>
+                    <p>单号：<span class="list-number">{{item.billNO}}</span></p>
+                    <p class="list-mar">类型：{{item.operTypeName}}</p>
+                    <p>日期：{{item.saleDate}}</p>
+                    <p class="list-money">{{item.amount}}</p>
                 </li>
             </ul>
         </div>
@@ -14,31 +15,15 @@
 </template>
 
 <script>
+    import {transRecordService} from '../../services/transRecord.js'
+    import noData from '../common/noData.vue'
     export default {
-        components: {
+        components: {noData
         },
+
         data () {
             return {
-                tranlists:[
-                    {
-                        number: 'OS201704120289',
-                        type: '消费',
-                        time: '2017-04-12 15:30:28',
-                        money: '-300.00'
-                    },
-                    {
-                        number: 'OS201703021888',
-                        type: '消费',
-                        time: '2017-03-02 09:38:21',
-                        money: '-150.00'
-                    },
-                    {
-                        number: 'OS201609113466',
-                        type: '消费',
-                        time: '2016-09-11 11:25:15',
-                        money: '-100.00'
-                    }
-                ]
+                tranlists:Array,
 
             }
         },
@@ -46,7 +31,28 @@
         },
         watch: {},
         created(){
+            this.renderData()
         },
+        methods:{
+            renderData(){
+            transRecordService().save({
+                operTypeName:this.operTypeName,
+                operType:this.currentCode
+            }).then(res =>{
+                let body = res.body;
+                if(body.errcode == 0){
+                    //debugger
+                    this.tranlists = body.list;
+                    //console.log(this.tranlists[0])
+                } else{
+                    this.showNoScroll = true;
+                    this.warnText = body.errmsg;
+                }
+            },res =>{
+                this.showNoScroll = true;
+                this.warnText = "网络超时，请重试";
+            })
+        }},
         computed: {}
     }
 </script>
