@@ -66,10 +66,11 @@
 </template>
 
 <script>
-    import {XButton} from 'vux'
     export default{
         components:{
-            XButton
+        },
+        props:{
+            feelData:Array
         },
         data(){
             return{
