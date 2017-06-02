@@ -64,7 +64,9 @@
                 <div class="datatimeBox">
                     <group class="dateBox">
                         <datetime
+                            :min-year=1900
                             :start-date="startDate"
+                            format="YYYY-MM-DD"
                             cancelText="取消"
                             confirmText="确定"
                             v-model="value2"
@@ -91,7 +93,7 @@
                     </x-button>
                 </div>
                 <!--<div class="agreementBox">-->
-                <!--<router-link :to="{name:'contract'}" class="text">{{contractText}}</router-link>-->
+                <!--<router-link :to="{name:'contract'}" class="text">UR用户使用协议</router-link>-->
                 <!--</div>-->
             </div>
         </div>
@@ -131,7 +133,6 @@
                 showNoScro: false,
                 warnText2: '',
                 submitText: '提交注册',
-                contractText: 'UR用户使用协议',
                 show: false,
                 phone: '',
                 user: '',

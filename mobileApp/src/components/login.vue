@@ -44,7 +44,7 @@
                     <router-link :to="{name:'register'}">立即注册 <span class="toRight">》</span></router-link>
                 </div>
                 <!--<div class="agreementBox">-->
-                    <!--<router-link :to="{name:'contract'}">{{contractText}}</router-link>-->
+                    <!--<router-link :to="{name:'contract'}">UR用户使用协议</router-link>-->
                 <!--</div>-->
             </div>
         </div>
@@ -78,7 +78,6 @@
                 phone: '',
                 loginText:'登录',
                 loginAlert:false,
-                contractText:'UR用户使用协议',
                 time: 60,
                 code:'',//验证码
                 showMin:false,
