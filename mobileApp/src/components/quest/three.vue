@@ -44,7 +44,7 @@
                 <label class="text" for="selectD">
                     <input
                             id="selectD"
-                            name="other"
+                            name="radio"
                             v-model="selected"
                             type="radio"
                             @click="otherText"
@@ -60,6 +60,7 @@
 </template>
 
 <script>
+    import { mapMutations,mapGetters } from 'vuex'
     export default{
         components:{
         },
@@ -68,7 +69,7 @@
         },
         data(){
             return{
-                selected: 0,
+                selected: 4,
                 other: true
             }
         },
@@ -76,24 +77,31 @@
 //            sendSelected(){
 //                this.$emit('listenSelected',this.selected);
 //            },
+            ...mapMutations([
+                'getSelect'
+            ]),
             //关闭禁用和随之获取焦点
             otherText(){
                 let radios = document.getElementById('selectD');
                 let text = document.getElementById('oText');
+                this.$store.commit('getSelect',this.selected);
                 if(radios){
                     this.other = false;
                     text.focus();
                 } else{
                     this.other = true
                 }
-                console.log(this.selected);
+//                console.log(this.selected);
             },
             //清除其他的值和禁用
             disabledText(){
                 let text = document.getElementById('oText');
-                text.value = ''
+                this.$store.commit('getSelect',this.selected);
+                text.value = '';
                 this.other = true;
             }
+        },
+        computed:{
         },
         mounted(){
 //            this.sendSelected();

@@ -13,6 +13,7 @@
 </template>
 
 <script>
+    import { mapMutations,mapGetters } from 'vuex'
     import { surveyServices,surveyCommit } from '../services/quest.js'
     import one from './quest/one.vue'
     import two from './quest/two.vue'
@@ -147,8 +148,13 @@
         },
         mounted(){
 //            this.getSurveyData();
+//            this.testSurveyData();
         },
         methods:{
+//            testSurveyData(){
+//                let testData = JSON.stringify(this.surveyData[0].option,['value']);
+//                console.log(testData);
+//            },
             getSurveyData(){
                 surveyServices().get({
                     surveyType: this.surveyType,
@@ -197,15 +203,57 @@
                     this.num=3;
                     this.three = true;
                 }else if(this.three == true){
-//                    alert(this.selected);
-                    this.three = false;
-                    this.num=4;
-                    fBtn.innerHTML = '提交';
-                    this.four = true;
+                    /*if(this.selects < 0 || this.selects >4){
+                        this.showNoScroll = true;
+                        this.warnText = '您有信息未填写'
+                    }else{
+                        this.three = false;
+                        this.num=4;
+                        fBtn.innerHTML = '提交';
+                        this.four = true;
+                    }*/
+                    let radios = document.getElementsByName('radio');
+                    let radioArr = [];
+                    for(let i=0;i<radios.length;i++){
+                        (function () {
+                            if(radios[i].checked == true){
+                                radioArr.push(radios[i].checked)
+                            }
+                        })(i)
+                    }
+                    if(radioArr.length != 1){
+                        this.showNoScroll = true;
+                        this.warnText = '您有信息未填写'
+                    }else {
+                        this.three = false;
+                        this.num=4;
+                        fBtn.innerHTML = '提交';
+                        this.four = true;
+                    }
                 }else if(this.four == true){
-                    this.saveSurveyData();
+                    let checboxs = document.getElementsByName('check');
+                    let checArr =[];
+                    for(let i=0;i<checboxs.length;i++){
+                        (function () {
+                            if(checboxs[i].checked == false){
+                                checArr.push(checboxs[i].checked)
+                            }
+                        })(i)
+                    }
+                    if(checArr.length == checboxs.length){
+                        this.showNoScroll = true;
+                        this.warnText = '您有信息未填写'
+                    }else {
+                        this.saveSurveyData();
+                        console.log(checArr.length)
+                    }
                 }
             }
+        },
+        computed:{
+            ...mapGetters([
+                'selects'
+            ])
         }
     }
 </script>

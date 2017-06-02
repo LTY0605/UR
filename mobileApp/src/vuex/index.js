@@ -10,6 +10,8 @@ import vuxStatus from './modules/vuxStore'
 
 import defaultStore from './modules/defaultStore'
 
+import questStore from './modules/questStore'
+
 // import createLogger from '../../../src/plugins/logger'
 
 Vue.use(Vuex)
@@ -21,5 +23,7 @@ const store = new Vuex.Store({})
 store.registerModule('vux', vuxStatus)
 
 store.registerModule('default',defaultStore)
+
+store.registerModule('quest',questStore)
 
 export default store;
