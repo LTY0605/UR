@@ -23,8 +23,7 @@
 
         data () {
             return {
-                tranlists:Array,
-
+                tranlists:[],
             }
         },
         mounted(){
@@ -39,9 +38,9 @@
                 operTypeName:this.operTypeName,
                 operType:this.currentCode
             }).then(res =>{
+
                 let body = res.body;
                 if(body.errcode == 0){
-                    //debugger
                     this.tranlists = body.list;
                     //console.log(this.tranlists[0])
                 } else{
