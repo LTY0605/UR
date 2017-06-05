@@ -2,56 +2,47 @@
     <div class="page_one">
         <p class="con_p"><span class="con_num">1</span><span class="con_text">请选择你所惠临的门店</span></p>
         <div class="con_back">
-            <select class="con_select" name="province">
-                <option value ="" disabled selected>选择省份</option>
-                <option v-for="(item,index) in provincens" value="省份">{{item.value}}</option>
+            <select id="provinces" class="con_select" name="province">
+                <option value="" disabled selected>选择省份</option>
+                <!--<option value="广东省">广东省</option>-->
+                <option :value ="surveyData[0].option[0].value" >{{surveyData[0].option[0].value}}</option>
+                <option :value ="surveyData[0].option[3].value" >{{surveyData[0].option[3].value}}</option>
             </select>
-            <select class="con_select" name="city">
+            <select id="citys" class="con_select" name="city">
                 <option value ="" disabled selected>选择城市</option>
-                <option value="广州市">广州市</option>
+                <option :value ="surveyData[0].option[1].value">{{surveyData[0].option[1].value}}</option>
+                <option :value ="surveyData[0].option[4].value">{{surveyData[0].option[4].value}}</option>
             </select>
-            <select class="con_select last" name="store">
+            <select id="stores" class="con_select last" name="store">
                 <option value ="" disabled selected>选择门店</option>
-                <option value="肯德基">肯德基</option>
+                <option :value ="surveyData[0].option[2].value">{{surveyData[0].option[2].value}}</option>
+                <option :value ="surveyData[0].option[5].value">{{surveyData[0].option[5].value}}</option>
             </select>
         </div>
     </div>
 </template>
 
 <script>
-    import { surveyServices } from '../../services/quest.js'
     import {XButton} from 'vux'
     export default {
         components:{
             XButton
         },
+        props:{
+            surveyData:Array
+        },
         data(){
             return{
-                surveryType:'02',
-                surveyCode:'wqdc',
-                provincens:[]
             }
         },
         methods:{
-            surveyData(){
-                surveyServices().save({
-                    surveyType: this.surveyType,
-                    surveryCode: this.surveyCode
-                }).then(res=>{
-                    let body =res.body;
-                    if(body.errcode == 0){
-                        this.provinces = body.survey.option;
-                        console.log(this.provinces);
-                    }else{
-                        console.log(body.errmsg)
-                    }
-                },res=>{
-                    console.log(res);
-                })
-            }
         },
         mounted(){
-            this.surveyData();
+//            this.surveyData();
+//            this.getValue();
+        },
+        updated(){
+//            this.getValue();
         },
         created(){
         },
@@ -62,6 +53,8 @@
     .page_one{
         select{
             outline: none;
+        }
+        option{
         }
         .con_back{
             .last{

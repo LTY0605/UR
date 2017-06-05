@@ -2,31 +2,6 @@
    <div class="page_giftC">
        <dropDown title="礼品卡" :titleTab="0"></dropDown>
           <div class="massegel1List">
-              <!--<div class="gift2" v-if="jdCard.length!=0">-->
-                  <!--<div class="list1">-->
-                      <!--<p class="Type">{{jdCard.cardTypeName}}</p>-->
-                      <!--<p class="Id">{{jdCard.JDcardcode}}</p>-->
-                      <!--<p class="money">余额：{{jdCard.remainAmount}}</p>-->
-                  <!--</div>-->
-                  <!--<div class="imgbox1">-->
-                      <!--<p class="picture1">-->
-                          <!--<img @click="showNoScroll=!showNoScroll" width="100%" src="../../assets/icon_money_code.png">-->
-                      <!--</p>-->
-                  <!--</div>-->
-                  <!--<div class="buttonBox1">-->
-                      <!--<div class="btnUp">-->
-                          <!--<button @click="payCard(jdCard.cardTypeName,jdCard.JDcardcode,jdCard.password)" class="Box1">扫码支付</button>-->
-                          <!--<router-link to="transfer"><button class="Box5">转赠</button></router-link>-->
-                          <!--<button @click="showNoScroll2=true" class="Box6">获取转赠</button>-->
-                      <!--</div>-->
-                      <!--<div class="btnDown">-->
-                          <!--<router-link :to="{name:'carPassword',query:{tab:1}}">-->
-                              <!--<button class="Box7">修改密码</button>-->
-                          <!--</router-link>-->
-                          <!--<router-link to="transaction"><button class="Box8">交易记录</button></router-link>-->
-                      <!--</div>-->
-                  <!--</div>-->
-              <!--</div>-->
               <template v-for="item in cardList">
               <div class="gift1" v-if="item.cardName!='京东存值卡'">
                   <div class="list">
@@ -44,7 +19,7 @@
                       <!--<router-link :to="{name:'carPassword',query:{tab:1}}">-->
                           <!--<button class="Box7">修改密码</button>-->
                       <!--</router-link>-->
-                      <router-link to="transaction"><button class="Box3">交易记录</button></router-link>
+                      <router-link :to="{name:'transaction',query:{valueCardcode:valueCardcode}}"><button class="Box3">交易记录</button></router-link>
                   </div>
               </div>
               <div class="gift2"  v-if="item.cardName=='京东存值卡'">
@@ -61,14 +36,14 @@
                   <div class="buttonBox1">
                       <div class="btnUp">
                           <button @click="payCard(item.cardName,item.cardcode,item.password)" class="Box1">扫码支付</button>
-                          <router-link :to="{name:'transfer',query:{cardName:item.cardName,remainAmount:item.remainAmount}}"><button class="Box5">转赠</button></router-link>
+                          <router-link to="transfer"><button class="Box5">转赠</button></router-link>
                           <button @click="showNoScroll2=true" class="Box6">获取转赠</button>
                       </div>
                       <div class="btnDown">
-                          <router-link :to="{name:'carPassword',query:{cardName:item.cardName,remainAmount:item.remainAmount}}">
+                          <router-link :to="{name:'carPassword',query:{valueCardcode:valueCardcode}}">
                               <button class="Box7">修改密码</button>
                           </router-link>
-                          <router-link to="transaction"><button class="Box8">交易记录</button></router-link>
+                          <router-link :to="{name:'transaction',query:{valueCardcode:valueCardcode}}"><button class="Box8">交易记录</button></router-link>
                       </div>
                   </div>
               </div>
@@ -170,10 +145,10 @@
                currentName:'',
                qRcodeUrl:'',
                barcodeUrl:'',
+               valueCardcode:'',
            }
        },
        mounted(){
-
        },
        created(){
 //           this.renderjdCard();
@@ -182,6 +157,20 @@
            this.barcodeUrl = URL_getBarcode;
        },
        methods:{
+           renderCode(valueCardcode){
+//               alert(valueCardcode)
+               this.$router.push({
+                   name: 'carPassword',
+                   query: {valueCardcode:valueCardcode},
+               })
+           },
+           renderCode1(valueCardcode){
+//               alert(valueCardcode)
+               this.$router.push({
+                   name: 'transaction',
+                   query: {valueCardcode:valueCardcode},
+               })
+           },
            renderCardList(){
                cardListService().save({
 //                   cardcode: window.localStorage.getItem('cardcode'),
@@ -190,6 +179,9 @@
                    let body = res.body;
                    if (body.errcode == 0) {
                       this.cardList = body.list;
+                      this.valueCardcode = body.list[0].valueCardcode;
+
+
                    } else {
                        this.showNoScro = true;
                        this.warnText = body.errmsg;

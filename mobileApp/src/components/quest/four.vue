@@ -66,34 +66,33 @@
 </template>
 
 <script>
-    import {XButton} from 'vux'
     export default{
         components:{
-            XButton
+        },
+        props:{
+            feelData:Array
         },
         data(){
             return{
-                selected: 0,
-                other: true
             }
         },
         methods:{
             checboxNum(name, num) {
-                var checboxs = document.getElementsByName(name);
-                var a = 0;
-                for (var index = 0; index < checboxs.length; index++) {
+                let checboxs = document.getElementsByName(name);
+                let a = 0;
+                for (let index = 0; index < checboxs.length; index++) {
                     if (checboxs[index].checked) {
                         a = a + 1;
                     }
                 }
                 if (a == num) {
-                    for (var index = 0; index < checboxs.length; index++) {
+                    for (let index = 0; index < checboxs.length; index++) {
                         if (!checboxs[index].checked) {
                             checboxs[index].disabled = 'disabled';
                         }
                     }
                 } else {
-                    for (var index = 0; index < checboxs.length; index++)
+                    for (let index = 0; index < checboxs.length; index++)
                         checboxs[index].removeAttribute('disabled');
                 }
             }

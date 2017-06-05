@@ -7,18 +7,19 @@
                 <li>
                     <group>
                         <x-input type="password" title="原密码" placeholder="原密码"  :max="11" :is-type="bePassWord"
-                                 v-model="oldPassword"></x-input>
+                                 v-model="oldpassword"></x-input>
                     </group>
+
                 </li>
                 <li>
                     <group>
-                        <x-input type="password" title="新密码" placeholder="新密码" v-model="newPassword" :max="11" :is-type="bePassWord"></x-input>
+                        <x-input type="password" title="新密码" placeholder="新密码" v-model="newpassword" :max="11" :is-type="bePassWord"></x-input>
                     </group>
+
                 </li>
                 <li>
                     <group>
-                        <x-input type="password" title="确认新密码" placeholder="请再次确认新密码" v-model="newPassword2"
-                                 :equal-with="newPassword"></x-input>
+                        <x-input type="password" title="确认新密码" placeholder="请再次确认新密码" v-model="confirmpassword" :equal-with="newpassword"></x-input>
                     </group>
                 </li>
             </ul>
@@ -28,6 +29,7 @@
     </div>
 </template>
 <script>
+    import {carPasswordServices} from '../../services/carPassword.js'
     import {
         XHeader, Scroller, XInput, Group, Selector,Alert,Toast
     } from 'vux'
@@ -42,9 +44,10 @@
             return {
                 showNoScroll:false,
                 warnText:'',
-                newPassword: '',
-                oldPassword: '',
-                newPassword2: '',
+                newpassword: '',
+                oldpassword: '',
+                confirmpassword: '',
+                valueCardcode: this.$route.query.valueCardcode,
                 bePassWord: function (value) {
                     return {
                         valid: /^[0-9a-zA-Z]{0,11}$/.test(value),
@@ -55,27 +58,31 @@
         },
         mounted(){
         },
+        created(){
+        },
         methods: {
+
             passWordEdit(){
-                if (this.oldPassword == '' || this.newPassword == '' || this.newPassword2 == '') {
+                if (this.oldpassword == '' || this.newpassword == '' || this.confirmpassword == '') {
                     this.showNoScroll = true;
                     this.warnText = '您有信息未填写';
                     return
                 }
-                if(!this.bePassWord(this.oldPassword).valid || !this.bePassWord(this.newPassword).valid || !this.bePassWord(this.newPassword2).valid){
+                if(!this.bePassWord(this.oldpassword).valid || !this.bePassWord(this.newpassword).valid || !this.bePassWord(this.confirmpassword).valid){
                     this.showNoScroll = true;
                     this.warnText = '密码只能字母跟数字，长度不能大于11位';
                     return
                 }
-                if (this.newPassword2 != this.newPassword) {
+                if (this.confirmpassword != this.newpassword) {
                     this.showNoScroll = true;
                     this.warnText = '两次输入的密码不一致';
                     return
                 }
-                passwordService().save({
-                    oldpassword:this.oldPassword,
-                    newpassword:this.newPassword,
-                    confirmpassword:this.newPassword2,
+
+                carPasswordServices().save({
+                    oldpassword:this.oldpassword,
+                    newpassword:this.newpassword,
+                    confirmpassword:this.confirmpassword,
                     cardcode: window.localStorage.getItem("cardcode"),
                 }).then(res => {
                     let body = res.body;
@@ -88,13 +95,10 @@
                     }
 
                 }, res => {
-
                 })
             },
         },
         watch: {},
-        created(){
-        },
         computed: {}
     }
 </script>

@@ -10,6 +10,7 @@
                             id="selectA"
                             name="radio"
                             type="radio"
+                            @click="disabledText"
                             v-model="selected"
                             value="0">
                     <span>A. 橱窗奢华大气，整体布局整齐有序</span>
@@ -21,6 +22,7 @@
                             id="selectB"
                             name="radio"
                             v-model="selected"
+                            @click="disabledText"
                             type="radio"
                             value="1">
                     <span>B. 店面设计一般，没有深刻印象</span>
@@ -32,6 +34,7 @@
                             id="selectC"
                             name="radio"
                             v-model="selected"
+                            @click="disabledText"
                             type="radio"
                             value="2">
                     <span>C. 门店设计风格不吸引，环境一般</span>
@@ -41,7 +44,7 @@
                 <label class="text" for="selectD">
                     <input
                             id="selectD"
-                            name="other"
+                            name="radio"
                             v-model="selected"
                             type="radio"
                             @click="otherText"
@@ -49,7 +52,7 @@
                     <span>其他</span>
                 </label>
                 <br>
-                <input :disabled="other" placeholder="请注明" class="txt" type="text"/>
+                <input id="oText" :disabled="other" placeholder="请注明" class="txt" type="text"/>
             </li>
         </ul>
         <!--<button class="quest-btn" @click="">继 续（3/10）</button>-->
@@ -57,29 +60,51 @@
 </template>
 
 <script>
-    import {XButton} from 'vux'
+    import { mapMutations,mapGetters } from 'vuex'
     export default{
         components:{
-            XButton
+        },
+        props:{
+            channelData:Array
         },
         data(){
             return{
-                selected: 6,
+                selected: 4,
                 other: true
             }
         },
         methods:{
+//            sendSelected(){
+//                this.$emit('listenSelected',this.selected);
+//            },
+            ...mapMutations([
+                'getSelect'
+            ]),
+            //关闭禁用和随之获取焦点
             otherText(){
-                var radios = document.getElementsByName('other');
+                let radios = document.getElementById('selectD');
+                let text = document.getElementById('oText');
+                this.$store.commit('getSelect',this.selected);
                 if(radios){
-                    this.other = false
+                    this.other = false;
+                    text.focus();
                 } else{
                     this.other = true
                 }
-                console.log(this.selected);
+//                console.log(this.selected);
+            },
+            //清除其他的值和禁用
+            disabledText(){
+                let text = document.getElementById('oText');
+                this.$store.commit('getSelect',this.selected);
+                text.value = '';
+                this.other = true;
             }
         },
+        computed:{
+        },
         mounted(){
+//            this.sendSelected();
         }
     }
 </script>

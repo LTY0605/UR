@@ -35,6 +35,9 @@
         components:{
             XButton
         },
+        props:{
+            sexData:Array
+        },
         data(){
             return{
                 selected: 1,
