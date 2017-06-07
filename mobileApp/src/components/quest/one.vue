@@ -2,21 +2,20 @@
     <div class="page_one">
         <p class="con_p"><span class="con_num">1</span><span class="con_text">请选择你所惠临的门店</span></p>
         <div class="con_back">
-            <select id="provinces" class="con_select" name="province">
+            <select id="provinces" v-model="province" class="con_select" name="province" @change="changeCity">
                 <option value="" disabled selected>选择省份</option>
-                <!--<option value="广东省">广东省</option>-->
-                <option :value ="surveyData[0].option[0].value" >{{surveyData[0].option[0].value}}</option>
-                <option :value ="surveyData[0].option[3].value" >{{surveyData[0].option[3].value}}</option>
+                <option :value="item.id"
+                        v-for="(item,index) in surveyData" v-if="item.parentID==0">{{item.value}}</option>
             </select>
-            <select id="citys" class="con_select" name="city">
+            <select id="citys" v-model="city" class="con_select" name="city" @change="changeStore">
                 <option value ="" disabled selected>选择城市</option>
-                <option :value ="surveyData[0].option[1].value">{{surveyData[0].option[1].value}}</option>
-                <option :value ="surveyData[0].option[4].value">{{surveyData[0].option[4].value}}</option>
+                <option :value="item.id"
+                        v-for="(item,index) in surveyData" v-if="item.parentID==province">{{item.value}}</option>
             </select>
-            <select id="stores" class="con_select last" name="store">
+            <select id="stores" class="con_select last" name="store" v-model="store">
                 <option value ="" disabled selected>选择门店</option>
-                <option :value ="surveyData[0].option[2].value">{{surveyData[0].option[2].value}}</option>
-                <option :value ="surveyData[0].option[5].value">{{surveyData[0].option[5].value}}</option>
+                <option :value="item.id"
+                        v-for="(item,index) in surveyData" v-if="item.parentID==city">{{item.value}}</option>
             </select>
         </div>
     </div>
@@ -33,20 +32,24 @@
         },
         data(){
             return{
+                province: '',
+                city: '',
+                store: ''
             }
         },
         methods:{
+            changeCity(){
+                this.city = '';
+                this.store = '';
+            },
+            changeStore(){
+                this.store = '';
+            },
         },
         mounted(){
-//            this.surveyData();
-//            this.getValue();
-        },
-        updated(){
-//            this.getValue();
         },
         created(){
-        },
-        computed: {}
+        }
     }
 </script>
 <style lang="less" rel="stylesheet/less">

@@ -4,59 +4,15 @@
             <span class="con_num">4</span>
             <span class="con_text">您从哪些渠道关注UR品牌？（多选， 最多可选3项）</span></p>
         <ul id="box" class="radioBox">
-            <li class="girl">
-                <label class="text" for="selectA">
+            <li v-for="(item,index) in feelData" class="girl">
+                <label class="text" :for="'feel'+item.id">
                     <input
-                            id="selectA"
+                            :id="'feel'+item.id"
                             name="check"
                             type="checkbox"
                             @click="checboxNum('check', 3)"
-                            value="0">
-                    <span>A. UR店内</span>
-                </label>
-            </li>
-            <li class="girl">
-                <label class="text" for="selectB">
-                    <input
-                            id="selectB"
-                            name="check"
-                            type="checkbox"
-                            @click="checboxNum('check', 3)"
-                            value="1">
-                    <span>B. 官方微博/微信公众号</span>
-                </label>
-            </li>
-            <li class="girl">
-                <label class="text" for="selectC">
-                    <input
-                            id="selectC"
-                            name="check"
-                            type="checkbox"
-                            @click="checboxNum('check', 3)"
-                            value="2">
-                    <span>C. 明星街拍</span>
-                </label>
-            </li>
-            <li class="girl">
-                <label class="text" for="selectD">
-                    <input
-                            id="selectD"
-                            name="check"
-                            type="checkbox"
-                            @click="checboxNum('check', 3)"
-                            value="3">
-                    <span>D.杂志刊物</span>
-                </label>
-            </li>
-            <li class="boy">
-                <label class="text" for="selectE">
-                    <input
-                            id="selectE"
-                            name="check"
-                            type="checkbox"
-                            @click="checboxNum('check', 3)"
-                            value="4">
-                    <span>E. 朋友推荐</span>
+                            value="item.id">
+                    <span>{{item.value}}</span>
                 </label>
             </li>
         </ul>
@@ -166,7 +122,7 @@
     .girl{
         margin-bottom: 1.05rem;
     }
-    .boy{
+    .girl:last-child{
         margin-bottom: 3.05rem;
     }
     }
