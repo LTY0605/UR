@@ -6,7 +6,7 @@
             <two :sexData="sexData" v-if="two"></two>
             <three :channelData="channelData" v-if="three"></three>
             <four :feelData="feelData" v-if="four"></four>
-            <button id="btnText" class="quest-btn" @click="next">继 续（{{num}} /10）</button>
+            <button id="btnText" class="quest-btn" @click="next">继 续（{{num}} /4）</button>
         </div>
         <toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>
     </div>
@@ -33,140 +33,33 @@
                 three:false,
                 four:false,
                 num:'1',
-                surveyData:[
-                    {
-                    title:"请选择你惠临的店",
-                    orderNumber:"1",
-                    subjectCode:"wqdc_1",
-                    subjectType:"combobox",
-                    otherOption:[],
-                    option:[{
-                        id:"1",
-                        value:"广东省",
-                        parentID:"0",
-                    },{
-                        id:"2",
-                        value:"广州市",
-                        parentID:"1",
-                    },{
-                        id:"3",
-                        value:"正佳店",
-                        parentID:"2",
-                    },{
-                        id:"4",
-                        value:"福建省",
-                        parentID:"0",
-                    },{
-                        id:"5",
-                        value:"福州市",
-                        parentID:"4",
-                    },{
-                        id:"6",
-                        value:"SM店",
-                        parentID:"5",
-                    }]
-                },
-                    {
-                    title:"你的性别",
-                    orderNumber:"2",
-                    subjectCode:"wqdc_2",
-                    subjectType:"radio",
-                    otherOption:[],
-                    option:[{
-                        id:"4",
-                        value:"男",
-                        parentID:"",
-                    },{
-                        id:"5",
-                        value:"女",
-                        parentID:"",
-                    }]
-
-
-                },
-                    {
-                    title:"您从哪些渠道关注UR品牌?(多线)",
-                    orderNumber:"3",
-                    subjectCode:"wqdc_3",
-                    subjectType:"checkbox",
-                    otherOption:[],
-                    option:[{
-                        id:"6",
-                        value:"A.UR店内",
-                        parentID:"",
-                    },{
-                        id:"7",
-                        value:"B.官方",
-                        parentID:"",
-                    },{
-                        id:"8",
-                        value:"C.明星街拍",
-                        parentID:"",
-                    },{
-                        id:"9",
-                        value:"D.朋友推荐",
-                        parentID:"",
-                    }]},
-                    {
-                        title:"您对门店形象的整体感觉与以下哪项最符合",
-                        orderNumber:"4",
-                        subjectCode:"wqdc_4",
-                        subjectType:"checkbox",
-                        minOption:1,
-                        maxOption:2,
-                        otherOption:[{
-                            name:"wqdc_4_memo",
-                            type:"input",
-                            value:"PGlucHV0IHR5cGU9InVybCIgbmFtZT0id3FkY180X21lbW8iIC8+"
-                        }],
-                        option:[{
-                            id:"10",
-                            value:"A.橱窗奢华大气，整体布局整齐有序",
-                            parentID:"",
-                        },{
-                            id:"11",
-                            value:"B.店面设计一般，没有深刻印象",
-                            parentID:"",
-                        },{
-                            id:"12",
-                            value:"C.门店设计风格不吸引，环境一般",
-                            parentID:"",
-                        },{
-                            id:"13",
-                            value:"D.其他（请注明:[wqdc_4_memo]）",
-                            parentID:"",
-                        }]
-
-
-                    }],
+                surveyData:[],
                 sexData:[],
                 channelData:[],
                 feelData:[],
-                surveryType:'02',
+                subjectCode:'',
+                surveyType:'02',
                 surveyCode:'wqdc',
             }
         },
         mounted(){
-//            this.getSurveyData();
-//            this.testSurveyData();
+            this.getSurveyData();
         },
         methods:{
-//            testSurveyData(){
-//                let testData = JSON.stringify(this.surveyData[0].option,['value']);
-//                console.log(testData);
-//            },
             getSurveyData(){
                 surveyServices().get({
                     surveyType: this.surveyType,
-                    surveryCode: this.surveyCode
+                    surveyCode: this.surveyCode
                 }).then(res=>{
                     let body =res.body;
                     if(body.errcode == 0){
-                        this.surveyData = body.survey[0];
-                        this.sexData = body.survey[1];
-                        this.channelData = body.survey[2];
-                        this.feelData = body.survey[3];
-                        console.log(this.surveyData);
+                        this.surveyData = body.survey[0].option;
+                        this.sexData = body.survey[1].option;
+                        this.channelData = body.survey[5].option;
+                        this.feelData = body.survey[3].option;
+                        this.subjectCode = body.survey[0].subjectCode;
+                        console.log(this.subjectCode);
+//                        console.log(this.surveyData[0].option[0]);
                     }else{
                         console.log(body.errmsg)
                     }
@@ -177,6 +70,7 @@
             saveSurveyData(){
                 surveyCommit().save({
                     cardcode: window.localStorage.getItem("cardcode"),
+//                    surveyCode
                 }).then(res=>{
 
                 },res=>{

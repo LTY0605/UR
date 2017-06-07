@@ -2,30 +2,18 @@
     <div class="page_two">
         <p class="con_p"><span class="con_num">2</span><span class="con_text">您的性别</span></p>
         <ul class="radioBox">
-            <li class="girl">
-                <label class="text" for="feman">
+            <li v-for="(item,index) in sexData" class="girl">
+                <label class="text" :for="'sex'+item.id">
                     <input
-                            id="feman"
+                            :id="'sex'+item.id"
                             name="radio"
                             type="radio"
                             v-model="selected"
-                            value="1">
-                    <span>女生</span>
-                </label>
-            </li>
-            <li class="boy">
-                <label class="text checked" for="man">
-                    <input
-                            id="man"
-                            name="radio"
-                            v-model="selected"
-                            type="radio"
-                            value="0">
-                    <span>男生</span>
+                            :value="item.id">
+                    <span>{{item.value}}</span>
                 </label>
             </li>
         </ul>
-        <!--<button class="quest-btn" @click="">继 续（2/10）</button>-->
     </div>
 </template>
 
@@ -40,7 +28,7 @@
         },
         data(){
             return{
-                selected: 1,
+                selected: '1',
             }
         }
     }
@@ -107,7 +95,7 @@
         .girl{
             margin-bottom: 1.3rem;
         }
-        .boy{
+        .girl:last-child{
             margin-bottom: 5.65rem;
         }
     }
