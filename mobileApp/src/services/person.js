@@ -58,3 +58,12 @@ export function passwordService() {
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/password/edit')
 }
 
+//通用查询接口
+export function queryALLService() {
+    return Vue.resource('http://urmobile.ur.com.cn/report/getFilterCondition')
+}
+//通用查询条件接口
+export function queryService() {
+    return Vue.resource('http://urmobile.ur.com.cn/report/getReportList')
+}
+

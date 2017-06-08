@@ -4,9 +4,10 @@
 <template>
     <div class="page_query">
         <x-header :left-options="{backText:''}">我的报表</x-header>
-        <div class="headInput">
-            <input type="text" class="queryInput" placeholder="请选择" @focus="showSelect">
-        </div>
+        <span class="head_icon" @click="showSelect"></span>
+        <!--<div class="headInput">-->
+            <!--<input type="text" class="queryInput" placeholder="请选择" @focus="showSelect">-->
+        <!--</div>-->
         <popup v-model="show1" height="100%">
             <div class="popup1">
                 <x-header :left-options="{backText:''}">我的报表</x-header>
@@ -20,17 +21,18 @@
                         title="选择日期"></datetime>
                 </group>
                 <div class="query_item">
-                    <div class="query_item_title">
+                    <div class="query_item_title" @click="isActive=!isActive">
                         地区
-                        <span class="all">全部</span>
+                        <span :class="[isActive ? 'activeClass' : 'noActclass', 'all']">全部</span>
                     </div>
+                    <div class="query_icon" v-show="isActive">
                     <div class="item_main">
                         <div class="query_item_title titleItem">
                             大区
                             <!--<span class="all">全部</span>-->
                         </div>
                         <div class="box">
-                            <checker v-model="demo1CheckboxMax" type="checkbox" default-item-class="demo1-item"
+                            <checker v-model="demo1CheckboxMax" type="radio" default-item-class="demo1-item"
                                      selected-item-class="demo1-item-selected">
                                 <checker-item value="1">东区</checker-item>
                                 <checker-item value="2">西区</checker-item>
@@ -75,7 +77,7 @@
                             <span class="all">全部</span>
                         </div>
                         <div class="box longBox">
-                            <checker v-model="demo4CheckboxMax" type="checkbox" default-item-class="demo1-item"
+                            <checker v-model="demo4CheckboxMax" :max="2" type="checkbox" default-item-class="demo1-item"
                                      selected-item-class="demo1-item-selected">
                                 <checker-item value="1">北京世贸工三店</checker-item>
                                 <checker-item value="2">北京朝阳大悦城店</checker-item>
@@ -83,6 +85,7 @@
                                 <checker-item value="4">北京凯德精品购物中心</checker-item>
                             </checker>
                         </div>
+                    </div>
                     </div>
                 </div>
                 <p class="deliver"></p>
@@ -102,7 +105,7 @@
 </template>
 <script>
     import {
-        registerService,
+        queryService,queryALLService
     } from '../services/person.js'
     import {XHeader, Scroller, Popup, Group, Datetime, Checker, CheckerItem} from 'vux'
     export default {
@@ -113,6 +116,7 @@
         },
         data () {
             return {
+                isActive:true,
                 id: '',
                 show1: false,
                 dateTime: '',
@@ -124,9 +128,27 @@
         },
         watch: {},
         created(){
-
+           this.renderData();
         },
         methods: {
+            renderData(){
+                queryALLService().save({
+                    modelId:1000
+                }).then(res => {
+                    let body = res.body;
+//                    if (body.errcode == 0) {
+//                        this.showNoScroll = true;
+//                        this.warnText = '设置成功';
+//                        this.renderData();
+//                    }else{
+//                        this.showNoScroll = true;
+//                        this.warnText = '设置失败'
+//                    }
+                }, res => {
+//                    this.showNoScroll = true;
+//                    this.warnText = '网络超时，请重试';
+                })
+            },
             showSelect() {
                 this.show1 = true;
             },
@@ -139,6 +161,16 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_query {
+        .head_icon{
+            display: inline-block;
+            height: 2.3rem;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 2rem;
+            background: url("../assets/icon_circle.png") no-repeat center center;
+            background-size: 1rem;
+        }
         .vux-popup-dialog{
             overflow-y: auto;
             padding-bottom: 3rem;
@@ -211,10 +243,18 @@
                     line-height: 1.95rem;
                     float: right;
                     padding-right: 1rem;
-                    background: url("../assets/icon_down.png") no-repeat right center;
-                    -webkit-background-size:;
-                    background-size: .6rem;
+
                     font-size: .7rem;
+                }
+                .noActclass{
+                    background: url("../assets/icon_down.png") no-repeat right center;
+                    -webkit-background-size:.6rem;
+                    background-size: .6rem;
+                }
+                .activeClass{
+                    background: url("../assets/icon_up.png") no-repeat right center;
+                    -webkit-background-size:.6rem;
+                    background-size: .6rem;
                 }
             }
             .item_main {
