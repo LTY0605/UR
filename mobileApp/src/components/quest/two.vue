@@ -1,8 +1,10 @@
 <template>
     <div class="page_two">
-        <p class="con_p"><span class="con_num">2</span><span class="con_text">您的性别</span></p>
+        <p class="con_p">
+            <span class="con_num">{{currentData.orderNumber}}</span>
+            <span class="con_text">{{currentData.title}}</span></p>
         <ul class="radioBox">
-            <li v-for="(item,index) in sexData" class="girl">
+            <li v-for="(item,index) in currentData.option" class="girl">
                 <label class="text" :for="'sex'+item.id">
                     <input
                             :id="'sex'+item.id"
@@ -24,11 +26,11 @@
             XButton
         },
         props:{
-            sexData:Array
+            currentData:Array
         },
         data(){
             return{
-                selected: '1',
+                selected: '',
             }
         }
     }
@@ -68,7 +70,10 @@
         vertical-align: top;
         color: #ab9236;
         font-size: .8rem;
+        margin-top: -.14rem;
         margin-left: .6rem;
+        width: 13.6rem;
+        line-height: 1.2rem;
 
     }
     input[type="radio"]{
@@ -77,7 +82,7 @@
     input[type="radio"] + span{
         width: .85rem;
         height: .85rem;
-        line-height: .85rem;
+        line-height: 1.2rem;
         background: url(../../assets/images/circle.png) left center no-repeat;
         background-size: .85rem .85rem;
         padding-left: 1.2rem;

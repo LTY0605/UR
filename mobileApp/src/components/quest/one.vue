@@ -5,17 +5,17 @@
             <select id="provinces" v-model="province" class="con_select" name="province" @change="changeCity">
                 <option value="" disabled selected>选择省份</option>
                 <option :value="item.id"
-                        v-for="(item,index) in surveyData" v-if="item.parentID==0">{{item.value}}</option>
+                        v-for="(item,index) in currentData" v-if="item.parentID==0">{{item.value}}</option>
             </select>
             <select id="citys" v-model="city" class="con_select" name="city" @change="changeStore">
                 <option value ="" disabled selected>选择城市</option>
                 <option :value="item.id"
-                        v-for="(item,index) in surveyData" v-if="item.parentID==province">{{item.value}}</option>
+                        v-for="(item,index) in currentData" v-if="item.parentID==province">{{item.value}}</option>
             </select>
             <select id="stores" class="con_select last" name="store" v-model="store">
                 <option value ="" disabled selected>选择门店</option>
                 <option :value="item.id"
-                        v-for="(item,index) in surveyData" v-if="item.parentID==city">{{item.value}}</option>
+                        v-for="(item,index) in currentData" v-if="item.parentID==city">{{item.value}}</option>
             </select>
         </div>
     </div>
@@ -28,7 +28,7 @@
             XButton
         },
         props:{
-            surveyData:Array
+            currentData:Array
         },
         data(){
             return{
