@@ -1,10 +1,10 @@
 <template>
     <div class="page_three">
         <p class="con_p">
-            <span class="con_num">4</span>
-            <span class="con_text">您从哪些渠道关注UR品牌？（多选， 最多可选3项）</span></p>
+            <span class="con_num">{{currentData.orderNumber}}</span>
+            <span class="con_text">{{currentData.title}}</span></p>
         <ul id="box" class="radioBox">
-            <li v-for="(item,index) in feelData" class="girl">
+            <li v-for="(item,index) in currentData.option" class="girl">
                 <label class="text" :for="'feel'+item.id">
                     <input
                             :id="'feel'+item.id"
@@ -26,7 +26,7 @@
         components:{
         },
         props:{
-            feelData:Array
+            currentData:Array
         },
         data(){
             return{

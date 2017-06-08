@@ -4,7 +4,7 @@
             <span class="con_num">3</span>
             <span class="con_text">您对门店形象的整体感觉与以下哪一项 最符合？（单选）</span></p>
         <ul class="radioBox">
-            <li v-for="(item,index) in channelData.slice(0,4)" class="channel">
+            <li v-for="(item,index) in currentData.slice(0,4)" class="channel">
                 <label class="text" :for="'channel'+item.id">
                     <input
                             :id="'channel'+item.id"
@@ -39,7 +39,7 @@
         components:{
         },
         props:{
-            channelData:Array
+            currentData:Array
         },
         data(){
             return{
