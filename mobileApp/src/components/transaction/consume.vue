@@ -4,10 +4,10 @@
             <no-data v-show="tranlists.length==0"></no-data>
             <ul class="tranlist" v-show="tranlists.length!=0">
                 <li v-for="list in tranlists" class="list">
-                    <p>单号：<span class="list-number">{{item.billNO}}</span></p>
-                    <p class="list-mar">类型：{{item.operTypeName}}</p>
-                    <p>日期：{{item.saleDate}}</p>
-                    <p class="list-money">{{item.amount}}</p>
+                    <p>单号：<span class="list-number">{{list.billNO}}</span></p>
+                    <p class="list-mar">类型：{{list.operTypeName}}</p>
+                    <p>日期：{{list.saleDate}}</p>
+                    <p class="list-money">{{list.amount}}</p>
                 </li>
             </ul>
         </div>
@@ -15,25 +15,26 @@
 </template>
 
 <script>
-    import {transRecordService} from '../../services/transRecord.js'
     import noData from '../common/noData.vue'
     export default {
         components: {noData
         },
+        props: {
+            tranlists:Array,
+        },
 
         data () {
             return {
-                tranlists:[],
             }
         },
         mounted(){
         },
         watch: {},
         created(){
-            this.renderData()
+            //this.renderData()
         },
         methods:{
-            renderData(){
+           /*renderData(){
             transRecordService().save({
                 operTypeName:this.operTypeName,
                 operType:this.currentCode
@@ -42,7 +43,6 @@
                 let body = res.body;
                 if(body.errcode == 0){
                     this.tranlists = body.list;
-                    //console.log(this.tranlists[0])
                 } else{
                     this.showNoScroll = true;
                     this.warnText = body.errmsg;
@@ -51,7 +51,7 @@
                 this.showNoScroll = true;
                 this.warnText = "网络超时，请重试";
             })
-        }},
+        }*/},
         computed: {}
     }
 </script>

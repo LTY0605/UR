@@ -19,7 +19,7 @@
                       <!--<router-link :to="{name:'carPassword',query:{tab:1}}">-->
                           <!--<button class="Box7">修改密码</button>-->
                       <!--</router-link>-->
-                      <router-link :to="{name:'transaction',query:{valueCardcode:valueCardcode}}"><button class="Box3">交易记录</button></router-link>
+                      <router-link :to="{name:'transaction',query:{valueCardcode1:valueCardcode1}}"><button class="Box3">交易记录</button></router-link>
                   </div>
               </div>
               <div class="gift2"  v-if="item.cardName=='京东存值卡'">
@@ -43,7 +43,7 @@
                           <router-link :to="{name:'carPassword',query:{valueCardcode:valueCardcode}}">
                               <button class="Box7">修改密码</button>
                           </router-link>
-                          <router-link :to="{name:'transaction',query:{valueCardcode:valueCardcode}}"><button class="Box8">交易记录</button></router-link>
+                          <router-link :to="{name:'transaction',query:{valueCardcode0:valueCardcode0}}"><button class="Box8">交易记录</button></router-link>
                       </div>
                   </div>
               </div>
@@ -164,11 +164,18 @@
                    query: {valueCardcode:valueCardcode},
                })
            },
-           renderCode1(valueCardcode){
+           renderCode1(valueCardcode0){
 //               alert(valueCardcode)
                this.$router.push({
                    name: 'transaction',
-                   query: {valueCardcode:valueCardcode},
+                   query: {valueCardcode0:valueCardcode0},
+               })
+           },
+           renderCode1(valueCardcode1){
+//               alert(valueCardcode)
+               this.$router.push({
+                   name: 'transaction',
+                   query: {valueCardcode1:valueCardcode1},
                })
            },
            renderCardList(){
@@ -177,9 +184,12 @@
                    cardcode:'8urp0000118',
                }).then(res => {
                    let body = res.body;
+                  // console.log(body.list[0])
                    if (body.errcode == 0) {
                       this.cardList = body.list;
-                      this.valueCardcode = body.list[0].valueCardcode;
+                       this.valueCardcode = body.list[0].valueCardcode;
+                      this.valueCardcode0 = body.list[0].valueCardcode;
+                       this.valueCardcode1 = body.list[1].valueCardcode;
 
 
                    } else {

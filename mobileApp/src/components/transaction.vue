@@ -24,7 +24,7 @@
     </div>
 </template>
 <script>
-    //import {transRecordService} from '../../services/transRecord.js'
+    import {transRecordService} from '../services/transRecord.js'
     import Whole from './transaction/whole.vue'
     import Consume from './transaction/consume.vue'
     import Transfer from './transaction/transfer.vue'
@@ -33,6 +33,7 @@
         components: {
             XHeader, Scroller, Whole, Consume, Transfer
         },
+
         data () {
             return {
                 tranlists:[],
@@ -40,8 +41,9 @@
                 list2: ['全部', '消费', '转赠'],
                 index: 1,
                 time: '',
-                currentCode:'',
-                valueCardcode: this.$route.query.valueCardcode,
+                currentCode:0,
+                valueCardcode0: this.$route.query.valueCardcode0,
+                valueCardcode1: this.$route.query.valueCardcode1,
                 titleList: [
                     {
                         code: 0,
@@ -83,22 +85,19 @@
         },
         watch: {},
         created(){
-            //this.renderData()
-            //this.transRecordService()
+            this.renderData()
         },
         methods:{
             changeItem(index,code){
                 this.titleTab = index;
                 this.currentCode = code;
-                //this.renderData();
+                this.renderData();
             },
-            /*renderData(){
+            renderData(){
                 transRecordService().save({
-//                    cardcode:'8urp0070227',
-                    //cardcode:window.localStorage.getItem('cardcode'),
-                    operTypeName:this.operTypeName,
                     operType:this.currentCode
                 }).then(res =>{
+
                     let body = res.body;
                     if(body.errcode == 0){
                         this.tranlists = body.list;
@@ -110,7 +109,7 @@
                     this.showNoScroll = true;
                     this.warnText = "网络超时，请重试";
                 })
-            },*/
+            }
         },
         computed: {}
     }
