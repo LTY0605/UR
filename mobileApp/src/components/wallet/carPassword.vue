@@ -78,12 +78,11 @@
                     this.warnText = '两次输入的密码不一致';
                     return
                 }
-
                 carPasswordServices().save({
                     oldpassword:this.oldpassword,
                     newpassword:this.newpassword,
                     confirmpassword:this.confirmpassword,
-                    cardcode: window.localStorage.getItem("cardcode"),
+                    valueCardcode:this.valueCardcode,
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {

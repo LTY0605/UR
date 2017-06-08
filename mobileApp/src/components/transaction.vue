@@ -36,14 +36,13 @@
 
         data () {
             return {
+                valueCardcode:this.$route.query.valueCardcode,
                 tranlists:[],
                 titleTab: 0,
                 list2: ['全部', '消费', '转赠'],
                 index: 1,
                 time: '',
                 currentCode:0,
-                valueCardcode0: this.$route.query.valueCardcode0,
-                valueCardcode1: this.$route.query.valueCardcode1,
                 titleList: [
                     {
                         code: 0,
@@ -58,26 +57,7 @@
                         name: '转赠'
                     }
                 ],
-//                tranlists:[
-//                    {
-//                        number: 'OS201704120289',
-//                        type: '消费',
-//                        time: '2017-04-12 15:30:28',
-//                        money: '-300.00'
-//                    },
-//                    {
-//                        number: 'OS201703021888',
-//                        type: '转出',
-//                        time: '2017-03-02 09:38:21',
-//                        money: '-150.00'
-//                    },
-//                    {
-//                        number: 'OS201609113466',
-//                        type: '获赠',
-//                        time: '2016-09-11 11:25:15',
-//                        money: '+100.00'
-//                    }
-//                ]
+
 
             }
         },
@@ -85,7 +65,7 @@
         },
         watch: {},
         created(){
-            this.renderData()
+            this.renderData();
         },
         methods:{
             changeItem(index,code){
@@ -95,6 +75,7 @@
             },
             renderData(){
                 transRecordService().save({
+                    valueCardcode:this.valueCardcode,
                     operType:this.currentCode
                 }).then(res =>{
 
