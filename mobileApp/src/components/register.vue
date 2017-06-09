@@ -146,7 +146,7 @@
                 zhengze_name: function (value) {
                     return {
                         valid: /^[A-Za-z0-9_\u4e00-\u9fa5]{4,20}$/.test(value),
-                        msg: '字体长度不能超过20'
+                        msg: '字段长度为4到20'
                     }
                 },
                 beTel: function (value) {
@@ -191,7 +191,7 @@
                     district: pro[2]
                 }).then(res => {
                     let body = res.body;
-                    //console.log(body)
+                    //console.log(res.body)
                     if (body.errcode == 0) {
                         this.showNoScro = true;
                         this.warnText2 = '注册成功';
@@ -199,12 +199,12 @@
                         this.putLocal();
 
                     } else {
-                        this.showNoScro = true;
-                        this.warnText2 = '注册不成功';
+                        this.show = true;
+                        this.text = '注册不成功';
                     }
                 }, res => {
-                    this.showNoScro = true;
-                    this.warnText2 = '网络不给力';
+                    this.show = true;
+                    this.text = '网络不给力';
                 })
             },
             putLocal(){
@@ -229,8 +229,11 @@
                                 name: 'index',
                             });
                         },300)
+                    } else if(body.errcode == 3202) {
+                        this.show = true;
+                        this.text = body.errmsg;
                     } else {
-                        this.showNoScro = true;
+                        this.show = true;
                         this.warnText2 = '网络不给力,请重新登录';
                         setTimeout(function () {
                             _this.$router.push({

@@ -50,11 +50,11 @@
         </div>
         <toast v-model="loginAlert" type="text" :time="1000">{{loginText}}</toast>
         <x-dialog v-model="showNoScroll" class="dialog-demo" :scroll="false">
-        <p class="dialog-title">温馨提示</p>
-        <div class="dialog-contain">
-        {{warnText}}
-        </div>
-        <button class="vux-close" @click="goLink">确定</button>
+            <p class="dialog-title">温馨提示</p>
+            <div class="dialog-contain">
+                {{warnText}}
+            </div>
+            <button class="vux-close" @click="goLink">确定</button>
         </x-dialog>
     </div>
 </template>
@@ -81,6 +81,12 @@
                 time: 60,
                 code:'',//验证码
                 showMin:false,
+                beTel: function (value) {
+                    return {
+                        valid: /^(?=\d{11}$)^1(?:3\d|4[57]|5[^4\D]|7[^249\D]|8\d)\d{8}$/.test(value),
+                        msg: ''
+                    }
+                }
             }
 
         },
@@ -93,9 +99,14 @@
             },
             login_submit () {
                 let _this = this;
-                if(this.phone == ''||this.code == ''){
+                if(this.phone == ''|| this.code == ''){
                     this.loginAlert = true;
                     this.loginText = '请输入手机号或者验证码'
+                    return
+                }
+                if(!this.beTel(this.phone).valid){
+                    this.loginAlert = true;
+                    this.loginText = '请输入正确的手机号';
                     return
                 }
                 var phoneData ={
@@ -111,8 +122,8 @@
                 }).then(res => {
                     let body = res.body;
                     if(body.errcode == 0){
-                        this.loginAlert =true;
-                        this.loginText = '登录成功';
+                        this.showNoScroll =false;
+                        this.warnText = '登录成功';
                         //window.localStorage.setItem("wxOpenId", body.wxOpenId);
                         window.localStorage.setItem("cardcode", body.cardcode);
                         window.localStorage.setItem("sex", body.sex);
