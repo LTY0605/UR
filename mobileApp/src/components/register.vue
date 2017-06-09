@@ -193,14 +193,14 @@
                     let body = res.body;
                     //console.log(res.body)
                     if (body.errcode == 0) {
-                        this.showNoScro = true;
+                        this.showNoScro = false;
                         this.warnText2 = '注册成功';
                         window.localStorage.setItem("mobileTel", this.phone);
                         this.putLocal();
 
                     } else {
                         this.show = true;
-                        this.text = '注册不成功';
+                        this.text = body.errmsg;
                     }
                 }, res => {
                     this.show = true;
