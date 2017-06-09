@@ -2,20 +2,24 @@
     <div class="page_one">
         <p class="con_p"><span class="con_num">1</span><span class="con_text">请选择你所惠临的门店</span></p>
         <div class="con_back">
-            <select id="provinces" v-model="province" class="con_select" name="province" @change="changeCity">
+            <select id="provinces" v-model="province" class="con_select" name="province"
+                    @change="changeCity">
                 <option value="" disabled selected>选择省份</option>
                 <option :value="item.id"
-                        v-for="(item,index) in currentData" v-if="item.parentID==0">{{item.value}}</option>
+                        v-for="(item,index) in list[currentIndex].option"
+                        @click="getProIndex(index)"
+                        v-if="item.parentID==0">{{item.value}}</option>
             </select>
             <select id="citys" v-model="city" class="con_select" name="city" @change="changeStore">
                 <option value ="" disabled selected>选择城市</option>
                 <option :value="item.id"
-                        v-for="(item,index) in currentData" v-if="item.parentID==province">{{item.value}}</option>
+                        v-for="(item,index) in list[currentIndex].option"
+                        v-if="item.parentID==province">{{item.value}}</option>
             </select>
-            <select id="stores" class="con_select last" name="store" v-model="store">
+            <select id="stores" class="con_select last" name="store" v-model="store" @change="changeSelect">
                 <option value ="" disabled selected>选择门店</option>
                 <option :value="item.id"
-                        v-for="(item,index) in currentData" v-if="item.parentID==city">{{item.value}}</option>
+                        v-for="(item,index) in list[currentIndex].option" v-if="item.parentID==city">{{item.value}}</option>
             </select>
         </div>
     </div>
@@ -28,22 +32,53 @@
             XButton
         },
         props:{
-            currentData:Array
+            surveyData:Array,
+            currentIndex:Number
         },
         data(){
             return{
+                list:[],
                 province: '',
                 city: '',
-                store: ''
+                store: '',
+                index:0,
             }
+        },
+        watch: {
+            currentIndex:{
+                immediate: true,
+                handler(val) {
+                    this.index = val;
+                }
+            },
+            surveyData: {
+                immediate: true,
+                handler(val) {
+                    this.list = val;
+                    let region = ["","",""];
+                    this.list[this.index].answers = region;
+                    console.log(this.list[this.index],'2222');
+                }
+            },
+            list: {
+                immediate: true,
+                handler(val) {
+                    this.$emit('surveyData', val)
+                }
+            },
         },
         methods:{
             changeCity(){
                 this.city = '';
                 this.store = '';
+                this.list[this.index].answers[0] = this.province;
             },
             changeStore(){
                 this.store = '';
+                this.list[this.index].answers[1] = this.city;
+            },
+            changeSelect(){
+                this.list[this.index].answers[2] = this.store;
             },
         },
         mounted(){
@@ -96,7 +131,10 @@
             vertical-align: top;
             color: #ab9236;
             font-size: .8rem;
+            margin-top: -.14rem;
             margin-left: .6rem;
+            width: 86%;
+            line-height: 1.2rem;
         }
         .con_select{
             width: 100%;

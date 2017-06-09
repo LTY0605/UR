@@ -1,22 +1,21 @@
 <template>
     <div class="page_three">
         <p class="con_p">
-            <span class="con_num">{{currentData.orderNumber}}</span>
-            <span class="con_text">{{currentData.title}}</span></p>
+            <span class="con_num">{{list[currentIndex].orderNumber}}</span>
+            <span class="con_text">{{list[currentIndex].title}}</span></p>
         <ul id="box" class="radioBox">
-            <li v-for="(item,index) in currentData.option" class="girl">
+            <li v-for="(item,index) in list[currentIndex].option" class="girl">
                 <label class="text" :for="'feel'+item.id">
                     <input
                             :id="'feel'+item.id"
                             name="check"
                             type="checkbox"
-                            @click="checboxNum('check', 3)"
-                            value="item.id">
+                            v-model="list[currentIndex].answers"
+                            :value="item.id">
                     <span>{{item.value}}</span>
                 </label>
             </li>
         </ul>
-        <!--<button class="quest-btn" @click="">继 续（4/10）</button>-->
         <br>
     </div>
 </template>
@@ -26,11 +25,27 @@
         components:{
         },
         props:{
-            currentData:Array
+            surveyData:Array,
+            currentIndex:Number
         },
         data(){
             return{
+                list:[],
             }
+        },
+        watch: {
+            surveyData: {
+                immediate: true,
+                handler(val) {
+                    this.list = val;
+                }
+            },
+            list: {
+                immediate: true,
+                handler(val) {
+                    this.$emit('surveyData', val)
+                }
+            },
         },
         methods:{
             checboxNum(name, num) {
@@ -94,7 +109,7 @@
         font-size: .8rem;
         margin-top: -.14rem;
         margin-left: .6rem;
-        width: 13.6rem;
+        width: 86%;
         line-height: 1.2rem;
 
     }
