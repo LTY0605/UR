@@ -72,30 +72,35 @@
                 })
             },
             saveSurveyData(){
-                surveyCommit().save({
-                    cardcode: window.localStorage.getItem("cardcode"),
-                    surveyCode: this.submitCode
-                }).then(res=>{
+                surveyCommit().save(
+                    this.submitCode
+                ).then(res=>{
                 },res=>{
                 })
             },
             submit(){
                 let data = {};
+                let obj = {};
+                let cardcode = window.localStorage.getItem("cardcode");
+                obj.cardcode = cardcode;
+                obj.surveyCode = this.surveyCode;
                 for(let i=0;i<this.length;i++){
                     if(Array.isArray(this.surveyData[i].answers)){
                         let arrAnswer = [];
                         for(let j=0;j<(this.surveyData[i].answers).length;j++){
-                            arrAnswer.push((this.surveyData[i].subjectCode) + ':' + (this.surveyData[i].answers)[j])
+                            arrAnswer.push((this.surveyData[i].answers)[j])
                         }
                         this.surveyData[i].answers = arrAnswer
-                        console.log(this.surveyData[i].answers)
+//                        console.log(this.surveyData[i].answers)
                     }else{
-                        this.surveyData[i].answers = this.surveyData[i].subjectCode + ':' + this.surveyData[i].answers
+                        this.surveyData[i].answers = this.surveyData[i].answers
                     }
 //                    data.push(this.surveyData[i].answers)
                     Array.prototype.push.call(data,this.surveyData[i].answers);
                 }
-                this.submitCode = data;
+                Object.keys(data).forEach(key=>obj[this.surveyData[key].subjectCode] = data[key]);
+                console.log(obj,'----------------------------------------------');
+                this.submitCode = obj;
                 console.log(this.submitCode,'6666666666666666')
                 console.log(this.surveyData,'---------------')
 //                return
