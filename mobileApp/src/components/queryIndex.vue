@@ -26,73 +26,97 @@
                         <span :class="[isActive ? 'activeClass' : 'noActclass', 'all']">全部</span>
                     </div>
                     <div class="query_icon" v-show="isActive">
-                    <div class="item_main">
-                        <div class="query_item_title titleItem">
-                            大区
-                            <!--<span class="all">全部</span>-->
+                    <div v-for="(item,index) in areaData" :class="[item.isActive ? '' : 'activeMain', 'item_main']">
+                        <div class="query_item_title titleItem" @click="item.isActive=!item.isActive">
+                            {{item.ConditionName}}
+                            <span v-if="item.ConditionId!= 'region'" :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"
+                                >全部</span>
                         </div>
-                        <div class="box">
-                            <checker v-model="demo1CheckboxMax" type="radio" default-item-class="demo1-item"
+                        <div class="box"  v-if="item.ConditionId != 'shop'">
+                            <checker v-model="item.answers" type="radio" default-item-class="demo1-item"
                                      selected-item-class="demo1-item-selected">
-                                <checker-item value="1">东区</checker-item>
-                                <checker-item value="2">西区</checker-item>
-                                <checker-item value="3">南区</checker-item>
-                                <checker-item value="4">北区</checker-item>
+                                <checker-item v-for="i in item.child" :value="i.REGION_NO" v-if="item.ConditionId == 'region'">{{i.REGION_NAME}}</checker-item>
+                                <checker-item v-for="i in item.child" :value="i.SUBREGION_NO" v-if="item.ConditionId == 'subregion'">{{i.SUBREGION_NAME}}</checker-item>
+                                <checker-item v-for="i in item.child" :value="i.CITY_CODE" v-if="item.ConditionId == 'city'">{{i.CITY_NAME2}}</checker-item>
+
                             </checker>
                         </div>
-                    </div>
-                    <div class="item_main">
-                        <div class="query_item_title titleItem">
-                            小区
-                            <span class="all">全部</span>
-                        </div>
-                        <div class="box">
-                            <checker v-model="demo2CheckboxMax" type="checkbox" default-item-class="demo1-item"
+                        <div class="box longBox" v-if="item.ConditionId == 'shop'">
+                            <checker v-model="demo4CheckboxMax" :max="2" type="radio" default-item-class="demo1-item"
                                      selected-item-class="demo1-item-selected">
-                                <checker-item value="1">东区一区</checker-item>
-                                <checker-item value="2">东区二区</checker-item>
-                                <checker-item value="3">东区三区</checker-item>
-                                <checker-item value="4">东区四区</checker-item>
-                            </checker>
-                        </div>
-                    </div>
-                    <div class="item_main">
-                        <div class="query_item_title titleItem">
-                            城市
-                            <span class="all">全部</span>
-                        </div>
-                        <div class="box">
-                            <checker v-model="demo3CheckboxMax" type="checkbox" default-item-class="demo1-item"
-                                     selected-item-class="demo1-item-selected">
-                                <checker-item value="1">上海</checker-item>
-                                <checker-item value="2">扬州</checker-item>
-                                <checker-item value="3">南京</checker-item>
-                                <checker-item value="4">合肥</checker-item>
-                            </checker>
-                        </div>
-                    </div>
-                    <div class="item_main">
-                        <div class="query_item_title titleItem">
-                            门店
-                            <span class="all">全部</span>
-                        </div>
-                        <div class="box longBox">
-                            <checker v-model="demo4CheckboxMax" :max="2" type="checkbox" default-item-class="demo1-item"
-                                     selected-item-class="demo1-item-selected">
-                                <checker-item value="1">北京世贸工三店</checker-item>
-                                <checker-item value="2">北京朝阳大悦城店</checker-item>
-                                <checker-item value="3">北京王府井APM店</checker-item>
-                                <checker-item value="4">北京凯德精品购物中心</checker-item>
+                                <checker-item v-for="i in item.child" :value="i.SHOP_NO">{{i.SHOP_NAME}}</checker-item>
                             </checker>
                         </div>
                     </div>
                     </div>
                 </div>
-                <p class="deliver"></p>
+                <!--<p class="deliver"></p>-->
                 <div class="query_item">
-                    <div class="query_item_title">
+                    <div class="query_item_title" @click="isActive1=!isActive1">
                         风格
-                        <span class="all">全部</span>
+                        <span :class="[isActive1 ? 'activeClass' : 'noActclass', 'all']">全部</span>
+                    </div>
+                    <div class="query_icon" v-show="isActive1">
+                        <div class="item_main">
+                            <div class="query_item_title titleItem">
+                                大区
+                                <!--<span class="all">全部</span>-->
+                            </div>
+                            <div class="box">
+                                <checker v-model="demo1CheckboxMax" type="radio" default-item-class="demo1-item"
+                                         selected-item-class="demo1-item-selected">
+                                    <checker-item value="1">东区</checker-item>
+                                    <checker-item value="2">西区</checker-item>
+                                    <checker-item value="3">南区</checker-item>
+                                    <checker-item value="4">北区</checker-item>
+                                </checker>
+                            </div>
+                        </div>
+                        <div class="item_main">
+                            <div class="query_item_title titleItem">
+                                小区
+                                <span class="all">全部</span>
+                            </div>
+                            <div class="box">
+                                <checker v-model="demo2CheckboxMax" type="checkbox" default-item-class="demo1-item"
+                                         selected-item-class="demo1-item-selected">
+                                    <checker-item value="1">东区一区</checker-item>
+                                    <checker-item value="2">东区二区</checker-item>
+                                    <checker-item value="3">东区三区</checker-item>
+                                    <checker-item value="4">东区四区</checker-item>
+                                </checker>
+                            </div>
+                        </div>
+                        <div class="item_main">
+                            <div class="query_item_title titleItem">
+                                城市
+                                <span class="all">全部</span>
+                            </div>
+                            <div class="box">
+                                <checker v-model="demo3CheckboxMax" type="checkbox" default-item-class="demo1-item"
+                                         selected-item-class="demo1-item-selected">
+                                    <checker-item value="1">上海</checker-item>
+                                    <checker-item value="2">扬州</checker-item>
+                                    <checker-item value="3">南京</checker-item>
+                                    <checker-item value="4">合肥</checker-item>
+                                </checker>
+                            </div>
+                        </div>
+                        <div class="item_main">
+                            <div class="query_item_title titleItem">
+                                门店
+                                <span class="all">全部</span>
+                            </div>
+                            <div class="box longBox">
+                                <checker v-model="demo4CheckboxMax" :max="2" type="checkbox" default-item-class="demo1-item"
+                                         selected-item-class="demo1-item-selected">
+                                    <checker-item value="1">北京世贸工三店</checker-item>
+                                    <checker-item value="2">北京朝阳大悦城店</checker-item>
+                                    <checker-item value="3">北京王府井APM店</checker-item>
+                                    <checker-item value="4">北京凯德精品购物中心</checker-item>
+                                </checker>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -101,22 +125,25 @@
                 <span @click="sureSubmit">确定</span>
             </div>
         </popup>
+        <toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>
     </div>
 </template>
 <script>
+    import Vue from 'vue'
     import {
         queryService,queryALLService
     } from '../services/person.js'
-    import {XHeader, Scroller, Popup, Group, Datetime, Checker, CheckerItem} from 'vux'
+    import {XHeader, Scroller, Popup, Group, Datetime, Checker, CheckerItem,Toast} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, Popup, Group, Datetime, Checker, CheckerItem
+            XHeader, Scroller, Popup, Group, Datetime, Checker, CheckerItem,Toast
         },
         mounted(){
         },
         data () {
             return {
                 isActive:true,
+                isActive1:false,
                 id: '',
                 show1: false,
                 dateTime: '',
@@ -124,6 +151,11 @@
                 demo2CheckboxMax: '',
                 demo3CheckboxMax: '',
                 demo4CheckboxMax:'',
+                areaData:[],//地区
+                styleData:[],//风格
+                showNoScroll:false,
+                warnText:'',
+
             }
         },
         watch: {},
@@ -136,17 +168,26 @@
                     modelId:1000
                 }).then(res => {
                     let body = res.body;
-//                    if (body.errcode == 0) {
-//                        this.showNoScroll = true;
-//                        this.warnText = '设置成功';
-//                        this.renderData();
-//                    }else{
-//                        this.showNoScroll = true;
-//                        this.warnText = '设置失败'
-//                    }
+                    if (body.condition) {
+                       this.areaData = body.condition.groupid1;
+                        this.areaData.forEach(function (item,index) {
+                                Vue.set(item, 'answers', '');
+                                if(index == 0){
+                                    Vue.set(item, 'isActive', true);
+                                }else{
+                                    Vue.set(item, 'isActive', false);
+                                }
+                        })
+                        console.log(this.areaData,'----------')
+                       this.styleData = body.condition.groupid2;
+                        this.styleData.forEach(function (item,index) {
+                            Vue.set(item, 'answers', [])
+                            Vue.set(item, 'isActive', false);
+                        })
+                    }
                 }, res => {
-//                    this.showNoScroll = true;
-//                    this.warnText = '网络超时，请重试';
+                    this.showNoScroll = true;
+                    this.warnText = '网络超时，请重试';
                 })
             },
             showSelect() {
@@ -296,6 +337,10 @@
                         }
                     }
                 }
+            }
+            .activeMain{
+                height: 6.5rem;
+                overflow: hidden;
             }
         }
         .operate{
