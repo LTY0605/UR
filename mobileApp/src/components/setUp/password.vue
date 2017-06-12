@@ -60,7 +60,7 @@
                     this.warnText = '您有信息未填写';
                     return
                 }
-                if(!this.bePassWord(this.oldPassword).valid || !this.bePassWord(this.newPassword).valid || !this.bePassWord(this.newPassword2).valid){
+                if(!this.bePassWord(this.oldPassword).valid || !this.bePassWord(this.newPassword).valid){
                     this.showNoScroll = true;
                     this.warnText = '密码只能字母跟数字，长度不能大于11位';
                     return
