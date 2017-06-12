@@ -5,14 +5,14 @@
         </x-header>
         <div class="address-con">
             <group>
-                <x-input class="consignee" title="收货人姓名" v-model="consignee" placeholder="收货人姓名,必填" :max="20"></x-input>
+                <x-input class="consignee" title="收货人姓名" v-model.trim="consignee" placeholder="收货人姓名,必填" :max="20"></x-input>
                 <x-input title="收货人电话" placeholder="收货人电话,必填" v-model="mobileTel" :max="11" :min="11"
                          keyboard="number"></x-input>
                 <x-address class="address-select" placeholder="请选择,必填" title="所在地区" v-model="attrValue" raw-value
                            :list="addressData"
                            value-text-align="left"></x-address>
-                <x-textarea class="address-text" placeholder="详细地址,必填" v-model="addressDeep" required></x-textarea>
-                <x-input title="邮政编码" placeholder="邮政编码,必填" v-model="postcode" required type="number"></x-input>
+                <x-textarea class="address-text" placeholder="详细地址,必填" v-model.trim="addressDeep" required></x-textarea>
+                <x-input title="邮政编码" placeholder="邮政编码,必填" v-model="postcode" required type="number" :max="6" :min="6"></x-input>
             </group>
         </div>
         <div class="address-foot">
