@@ -10,11 +10,13 @@
                             :id="'sex'+item.id"
                             name="radio"
                             type="radio"
+                            @click="isOther(item.value)"
                             v-model="list[currentIndex].answers"
                             :value="item.id">
                     <span>{{item.value}}</span>
                 </label>
             </li>
+            <!--<textarea v-model="otherText" class="other-txt" placeholder="请注明" v-if="otherShow"></textarea>-->
         </ul>
     </div>
 </template>
@@ -33,6 +35,19 @@
             return{
                 selected: '',
                 list:[],
+                otherText:'',
+                otherShow:false
+            }
+        },
+        methods:{
+            isOther(item){
+                if(item.indexOf('其他')>0){
+                    this.otherShow = true;
+                }else {
+                    this.otherShow = false
+                    this.otherText = ''
+                }
+//                console.log(item)
             }
         },
         watch: {
@@ -45,7 +60,7 @@
             list: {
                 immediate: true,
                 handler(val) {
-                    this.$emit('surveyData', val)
+                    this.$emit('surveyData', val);
                 }
             },
         },
@@ -125,17 +140,18 @@
             .girl:last-child{
                 margin-bottom: 2.5rem;
             }
-        }
-        .two_btn{
-            margin-bottom: .7rem;
-        }
-        .quest-btn{
-            margin-left: 0;
-            width: 100%;
-            height: 2rem;
-            border: none;
-            background: #ab9236;
-            color: #FFFFFF;
+            .other-txt{
+                font-family: 'Verdana', "Hiragino Sans GB";
+                resize: none;
+                border: none;
+                font-size: .75rem;
+                color: #333333;
+                width: 84%;
+                margin-left: 8%;
+                margin-top: -.5rem;
+                margin-bottom: 1.3rem;
+                /*border: none;*/
+            }
         }
         button{
             outline: none;

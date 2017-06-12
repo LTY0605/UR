@@ -11,7 +11,7 @@
                   </div>
                   <div class="imgbox">
                       <p class="picture">
-                          <img @click="showNoScroll=!showNoScroll" width="100%" src="../../assets/icon_money_code.png">
+                          <img @click="payCard(item.cardTypeName,item.JDcardcode,item.password)" width="100%" src="../../assets/icon_money_code.png">
                       </p>
                   </div>
                   <div class="buttonBox">
@@ -19,7 +19,9 @@
                       <!--<router-link :to="{name:'carPassword',query:{tab:1}}">-->
                           <!--<button class="Box7">修改密码</button>-->
                       <!--</router-link>-->
-                      <router-link :to="{name:'transaction',query:{valueCardcode:item.valueCardcode}}"><button class="Box3">交易记录</button></router-link>
+                      <router-link
+                              :to="{name:'transaction',query:{valueCardcode:item.valueCardcode,cardName:item.cardName}}">
+                          <button class="Box3">交易记录</button></router-link>
                   </div>
               </div>
               <div class="gift2"  v-if="item.cardName=='京东存值卡'">
@@ -30,7 +32,7 @@
                   </div>
                   <div class="imgbox1">
                       <p class="picture1">
-                          <img @click="showNoScroll=!showNoScroll" width="100%" src="../../assets/icon_money_code.png">
+                          <img @click="payCard(item.cardName,item.cardcode,item.password)" width="100%" src="../../assets/icon_money_code.png">
                       </p>
                   </div>
                   <div class="buttonBox1">
@@ -43,7 +45,7 @@
                           <router-link :to="{name:'carPassword',query:{valueCardcode:item.valueCardcode}}">
                               <button class="Box7">修改密码</button>
                           </router-link>
-                          <router-link :to="{name:'transaction',query:{valueCardcode:item.valueCardcode}}"><button class="Box8">交易记录</button></router-link>
+                          <router-link :to="{name:'transaction',query:{valueCardcode:item.valueCardcode,cardName:item.cardName}}"><button class="Box8">交易记录</button></router-link>
                       </div>
                   </div>
               </div>
