@@ -4,7 +4,8 @@
         <div class="quest_con" v-if="currentData.subjectType">
             <one :surveyData="surveyData"
                  :currentIndex="currentIndex" v-if="currentData.subjectType=='combobox'"></one>
-            <two :surveyData="surveyData" :currentIndex="currentIndex" v-if="currentData.subjectType=='radio'"></two>
+            <two :surveyData="surveyData"
+                 :currentIndex="currentIndex" v-if="currentData.subjectType=='radio'"></two>
             <!--<three :currentData="surveyData[currentIndex].option" v-if="currentData.subjectType=='radio'"></three>-->
             <four :surveyData="surveyData" :currentIndex="currentIndex"
                   v-if="currentData.subjectType=='checkbox'"></four>

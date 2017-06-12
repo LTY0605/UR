@@ -24,7 +24,7 @@
     </div>
 </template>
 <script>
-    import {transRecordService} from '../services/transRecord.js'
+    import {transRecordService,giftCardService} from '../services/transRecord.js'
     import Whole from './transaction/whole.vue'
     import Consume from './transaction/consume.vue'
     import Transfer from './transaction/transfer.vue'
@@ -37,6 +37,7 @@
         data () {
             return {
                 valueCardcode:this.$route.query.valueCardcode,
+                cardName:this.$route.query.cardName,
                 tranlists:[],
                 titleTab: 0,
                 list2: ['全部', '消费', '转赠'],
@@ -65,13 +66,21 @@
         },
         watch: {},
         created(){
-            this.renderData();
+            if(this.cardName=='礼品卡'){
+                this.giftData();
+            } else {
+                this.renderData();
+            }
         },
         methods:{
             changeItem(index,code){
                 this.titleTab = index;
                 this.currentCode = code;
-                this.renderData();
+                if(this.cardName=='礼品卡'){
+                    this.giftData();
+                } else {
+                    this.renderData();
+                }
             },
             renderData(){
                 transRecordService().save({
@@ -88,7 +97,24 @@
                     }
                 },res =>{
                     this.showNoScroll = true;
-                    this.warnText = "网络超时，请重试";
+                    this.warnText = res.errmsg;
+                })
+            },
+            giftData(){
+                giftCardService().save({
+                    valueCardcode:this.valueCardcode
+                }).then(res =>{
+
+                    let body = res.body;
+                    if(body.errcode == 0){
+                        this.tranlists = body.list;
+                    } else{
+                        this.showNoScroll = true;
+                        this.warnText = body.errmsg;
+                    }
+                },res =>{
+                    this.showNoScroll = true;
+                    this.warnText = res.errmsg;
                 })
             }
         },
