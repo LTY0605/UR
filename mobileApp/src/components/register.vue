@@ -162,7 +162,7 @@
 
         methods: {
             onSubmit () {
-
+                let _this = this;
                 if (this.user == '' || this.phone == '' || this.value2 == '' || this.attrValue.length == 0) {
                     this.show = true;
                     this.text = '请完善表单信息'
@@ -198,6 +198,14 @@
                         window.localStorage.setItem("mobileTel", this.phone);
                         this.putLocal();
 
+                    } else if(body.errcode == 3201) {
+                        this.show = true;
+                        this.text = body.errmsg;
+                        setTimeout(function () {
+                            _this.$router.push({
+                                name: 'login',
+                            });
+                        },300)
                     } else {
                         this.show = true;
                         this.text = body.errmsg;
@@ -229,9 +237,6 @@
                                 name: 'index',
                             });
                         },300)
-                    } else if(body.errcode == 3202) {
-                        this.show = true;
-                        this.text = body.errmsg;
                     } else {
                         this.show = true;
                         this.warnText2 = '网络不给力,请重新登录';
