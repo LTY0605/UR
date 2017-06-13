@@ -29,3 +29,7 @@ export function jdCardInfoService(){
 export function cardListService(){
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/card/list')
 }
+//获取京东转赠功能
+export function getAmountService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/jdcard/getAmount')
+}
