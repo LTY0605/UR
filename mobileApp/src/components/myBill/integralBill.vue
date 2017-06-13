@@ -42,8 +42,8 @@
                         name: '消费'
                     },
                     {
-                        code: 6,
-                        name: '兑换'
+                        code: 1,
+                        name: '赠送'
                     }
                 ],
 

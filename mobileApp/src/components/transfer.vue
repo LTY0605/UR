@@ -76,10 +76,10 @@
                     this.show2 = true;
                     this.warnText='你有信息未填写';
                 }
-                else if(this.remainAmount < this.money){
-                    this.show2 = true;
-                    this.warnText = '余额不足';
-                }
+//                else if(this.remainAmount < this.money){
+//                    this.show2 = true;
+//                    this.warnText = '余额不足';
+//                }
                 else if(this.money < 50){
                     this.show2 = true;
                     this.warnText = '转赠金额不能小于50'
