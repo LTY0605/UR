@@ -15,5 +15,5 @@ export function loginService() {
 }
 //验证码接口
 export function codeService() {
-    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/wx/verification_code')
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/verification_code')
 }
