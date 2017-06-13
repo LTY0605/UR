@@ -38,7 +38,10 @@
                   <div class="buttonBox1">
                       <div class="btnUp">
                           <button @click="payCard(item.cardName,item.cardcode,item.password)" class="Box1">扫码支付</button>
-                          <router-link to="transfer"><button class="Box5">转赠</button></router-link>
+                          <router-link
+                                  :to="{name:'transfer',query:{JDcardcode:item.valueCardcode,remainAmount:item.remainAmount}}">
+                              <button class="Box5">转赠</button>
+                          </router-link>
                           <button @click="showNoScroll2=true" class="Box6">获取转赠</button>
                       </div>
                       <div class="btnDown">
@@ -87,8 +90,9 @@
            <div @click="hide2">
                <x-dialog v-model="showNoScroll2"  class="dialog-demo" :scroll="false">
                    <div @click.stop class="giftCode">
-                       <div class="giftCode-img"></div>
-                       <p class="giftCode-text">暂无转赠信息</p>
+                       <!--<div class="giftCode-img"></div>-->
+                       <!--<p class="giftCode-text">暂无转赠信息</p>-->
+                       <p></p>
                        <div @click="hide2" class="giftCode-close"></div>
                    </div>
                </x-dialog>
@@ -102,7 +106,7 @@
     import dropDown from './dropDown.vue'
     import {XHeader, Scroller, XDialog,Toast} from 'vux'
     import LuckyCard from "../../tools/luckyCar/lucky-card.min";
-    import {jdCardInfoService,cardListService} from '../../services/wallet.js'
+    import {jdCardInfoService,cardListService,getAmountService} from '../../services/wallet.js'
     import {URL_getQRCode,URL_getBarcode} from '../../services/index.js'
    export default{
        components: {
@@ -112,17 +116,6 @@
            return{
                jdCard:[],
                cardList:[],
-               massege1List:[{
-                   type: '礼品卡',
-                   Id: '7165 1560 1084 4001',
-                   money:'￥1000.00'
-               }
-               ],
-               massege2List1:[{
-                   type:'UR投资人专属卡',
-                   number:'URV00000018',
-                   money:'￥10000.00'
-               }],
                showNoScro:false,
                warnText:'',
                showNoScroll:false,
@@ -164,7 +157,6 @@
                    query: {valueCardcode:valueCardcode},
                })
            },*/
-
            renderCardList(){
                cardListService().save({
                    cardcode:'8urp0000118',
@@ -183,6 +175,14 @@
                    this.showNoScro = true;
                    this.warnText = "网络超时，请重试";
                })
+           },
+           getAmout(){
+               getAmountService().save({
+                   cardcode: window.localStorage.getItem("cardcode"),
+                   mobileTel: window.localStorage.getItem("mobileTel")
+               }).then(res => {
+                   let body = res.body;
+               },res => {})
            },
            renderjdCard(){
                jdCardInfoService().save({

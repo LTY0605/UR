@@ -13,3 +13,7 @@ export function giftCardService() {
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/giftcard/consumption/detail')
 }
 
+//京东转赠
+export function giftAmountService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/jdcard/giftAmount')
+}

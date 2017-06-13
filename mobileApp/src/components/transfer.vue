@@ -3,7 +3,7 @@
         <x-header :left-options="{backText: ''}">转 赠</x-header>
         <!--页面主体-->
         <div class="transferCon">
-            <p class="tran-money">余额：￥{{balance}}</p>
+            <p class="tran-money">余额：￥{{remainAmount}}</p>
             <group>
                 <x-input v-model="phone" keyboard="number" is-type="china-mobile" :max="11" :min="11" placeholder="转赠人手机" required></x-input>
             </group>
@@ -34,7 +34,7 @@
 
 <script>
     import {XHeader,Group,XInput,XButton,XDialog,Alert,Toast} from 'vux'
-    import { addAddressService } from '../services/person.js'
+    import { giftAmountService } from '../services/transRecord.js'
     export default{
         components:{
             XHeader,Group,XInput,XButton,XDialog,Alert,Toast
@@ -44,7 +44,8 @@
                 show2:false,
                 showNoScroll:false,
                 warnShow:false,
-                balance:500,  //余额
+                JDcardcode:this.$route.query.JDcardcode,
+                remainAmount:this.$route.query.remainAmount,  //余额
                 phone:'',  //转赠人手机
                 money:'',  //金额
                 password:'',  //密码
@@ -74,7 +75,7 @@
                 if(this.phone == '' || this.money == ''){
                     this.show2 = true;
                     this.warnText='你有信息未填写';
-                } else if(this.balance < this.money){
+                } else if(this.remainAmount < this.money){
                     this.show2 = true;
                     this.warnText = '余额不足';
                 } else if(this.money < 50){
@@ -82,20 +83,6 @@
                     this.warnText = '转赠金额不能小于50'
                 } else{
                     this.showNoScroll=true;
-                    addAddressService().save({
-                        cardcode: window.localStorage.getItem("cardcode"),
-                        wxOpenID: window.localStorage.getItem("wxOpenId"),
-                        phone:this.phone,
-                        money:this.money,
-                        balance:this.balance
-                    }).then(res => {
-                        let body = res.body;
-                        if(body.errcode==0){
-                            console.log('保存成功')
-                        }
-                    },res =>{
-                        console.log('2333333')
-                    })
                     return
                 }
             },
@@ -109,6 +96,20 @@
                     this.show2 = true;
                     this.warnText = '密码错误'
                 } else{
+                    giftAmountService().save({
+                        JDcardcode:this.JDcardcode,
+                        cardcode: window.localStorage.getItem("cardcode"),
+                        wxOpenID: window.localStorage.getItem("wxOpenId"),
+                        sendeeMobile:this.phone,
+                        amount:this.money
+                    }).then(res => {
+                        let body = res.body;
+                        if(body.errcode==0){
+                            console.log('保存成功')
+                        }
+                    },res =>{
+                        console.log('2333333')
+                    })
                     this.warnShow = false;
                     this.showNoScroll = false;
                     this.show2 = true;
