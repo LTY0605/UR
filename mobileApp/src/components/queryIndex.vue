@@ -35,16 +35,15 @@
                         <div class="box"  v-if="item.ConditionId != 'shop'">
                             <checker v-model="item.answers" type="radio" default-item-class="demo1-item"
                                      selected-item-class="demo1-item-selected">
-                                <checker-item v-for="i in item.child" :value="i.REGION_NO" v-if="item.ConditionId == 'region'">{{i.REGION_NAME}}</checker-item>
-                                <checker-item v-for="i in item.child" :value="i.SUBREGION_NO" v-if="item.ConditionId == 'subregion'">{{i.SUBREGION_NAME}}</checker-item>
-                                <checker-item v-for="i in item.child" :value="i.CITY_CODE" v-if="item.ConditionId == 'city'">{{i.CITY_NAME2}}</checker-item>
-
+                                <checker-item v-for="i in item.child" :value="i.Id" v-if="item.ConditionId == 'region'">{{i.Name}}</checker-item>
+                                <checker-item v-for="i in item.child" :value="i.Id" v-if="item.ConditionId != 'region' && areaData[index-1].answers==i.ParentId">{{i.Name}}</checker-item>
+                                <!--<checker-item v-for="i in item.child" :value="i.REGION_NO" v-if="item.ConditionId == 'region'">{{i.REGION_NAME}}</checker-item>-->
                             </checker>
                         </div>
                         <div class="box longBox" v-if="item.ConditionId == 'shop'">
-                            <checker v-model="demo4CheckboxMax" :max="2" type="radio" default-item-class="demo1-item"
+                            <checker v-model="demo4CheckboxMax" type="radio" default-item-class="demo1-item"
                                      selected-item-class="demo1-item-selected">
-                                <checker-item v-for="i in item.child" :value="i.SHOP_NO">{{i.SHOP_NAME}}</checker-item>
+                                <checker-item v-for="i in item.child" :value="i.Id" v-if="areaData[index-1].answers==i.ParentId">{{i.Name}}</checker-item>
                             </checker>
                         </div>
                     </div>
@@ -202,6 +201,9 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_query {
+        .popup1{
+            background: #f1f1f1;
+        }
         .head_icon{
             display: inline-block;
             height: 2.3rem;
@@ -252,6 +254,7 @@
         }
         .dateBox {
             padding: .5rem 1rem 0;
+            background: #fff;
             .weui-cell_access .weui-cell__ft:after {
                 display: none;
             }
@@ -271,6 +274,8 @@
         }
         .query_item {
             padding: .5rem 1rem .75rem 1rem;
+            background: #fff;
+            margin-bottom: .3rem;
             .query_item_title {
                 height: 1.95rem;
                 line-height: 1.95rem;
@@ -333,7 +338,7 @@
                             width: 48%;
                         }
                         .vux-checker-item:nth-child(2n+1){
-                            margin-left: 0;
+                            margin-left: 0 !important;
                         }
                     }
                 }
