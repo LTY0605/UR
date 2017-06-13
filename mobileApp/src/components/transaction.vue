@@ -55,7 +55,7 @@
                     },
                     {
                         code: 3,
-                        name: '转赠'
+                        name: '转出'
                     }
                 ],
 
@@ -102,7 +102,8 @@
             },
             giftData(){
                 giftCardService().save({
-                    valueCardcode:this.valueCardcode
+                    valueCardcode:this.valueCardcode,
+                    operType:this.currentCode
                 }).then(res =>{
 
                     let body = res.body;

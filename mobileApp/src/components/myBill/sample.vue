@@ -7,7 +7,7 @@
                     <p>单号：<span class="list-number">{{item.integralBillNO}}</span></p>
                     <p class="list-mar">类型：{{item.integralTypeName}}</p>
                     <p>日期：{{item.integralDate}}</p>
-                    <template v-if="item.integralType == 2 || item.integralType == 1 || item.integralType == 5 || item.integralType == 8">
+                    <template v-if="item.integral > 0">
                     <p class="list-money red">+{{item.integral}}</p>
                     </template>
                     <template v-else>

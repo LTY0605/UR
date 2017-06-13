@@ -16,7 +16,8 @@
                     <span>{{item.value}}</span>
                 </label>
             </li>
-            <!--<textarea v-model="otherText" class="other-txt" placeholder="请注明" v-if="otherShow"></textarea>-->
+            <textarea v-model="otherCopy" class="other-txt" placeholder="请注明"
+                      v-if="list[currentIndex].otherOption!=''"></textarea>
         </ul>
     </div>
 </template>
@@ -29,14 +30,15 @@
         },
         props:{
             surveyData:Array,
-            currentIndex:Number
+            currentIndex:Number,
+            otherText:String
         },
         data(){
             return{
                 selected: '',
                 list:[],
-                otherText:'',
-                otherShow:false
+                otherShow:false,
+                otherCopy: this.otherText
             }
         },
         methods:{
@@ -45,7 +47,7 @@
                     this.otherShow = true;
                 }else {
                     this.otherShow = false
-                    this.otherText = ''
+                    this.otherCopy = ''
                 }
 //                console.log(item)
             }
@@ -63,6 +65,18 @@
                     this.$emit('surveyData', val);
                 }
             },
+            otherText: {
+                immediate: true,
+                handler(val) {
+                    this.otherCopy = val;
+                }
+            },
+            otherCopy: {
+                immediate: true,
+                handler(val) {
+                    this.$emit('changText', val);
+                }
+            }
         },
 
         mounted(){
@@ -142,6 +156,7 @@
             }
             .other-txt{
                 font-family: 'Verdana', "Hiragino Sans GB";
+                background: none;
                 resize: none;
                 border: none;
                 font-size: .75rem;

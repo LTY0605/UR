@@ -42,7 +42,7 @@
                                   :to="{name:'transfer',query:{JDcardcode:item.valueCardcode,remainAmount:item.remainAmount}}">
                               <button class="Box5">转赠</button>
                           </router-link>
-                          <button @click="showNoScroll2=true" class="Box6">获取转赠</button>
+                          <button @click="getAmout" class="Box6">获取转赠</button>
                       </div>
                       <div class="btnDown">
                           <router-link :to="{name:'carPassword',query:{valueCardcode:item.valueCardcode}}">
@@ -92,7 +92,7 @@
                    <div @click.stop class="giftCode">
                        <!--<div class="giftCode-img"></div>-->
                        <!--<p class="giftCode-text">暂无转赠信息</p>-->
-                       <p></p>
+                       <p>您获取的转赠为{{amount}}元</p>
                        <div @click="hide2" class="giftCode-close"></div>
                    </div>
                </x-dialog>
@@ -141,6 +141,7 @@
                qRcodeUrl:'',
                barcodeUrl:'',
                valueCardcode:'',
+               amount:'',
            }
        },
        mounted(){
@@ -160,6 +161,7 @@
            renderCardList(){
                cardListService().save({
                    cardcode:'8urp0000118',
+//                   cardcode: window.localStorage.getItem("cardcode"),
                }).then(res => {
                    let body = res.body;
                   // console.log(body.list[0])
@@ -177,11 +179,18 @@
                })
            },
            getAmout(){
-               getAmountService().save({
+               this.showNoScroll2 = true;
+               getAmountService().get({
                    cardcode: window.localStorage.getItem("cardcode"),
-                   mobileTel: window.localStorage.getItem("mobileTel")
+                   mobilTel: window.localStorage.getItem("mobileTel")
                }).then(res => {
                    let body = res.body;
+                   if (body.errcode == 0) {
+                       this.amount = body.amount;
+                   } else {
+                       this.showNoScro = true;
+                       this.warnText = body.errmsg;
+                   }
                },res => {})
            },
            renderjdCard(){
@@ -270,6 +279,9 @@
                font-size: .9rem;
                margin-top: 1rem;
                color: #ec6941;
+           }
+           P{
+               font-size: .85rem;
            }
            .giftCode-close{
                position: absolute;

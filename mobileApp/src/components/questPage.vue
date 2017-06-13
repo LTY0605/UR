@@ -5,6 +5,8 @@
             <one :surveyData="surveyData"
                  :currentIndex="currentIndex" v-if="currentData.subjectType=='combobox'"></one>
             <two :surveyData="surveyData"
+                 :otherText="otherText"
+                 @changText="changText"
                  :currentIndex="currentIndex" v-if="currentData.subjectType=='radio'"></two>
             <!--<three :currentData="surveyData[currentIndex].option" v-if="currentData.subjectType=='radio'"></three>-->
             <four :surveyData="surveyData" :currentIndex="currentIndex"
@@ -35,6 +37,7 @@
                 warnText:'',
                 num:'1',
                 subjectCode:'',
+                otherText:'',
                 surveyType:'02',
                 surveyCode:'wqdc',
                 currentIndex:0,
@@ -72,6 +75,9 @@
                     console.log(res);
                 })
             },
+            changText(val){
+                this.otherText = val
+            },
             saveSurveyData(){
                 surveyCommit().save(
                     this.submitCode
@@ -106,12 +112,14 @@
                 console.log(this.surveyData,'---------------')
 //                return
                 this.saveSurveyData();
+                console.log(this.otherText,'===========================');
 
                 this.$router.push({
                     path: '/quest'
                 })
             },
             next(){
+//                console.log(this.otherText);
 //                if(Array.isArray(this.surveyData[this.currentIndex].answers)){
 //                    let len = (this.surveyData[this.currentIndex].answers).length;
 //                    for (let i=0;i<len;i++){
