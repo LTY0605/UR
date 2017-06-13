@@ -5,13 +5,13 @@
         </x-header>
         <div class="address-con">
             <group>
-                <x-input class="consignee" title="收货人姓名" v-model="consignee" placeholder="收货人姓名,必填" :max="20"></x-input>
+                <x-input class="consignee" title="收货人姓名" v-model.trim="consignee" placeholder="收货人姓名,必填" :max="20"></x-input>
                 <x-input title="收货人电话" v-model="mobile"  placeholder="收货人电话,必填" :max="11" :min="11"
                          keyboard="number"></x-input>
                 <x-address title="所在地区" v-model="attrValue" :list="addressData"
                            placeholder="请选择地址,必填"></x-address>
-                <x-textarea class="address-text" placeholder="详细地址,必填" v-model="address"></x-textarea>
-                <x-input title="邮政编码" v-model="postcode" placeholder="邮政编码,必填"></x-input>
+                <x-textarea class="address-text" placeholder="详细地址,必填" v-model.trim="address"></x-textarea>
+                <x-input title="邮政编码" v-model="postcode" placeholder="邮政编码,必填" :max="6" :min="6"></x-input>
             </group>
         </div>
         <div class="address-foot">
@@ -113,12 +113,12 @@
             saveItem(){
                 var pro = this.attress.split(" ");
                 let _this = this;
-                if (this.consignee == '' || this.mobileTel == '' || this.address == '' || this.postcode == '' || this.attrValue.length == 0) {
+                if (this.consignee == '' || this.mobile == '' || this.address == '' || this.postcode == '' || this.attrValue.length == 0) {
                     this.showNoScroll = true;
                     this.warnText = '您有信息未填写';
                     return
                 }
-                if(!this.beTel(this.mobileTel).valid){
+                if(!this.beTel(this.mobile).valid){
                     this.showNoScroll = true;
                     this.warnText = '请输入正确的收货人电话'
                     return
