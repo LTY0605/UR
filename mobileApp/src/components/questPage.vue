@@ -119,6 +119,11 @@
                 })
             },
             next(){
+                let other = [];
+                if(this.otherText != ''){
+                    other.push(this.otherText)
+                }
+                console.log(other,'===========================');
 //                console.log(this.otherText);
 //                if(Array.isArray(this.surveyData[this.currentIndex].answers)){
 //                    let len = (this.surveyData[this.currentIndex].answers).length;

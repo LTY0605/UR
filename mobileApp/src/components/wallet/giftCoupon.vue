@@ -160,8 +160,8 @@
            },*/
            renderCardList(){
                cardListService().save({
-//                   cardcode:'8urp0000118',
-                   cardcode: window.localStorage.getItem("cardcode"),
+                   cardcode:'8urp0000118',
+//                   cardcode: window.localStorage.getItem("cardcode"),
                }).then(res => {
                    let body = res.body;
                   // console.log(body.list[0])

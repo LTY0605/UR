@@ -49,6 +49,7 @@
                 phone:'',  //转赠人手机
                 money:'',  //金额
                 password:'',  //密码
+                jdpassword:'',
                 warnText:'',  //错误提示文字
                 isNumber:function (value) {
                     return{
@@ -76,10 +77,10 @@
                     this.show2 = true;
                     this.warnText='你有信息未填写';
                 }
-//                else if(this.remainAmount < this.money){
-//                    this.show2 = true;
-//                    this.warnText = '余额不足';
-//                }
+                else if(this.remainAmount < this.money){
+                    this.show2 = true;
+                    this.warnText = '余额不足';
+                }
                 else if(this.money < 50){
                     this.show2 = true;
                     this.warnText = '转赠金额不能小于50'
@@ -92,26 +93,30 @@
                 this.showNoScroll = false;
             },
             enter() {
-                if(this.password == '' || this.password != 'qq123123'){
-//                    this.warnShow = true;
-//                    console.log('密码错误')
+                if(this.password == ''){
                     this.show2 = true;
-                    this.warnText = '密码错误'
+                    this.warnText = '请输入密码'
                 } else{
                     giftAmountService().save({
                         JDcardcode:this.JDcardcode,
                         cardcode: window.localStorage.getItem("cardcode"),
                         wxOpenID: window.localStorage.getItem("wxOpenId"),
                         sendeeMobile:this.phone,
-                        amount:this.money
+                        amount:this.money,
+                        password:this.password
                     }).then(res => {
                         let body = res.body;
                         if(body.errcode==0){
-                            console.log('保存成功')
+//                            this.jdpassword = body.password;
+                        }else{
+                            this.show2 = true;
+                            this.warnText = body.errmsg;
+                            return
                         }
                     },res =>{
-                        console.log('2333333')
                     })
+
+                    console.log(this.jdpassword,'======================')
                     this.warnShow = false;
                     this.showNoScroll = false;
                     this.show2 = true;

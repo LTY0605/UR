@@ -2,7 +2,8 @@
     <div class="page_transaction">
         <x-header :left-options="{backText: ''}">交易记录</x-header>
         <div class="tabTitle">
-            <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="changeItem(index,item.code)">{{item.name}}</span>
+            <span :class="{active:titleTab==index,tabwidth:isTab}"
+                  v-for="(item, index) in titleList" @click="changeItem(index,item.code)">{{item.name}}</span>
         </div>
         <div class="tabContain">
             <!--<div class="tab-swiper" v-if="titleTab==0">-->
@@ -43,6 +44,7 @@
                 list2: ['全部', '消费', '转赠'],
                 index: 1,
                 time: '',
+                isTab: false,
                 currentCode:0,
                 titleList: [
                     {
@@ -67,7 +69,18 @@
         watch: {},
         created(){
             if(this.cardName=='礼品卡'){
+                this.isTab = true;
                 this.giftData();
+                this.titleList=[
+                    {
+                        code: 0,
+                        name: '全部'
+                    },
+                    {
+                        code: 1,
+                        name: '消费'
+                    }
+                ]
             } else {
                 this.renderData();
             }
@@ -136,6 +149,9 @@
             height: 1.85rem;
             line-height: 1.85rem;
             font-size: 0;
+            .tabwidth{
+                width: 50%;
+            }
             span {
                 font-size: .75rem;
                 display: inline-block;
