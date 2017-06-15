@@ -61,6 +61,7 @@
         },
         methods: {
             changeItem(index, code){
+                this.dataList = [];
                 this.currentCode = code;
                 this.titleTab = index;
                 this.renderData();
@@ -79,9 +80,9 @@
                     }
 
                 }, res => {
-                    let body = res.body;
+//                    let body = res.body;
                     this.showNoScroll = true;
-                    this.warnText = body.errmsg;
+                    this.warnText = '网络异常';
                     return
                 })
             },

@@ -118,10 +118,10 @@
                 //---------------用Object.keys配合forEach更改对象key的值------------------
                 Object.keys(data).forEach(key=>obj[this.surveyData[key].subjectCode] = data[key]);
                 Object.keys(other).forEach(key=>{obj2[name[key]] = other[key]});
-                console.log(obj,'-------------------选项的对象-------------------')
+                console.log(obj,'-------------------选项的对象-------------------');
                 console.log(obj2,'---------------------其他选项的对象---------------------');
                 this.submitCode = Object.assign(obj,obj2);
-                console.log(this.submitCode,'=================POST的对象===================')
+                console.log(this.submitCode,'=================POST的对象===================');
 //                return
                 this.saveSurveyData();
 
