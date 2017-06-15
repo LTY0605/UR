@@ -52,6 +52,7 @@
         methods:{
             getSurveyData(){
                 surveyServices().get({
+                    cardcode: window.localStorage.getItem("cardcode"),
                     surveyType: this.surveyType,
                     surveyCode: this.surveyCode
                 }).then(res=>{
@@ -87,6 +88,8 @@
             },
             submit(){
                 let data = {};
+                let other = {};
+                let otherOption = this.surveyData[this.currentIndex].otherOption;
                 let obj = {};
                 let cardcode = window.localStorage.getItem("cardcode");
                 obj.cardcode = cardcode;
@@ -104,7 +107,11 @@
                     }
 //                    data.push(this.surveyData[i].answers)
                     Array.prototype.push.call(data,this.surveyData[i].answers);
+                    if(otherOption){
+                        Array.prototype.push.call(other,this.surveyData[this.currentIndex].otherOption);
+                    }
                 }
+                console.log(other,'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
                 Object.keys(data).forEach(key=>obj[this.surveyData[key].subjectCode] = data[key]);
                 console.log(obj,'----------------------------------------------');
                 this.submitCode = obj;
@@ -119,11 +126,11 @@
                 })
             },
             next(){
-                let other = [];
-                let otherOption = this.surveyData[this.currentIndex].otherOption;
-                otherOption.forEach(function (item, index) {
-                    console.log(item.name,'--------------------------');
-                })
+//                let other = [];
+//                let otherOption = this.surveyData[this.currentIndex].otherOption;
+//                otherOption.forEach(function (item, index) {
+//                    console.log(item.name,'--------------------------');
+//                })
 //                console.log(otherOption[0].name+':'+otherOption[0].value);
 //                console.log(this.otherText);
 //                if(Array.isArray(this.surveyData[this.currentIndex].answers)){

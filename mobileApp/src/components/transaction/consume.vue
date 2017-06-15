@@ -7,7 +7,12 @@
                     <p>单号：<span class="list-number">{{list.billNO}}</span></p>
                     <p class="list-mar">类型：{{list.operTypeName}}</p>
                     <p>日期：{{list.saleDate}}</p>
-                    <p class="list-money">{{list.amount}}</p>
+                    <template v-if="list.amount > 0">
+                        <p class="list-money red">+{{list.amount}}</p>
+                    </template>
+                    <template v-else>
+                        <p class="list-money">{{list.amount}}</p>
+                    </template>
                 </li>
             </ul>
         </div>
@@ -82,6 +87,9 @@
                         bottom: 2rem;
                         font-size: 1rem;
                         color: #333333;
+                    }
+                    .red{
+                        color:#F67982;
                     }
                 }
             }

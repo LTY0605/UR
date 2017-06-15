@@ -79,7 +79,10 @@
                     }
 
                 }, res => {
-
+                    let body = res.body;
+                    this.showNoScroll = true;
+                    this.warnText = body.errmsg;
+                    return
                 })
             },
         },

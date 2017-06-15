@@ -7,7 +7,7 @@
                <p>单号：<span class="list-number">{{item.billNO}}</span></p>
                <p class="list-mar">类型：{{item.saleTypeName}}</p>
                <p>日期：{{item.billDate}}</p>
-               <template v-if="item.saleType == 0 || item.saleType == 3">
+               <template v-if="item.payAmount > 0">
                   <p class="list-money red">+{{item.payAmount}}</p>
                </template>
                <template v-else>

@@ -60,6 +60,7 @@
         },
         methods:{
             changeItem(index,code){
+                this.consumeListlists = [];
                 this.titleTab = index;
                 this.currentCode = code;
                 this.renderData();
