@@ -54,7 +54,7 @@
                 <ul>
                     <li class="li-card">
                         <p class="wallet-num">{{mycards}}</p>
-                        <router-link class="color-style" to="giftCoupon">礼品卡</router-link>
+                        <span class="color-style" @click="goToLink('giftCoupon')">礼品卡</span>
                     </li>
                     <li>
                         <p class="wallet-num">{{coupon}}</p>
@@ -162,6 +162,11 @@
         mounted(){
         },
         methods:{
+            goToLink(url){
+                this.$router.push({
+                    name: url,
+                });
+            },
             goLink(){
                 this.showNoScroll2 = true;
                 this.warnText = '敬请期待'
