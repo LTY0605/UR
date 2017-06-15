@@ -44,7 +44,6 @@
             renderOpen(){
                 let wxOpenId = this.getParams("wxOpenId");
                 //let wxOpenId = 'odaBLwEfMOFDB5ATyqZwQco5Aaxo';
-//                let wxOpenId = 'o4r_GjkqReCgX_u9KFWL6oEIzbOU';
                 if (wxOpenId && wxOpenId != '') {
                     window.localStorage.setItem("wxOpenId", wxOpenId);
                 }
@@ -74,19 +73,19 @@
                         window.localStorage.setItem("mobileTel", body.mobileTel);
                         window.localStorage.setItem("headimgurl", body.headimgurl);
                     } else {
-//                        this.$router.push({
-//                            name: 'login',
-//                        });
+                        this.$router.push({
+                            name: 'login',
+                        });
                     }
                 }, res => {
-//                    this.$router.push({
-//                        name: 'login',
-//                    });
+                    this.$router.push({
+                        name: 'login',
+                    });
                 })
             },
             getParams(paras) {
                 let url = decodeURI(location.href);
-//                let url = 'http://nianhui.ur.com.cn/front/#/personMain?wxOpenId=odaBLwEfMOFDB5ATyqZwQco5Aaxo';
+//                let url = 'http://nianhui.ur.com.cn/front/#/personMain?wxOpenId=odaBLwI5ERI1Da5HXf6Kt3cIulPY';
                 let paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
                 let returnValue;
                 for (let i = 0; i < paraString.length; i++) {
