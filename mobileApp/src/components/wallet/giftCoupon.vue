@@ -11,11 +11,11 @@
                   </div>
                   <div class="imgbox">
                       <p class="picture">
-                          <img @click="payCard(item.cardTypeName,item.JDcardcode,item.password)" width="100%" src="../../assets/icon_money_code.png">
+                          <img @click="payCard(item.cardTypeName,item.cardcode,item.password)" width="100%" src="../../assets/icon_money_code.png">
                       </p>
                   </div>
                   <div class="buttonBox">
-                      <button @click="payCard(item.cardTypeName,item.JDcardcode,item.password)" class="Box1">扫码支付</button>
+                      <button @click="payCard(item.cardTypeName,item.cardcode,item.password)" class="Box1">扫码支付</button>
                       <!--<router-link :to="{name:'carPassword',query:{tab:1}}">-->
                           <!--<button class="Box7">修改密码</button>-->
                       <!--</router-link>-->

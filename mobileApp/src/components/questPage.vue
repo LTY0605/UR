@@ -52,6 +52,7 @@
         methods:{
             getSurveyData(){
                 surveyServices().get({
+                    cardcode: window.localStorage.getItem("cardcode"),
                     surveyType: this.surveyType,
                     surveyCode: this.surveyCode
                 }).then(res=>{
