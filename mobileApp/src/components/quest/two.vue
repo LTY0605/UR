@@ -43,13 +43,11 @@
         },
         methods:{
             isOther(item){
-                if(item.indexOf('其他')>0){
-                    this.otherShow = true;
-                }else {
-                    this.otherShow = false
-                    this.otherCopy = ''
+                if(this.surveyData[this.currentIndex].otherOption[0]){
+                    if(item.indexOf('其他')==-1){
+                        this.list[this.currentIndex].otherOption[0].value=''
+                    }
                 }
-//                console.log(item)
             }
         },
         watch: {
@@ -80,9 +78,6 @@
         },
 
         mounted(){
-//            setInterval(()=>{
-//                console.log(this.selected)
-//            },2000)
         }
     }
 </script>

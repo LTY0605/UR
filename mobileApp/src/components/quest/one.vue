@@ -57,7 +57,6 @@
                     this.list = val;
                     let region = ["","",""];
                     this.list[this.index].answers = region;
-                    console.log(this.list[this.index],'2222');
                 }
             },
             list: {

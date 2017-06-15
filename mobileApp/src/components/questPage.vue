@@ -87,52 +87,50 @@
                 })
             },
             submit(){
-                let data = {};
-                let other = {};
-                let otherOption = this.surveyData[this.currentIndex].otherOption;
-                let obj = {};
+                let data = {};  //选择题的对象
+                let other = {}; //其他选项的对象
+                let name = [];  //其他选项的key
+                let obj = {};   //修改好的选择题对象
+                let obj2 = {};  //修改好的其他选项的对象
                 let cardcode = window.localStorage.getItem("cardcode");
                 obj.cardcode = cardcode;
                 obj.surveyCode = this.surveyCode;
+                //------------选项push到一个对象里--------------
                 for(let i=0;i<this.length;i++){
+                    //----------------部分多选的得遍历加前缀----------------
                     if(Array.isArray(this.surveyData[i].answers)){
                         let arrAnswer = [];
                         for(let j=0;j<(this.surveyData[i].answers).length;j++){
                             arrAnswer.push((this.surveyData[i].answers)[j])
                         }
                         this.surveyData[i].answers = arrAnswer
-//                        console.log(this.surveyData[i].answers)
                     }else{
                         this.surveyData[i].answers = this.surveyData[i].answers
                     }
-//                    data.push(this.surveyData[i].answers)
                     Array.prototype.push.call(data,this.surveyData[i].answers);
-                    if(otherOption){
-                        Array.prototype.push.call(other,this.surveyData[this.currentIndex].otherOption);
+                    //---------------其他选项----------------
+                    if(this.surveyData[i].otherOption[0]){
+                        Array.prototype.push.call(other,this.surveyData[i].otherOption[0].value);
+                        //---------------value的前缀---------------------
+                        name.push(this.surveyData[i].otherOption[0].name);
                     }
                 }
-                console.log(other,'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+                //---------------用Object.keys配合forEach更改对象key的值------------------
                 Object.keys(data).forEach(key=>obj[this.surveyData[key].subjectCode] = data[key]);
-                console.log(obj,'----------------------------------------------');
-                this.submitCode = obj;
-                console.log(this.submitCode,'6666666666666666')
-                console.log(this.surveyData,'---------------')
+                Object.keys(other).forEach(key=>{obj2[name[key]] = other[key]});
+                console.log(obj,'-------------------选项的对象-------------------')
+                console.log(obj2,'---------------------其他选项的对象---------------------');
+                this.submitCode = Object.assign(obj,obj2);
+                console.log(this.submitCode,'=================POST的对象===================')
 //                return
                 this.saveSurveyData();
-//                console.log(this.otherText,'===========================');
 
                 this.$router.push({
                     path: '/quest'
                 })
             },
             next(){
-//                let other = [];
-//                let otherOption = this.surveyData[this.currentIndex].otherOption;
-//                otherOption.forEach(function (item, index) {
-//                    console.log(item.name,'--------------------------');
-//                })
-//                console.log(otherOption[0].name+':'+otherOption[0].value);
-//                console.log(this.otherText);
+                //判断是否有选中
 //                if(Array.isArray(this.surveyData[this.currentIndex].answers)){
 //                    let len = (this.surveyData[this.currentIndex].answers).length;
 //                    for (let i=0;i<len;i++){
