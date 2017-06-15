@@ -40,8 +40,8 @@
                         action-type="submit"
                         @click.native="login_submit">登 录</x-button>
                 </div>
-                <div class="forgetBox">
-                    <router-link :to="{name:'register'}">立即注册 <span class="toRight">》</span></router-link>
+                <div class="forgetBox" @click="goToLink('register')">
+                    立即注册 <span class="toRight">》</span>
                 </div>
                 <!--<div class="agreementBox">-->
                     <!--<router-link :to="{name:'contract'}">UR用户使用协议</router-link>-->
@@ -91,6 +91,11 @@
 
         },
         methods: {
+            goToLink(url){
+                this.$router.push({
+                    name: url,
+                });
+            },
             goLink(){
                 this.showNoScroll = false;
                 this.$router.push({
@@ -318,6 +323,7 @@
         .forgetBox{
             padding-top: 1.5rem;
             text-align: center;
+            font-size: .7rem;
             a{
                 color: #999;
                 font-size: .75rem;
