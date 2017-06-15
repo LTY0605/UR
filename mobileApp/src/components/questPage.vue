@@ -112,7 +112,7 @@
                 console.log(this.surveyData,'---------------')
 //                return
                 this.saveSurveyData();
-                console.log(this.otherText,'===========================');
+//                console.log(this.otherText,'===========================');
 
                 this.$router.push({
                     path: '/quest'
@@ -120,10 +120,11 @@
             },
             next(){
                 let other = [];
-                if(this.otherText != ''){
-                    other.push(this.otherText)
-                }
-                console.log(other,'===========================');
+                let otherOption = this.surveyData[this.currentIndex].otherOption;
+                otherOption.forEach(function (item, index) {
+                    console.log(item.name,'--------------------------');
+                })
+//                console.log(otherOption[0].name+':'+otherOption[0].value);
 //                console.log(this.otherText);
 //                if(Array.isArray(this.surveyData[this.currentIndex].answers)){
 //                    let len = (this.surveyData[this.currentIndex].answers).length;
@@ -143,40 +144,6 @@
                 this.currentIndex = this.currentIndex+1;
                 this.currentData = this.surveyData[this.currentIndex];
                 return
-//                let pro = document.getElementById('provinces');
-//                let city = document.getElementById('citys');
-//                let store = document.getElementById('stores');
-//                if(city.value == '' || pro.value == '' || store.value == ''){
-//                    this.showNoScroll = true;
-//                    this.warnText = '您有信息未填写'
-//                    return
-//                }
-//                let radios = document.getElementsByName('radio');
-//                let radioArr = [];
-//                for(let i=0;i<radios.length;i++){
-//                    (function () {
-//                        if(radios[i].checked == true){
-//                            radioArr.push(radios[i].checked)
-//                        }
-//                    })(i)
-//                }
-//                if(radioArr.length != 1){
-//                    this.showNoScroll = true;
-//                    this.warnText = '您有信息未填写'
-//                }
-//                let checboxs = document.getElementsByName('check');
-//                let checArr =[];
-//                for(let i=0;i<checboxs.length;i++){
-//                    (function () {
-//                        if(checboxs[i].checked == false){
-//                            checArr.push(checboxs[i].checked)
-//                        }
-//                    })(i)
-//                }
-//                if(checArr.length == checboxs.length){
-//                    this.showNoScroll = true;
-//                    this.warnText = '您有信息未填写'
-//                }
             }
         }
     }
