@@ -239,8 +239,17 @@
                 color: #333333;
                 height: .8rem;
                 line-height: .8rem;
+                /*width: 4rem;*/
             }
             .address-select {
+                .vux-popup-picker-select{
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                    word-break: break-word;
+                }
                 .vux-cell-box:before {
                     border: none;
                 }
