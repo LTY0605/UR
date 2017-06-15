@@ -86,7 +86,7 @@
             },
             getParams(paras) {
                 let url = decodeURI(location.href);
-//                let url = 'http://nianhui.ur.com.cn/front/#/personMain?wxOpenId=odaBLwEfMOFDB5ATyqZwQco5Aaxo';
+//                let url = 'http://nianhui.ur.com.cn/front/#/personMain?wxOpenId=odaBLwI5ERI1Da5HXf6Kt3cIulPY';
                 let paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
                 let returnValue;
                 for (let i = 0; i < paraString.length; i++) {

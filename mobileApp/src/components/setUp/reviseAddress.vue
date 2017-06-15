@@ -9,7 +9,7 @@
                 <x-input title="收货人电话" v-model="mobile"  placeholder="收货人电话,必填" :max="11" :min="11"
                          keyboard="number"></x-input>
                 <x-address title="所在地区" v-model="attrValue" :list="addressData"
-                           placeholder="请选择地址,必填"></x-address>
+                               placeholder="请选择地址,必填"></x-address>
                 <x-textarea class="address-text" placeholder="详细地址,必填" v-model.trim="address"></x-textarea>
                 <x-input title="邮政编码" v-model="postcode" placeholder="邮政编码,必填" :max="6" :min="6"></x-input>
             </group>
@@ -291,6 +291,9 @@
             .weui-cell:before {
                 border: none;
             }
+            label.weui-label{
+                width: 3rem;
+            }
             .weui-label {
                 font-size: .75rem;
                 color: #333333;
@@ -318,7 +321,7 @@
             .address-text {
                 padding: 1rem 0 .5rem 0 !important;
                 .weui-textarea {
-                    font-size: .75rem;
+                    font-size: .5rem;
                     font-family: inherit;
                     height: 5.2rem;
                 }

@@ -369,6 +369,7 @@
 
         .weui-label {
             color: #333;
+            width: 2rem;
         }
         .vux-selector.weui-cell_select-after {
             padding-left: 0;

@@ -409,6 +409,14 @@
             .weui-cell__ft {
                 display: none;
             }
+            .weui-cell{
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                word-break: break-word;
+            }
         }
         .submitBox {
             padding-top: 1.25rem;
@@ -430,7 +438,7 @@
             margin-top: 0;
         }
         .weui-label {
-            width: 3rem !important;
+            width: 4rem !important;
         }
         .weui-cell__ft {
             /*padding-right: 10% !important;*/
