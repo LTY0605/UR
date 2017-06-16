@@ -161,6 +161,11 @@
                     this.loginText = '请输入手机号';
                     return
                 }
+                if(!this.beTel(this.phone).valid){
+                    this.loginAlert = true;
+                    this.loginText = '请输入正确的手机号';
+                    return
+                }
                 codeService().save({
                     scope:'login',
                     mobileTel:this.phone
@@ -323,14 +328,10 @@
         .forgetBox{
             padding-top: 1.5rem;
             text-align: center;
-            font-size: .7rem;
-            a{
-                color: #999;
-                font-size: .75rem;
-                height: .7rem;
-                line-height: .7rem;
-                vertical-align: baseline;
-            }
+            color: #999;
+            font-size: .75rem;
+            height: .7rem;
+            line-height: .7rem;
         }
         .toRight{
             padding-left: .2rem;

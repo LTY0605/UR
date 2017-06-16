@@ -412,7 +412,7 @@
             .weui-cell{
                 overflow: hidden;
                 text-overflow: ellipsis;
-                display: -webkit-box;
+                /*display: -webkit-box;*/
                 -webkit-line-clamp: 1;
                 -webkit-box-orient: vertical;
                 word-break: break-word;
