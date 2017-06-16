@@ -1,6 +1,6 @@
 <template>
     <div class="page_down">
-        <x-header :left-options="{backText: ''}">我的钱包</x-header>
+        <x-header :left-options="{showBack: false}"><a @click="goIndex" slot="left"></a>我的钱包</x-header>
         <div class="tabDown">
             <cell :class="arrow" is-link :border-intent="false" :arrow-direction="show ? 'up' : 'down'"
                   @click.native="tabShow">
@@ -70,6 +70,9 @@
             }*/
         },
         methods:{
+            goIndex(){
+                this.$router.push({name:'index'})
+            },
             tabChange(index){
                 this.downTab = index;
                 this.$router.push({
@@ -91,6 +94,20 @@
     .page_down{
         .vux-header {
             background-color: #AB9236 !important;
+            a{
+
+                content: "";
+                position: absolute;
+                width: 12px;
+                height: 12px;
+                border: 1px solid #fff;
+                border-width: 1px 0 0 1px;
+                -webkit-transform: rotate(315deg);
+                -ms-transform: rotate(315deg);
+                transform: rotate(315deg);
+                top: .2rem;
+                left: .2rem;
+            }
         }
         .vux-header .vux-header-title, .vux-header h1 {
             font-size: .85rem;
