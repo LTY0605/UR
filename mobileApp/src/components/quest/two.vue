@@ -16,7 +16,10 @@
                     <span>{{item.value}}</span>
                 </label>
             </li>
-            <textarea v-model="list[currentIndex].otherOption[0].value" class="other-txt" placeholder="请注明"
+            <textarea v-model="list[currentIndex].otherOption[0].value"
+                      class="other-txt"
+                      :disabled="disabledText"
+                      placeholder="请注明"
                       v-if="list[currentIndex].otherOption!=''"></textarea>
         </ul>
     </div>
@@ -37,6 +40,7 @@
             return{
                 selected: '',
                 list:[],
+                disabledText:true,
                 otherShow:false,
                 otherCopy: this.otherText
             }
@@ -45,7 +49,10 @@
             isOther(item){
                 if(this.surveyData[this.currentIndex].otherOption[0]){
                     if(item.indexOf('其他')==-1){
-                        this.list[this.currentIndex].otherOption[0].value=''
+                        this.list[this.currentIndex].otherOption[0].value='';
+                        this.disabledText=true;
+                    }else{
+                        this.disabledText=false;
                     }
                 }
             }
