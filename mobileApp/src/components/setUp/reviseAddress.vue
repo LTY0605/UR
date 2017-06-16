@@ -292,7 +292,7 @@
                 border: none;
             }
             label.weui-label{
-                width: 3rem;
+                width: 4rem;
             }
             .weui-label {
                 font-size: .75rem;
