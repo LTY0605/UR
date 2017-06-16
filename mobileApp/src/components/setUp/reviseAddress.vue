@@ -5,7 +5,8 @@
         </x-header>
         <div class="address-con">
             <group>
-                <x-input class="consignee" title="收货人姓名" v-model.trim="consignee" placeholder="收货人姓名,必填" :max="20"></x-input>
+                <x-input class="consignee" title="收货人姓名" v-model.trim="consignee" placeholder="收货人姓名,必填"
+                         :max="10"></x-input>
                 <x-input title="收货人电话" v-model="mobile"  placeholder="收货人电话,必填" :max="11" :min="11"
                          keyboard="number"></x-input>
                 <x-address title="所在地区" v-model="attrValue" :list="addressData"
