@@ -356,6 +356,7 @@
             }
             .remove-address {
                 font-size: .6rem;
+                width: 3.2rem;
                 color: #EC6941;
                 margin: .65rem 0 1rem 0;
             }
