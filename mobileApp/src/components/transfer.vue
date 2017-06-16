@@ -53,7 +53,7 @@
                 warnText:'',  //错误提示文字
                 isNumber:function (value) {
                     return{
-                        valid: /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/.test(value),
+                        valid: /^(?=\d{11}$)^1(?:3\d|4[57]|5[^4\D]|7[^249\D]|8\d)\d{8}$/.test(value),
                         msg: '必须是数字'
                     }
                 },
@@ -76,6 +76,14 @@
                 if(this.phone == '' || this.money == ''){
                     this.show2 = true;
                     this.warnText='你有信息未填写';
+                }
+                else if(!this.isNumber(this.phone).valid){
+                    this.show2 = true;
+                    this.warnText = '手机格式有误';
+                }
+                else if(!this.isMoney(this.money).valid){
+                    this.show2 = true;
+                    this.warnText = '金钱输入格式有误';
                 }
                 else if(this.remainAmount < this.money){
                     this.show2 = true;
