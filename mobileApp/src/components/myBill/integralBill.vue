@@ -57,6 +57,7 @@
         },
         methods:{
             changeItem(index,code){
+                this.dataList = [];
                 this.titleTab = index;
                 this.currentCode = code;
                 this.renderData();
