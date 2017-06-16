@@ -87,6 +87,7 @@
         },
         methods:{
             changeItem(index,code){
+                this.tranlists = [];
                 this.titleTab = index;
                 this.currentCode = code;
                 if(this.cardName=='礼品卡'){
