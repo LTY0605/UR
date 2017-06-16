@@ -153,7 +153,7 @@
             },
             deleteItem(){
                 this.showNoScro = true;
-                this.warnText2 = '确定删除吗？';
+                this.warnText2 = '是否删除该地址';
             },
             sureDelete(){
                 this.showNoScro = false;

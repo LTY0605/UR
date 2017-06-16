@@ -108,7 +108,7 @@
                 this.currentIndex = index;
                 this.currentUid = uid;
                 this.showNoScro = true;
-                this.warnText2 = '确定删除吗？';
+                this.warnText2 = '是否删除该地址';
             },
             editItem(id){
                 this.$router.push({
