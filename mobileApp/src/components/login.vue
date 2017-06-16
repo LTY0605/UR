@@ -263,7 +263,7 @@
             margin-top: 0;
         }
         .submitBox{
-            padding-top: 1.25rem;
+            margin-top: 1.25rem;
             height:auto;
             button{
                 color: #fff;

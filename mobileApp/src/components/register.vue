@@ -419,9 +419,9 @@
             }
         }
         .submitBox {
-            padding-top: 1.25rem;
             height: auto;
             button {
+                margin-top: 1.25rem;
                 line-height: 2rem;
                 font-size: .75rem;
             }
