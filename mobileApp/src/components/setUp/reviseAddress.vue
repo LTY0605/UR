@@ -321,7 +321,7 @@
             .address-text {
                 padding: 1rem 0 .5rem 0 !important;
                 .weui-textarea {
-                    font-size: .5rem;
+                    font-size: .75rem;
                     font-family: inherit;
                     height: 5.2rem;
                 }

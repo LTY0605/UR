@@ -154,13 +154,15 @@
                 background: none;
                 resize: none;
                 border: none;
+                height: 3rem;
+                line-height: 1rem;
                 font-size: .75rem;
                 color: #333333;
-                width: 84%;
-                margin-left: 8%;
+                width: 100%;
                 margin-top: -.5rem;
                 margin-bottom: 1.3rem;
-                /*border: none;*/
+                border-radius: .2rem;
+                border: 1px solid #ab9236;
             }
         }
         button{

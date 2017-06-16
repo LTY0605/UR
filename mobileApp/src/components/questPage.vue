@@ -126,26 +126,26 @@
                 this.saveSurveyData();
 
                 this.$router.push({
-                    path: '/quest'
+                    path: '/'
                 })
             },
             next(){
                 //判断是否有选中
-//                if(Array.isArray(this.surveyData[this.currentIndex].answers)){
-//                    let len = (this.surveyData[this.currentIndex].answers).length;
-//                    for (let i=0;i<len;i++){
-//                        if((this.surveyData[this.currentIndex].answers)[i]==''){
-//                            this.showNoScroll = true;
-//                            this.warnText = '你有信息未填写';
-//                            return
-//                        }
-//                    }
-//                }
-//                if(this.surveyData[this.currentIndex].answers==''){
-//                    this.showNoScroll = true;
-//                    this.warnText = '你有信息未填写';
-//                    return
-//                }
+                if(Array.isArray(this.surveyData[this.currentIndex].answers)){
+                    let len = (this.surveyData[this.currentIndex].answers).length;
+                    for (let i=0;i<len;i++){
+                        if((this.surveyData[this.currentIndex].answers)[i]==''){
+                            this.showNoScroll = true;
+                            this.warnText = '你有信息未填写';
+                            return
+                        }
+                    }
+                }
+                if(this.surveyData[this.currentIndex].answers==''){
+                    this.showNoScroll = true;
+                    this.warnText = '你有信息未填写';
+                    return
+                }
                 this.currentIndex = this.currentIndex+1;
                 this.currentData = this.surveyData[this.currentIndex];
                 return
