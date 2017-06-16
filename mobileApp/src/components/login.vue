@@ -178,7 +178,7 @@
                         this.finish();
                     } else {
                         this.loginAlert = true;
-                        this.loginText = '验证码发送失败，请稍后再试';
+                        this.loginText = body.errmsg;
                     }
                 }, res => {
                     this.loginAlert =true;
@@ -326,12 +326,13 @@
             background: #D2D2D2;
         }
         .forgetBox{
-            padding-top: 1.5rem;
             text-align: center;
             color: #999;
             font-size: .75rem;
-            height: .7rem;
-            line-height: .7rem;
+            height: 1rem;
+            line-height: 1rem;
+            width: 5rem;
+            margin: 1.5rem auto 0;
         }
         .toRight{
             padding-left: .2rem;
