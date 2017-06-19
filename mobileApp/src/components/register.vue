@@ -212,7 +212,7 @@
                     }
                 }, res => {
                     this.show = true;
-                    this.text = '网络不给力';
+                    this.text = '网络超时，请重试';
                 })
             },
             putLocal(){
