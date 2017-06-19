@@ -27,8 +27,8 @@
             </div>
             <router-link to="/integralS">
                 <cell title="积分查询">
-                    <img class="listImg" slot="icon" width="16" src="../../assets/icon_search.png">
-                    <img class="listRight" slot="icon" width="7" src="../../assets/icon_right_on.png">
+                    <img class="listImg" slot="icon" width="16" alt="图片" src="../../assets/icon_search.png">
+                    <img class="listRight" slot="icon" width="7" alt="图片" src="../../assets/icon_right_on.png">
                 </cell>
             </router-link>
         </group>

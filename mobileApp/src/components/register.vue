@@ -7,7 +7,7 @@
         <div>
             <div class="header">
                 <div class="imgBox">
-                    <img class="logo" src="../assets/images/logo.png" alt="">
+                    <img class="logo" src="../assets/images/logo.png" alt="图片">
                 </div>
             </div>
             <div class="registerContent">
@@ -19,7 +19,7 @@
                             placeholder="用户名"
                             :is-type="zhengze_name"
                             v-model="user">
-                            <img class="userW" slot="label" src="../assets/images/user.png">
+                            <img class="userW" slot="label" src="../assets/images/user.png" alt="图片">
                         </x-input>
                     </group>
                 </div>
@@ -33,7 +33,7 @@
                             :max="11" :min="11"
                             name="mobile"
                             v-model="phone">
-                            <img class="mobileW" slot="label" src="../assets/images/Mobile.png">
+                            <img class="mobileW" slot="label" src="../assets/images/Mobile.png" alt="图片">
                         </x-input>
                     </group>
                 </div>
