@@ -77,6 +77,9 @@
                 <cell class="bill detail" title="积分明细" link="./myBill?tab=1">
                     <img slot="icon" width="12" src="../assets/icon_list.png"/>
                 </cell>
+                <cell class="bill detail" title="我的报表" link="./queryIndex">
+                    <img slot="icon" width="12" src="../assets/icon_list.png"/>
+                </cell>
             </group>
         </div>
         <!--活动-->
