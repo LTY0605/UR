@@ -176,9 +176,14 @@
                 })
             },
             getCode(){
-                if (this.mobileTel == '') {
+                if (this.newMobileTel == '') {
                     this.showNoScroll = true;
-                    this.warnText = '请填写原手机号';
+                    this.warnText = '请输入手机号';
+                    return
+                }
+                if(!this.beTel(this.newMobileTel).valid){
+                    this.showNoScroll = true;
+                    this.warnText = '请输入正确的手机号'
                     return
                 }
                 codeService().save({
