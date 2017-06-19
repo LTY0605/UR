@@ -52,18 +52,17 @@
             <group>
                 <cell title="我的钱包" link="./integral"></cell>
                 <ul>
-                    <li class="li-card">
+                    <li class="li-card" @click="goToLink('giftCoupon')">
                         <p class="wallet-num">{{mycards}}</p>
-                        <span class="color-style" @click="goToLink('giftCoupon')">礼品卡</span>
+                        <span class="color-style">礼品卡</span>
                     </li>
-                    <li>
+                    <li @click="goToLink('coupon')">
                         <p class="wallet-num">{{coupon}}</p>
-                        <router-link class="color-style" to="coupon">优惠券</router-link>
+                        <span class="color-style">优惠券</span>
                     </li>
-                    <li class="li-integral">
+                    <li class="li-integral" @click="goToLink('integral')">
                         <p class="wallet-num">{{integral}}可兑换</p>
-                        <router-link class="color-style" to="integral">积分
-                        </router-link>
+                        <span class="color-style">积分</span>
                     </li>
                 </ul>
             </group>
@@ -373,9 +372,6 @@
         }
         .wallet{
             border-bottom: .35rem solid #E5E5E5;
-            .li-card{
-                margin-left: -7%;
-            }
             .li-integral{
                 margin-right: 0 !important;
             }
@@ -388,11 +384,11 @@
             }
             li{
                 display: inline-block;
-                width: 33.33%;
+                width: 25%;
                 padding: 0;
                 font-size: .6rem;
                 margin-top: .4rem;
-                margin-right: 3.5%;
+                margin-right: 12%;
                 text-align: center;
                 color: #333333;
                 .color-style{
