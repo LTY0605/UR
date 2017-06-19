@@ -183,7 +183,7 @@
                 }
                 if(!this.beTel(this.newMobileTel).valid){
                     this.showNoScroll = true;
-                    this.warnText = '请输入正确的手机号'
+                    this.warnText = '请输入正确的新手机号'
                     return
                 }
                 codeService().save({
