@@ -134,9 +134,14 @@
         methods: {
             editTel(){
                 let _this = this;
-                if (this.newMobileTel == '' || this.code == '') {
+                if (this.newMobileTel == '') {
                     this.showNoScroll = true;
-                    this.warnText = '请全部填写';
+                    this.warnText = '请输入新的手机号';
+                    return
+                }
+                if (this.code == '') {
+                    this.showNoScroll = true;
+                    this.warnText = '请输入手机验证码';
                     return
                 }
                 if(!this.beTel(this.newMobileTel).valid){
@@ -178,7 +183,7 @@
             getCode(){
                 if (this.newMobileTel == '') {
                     this.showNoScroll = true;
-                    this.warnText = '请输入手机号';
+                    this.warnText = '请输入新手机号';
                     return
                 }
                 if(!this.beTel(this.newMobileTel).valid){
