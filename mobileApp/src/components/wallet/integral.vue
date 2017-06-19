@@ -36,7 +36,7 @@
         <x-dialog v-model="showNoScroll" class="dialog-demo" :scroll="false">
             <div @click.stop class="integralCode">
                 <p class="integralCode-title">积分使用时交给店员扫一扫</p>
-                <img class="integralCode-img" :src="barcode+'?text='+paymentCode" alt=""/>
+                <img class="integralCode-img" :src="barcode+'?text='+paymentCode" alt="图片"/>
                 <div @click="hide" class="integralCode-close"></div>
             </div>
         </x-dialog>
