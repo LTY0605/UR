@@ -198,14 +198,6 @@
                         window.localStorage.setItem("mobileTel", this.phone);
                         this.putLocal();
 
-                    } else if(body.errcode == 3201) {//3201显示手机号已经被注册
-                        this.show = true;
-                        this.text = body.errmsg;
-                        setTimeout(function () {
-                            _this.$router.push({
-                                name: 'login',
-                            });
-                        },1000)
                     } else {
                         this.show = true;
                         this.text = body.errmsg;
