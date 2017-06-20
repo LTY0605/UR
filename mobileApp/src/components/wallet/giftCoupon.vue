@@ -12,7 +12,7 @@
                     <div class="imgbox">
                         <p class="picture">
                             <img @click="payCard(item.cardTypeName,item.cardcode,item.password)" width="100%"
-                                 src="../../assets/icon_money_code.png">
+                                 src="../../assets/icon_money_code.png" alt="图片">
                         </p>
                     </div>
                     <div class="buttonBox">
@@ -36,7 +36,7 @@
                     <div class="imgbox1">
                         <p class="picture1">
                             <img @click="payCard(item.cardName,item.cardcode,item.password)" width="100%"
-                                 src="../../assets/icon_money_code.png">
+                                 src="../../assets/icon_money_code.png" alt="图片">
                         </p>
                     </div>
                     <div class="buttonBox1">
@@ -76,11 +76,11 @@
                             <div class="scanPay">
                                 <p class="scanPay-title">{{currentName}}</p>
                                 <div class="pay-box">
-                                    <img class="scanPay-img1" :src="barcodeUrl+'?text='+currentCode" alt=""/>
+                                    <img class="scanPay-img1" :src="barcodeUrl+'?text='+currentCode" alt="图片"/>
                                 </div>
                                 <p class="scanPay-number">{{currentCode}}</p>
                                 <div class="pay-box">
-                                    <img class="scanPay-img2" :src="barcodeUrl+'?text='+currentPSW" alt=""/>
+                                    <img class="scanPay-img2" :src="barcodeUrl+'?text='+currentPSW" alt="图片"/>
                                 </div>
                                 <p class="scanPay-massege">如不能扫描请刮开密码</p>
                                 <div id="scratch">
@@ -93,7 +93,7 @@
                         </div>
                     </div>
                     <div class="tabItem" v-show="titleTab==1">
-                        <img class="pay-img" :src="qRcodeUrl+'?text='+currentCode+'&width=150&height=150'" alt=""/>
+                        <img class="pay-img" :src="qRcodeUrl+'?text='+currentCode+'&width=150&height=150'"  alt="图片"/>
                         <p class="pay-text">
                             <a href="javascript:void(0)" @click="showNoScroll=false">返 回</a>
                         </p>
@@ -206,6 +206,8 @@
                         this.warnText = body.errmsg;
                     }
                 }, res => {
+                    this.showNoScro = true;
+                    this.warnText = "网络超时，请重试";
                 })
             },
             renderjdCard(){
