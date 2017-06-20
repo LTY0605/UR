@@ -29,20 +29,20 @@
         <div class="tab">
             <grid :rows="4">
                 <grid-item>
-                    <img class="tab-img" slot="icon" src="../assets/icon_index_book.png">
+                    <img class="tab-img" slot="icon" src="../assets/icon_index_book.png" alt="图片">
                     <p class="tab-text">所有订单</p>
                 </grid-item>
                 <grid-item>
                     <p v-if="showUnpaid" class="tab-badge">{{unpaid}}</p>
-                    <img class="tab-img" slot="icon" src="../assets/icon_book_on.png">
+                    <img class="tab-img" slot="icon" src="../assets/icon_book_on.png" alt="图片">
                     <p class="tab-text">待付款</p>
                 </grid-item>
                 <grid-item>
-                    <img class="tab-img" slot="icon" src="../assets/icon_car.png">
+                    <img class="tab-img" slot="icon" src="../assets/icon_car.png" alt="图片">
                     <p class="tab-text">待发货</p>
                 </grid-item>
                 <grid-item>
-                    <img class="tab-img money" slot="icon" src="../assets/icon_money.png">
+                    <img class="tab-img money" slot="icon" src="../assets/icon_money.png" alt="图片">
                     <p class="tab-text">售后</p>
                 </grid-item>
             </grid>
@@ -72,13 +72,13 @@
             <group>
                 <cell title="我的账单" link="./myBill"></cell>
                 <cell class="bill" title="消费明细" link="./myBill?tab=0">
-                    <img slot="icon" width="12" src="../assets/icon_sm.png"/>
+                    <img slot="icon" width="12" src="../assets/icon_sm.png" alt="图片"/>
                 </cell>
                 <cell class="bill detail" title="积分明细" link="./myBill?tab=1">
-                    <img slot="icon" width="12" src="../assets/icon_list.png"/>
+                    <img slot="icon" width="12" src="../assets/icon_list.png" alt="图片"/>
                 </cell>
                 <cell class="bill detail" title="我的报表" link="./queryIndex">
-                    <img slot="icon" width="12" src="../assets/icon_list.png"/>
+                    <img slot="icon" width="12" src="../assets/icon_list.png" alt="图片"/>
                 </cell>
             </group>
         </div>
@@ -89,23 +89,23 @@
                 <ul>
                     <router-link to="quest">
                         <li>
-                            <img width="24" src="../assets/icon_save.png"/>
+                            <img width="24" src="../assets/icon_save.png" alt="图片"/>
                             <p class="action-text">调查问卷</p>
                         </li>
                     </router-link>
                     <li @click="goLink">
-                        <img width="24" src="../assets/icon_dialog.png"/>
+                        <img width="24" src="../assets/icon_dialog.png" alt="图片"/>
                         <p class="action-text">时尚体验</p>
                     </li>
                     <router-link to="http://weixin.ur.com.cn/app/index.php?i=2&c=mc&a=store">
                         <li>
-                            <img width="24" src="../assets/index_icon.png"/>
+                            <img width="24" src="../assets/index_icon.png" alt="图片"/>
                             <p class="action-text">适用门店</p>
                         </li>
                     </router-link>
                 </ul>
                 <div class="action-img">
-                    <img src="../assets/banner.png" alt=""/>
+                    <img src="../assets/banner.png" alt="图片"/>
                 </div>
             </group>
         </div>
@@ -113,7 +113,7 @@
         <div @click="hide">
             <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
                 <div @click.stop class="couponCode">
-                    <img class="couponCode-img" :src="barcodeUrl+'?text='+cardcode+'&width=200&height=200'">
+                    <img class="couponCode-img" :src="barcodeUrl+'?text='+cardcode+'&width=200&height=200'"  alt="图片">
                     <div @click="hide" class="couponCode-close"></div>
                 </div>
             </x-dialog>

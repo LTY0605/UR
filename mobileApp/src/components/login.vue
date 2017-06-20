@@ -176,6 +176,9 @@
                         this.loginText = '验证码发送成功';
                         this.showMin = true;
                         this.finish();
+                    }else if(body.errcode == 3002 ) {
+                        this.loginAlert = true;
+                        this.loginText = '该手机号未注册，请先注册';
                     } else {
                         this.loginAlert = true;
                         this.loginText = body.errmsg;
