@@ -10,12 +10,12 @@
                 </li>
                 <li>
                     <group>
-                        <x-input type="password" title="新密码" placeholder="新密码" v-model="newPassword" :max="11" :is-type="bePassWord"></x-input>
+                        <x-input type="password" title="新密码" placeholder="新密码" v-model.trim="newPassword" :max="11" :min="6" :is-type="bePassWord"></x-input>
                     </group>
                 </li>
                 <li>
                     <group>
-                        <x-input type="password" title="确认新密码" placeholder="请再次确认新密码" v-model="newPassword2"
+                        <x-input type="password" title="确认新密码" placeholder="请再次输入新密码" v-model.trim="newPassword2"
                                  :equal-with="newPassword"></x-input>
                     </group>
                 </li>
@@ -45,8 +45,8 @@
                 newPassword2: '',
                 bePassWord: function (value) {
                 return {
-                    valid: /^[0-9a-zA-Z]{0,11}$/.test(value),
-                    msg: '密码只能字母跟数字，长度不能大于11位'
+                    valid: /^[0-9a-zA-Z]{6,11}$/.test(value),
+                    msg: '密码只能字母跟数字，长度6到11位'
                 }
             },
             }
@@ -55,6 +55,7 @@
         },
         methods: {
             passWordEdit(){
+                let _this = this;
                 if (this.oldPassword == '' || this.newPassword == '' || this.newPassword2 == '') {
                     this.showNoScroll = true;
                     this.warnText = '您有信息未填写';
@@ -80,7 +81,15 @@
                     if (body.errcode == 0) {
                         this.showNoScroll = true;
                         this.warnText = '修改成功';
-                    }else{
+                        setTimeout(function () {
+                            _this.$router.push({
+                                name: 'index',
+                            });
+                        },300)
+                    } else if(body.errcode == 1001) {
+                        this.showNoScroll = true;
+                        this.warnText = '原密码不正确，请重新输入';
+                    } else {
                         this.showNoScroll = true;
                         this.warnText = body.errmsg;
                     }
