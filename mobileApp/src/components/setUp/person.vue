@@ -58,7 +58,7 @@
                     </group>
                     <!--<span class="getCode" @click="getCode">获取验证码</span>-->
                     <span v-show="!showMin" class="getCode" @click="getCode">获取验证码</span>
-                    <span v-show="showMin" class="getCode">{{time}}s后才能重发</span>
+                    <span v-show="showMin" class="getCode2">{{time}}秒</span>
                 </li>
             </ul>
             <div class="operate" @click="editTel">提交</div>
@@ -468,6 +468,15 @@
                     margin-top: -.55rem;
                     border-bottom: 1px solid #EC6941;
                     color: #EC6941;
+                    z-index: 100;
+                }
+                .getCode2{
+                    font-size: .7rem;
+                    position: absolute;
+                    right: 0;
+                    top: 50%;
+                    margin-top: -.55rem;
+                    color: #999;
                     z-index: 100;
                 }
 

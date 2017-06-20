@@ -5,7 +5,7 @@
                 <li>
                     <group>
                         <x-input title="手机号" placeholder="手机号" :max="11" :min="11"
-                                 keyboard="number" :is-type="beTel" v-model="mobileTel" required ref="kk"></x-input>
+                                 keyboard="number" :is-type="beTel" v-model="mobileTel" required ref="kk" disabled></x-input>
                     </group>
                 </li>
                 <li class="code">
@@ -13,10 +13,10 @@
                         <x-input title="验证码" placeholder="请输入短信验证码" v-model="code"></x-input>
                     </group>
                     <span v-show="!showMin" class="getCode" @click="getCode">获取验证码</span>
-                    <span v-show="showMin" class="getCode">{{time}}s后才能重发</span>
+                    <span v-show="showMin" class="getCode2">{{time}}秒</span>
                 </li>
             </ul>
-            <div class="operate" @click="boundSubmit">提交</div>
+            <div class="operate" @click="boundSubmit">解绑</div>
         </div>
         <toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>
     </div>
@@ -98,6 +98,11 @@
                     this.warnText = '请填写原手机号';
                     return
                 }
+                if(!this.beTel(this.mobileTel).valid){
+                    this.showNoScroll = true;
+                    this.warnText = '请输入正确的手机号'
+                    return
+                }
                 codeService().save({
                     scope:'unbind',
                     mobileTel:this.mobileTel,
@@ -134,6 +139,7 @@
 
         },
         created(){
+            this.mobileTel = window.localStorage.getItem("mobileTel");
         },
         computed: {}
     }
@@ -228,6 +234,15 @@
                     margin-top: -.55rem;
                     border-bottom: 1px solid #EC6941;
                     color: #EC6941;
+                    z-index: 100;
+                }
+                .getCode2{
+                    font-size: .7rem;
+                    position: absolute;
+                    right: 0;
+                    top: 50%;
+                    margin-top: -.55rem;
+                    color: #999;
                     z-index: 100;
                 }
             }
