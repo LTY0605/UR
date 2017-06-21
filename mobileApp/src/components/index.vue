@@ -85,7 +85,7 @@
         <!--活动-->
         <div class="action">
             <group>
-                <cell title="会员活动" link="./"></cell>
+                <cell title="会员活动"></cell>
                 <ul>
                     <router-link to="quest">
                         <li>
@@ -421,6 +421,9 @@
             .wallet-num{
                 color: #FF0000;
                 margin-bottom: .25rem;
+            }
+            .weui-cells .bill .weui-cell__ft:after{
+                display: none;
             }
         }
         .bill{
