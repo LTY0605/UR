@@ -268,6 +268,7 @@
                 })
             },
             sureSubmit(){
+                let _this = this;
                 var pro = this.attress.split(" ")
                 if(this.customerName == ''){
                     this.showNoScroll = true;
@@ -297,6 +298,11 @@
                         window.localStorage.setItem("customerName", this.customerName);
                         window.localStorage.setItem("district", pro[2]);
                         window.localStorage.setItem("city", pro[1]);
+                        setTimeout(function () {
+                            _this.$router.push({
+                                name: 'index',
+                            });
+                        },300)
                     } else {
                         this.showNoScroll = true;
                         this.warnText = '修改失败';
