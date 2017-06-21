@@ -122,6 +122,8 @@
                             return
                         }
                     },res =>{
+                        this.show2 = true;
+                        this.warnText = '网络超时，请重试';
                     })
 
                     console.log(this.jdpassword,'======================')

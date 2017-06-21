@@ -13,13 +13,13 @@
                 </li>
                 <li>
                     <group>
-                        <x-input type="password" title="新密码" placeholder="新密码" v-model="newpassword" :max="11" :is-type="bePassWord"></x-input>
+                        <x-input type="password" title="新密码" placeholder="新密码" v-model="newpassword" :max="11" :min="6" :is-type="bePassWord"></x-input>
                     </group>
 
                 </li>
                 <li>
                     <group>
-                        <x-input type="password" title="确认新密码" placeholder="请再次确认新密码" v-model="confirmpassword" :equal-with="newpassword"></x-input>
+                        <x-input type="password" title="确认新密码" placeholder="请再次输入新密码" v-model="confirmpassword" :equal-with="newpassword"></x-input>
                     </group>
                 </li>
             </ul>
@@ -50,8 +50,8 @@
                 valueCardcode: this.$route.query.valueCardcode,
                 bePassWord: function (value) {
                     return {
-                        valid: /^[0-9a-zA-Z]{0,11}$/.test(value),
-                        msg: '密码只能字母跟数字，长度不能大于11位'
+                        valid: /^[0-9a-zA-Z]{6,11}$/.test(value),
+                        msg: '密码只能字母跟数字，长度为6到11位'
                     }
                 },
             }
@@ -63,6 +63,7 @@
         methods: {
 
             passWordEdit(){
+                let _this = this;
                 if (this.oldpassword == '' || this.newpassword == '' || this.confirmpassword == '') {
                     this.showNoScroll = true;
                     this.warnText = '您有信息未填写';
@@ -70,7 +71,7 @@
                 }
                 if(!this.bePassWord(this.oldpassword).valid || !this.bePassWord(this.newpassword).valid || !this.bePassWord(this.confirmpassword).valid){
                     this.showNoScroll = true;
-                    this.warnText = '密码只能字母跟数字，长度不能大于11位';
+                    this.warnText = '密码只能字母跟数字，长度为6到11位';
                     return
                 }
                 if (this.confirmpassword != this.newpassword) {
@@ -88,6 +89,11 @@
                     if (body.errcode == 0) {
                         this.showNoScroll = true;
                         this.warnText = '修改成功';
+                        setTimeout(function () {
+                            _this.$router.push({
+                                name: 'giftCoupon',
+                            });
+                        },300)
                     }else{
                         this.showNoScroll = true;
                         this.warnText = body.errmsg;
