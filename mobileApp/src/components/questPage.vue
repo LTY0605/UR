@@ -84,6 +84,8 @@
                     this.submitCode
                 ).then(res=>{
                 },res=>{
+                    this.showNoScroll= true;
+                    this.warnText='网络超时，请重试';
                 })
             },
             submit(){
@@ -123,8 +125,7 @@
                 this.submitCode = Object.assign(obj,obj2);
                 console.log(this.submitCode,'=================POST的对象===================');
 //                return
-                this.saveSurveyData();
-
+                this.saveSurveyData()
                 this.$router.push({
                     path: '/'
                 })
@@ -136,7 +137,7 @@
                     for (let i=0;i<len;i++){
                         if((this.surveyData[this.currentIndex].answers)[i]==''){
                             this.showNoScroll = true;
-                            this.warnText = '你有信息未填写';
+                            this.warnText = '请选择您所惠临的门店';
                             return
                         }
                     }

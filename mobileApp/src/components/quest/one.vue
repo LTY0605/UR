@@ -113,6 +113,7 @@
             text-align: center;
             color: #FFFFFF;
             position: relative;
+            top: .1rem;
         }
         .con_num:before{
             content: '';
@@ -130,7 +131,7 @@
             vertical-align: top;
             color: #ab9236;
             font-size: .8rem;
-            margin-top: -.14rem;
+            /*margin-top: -.14rem;*/
             margin-left: .6rem;
             width: 86%;
             line-height: 1.2rem;
