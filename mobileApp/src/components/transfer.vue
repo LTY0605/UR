@@ -20,7 +20,7 @@
             <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
                 <div @click.stop class="transferCode">
                     <p class="transferCode-title">请输入密码</p>
-                    <x-input type="password" v-model="password" class="transferCode-input" required></x-input>
+                    <x-input type="password" v-model.trim="password" class="transferCode-input" required></x-input>
                     <!--<p v-if="warnShow" class="warn-text">密码错误</p>-->
                     <div @click="enter"><x-button><span class="transferCode-text">确 定</span></x-button></div>
                 </div>
@@ -101,6 +101,7 @@
                 this.showNoScroll = false;
             },
             enter() {
+                let _this = this;
                 if(this.password == ''){
                     this.show2 = true;
                     this.warnText = '请输入密码'
@@ -116,21 +117,25 @@
                         let body = res.body;
                         if(body.errcode==0){
 //                            this.jdpassword = body.password;
+                            setTimeout(function () {
+                                _this.$router.push({
+                                    name: 'giftCoupon',
+                                });
+                            },1000)
                         }else{
                             this.show2 = true;
                             this.warnText = body.errmsg;
                             return
                         }
+                        console.log(this.jdpassword,'======================')
+                         this.warnShow = false;
+                         this.showNoScroll = false;
+                         this.show2 = true;
+                         this.warnText = '转赠成功'
                     },res =>{
                         this.show2 = true;
                         this.warnText = '网络超时，请重试';
                     })
-
-                    console.log(this.jdpassword,'======================')
-                    this.warnShow = false;
-                    this.showNoScroll = false;
-                    this.show2 = true;
-                    this.warnText = '转赠成功'
                 }
             }
         },
@@ -271,6 +276,9 @@
                 [class^="weui-icon-"]:before, [class*=" weui-icon-"]:before{
                     margin-bottom: .3rem;
                 }
+            }
+            .weui-cell_warn{
+                color: #000;
             }
             .warn-text{
                 font-size: .6rem;
