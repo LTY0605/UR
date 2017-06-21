@@ -76,7 +76,7 @@
                     this.showNoScroll = true;
                     this.warnText = '设置成功';
                     this.renderData();
-                }else{
+                } else {
                     this.showNoScroll = true;
                     this.warnText = '设置失败'
                 }
@@ -127,7 +127,7 @@
                         this.showNoScroll = true;
                         this.warnText = '删除成功';
                         this.dataList.splice(this.currentIndex, 1);
-                    }else{
+                    } else {
                         this.showNoScroll = true;
                         this.warnText = '删除失败';
                     }

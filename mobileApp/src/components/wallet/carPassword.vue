@@ -94,7 +94,10 @@
                                 name: 'giftCoupon',
                             });
                         },300)
-                    }else{
+                    } else if(body.errcode == 1001) {
+                        this.showNoScroll = true;
+                        this.warnText = '原密码不正确，请重新输入';
+                    } else {
                         this.showNoScroll = true;
                         this.warnText = body.errmsg;
                     }
