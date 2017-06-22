@@ -82,10 +82,10 @@
                                 <div class="pay-box">
                                     <img class="scanPay-img2" :src="barcodeUrl+'?text='+currentPSW" alt="图片"/>
                                 </div>
-                                <p class="scanPay-massege">如不能扫描请刮开密码</p>
-                                <div id="scratch">
-                                    <div id="card">{{currentPSW}}</div>
-                                </div>
+                                <!--<p class="scanPay-massege">如不能扫描请刮开密码</p>-->
+                                <!--<div id="scratch">-->
+                                    <!--<div id="card">{{currentPSW}}</div>-->
+                                <!--</div>-->
                                 <p class="pay-text">
                                     <a href="javascript:void(0)" @click="showNoScroll=false">返 回</a>
                                 </p>
