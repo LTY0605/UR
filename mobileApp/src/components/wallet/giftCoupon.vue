@@ -450,7 +450,7 @@
             margin: .75rem 2.5rem 0rem ;
         }
         .payImgCode{
-            margin-top: -1rem;
+            margin-top: -1.4rem;
             font-size: .75rem;
         }
         .scanPay {
@@ -477,8 +477,10 @@
                 color: #FF0018;
             }
             .scanPay-img1, .scanPay-img2 {
-                width: 7.85rem;
-                height: 2.6rem;
+                /*width: 7.85rem;*/
+                /*height: 2.6rem;*/
+                width: 10rem;
+                height: 5rem;
             }
             .scanPay-img2 {
                 margin: .6rem auto;
