@@ -38,13 +38,14 @@
                         type="primary"
                         name="submit"
                         action-type="submit"
-                        @click.native="login_submit">登 录</x-button>
+                        @click.native="login_submit">登 录
+                    </x-button>
                 </div>
                 <div class="forgetBox" @click="goToLink('register')">
                     立即注册 <span class="toRight">》</span>
                 </div>
                 <!--<div class="agreementBox">-->
-                    <!--<router-link :to="{name:'contract'}">UR用户使用协议</router-link>-->
+                <!--<router-link :to="{name:'contract'}">UR用户使用协议</router-link>-->
                 <!--</div>-->
             </div>
         </div>
@@ -59,8 +60,8 @@
     </div>
 </template>
 <script>
-    import { loginService,codeService  } from '../services/member.js'
-    import { Toast,XButton,XHeader,Scroller,Group,XInput,XDialog  } from 'vux'
+    import {loginService, codeService} from '../services/member.js'
+    import {Toast, XButton, XHeader, Scroller, Group, XInput, XDialog} from 'vux'
     export default {
         components: {
             XHeader,
@@ -73,14 +74,14 @@
         },
         data () {
             return {
-                showNoScroll:false,
-                warnText:'',
+                showNoScroll: false,
+                warnText: '',
                 phone: '',
-                loginText:'登录',
-                loginAlert:false,
+                loginText: '登录',
+                loginAlert: false,
                 time: 60,
-                code:'',//验证码
-                showMin:false,
+                code: '',//验证码
+                showMin: false,
                 beTel: function (value) {
                     return {
                         valid: /^(?=\d{11}$)^1(?:3\d|4[57]|5[^4\D]|7[^249\D]|8\d)\d{8}$/.test(value),
@@ -104,30 +105,30 @@
             },
             login_submit () {
                 let _this = this;
-                if(this.phone == ''|| this.code == ''){
+                if (this.phone == '' || this.code == '') {
                     this.loginAlert = true;
                     this.loginText = '请输入手机号或者验证码'
                     return
                 }
-                if(!this.beTel(this.phone).valid){
+                if (!this.beTel(this.phone).valid) {
                     this.loginAlert = true;
                     this.loginText = '请输入正确的手机号';
                     return
                 }
-                var phoneData ={
-                    wxOpenID:window.localStorage.getItem("wxOpenId"),
-                    code:this.code,
-                    mobileTel:this.phone
+                var phoneData = {
+                    wxOpenID: window.localStorage.getItem("wxOpenId"),
+                    code: this.code,
+                    mobileTel: this.phone
                 }
                 console.log(phoneData)
                 loginService().save({
-                    wxOpenID:window.localStorage.getItem("wxOpenId"),
-                    code:this.code,
-                    mobileTel:this.phone
+                    wxOpenID: window.localStorage.getItem("wxOpenId"),
+                    code: this.code,
+                    mobileTel: this.phone
                 }).then(res => {
                     let body = res.body;
-                    if(body.errcode == 0){
-                        this.showNoScroll =false;
+                    if (body.errcode == 0) {
+                        this.showNoScroll = false;
                         this.warnText = '登录成功';
                         //window.localStorage.setItem("wxOpenId", body.wxOpenId);
                         window.localStorage.setItem("cardcode", body.cardcode);
@@ -143,32 +144,31 @@
                             _this.$router.push({
                                 name: 'index'
                             })
-                        },500)
-
-                    }else{
-                        this.loginAlert =true;
+                        }, 500)
+                    } else {
+                        this.loginAlert = true;
                         this.loginText = body.errmsg;
                     }
 
                 }, res => {
-                    this.loginAlert =true;
+                    this.loginAlert = true;
                     this.loginText = "网络超时，请重试";
                 })
             },
             getCode(){
-                if(this.phone == ''){
+                if (this.phone == '') {
                     this.loginAlert = true;
                     this.loginText = '请输入手机号';
                     return
                 }
-                if(!this.beTel(this.phone).valid){
+                if (!this.beTel(this.phone).valid) {
                     this.loginAlert = true;
                     this.loginText = '请输入正确的手机号';
                     return
                 }
                 codeService().save({
-                    scope:'login',
-                    mobileTel:this.phone
+                    scope: 'login',
+                    mobileTel: this.phone
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {
@@ -176,7 +176,7 @@
                         this.loginText = '验证码发送成功';
                         this.showMin = true;
                         this.finish();
-                    }else if(body.errcode == 3002 ) {
+                    } else if (body.errcode == 3002) {
                         this.loginAlert = true;
                         this.loginText = '该手机号未注册，请先注册';
                     } else {
@@ -184,11 +184,11 @@
                         this.loginText = body.errmsg;
                     }
                 }, res => {
-                    this.loginAlert =true;
+                    this.loginAlert = true;
                     this.loginText = "网络超时，请重试";
                 })
             },
-            finish:function(){
+            finish: function () {
                 this.time = this.time - 1;
                 if (this.time > 0) {
                     setTimeout(() => {
@@ -209,16 +209,16 @@
     }
 </script>
 <style lang="less" rel="stylesheet/less">
-    .page_login{
+    .page_login {
         .vux-header {
             background-color: #AB9236 !important;
         }
-        .header{
+        .header {
             background-color: #AB9236;
             padding: 1.25rem 0 1.75rem;
-            height:auto;
+            height: auto;
             margin-top: -.04rem;
-            .imgBox{
+            .imgBox {
                 background-color: #ffffff;
                 width: 4.55rem;
                 height: 4.55rem;
@@ -227,7 +227,7 @@
                 overflow: hidden;
                 margin: auto;
 
-                .logo{
+                .logo {
                     width: 100%;
                     margin-top: 16%;
                     padding-left: .5rem;
@@ -237,83 +237,83 @@
             }
         }
 
-        .loginContent{
+        .loginContent {
             padding: 0 9.6%;
             background: #fff;
-            height:auto;
+            height: auto;
         }
-        .input{
+        .input {
             height: 2rem;
         }
-        .input1{
+        .input1 {
             border-radius: 0.2rem;
             border: 0.02rem solid #D2D2D2;
         }
-        .mobileBox{
+        .mobileBox {
             padding-top: 1.25rem;
-            input{
+            input {
                 padding-left: .4rem;
                 font-size: .75rem;
                 color: #999;
             }
         }
-        .mobileW{
+        .mobileW {
             height: 0.8rem;
             width: 0.6rem;
             margin-bottom: -.12rem;
         }
-        .weui-cells{
+        .weui-cells {
             margin-top: 0;
         }
-        .submitBox{
+        .submitBox {
             margin-top: 1.25rem;
-            height:auto;
-            button{
+            height: auto;
+            button {
                 color: #fff;
                 line-height: 2rem;
                 font-size: .75rem;
             }
         }
-        .submitBox .weui-btn{
+        .submitBox .weui-btn {
             background-color: #AB9236 !important;
             padding: 0;
             height: 2rem;
         }
-        button{
+        button {
             padding: 0;
         }
-        .weui-cells:before,.weui-cells:after,.vux-cell-box:before{
-            border:0;
+        .weui-cells:before, .weui-cells:after, .vux-cell-box:before {
+            border: 0;
         }
-        .agreementBox{
+        .agreementBox {
             text-align: center;
             padding: 8.81rem 0 1.55rem;
-            height:auto;
-            a{
+            height: auto;
+            a {
                 font-size: 0.6rem;
                 color: #999;
-                text-decoration:underline;
+                text-decoration: underline;
             }
         }
-        .codeBox{
+        .codeBox {
             width: 59.7%;
             float: left;
         }
-        .captcha{
+        .captcha {
             padding-top: .6rem;
             overflow: auto;
-            img{
+            img {
                 width: .7rem;
                 height: .75rem;
                 margin-bottom: -.12rem;
             }
-            input{
+            input {
                 padding-left: .25rem;
                 font-size: .75rem;
                 color: #999;
             }
         }
-        .countDown{
+        .countDown {
             font-size: .75rem;
             display: inline-block;
             width: 34%;
@@ -325,10 +325,10 @@
             float: right;
             border-radius: .2rem;
         }
-        .getCode{
+        .getCode {
             background: #D2D2D2;
         }
-        .forgetBox{
+        .forgetBox {
             text-align: center;
             color: #999;
             font-size: .75rem;
@@ -337,7 +337,7 @@
             width: 5rem;
             margin: 1.5rem auto 0;
         }
-        .toRight{
+        .toRight {
             padding-left: .2rem;
             font-size: .75rem;
         }
