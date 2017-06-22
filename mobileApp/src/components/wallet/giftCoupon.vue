@@ -22,7 +22,7 @@
                         <!--<button class="Box7">修改密码</button>-->
                         <!--</router-link>-->
                         <router-link
-                                :to="{name:'transaction',query:{valueCardcode:item.valueCardcode,cardName:item.cardName}}">
+                            :to="{name:'transaction',query:{valueCardcode:item.valueCardcode,cardName:item.cardName}}">
                             <button class="Box3">交易记录</button>
                         </router-link>
                     </div>
@@ -44,7 +44,7 @@
                             <button @click="payCard(item.cardName,item.cardcode,item.password)" class="Box1">扫码支付
                             </button>
                             <router-link
-                                    :to="{name:'transfer',query:{JDcardcode:item.valueCardcode,remainAmount:item.remainAmount}}">
+                                :to="{name:'transfer',query:{JDcardcode:item.valueCardcode,remainAmount:item.remainAmount}}">
                                 <button class="Box5">转赠</button>
                             </router-link>
                             <button @click="getAmout" class="Box6">获取转赠</button>
@@ -54,7 +54,7 @@
                                 <button class="Box7">修改密码</button>
                             </router-link>
                             <router-link
-                                    :to="{name:'transaction',query:{valueCardcode:item.valueCardcode,cardName:item.cardName}}">
+                                :to="{name:'transaction',query:{valueCardcode:item.valueCardcode,cardName:item.cardName}}">
                                 <button class="Box8">交易记录</button>
                             </router-link>
                         </div>
@@ -84,7 +84,7 @@
                                 </div>
                                 <!--<p class="scanPay-massege">如不能扫描请刮开密码</p>-->
                                 <!--<div id="scratch">-->
-                                    <!--<div id="card">{{currentPSW}}</div>-->
+                                <!--<div id="card">{{currentPSW}}</div>-->
                                 <!--</div>-->
                                 <p class="pay-text">
                                     <a href="javascript:void(0)" @click="showNoScroll=false">返 回</a>
@@ -93,7 +93,8 @@
                         </div>
                     </div>
                     <div class="tabItem" v-show="titleTab==1">
-                        <img class="pay-img" :src="qRcodeUrl+'?text='+currentCode+'&width=150&height=150'"  alt="图片"/>
+                        <img class="pay-img" :src="qRcodeUrl+'?text='+currentCode+'&width=150&height=150'" alt="图片"/>
+                        <p class="payImgCode">{{currentCode}}</p>
                         <p class="pay-text">
                             <a href="javascript:void(0)" @click="showNoScroll=false">返 回</a>
                         </p>
@@ -252,6 +253,7 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     @import "../../tools/luckyCar/lucky-card.css";
+
     .page_giftC {
         #scratch {
             width: 65%;
@@ -259,57 +261,57 @@
             font-size: .7rem;
             /* line-height: 2.2rem; */
             margin: .5rem auto;
-        #card {
-            width: 100%;
-            height: 2.2rem;
-            line-height: 2.2rem;
-            font-size: .7rem;
-            text-align: center;
-            background: #FAFAFA;
-        }
-        #cover {
-            width: 100%;
-            height: 100%;
-        }
+            #card {
+                width: 100%;
+                height: 2.2rem;
+                line-height: 2.2rem;
+                font-size: .7rem;
+                text-align: center;
+                background: #FAFAFA;
+            }
+            #cover {
+                width: 100%;
+                height: 100%;
+            }
         }
         .page_tran {
-        .weui-dialog {
-            width: 12.5rem !important;
-            max-width: none !important;
-        }
-        .giftCode {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 12.5rem;
-            height: auto;
-            position: relative;
-            padding: 2.2rem;
-            background: white;
-        .giftCode-img {
-            width: 3rem;
-            height: 3rem;
-            background: url("../../assets/warn.png");
-            background-size: 100% 100%;
-        }
-        .giftCode-text {
-            font-size: .9rem;
-            margin-top: 1rem;
-            color: #ec6941;
-        }
-        P {
-            font-size: .85rem;
-        }
-        .giftCode-close {
-            position: absolute;
-            width: .8rem;
-            height: .8rem;
-            background: url("../../assets/money_code3.png");
-            background-size: cover;
-            top: .6rem;
-            right: .6rem;
-        }
-        }
+            .weui-dialog {
+                width: 12.5rem !important;
+                max-width: none !important;
+            }
+            .giftCode {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 12.5rem;
+                height: auto;
+                position: relative;
+                padding: 2.2rem;
+                background: white;
+                .giftCode-img {
+                    width: 3rem;
+                    height: 3rem;
+                    background: url("../../assets/warn.png");
+                    background-size: 100% 100%;
+                }
+                .giftCode-text {
+                    font-size: .9rem;
+                    margin-top: 1rem;
+                    color: #ec6941;
+                }
+                P {
+                    font-size: .85rem;
+                }
+                .giftCode-close {
+                    position: absolute;
+                    width: .8rem;
+                    height: .8rem;
+                    background: url("../../assets/money_code3.png");
+                    background-size: cover;
+                    top: .6rem;
+                    right: .6rem;
+                }
+            }
         }
         .gift1 {
             margin: 1.2rem 1rem;
@@ -373,13 +375,13 @@
         .page_pay {
             display: flex;
             justify-content: center;
-        .weui-dialog {
-            width: auto;
-            max-width: none;
-        }
-        .weui-mask {
-            display: none;
-        }
+            .weui-dialog {
+                width: auto;
+                max-width: none;
+            }
+            .weui-mask {
+                display: none;
+            }
         }
         .payCode {
             width: 12.55rem;
@@ -391,12 +393,12 @@
         .pay-text {
             text-align: center;
             font-size: .6rem;
-            margin-bottom: .9rem;
-        a {
-            list-style: none;
-            color: #F68B79;
-            text-decoration: underline;
-        }
+            margin: .9rem 0;
+            a {
+                list-style: none;
+                color: #F68B79;
+                text-decoration: underline;
+            }
         }
 
         .tabTitle {
@@ -404,48 +406,52 @@
             height: auto;
             font-size: 0;
             position: relative;
-        span {
-            font-size: .75rem;
-            display: inline-block;
-            width: 50%;
-            background: rgb(242, 237, 218);
-            color: #000000;
-            border-left: 1px solid #CDBE86;
-            height: 2.5rem;
-            line-height: 2rem;
-            text-align: center;
-            padding-top: .25rem;
-        }
-        span.active {
-            background: #CDBE86;
-            position: relative;
-        }
-        span.active:after {
-            content: '';
-            border-style: solid;
-            border-width: .35rem;
-            border-color: transparent transparent #fff transparent;
-            position: absolute;
-            bottom: -1px;
-            left: 48%;
-            margin-left: -0.175rem;
-            display: block;
-        }
-        .close {
-            border-left: 0;
-            width: .8rem;
-            height: .8rem;
-            background: url("../../assets/money_code3.png");
-            background-size: 100%;
-            top: 0.3rem;
-            right: 0.3rem;
-            position: absolute;
-        }
+            span {
+                font-size: .75rem;
+                display: inline-block;
+                width: 50%;
+                background: rgb(242, 237, 218);
+                color: #000000;
+                border-left: 1px solid #CDBE86;
+                height: 2.5rem;
+                line-height: 2rem;
+                text-align: center;
+                padding-top: .25rem;
+            }
+            span.active {
+                background: #CDBE86;
+                position: relative;
+            }
+            span.active:after {
+                content: '';
+                border-style: solid;
+                border-width: .35rem;
+                border-color: transparent transparent #fff transparent;
+                position: absolute;
+                bottom: -1px;
+                left: 48%;
+                margin-left: -0.175rem;
+                display: block;
+            }
+            .close {
+                border-left: 0;
+                width: .8rem;
+                height: .8rem;
+                background: url("../../assets/money_code3.png");
+                background-size: 100%;
+                top: 0.3rem;
+                right: 0.3rem;
+                position: absolute;
+            }
         }
         .pay-img {
             width: 7.5rem;
             height: 7.5rem;
-            margin: .75rem 2.5rem 1rem;
+            margin: .75rem 2.5rem 0rem ;
+        }
+        .payImgCode{
+            margin-top: -1rem;
+            font-size: .75rem;
         }
         .scanPay {
             width: 12.5rem;
@@ -453,44 +459,44 @@
             position: relative;
             background: white;
             font-size: 0;
-        .scanPay-title {
-            font-size: .7rem;
-            text-align: center;
-            color: #000000;
-            margin: .5rem auto;
-            width: 80%;
-        }
-        .pay-box {
-            display: flex;
-            justify-content: center;
-        }
-        .scanPay-massege {
-            width: auto;
-            font-size: .6rem;
-            text-align: center;
-            color: #FF0018;
-        }
-        .scanPay-img1, .scanPay-img2 {
-            width: 7.85rem;
-            height: 2.6rem;
-        }
-        .scanPay-img2 {
-            margin: .6rem auto;
-        }
-        .scanPay-number {
-            text-align: center;
-            font-size: .6rem;
-            padding: .2rem 0rem .5rem;
-            border-bottom: 1px solid #CDBE86;
-        }
-        .scanPay-close {
-            position: absolute;
-            width: .8rem;
-            height: .8rem;
-            background-size: 100%;
-            top: -.15rem;
-            right: .6rem;
-        }
+            .scanPay-title {
+                font-size: .7rem;
+                text-align: center;
+                color: #000000;
+                margin: .5rem auto;
+                width: 80%;
+            }
+            .pay-box {
+                display: flex;
+                justify-content: center;
+            }
+            .scanPay-massege {
+                width: auto;
+                font-size: .6rem;
+                text-align: center;
+                color: #FF0018;
+            }
+            .scanPay-img1, .scanPay-img2 {
+                width: 7.85rem;
+                height: 2.6rem;
+            }
+            .scanPay-img2 {
+                margin: .6rem auto;
+            }
+            .scanPay-number {
+                text-align: center;
+                font-size: .6rem;
+                padding: .2rem 0rem .5rem;
+                border-bottom: 1px solid #CDBE86;
+            }
+            .scanPay-close {
+                position: absolute;
+                width: .8rem;
+                height: .8rem;
+                background-size: 100%;
+                top: -.15rem;
+                right: .6rem;
+            }
         }
         .gift2 {
             margin: 1.2rem 1rem;
@@ -554,7 +560,7 @@
         .btnDown {
             font-size: 0;
         }
-        .gift-mask{
+        .gift-mask {
             position: fixed;
             z-index: 1000;
             top: 0;
