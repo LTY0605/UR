@@ -4,16 +4,18 @@
         <div class="massegel1List">
             <template v-for="item in cardList">
                 <div class="gift1" v-if="item.cardName!='京东存值卡'">
-                    <div class="list">
-                        <p class="Type">{{item.cardName}}</p>
-                        <p class="Id">{{item.cardcode}}</p>
-                        <p class="money">余额：{{item.remainAmount}}</p>
-                    </div>
-                    <div class="imgbox">
-                        <p class="picture">
-                            <img @click="payCard(item.cardTypeName,item.cardcode,item.password)" width="100%"
-                                 src="../../assets/icon_money_code.png" alt="图片">
-                        </p>
+                    <div>
+                        <div class="list">
+                            <p class="Type">{{item.cardName}}</p>
+                            <p class="Id">{{item.cardcode}}</p>
+                            <p class="money">余额：{{item.remainAmount}}</p>
+                        </div>
+                        <div class="imgbox">
+                            <p class="picture">
+                                <img @click="payCard(item.cardTypeName,item.cardcode,item.password)" width="100%"
+                                     src="../../assets/icon_money_code.png" alt="图片">
+                            </p>
+                        </div>
                     </div>
                     <div class="buttonBox">
                         <button @click="payCard(item.cardTypeName,item.cardcode,item.password)" class="Box1">扫码支付
@@ -255,11 +257,65 @@
     @import "../../tools/luckyCar/lucky-card.css";
 
     .page_giftC {
-        #scratch {
+        .gift1 {
+            margin: 1.2rem 1rem;
+            padding: .65rem 1rem;
+            height: 10rem;
+            font-family: PingFang-SC-Medium;
+            font-size: .8rem;
+            color: #ffffff;
+            background-image: url("../../assets/giftBack1.png");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            position: relative;
+        }
+        .gift2 {
+            margin: 1.2rem 1rem;
+            padding: .7rem 1rem;
+            /*width: 16.8rem;*/
+            height: 10rem;
+            font-family: PingFang-SC-Medium;
+            font-size: .8rem;
+            color: #ffffff;
+            background-image: url("../../assets/giftBack2.png");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            position: relative;
+        }
+        .list {
+            list-style: none;
+            font-family: PingFang-SC-Medium;
+        }
+        .list1 {
+            list-style: none;
+            .Type {
+                font-size: .9rem;
+            }
+            .Id {
+                padding: .375rem 0rem;
+            }
+            .money {
+                font-size: .9rem;
+            }
+        }
+        .picture {
+            width: 1.3rem;
+            height: 1.3rem;
+            right: 1rem;
+            top: 2.7rem;
+            position: absolute;
+        }
+        .picture1 {
+            width: 1.3rem;
+            height: 1.3rem;
+            right: 1rem;
+            top: 2.8rem;
+            position: absolute;
+        }
+        /*#scratch {
             width: 65%;
             height: 2.2rem;
             font-size: .7rem;
-            /* line-height: 2.2rem; */
             margin: .5rem auto;
             #card {
                 width: 100%;
@@ -273,7 +329,7 @@
                 width: 100%;
                 height: 100%;
             }
-        }
+        }*/
         .page_tran {
             .weui-dialog {
                 width: 12.5rem !important;
@@ -313,42 +369,6 @@
                 }
             }
         }
-        .gift1 {
-            margin: 1.2rem 1rem;
-            padding: .65rem 1rem;
-            height: auto;
-            font-family: PingFang-SC-Medium;
-            font-size: .8rem;
-            color: #ffffff;
-            background-image: url("../../assets/giftBack1.png");
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            position: relative;
-        }
-        .massege1 {
-            display: inline-block;
-            margin-bottom: .5rem;
-        }
-        .list {
-            list-style: none;
-            font-family: PingFang-SC-Medium;
-        }
-        .Type {
-            font-size: .9rem;
-        }
-        .Id {
-            padding: .375rem 0rem;
-        }
-        .money {
-            font-size: .9rem;
-        }
-        .picture {
-            width: 1.3rem;
-            height: 1.3rem;
-            right: 1rem;
-            top: 2.7rem;
-            position: absolute;
-        }
         .buttonBox {
             font-size: 0;
             /*display: flex;*/
@@ -356,21 +376,24 @@
             margin: auto 0;
             height: auto;
             padding-top: .55rem;
+            .Box1, .Box2, .Box3 {
+                font-size: .75rem;
+                background-color: #CDBE86;
+                color: #473A0C;
+                margin: 0rem;
+                padding: 0rem;
+                width: 27.7%;
+                height: 1.6rem;
+                margin-right: 8.45%;
+            }
+            .Box3 {
+                font-size: .75rem;
+                margin-right: 0;
+                padding: 0rem;
+            }
         }
-        .Box1, .Box2, .Box3 {
-            font-size: .75rem;
-            background-color: #CDBE86;
-            color: #473A0C;
-            margin: 0rem;
-            padding: 0rem;
-            width: 27.7%;
-            height: 1.6rem;
-            margin-right: 8.45%;
-        }
-        .Box3 {
-            font-size: .75rem;
-            margin-right: 0;
-            padding: 0rem;
+        .Id {
+            padding: .375rem 0rem;
         }
         .page_pay {
             display: flex;
@@ -447,9 +470,9 @@
         .pay-img {
             width: 7.5rem;
             height: 7.5rem;
-            margin: .75rem 2.5rem 0rem ;
+            margin: .75rem 2.5rem 0rem;
         }
-        .payImgCode{
+        .payImgCode {
             margin-top: -1.4rem;
             font-size: .75rem;
         }
@@ -500,67 +523,55 @@
                 right: .6rem;
             }
         }
-        .gift2 {
-            margin: 1.2rem 1rem;
-            padding: .7rem 1rem;
-            /*width: 16.8rem;*/
-            height: auto;
-            font-family: PingFang-SC-Medium;
-            font-size: .8rem;
-            color: #ffffff;
-            background-image: url("../../assets/giftBack2.png");
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            position: relative;
-        }
-        .list1 {
-            list-style: none;
-        }
-        .Type {
-            font-size: .9rem;
-        }
-        .number {
-            padding: .375rem 0rem;
-        }
-        .money {
-            font-size: .9rem;
-        }
-        .picture1 {
-            width: 1.3rem;
-            height: 1.3rem;
-            right: 1rem;
-            top: 2.8rem;
-            position: absolute;
-        }
         .buttonBox1 {
             height: auto;
             margin: auto 0;
-        }
-        .Box4, .Box5, .Box7, .Box8 {
-            font-size: .75rem;
-            background-color: #CDBE86;
-            color: #473A0C;
-            margin: 0rem;
-            padding: 0rem;
-            width: 27.7%;
-            height: 1.6rem;
-            margin-right: 8.45%;
-        }
-        .Box6 {
-            font-size: .75rem;
-            background-color: #CDBE86;
-            color: #473A0C;
-            margin: 0rem;
-            width: 27.7%;
-            margin-right: 0;
-            padding: 0rem;
-        }
-        .btnUp {
-            margin: .5rem 0;
-            font-size: 0;
-        }
-        .btnDown {
-            font-size: 0;
+            .btnUp {
+                margin: .5rem 0;
+                font-size: 0;
+                .Box1 {
+                    font-size: .75rem;
+                    background-color: #CDBE86;
+                    color: #473A0C;
+                    margin: 0rem;
+                    padding: 0rem;
+                    width: 27.7%;
+                    height: 1.6rem;
+                    margin-right: 8.45%;
+                }
+                .Box4, .Box5 {
+                    font-size: .75rem;
+                    background-color: #CDBE86;
+                    color: #473A0C;
+                    margin: 0rem;
+                    padding: 0rem;
+                    width: 27.7%;
+                    height: 1.6rem;
+                    margin-right: 8.45%;
+                }
+                .Box6 {
+                    font-size: .75rem;
+                    background-color: #CDBE86;
+                    color: #473A0C;
+                    margin: 0rem;
+                    width: 27.7%;
+                    margin-right: 0;
+                    padding: 0rem;
+                }
+            }
+            .btnDown {
+                font-size: 0;
+                .Box7, .Box8 {
+                    font-size: .75rem;
+                    background-color: #CDBE86;
+                    color: #473A0C;
+                    margin: 0rem;
+                    padding: 0rem;
+                    width: 27.7%;
+                    height: 1.6rem;
+                    margin-right: 8.45%;
+                }
+            }
         }
         .gift-mask {
             position: fixed;
@@ -572,6 +583,4 @@
             background: rgba(0, 0, 0, 0.6);
         }
     }
-
-
 </style>
