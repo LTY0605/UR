@@ -10,9 +10,10 @@
                 <!--<span class="material_item material_item_name">用户名</span>-->
                 <!--<span class="material_item material_item_code"></span>-->
                 <!--</li>-->
-                <li>
+                <li class="personName">
                     <group>
-                        <x-input title="用户名" placeholder="请输入用户名" v-model="customerName" :max="20" :is-type="zhengze_name"></x-input>
+                        <x-input title="用户名" placeholder="请输入用户名" v-model="customerName" :max="20"
+                                 :is-type="zhengze_name"></x-input>
                     </group>
                 </li>
                 <li>
@@ -76,14 +77,14 @@
 <script>
     import {
         XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, ChinaAddressData,
-        Value2nameFilter as value2name, Name2valueFilter as name2value, Datetime, XDialog,Toast
+        Value2nameFilter as value2name, Name2valueFilter as name2value, Datetime, XDialog, Toast
     } from 'vux'
     import {
         memberInfoService, infoEditService, mobileEditService, codeService
     } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, Datetime, XDialog,Toast
+            XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, Datetime, XDialog, Toast
         },
         data () {
             return {
@@ -144,7 +145,7 @@
                     this.warnText = '请输入手机验证码';
                     return
                 }
-                if(!this.beTel(this.newMobileTel).valid){
+                if (!this.beTel(this.newMobileTel).valid) {
                     this.showNoScroll = true;
                     this.warnText = '请输入正确的手机号'
                     return
@@ -169,7 +170,7 @@
                             _this.$router.push({
                                 name: 'login',
                             });
-                        },300)
+                        }, 300)
                     } else {
                         this.showNoScroll = true;
                         this.warnText = body.errmsg;
@@ -186,7 +187,7 @@
                     this.warnText = '请输入新手机号';
                     return
                 }
-                if(!this.beTel(this.newMobileTel).valid){
+                if (!this.beTel(this.newMobileTel).valid) {
                     this.showNoScroll = true;
                     this.warnText = '请输入正确的新手机号'
                     return
@@ -270,12 +271,12 @@
             sureSubmit(){
                 let _this = this;
                 var pro = this.attress.split(" ")
-                if(this.customerName == ''){
+                if (this.customerName == '') {
                     this.showNoScroll = true;
                     this.warnText = '请输入用户名';
                     return
                 }
-                if(!this.zhengze_name(this.customerName).valid){
+                if (!this.zhengze_name(this.customerName).valid) {
                     this.showNoScroll = true;
                     this.warnText = '用户名格式不对，字数在4到20之间'
                     return
@@ -302,7 +303,7 @@
                             _this.$router.push({
                                 name: 'index',
                             });
-                        },300)
+                        }, 300)
                     } else {
                         this.showNoScroll = true;
                         this.warnText = '修改失败';
@@ -447,6 +448,9 @@
                     font-size: .7rem;
                 }
             }
+            .personName{
+                background: none;
+            }
             .birthday {
                 background: none;
             }
@@ -476,7 +480,7 @@
                     color: #EC6941;
                     z-index: 100;
                 }
-                .getCode2{
+                .getCode2 {
                     font-size: .7rem;
                     position: absolute;
                     right: 0;
