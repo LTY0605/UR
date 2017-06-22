@@ -194,7 +194,7 @@
                 }
                 codeService().save({
                     scope: 'mobileTel',
-                    mobileTel: this.mobileTel,
+                    mobileTel: this.newMobileTel,
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {
