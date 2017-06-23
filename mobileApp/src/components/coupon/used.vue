@@ -26,6 +26,7 @@
                     <p style="margin:0;font-size: .6rem;color: #999999">有效期：{{coupon.startDate | date('YYYY-MM-DD')}}～{{coupon.endDate | date('YYYY-MM-DD')}}</p>
                     <div style="height: auto">
                         <p @click="explainShow(index+1)" class="couponExplain">礼券说明
+                            <span v-if="explainList == index+1">∨</span>
                             <span v-if="explainList != index+1" class="couponRight">></span></p>
                         <p v-if="explainList == index+1" class="coupon-text">
                             <span v-if="coupon.msg">{{coupon.msg}}</span>
@@ -166,7 +167,7 @@
                 font-size: .45rem;
                 color: #FFFFFF;
                 margin-top: .7rem;
-                transform: scale(.8);
+                transform: scale(.88);
                 width: 120%;
                 text-align: center;
             }
