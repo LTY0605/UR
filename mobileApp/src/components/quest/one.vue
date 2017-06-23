@@ -130,11 +130,11 @@
             display: inline-block;
             vertical-align: top;
             color: #ab9236;
-            font-size: .8rem;
-            /*margin-top: -.14rem;*/
+            font-size: 1rem;
+            margin-top: .05rem;
             margin-left: .6rem;
             width: 86%;
-            line-height: 1.2rem;
+            line-height: 1rem;
         }
         .con_select{
             width: 100%;

@@ -100,9 +100,14 @@
                 })
             },
             addAddress(){
-                this.$router.push({
-                    name: 'newAddress',
-                });
+                if(window.navigator.onLine==true){
+                    this.$router.push({
+                        name: 'newAddress',
+                    });
+                }else{
+                    this.showNoScroll = true;
+                    this.warnText = '网络超时，请重试'
+                }
             },
             deleteItem(uid,index){
                 this.currentIndex = index;
