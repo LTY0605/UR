@@ -57,14 +57,6 @@
             </div>
             <button class="vux-close" @click="goLink">确定</button>
         </x-dialog>
-        <x-dialog v-model="showBind" class="dialog-demo">
-            <p class="dialog-title">温馨提示</p>
-            <div class="dialog-contain">
-                {{warnText2}}
-            </div>
-            <button v-model="aa" class="vux-close" @click="showa()" value="0">是</button>
-            <button v-model="bb" class="vux-close" @click="showBind=false" value="1">否</button>
-        </x-dialog>
     </div>
 </template>
 <script>
@@ -82,10 +74,6 @@
         },
         data () {
             return {
-                aa: '',
-                bb: '',
-                warnText2: '',
-                showBind: false,
                 showNoScroll: false,
                 warnText: '',
                 phone: '',
@@ -104,9 +92,6 @@
 
         },
         methods: {
-            showa(){
-                alert(this.isbind)
-            },
             goToLink(url){
                 this.$router.push({
                     name: url,
@@ -119,9 +104,6 @@
                  });*/
             },
             login_submit () {
-                this.showBind = true;
-                this.warnText2 = '是否绑定此微信';
-                return
 
                 let _this = this;
                 if (this.phone == '' || this.code == '') {
@@ -230,26 +212,6 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_login {
-        .dialog-demo {
-            font-size: .9rem;
-            .dialog-title {
-                font-size: 1rem;
-                height: 2.2rem;
-                line-height: 2.2rem;
-            }
-            .dialog-contain {
-                width: 100%;
-                padding: .5rem 0 1rem 0;
-                border-bottom: 1px solid #ddd;
-                color: #999999;
-            }
-            .vux-close {
-                height: 2rem;
-                line-height: 2rem;
-                color: #0BB20C;
-                background: none;
-            }
-        }
         .vux-header {
             background-color: #AB9236 !important;
         }
