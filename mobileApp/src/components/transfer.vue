@@ -21,7 +21,7 @@
             <x-dialog v-model="showNoScroll" class="dialog-demo" :scroll="false">
                 <div @click.stop class="transferCode">
                     <p class="transferCode-title">请输入密码</p>
-                    <x-input type="password" v-model.trim="password" class="transferCode-input" required></x-input>
+                    <x-input type="password" v-model.trim="password" class="transferCode-input"></x-input>
                     <!--<p v-if="warnShow" class="warn-text">密码错误</p>-->
                     <div @click="enter">
                         <x-button><span class="transferCode-text">确 定</span></x-button>
