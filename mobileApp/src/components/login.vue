@@ -105,6 +105,7 @@
         },
         methods: {
             showIsbind(){
+                let _this = this;
                 this.showBind = false;
                 this.isbind = 0;
                 let data = {
@@ -137,7 +138,7 @@
                         if(this.isbind == 0){
                             window.localStorage.setItem("wxOpenId", body.wxOpenId);
                             setTimeout(function () {
-                                this.$router.push({
+                                _this.$router.push({
                                     name: 'index'
                                 })
                             }, 500)
@@ -153,6 +154,7 @@
                 })
             },
             showNoIsbind(){
+                let _this = this;
                 this.showBind = false;
                 this.isbind = 1;
                 let data = {
@@ -184,7 +186,7 @@
                         window.localStorage.setItem("isbind", this.isbind);
                         if(this.isbind == 1){
                             setTimeout(function () {
-                                this.$router.push({
+                                _this.$router.push({
                                     name: 'index'
                                 })
                             }, 500)
