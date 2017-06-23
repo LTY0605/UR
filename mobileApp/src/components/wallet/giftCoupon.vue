@@ -234,14 +234,19 @@
                 this.currentName = name;
                 this.currentCode = code;
                 this.currentPSW = passWord;
-                this.showNoScroll = true;
-                setTimeout(function () {
-                    LuckyCard.case({
-                        ratio: .7,
-                    }, function () {
-                        this.clearCover();
-                    });
-                }, 300)
+                if(window.navigator.onLine==true){
+                    this.showNoScroll = true;
+                    setTimeout(function () {
+                        LuckyCard.case({
+                            ratio: .7,
+                        }, function () {
+                            this.clearCover();
+                        });
+                    }, 300)
+                }else{
+                    this.showNoScro = true;
+                    this.warnText = '网络超时，请重试'
+                }
             },
             show() {
                 this.showNoScroll2 = true;

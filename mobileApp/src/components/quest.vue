@@ -8,27 +8,37 @@
                 <p>UR致力于为您提供<br/>高品质的时尚产品和优质服务！<br>
                 为了提高您的购物体验，<br>请您提供宝贵的意见，<br>完成问卷即可获赠<span class="con-integral">300会员积分</span>，<br>谢谢！</p>
             </div>
-            <router-link to="questPage">
-                <span class="con-btn">开始问卷</span>
-            </router-link>
+            <span @click="goLinkQuest" class="con-btn">开始问卷</span>
         </div>
+        <!--提示-->
+        <toast v-model="showNoScroll2" type="text" :time="1000">{{warnText}}</toast>
     </div>
 </template>
 
 <script>
-    import {XHeader} from 'vux'
+    import {XHeader, Toast} from 'vux'
     export default{
         components:{
-            XHeader
+            XHeader, Toast
         },
         data(){
             return{
-                customerName:''
+                customerName:'',
+                showNoScroll2: false,
+                warnText: ''
             }
         },
         methods:{
             questName(){
                 this.customerName = window.localStorage.getItem('customerName');
+            },
+            goLinkQuest(){
+                if(window.navigator.onLine==true){
+                    this.$router.push({name:'questPage'})
+                }else{
+                    this.showNoScroll2 = true;
+                    this.warnText = '网络超时，请重试'
+                }
             }
         },
         mounted(){

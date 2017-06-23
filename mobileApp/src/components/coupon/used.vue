@@ -37,15 +37,17 @@
                 <div v-show="isShow"  @click="showCode(coupon.thqNO)" class="couList-code"></div>
             </div>
         </div>
+        <!--提示-->
+        <toast v-model="showNoScroll2" type="text" :time="1000">{{warnText}}</toast>
     </div>
 </template>
 <script>
-    import {XHeader, Scroller, XDialog} from 'vux'
+    import {XHeader, Scroller, XDialog, Toast} from 'vux'
     import noData from '../common/noData.vue'
     import {URL_getBarcode} from '../../services/index.js'
     export default {
         components: {
-            XHeader, Scroller, XDialog,noData
+            XHeader, Scroller, XDialog, noData, Toast
         },
         props: {
             couponList:Array,
@@ -58,8 +60,10 @@
                 showRight: true,
                 showText: false,
                 showNoScroll: false,
+                showNoScroll2: false,
                 currentCode:'',
                 barcodeUrl:'',
+                warnText:''
             }
         },
         mounted(){
@@ -70,8 +74,13 @@
         },
         methods: {
             showCode(code) {
-                this.showNoScroll = true;
-                this.currentCode = code;
+                if(window.navigator.onLine==true){
+                    this.showNoScroll = true;
+                    this.currentCode = code;
+                }else{
+                    this.showNoScroll2 = true;
+                    this.warnText = '网络超时，请重试'
+                }
             },
             hide() {
                 this.showNoScroll = false;
