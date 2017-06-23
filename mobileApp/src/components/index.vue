@@ -97,12 +97,12 @@
                         <img width="24" src="../assets/icon_dialog.png" alt="图片"/>
                         <p class="action-text">时尚体验</p>
                     </li>
-                    <router-link to="http://weixin.ur.com.cn/app/index.php?i=2&c=mc&a=store&">
+                    <a href="http://weixin.ur.com.cn/app/index.php?i=2&c=mc&a=store&">
                         <li>
                             <img width="24" src="../assets/index_icon.png" alt="图片"/>
                             <p class="action-text">适用门店</p>
                         </li>
-                    </router-link>
+                    </a>
                 </ul>
                 <div class="action-img">
                     <img src="../assets/banner.png" alt="图片"/>
@@ -165,6 +165,9 @@
         mounted(){
         },
         methods:{
+            goStore(){
+                this.$router.push({name:'http://weixin.ur.com.cn/app/index.php?i=2&c=mc&a=store&'})
+            },
             goIndex(){
                 this.$router.push({name:'login'})
             },

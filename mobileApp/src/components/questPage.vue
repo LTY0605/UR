@@ -81,6 +81,9 @@
             },
             saveSurveyData(){
                 surveyCommit().save(
+//                    {
+//                    cardcode: window.localStorage.getItem("cardcode"),
+//                    surveyCode: this.surveyCode}
                     this.submitCode
                 ).then(res=>{
                 },res=>{
