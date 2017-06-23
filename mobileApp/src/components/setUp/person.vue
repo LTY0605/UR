@@ -501,6 +501,9 @@
                 .weui-cell__ft {
                     display: none;
                 }
+                .weui-label{
+                    width: 3.5rem !important;
+                }
             }
 
         }
