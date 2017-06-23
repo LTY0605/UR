@@ -7,7 +7,7 @@
         <div>
             <div class="header">
                 <div class="imgBox">
-                    <img class="logo" src="../assets/images/logo.png" alt="">
+                    <img class="logo" src="../assets/images/logo.png" alt="图片">
                 </div>
             </div>
             <div class="loginContent">
@@ -57,6 +57,14 @@
             </div>
             <button class="vux-close" @click="goLink">确定</button>
         </x-dialog>
+        <x-dialog v-model="showBind" class="dialog-demo">
+            <p class="dialog-title">温馨提示</p>
+            <div class="dialog-contain">
+                {{warnText2}}
+            </div>
+            <button v-model="aa" class="vux-close" @click="showa()" value="0">是</button>
+            <button v-model="bb" class="vux-close" @click="showBind=false" value="1">否</button>
+        </x-dialog>
     </div>
 </template>
 <script>
@@ -74,6 +82,10 @@
         },
         data () {
             return {
+                aa: '',
+                bb: '',
+                warnText2: '',
+                showBind: false,
                 showNoScroll: false,
                 warnText: '',
                 phone: '',
@@ -92,18 +104,25 @@
 
         },
         methods: {
+            showa(){
+                alert(this.isbind)
+            },
             goToLink(url){
                 this.$router.push({
                     name: url,
                 });
             },
             goLink(){
-                this.showNoScroll = false;
-                this.$router.push({
-                    name: 'index',
-                });
+                /*this.showNoScroll = false;
+                 this.$router.push({
+                 name: 'index',
+                 });*/
             },
             login_submit () {
+                this.showBind = true;
+                this.warnText2 = '是否绑定此微信';
+                return
+
                 let _this = this;
                 if (this.phone == '' || this.code == '') {
                     this.loginAlert = true;
@@ -124,7 +143,8 @@
                 loginService().save({
                     wxOpenID: window.localStorage.getItem("wxOpenId"),
                     code: this.code,
-                    mobileTel: this.phone
+                    mobileTel: this.phone,
+                    isbind: this.isbind
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {
