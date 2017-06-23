@@ -4,8 +4,7 @@
             <ul class="edit_material">
                 <li>
                     <group>
-                        <x-input type="password" title="原密码" placeholder="原密码"  :max="11" :is-type="bePassWord"
-                                 v-model="oldPassword"></x-input>
+                        <x-input type="password" title="原密码" placeholder="原密码"  :max="11" v-model="oldPassword"></x-input>
                     </group>
                 </li>
                 <li>
