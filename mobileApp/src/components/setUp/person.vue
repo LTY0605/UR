@@ -192,6 +192,11 @@
                     this.warnText = '请输入正确的新手机号'
                     return
                 }
+                if (this.newMobileTel == this.mobileTel) {
+                    this.showNoScroll = true;
+                    this.warnText = '新旧手机号不能一样';
+                    return
+                }
                 codeService().save({
                     scope: 'mobileTel',
                     mobileTel: this.newMobileTel,
