@@ -7,10 +7,10 @@
             <group>
                 <x-input class="consignee" title="收货人姓名" v-model.trim="consignee" placeholder="收货人姓名,必填"
                          :max="10"></x-input>
-                <x-input title="收货人电话" v-model="mobile"  placeholder="收货人电话,必填" :max="11" :min="11"
+                <x-input title="收货人电话" v-model="mobile" placeholder="收货人电话,必填" :max="11" :min="11"
                          keyboard="number"></x-input>
                 <x-address title="所在地区" v-model="attrValue" :list="addressData"
-                               placeholder="请选择地址,必填"></x-address>
+                           placeholder="请选择地址,必填"></x-address>
                 <x-textarea class="address-text" placeholder="详细地址,必填" v-model.trim="address"></x-textarea>
                 <x-input title="邮政编码" v-model="postcode" placeholder="邮政编码,必填" :max="6" :min="6"></x-input>
             </group>
@@ -119,7 +119,7 @@
                     this.warnText = '您有信息未填写';
                     return
                 }
-                if(!this.beTel(this.mobile).valid){
+                if (!this.beTel(this.mobile).valid) {
                     this.showNoScroll = true;
                     this.warnText = '请输入正确的收货人电话'
                     return
@@ -131,10 +131,10 @@
                     provice: pro[0],
                     city: pro[1],
                     district: pro[2],
-                    postcode:this.postcode,
-                    address:this.address,
-                    mobile:this.mobile,
-                    consignee:this.consignee
+                    postcode: this.postcode,
+                    address: this.address,
+                    mobile: this.mobile,
+                    consignee: this.consignee
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {
@@ -234,7 +234,7 @@
     }
 
     .page_reviseAddress {
-        .weui-input{
+        .weui-input {
             color: #333;
         }
         .text {
@@ -292,7 +292,7 @@
             .weui-cell:before {
                 border: none;
             }
-            label.weui-label{
+            label.weui-label {
                 width: 4rem;
             }
             .weui-label {
