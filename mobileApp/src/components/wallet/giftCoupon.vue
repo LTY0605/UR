@@ -78,11 +78,11 @@
                             <div class="scanPay">
                                 <p class="scanPay-title">{{currentName}}</p>
                                 <div class="pay-box">
-                                    <img class="scanPay-img1" :src="barcodeUrl+'?text='+currentCode" alt="图片"/>
+                                    <img class="scanPay-img1" :src="barcodeUrl+'?text='+currentCode" alt="网络超时，请重试"/>
                                 </div>
                                 <p class="scanPay-number">{{currentCode}}</p>
                                 <div class="pay-box">
-                                    <img class="scanPay-img2" :src="barcodeUrl+'?text='+currentPSW" alt="图片"/>
+                                    <img class="scanPay-img2" :src="barcodeUrl+'?text='+currentPSW" alt="网络超时，请重试"/>
                                 </div>
                                 <!--<p class="scanPay-massege">如不能扫描请刮开密码</p>-->
                                 <!--<div id="scratch">-->
@@ -95,7 +95,8 @@
                         </div>
                     </div>
                     <div class="tabItem" v-show="titleTab==1">
-                        <img class="pay-img" :src="qRcodeUrl+'?text='+currentCode+'&width=150&height=150'" alt="图片"/>
+                        <img class="pay-img" :src="qRcodeUrl+'?text='+currentCode+'&width=150&height=150'"
+                             alt="网络超时，请重试"/>
                         <p class="payImgCode">{{currentCode}}</p>
                         <p class="pay-text">
                             <a href="javascript:void(0)" @click="showNoScroll=false">返 回</a>
@@ -255,7 +256,6 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     @import "../../tools/luckyCar/lucky-card.css";
-
     .page_giftC {
         .gift1 {
             margin: 1.2rem 1rem;
@@ -468,6 +468,7 @@
             }
         }
         .pay-img {
+            font-size: .75rem;
             width: 7.5rem;
             height: 7.5rem;
             margin: .75rem 2.5rem 0rem;
@@ -504,6 +505,7 @@
                 /*height: 2.6rem;*/
                 width: 10rem;
                 height: 5rem;
+                font-size: .75rem;
             }
             .scanPay-img2 {
                 margin: .6rem auto;
