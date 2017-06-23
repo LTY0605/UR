@@ -230,6 +230,26 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_login {
+        .dialog-demo {
+            font-size: .9rem;
+            .dialog-title {
+                font-size: 1rem;
+                height: 2.2rem;
+                line-height: 2.2rem;
+            }
+            .dialog-contain {
+                width: 100%;
+                padding: .5rem 0 1rem 0;
+                border-bottom: 1px solid #ddd;
+                color: #999999;
+            }
+            .vux-close {
+                height: 2rem;
+                line-height: 2rem;
+                color: #0BB20C;
+                background: none;
+            }
+        }
         .vux-header {
             background-color: #AB9236 !important;
         }
