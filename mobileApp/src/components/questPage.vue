@@ -89,46 +89,55 @@
                 })
             },
             submit(){
-                let data = {};  //选择题的对象
-                let other = {}; //其他选项的对象
-                let name = [];  //其他选项的key
-                let obj = {};   //修改好的选择题对象
-                let obj2 = {};  //修改好的其他选项的对象
-                let cardcode = window.localStorage.getItem("cardcode");
-                obj.cardcode = cardcode;
-                obj.surveyCode = this.surveyCode;
-                //------------选项push到一个对象里--------------
-                for(let i=0;i<this.length;i++){
-                    //----------------部分多选的得遍历加前缀----------------
-                    if(Array.isArray(this.surveyData[i].answers)){
-                        let arrAnswer = [];
-                        for(let j=0;j<(this.surveyData[i].answers).length;j++){
-                            arrAnswer.push((this.surveyData[i].answers)[j])
+                if(window.navigator.onLine==true){
+                    let data = {};  //选择题的对象
+                    let other = {}; //其他选项的对象
+                    let name = [];  //其他选项的key
+                    let obj = {};   //修改好的选择题对象
+                    let obj2 = {};  //修改好的其他选项的对象
+                    let cardcode = window.localStorage.getItem("cardcode");
+                    obj.cardcode = cardcode;
+                    obj.surveyCode = this.surveyCode;
+                    //------------选项push到一个对象里--------------
+                    for(let i=0;i<this.length;i++){
+                        //----------------部分多选的得遍历加前缀----------------
+                        if(Array.isArray(this.surveyData[i].answers)){
+                            let arrAnswer = [];
+                            for(let j=0;j<(this.surveyData[i].answers).length;j++){
+                                arrAnswer.push((this.surveyData[i].answers)[j])
+                            }
+                            this.surveyData[i].answers = arrAnswer
+                        }else{
+                            this.surveyData[i].answers = this.surveyData[i].answers
                         }
-                        this.surveyData[i].answers = arrAnswer
-                    }else{
-                        this.surveyData[i].answers = this.surveyData[i].answers
+                        Array.prototype.push.call(data,this.surveyData[i].answers);
+                        //---------------其他选项----------------
+                        if(this.surveyData[i].otherOption[0]){
+                            Array.prototype.push.call(other,this.surveyData[i].otherOption[0].value);
+                            //---------------value的前缀---------------------
+                            name.push(this.surveyData[i].otherOption[0].name);
+                        }
                     }
-                    Array.prototype.push.call(data,this.surveyData[i].answers);
-                    //---------------其他选项----------------
-                    if(this.surveyData[i].otherOption[0]){
-                        Array.prototype.push.call(other,this.surveyData[i].otherOption[0].value);
-                        //---------------value的前缀---------------------
-                        name.push(this.surveyData[i].otherOption[0].name);
-                    }
-                }
-                //---------------用Object.keys配合forEach更改对象key的值------------------
-                Object.keys(data).forEach(key=>obj[this.surveyData[key].subjectCode] = data[key]);
-                Object.keys(other).forEach(key=>{obj2[name[key]] = other[key]});
-                console.log(obj,'-------------------选项的对象-------------------');
-                console.log(obj2,'---------------------其他选项的对象---------------------');
-                this.submitCode = Object.assign(obj,obj2);
-                console.log(this.submitCode,'=================POST的对象===================');
+                    //---------------用Object.keys配合forEach更改对象key的值------------------
+                    Object.keys(data).forEach(key=>obj[this.surveyData[key].subjectCode] = data[key]);
+                    Object.keys(other).forEach(key=>{obj2[name[key]] = other[key]});
+                    console.log(obj,'-------------------选项的对象-------------------');
+                    console.log(obj2,'---------------------其他选项的对象---------------------');
+                    this.submitCode = Object.assign(obj,obj2);
+                    console.log(this.submitCode,'=================POST的对象===================');
 //                return
-                this.saveSurveyData()
-                this.$router.push({
-                    path: '/'
-                })
+                    this.saveSurveyData();
+                    this.showNoScroll = true;
+                    this.warnText = '问卷调查提交成功';
+                    setTimeout(()=>{
+                        this.$router.push({
+                            path: '/'
+                        })
+                    },1000)
+                }else{
+                    this.showNoScroll = true;
+                    this.warnText = '网络超时，请重试'
+                }
             },
             next(){
                 //判断是否有选中

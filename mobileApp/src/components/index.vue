@@ -185,7 +185,12 @@
                 this.cardcode = window.localStorage.getItem('cardcode');
             },
             show() {
-                this.showNoScroll = true;
+                if(window.navigator.onLine==true){
+                    this.showNoScroll = true;
+                }else{
+                    this.showNoScroll2 = true;
+                    this.warnText = '网络超时，请重试'
+                }
             },
             hide() {
                 this.showNoScroll = false;
