@@ -113,7 +113,8 @@
         <div @click="hide">
             <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
                 <div @click.stop class="couponCode">
-                    <img class="couponCode-img" :src="barcodeUrl+'?text='+cardcode+'&width=200&height=200'"  alt="图片">
+                    <img class="couponCode-img" :src="barcodeUrl+'?text='+cardcode+'&width=400&height=400'"  alt="图片">
+                    <p class="couponCode-p">{{cardcode}}</p>
                     <div @click="hide" class="couponCode-close"></div>
                 </div>
             </x-dialog>
@@ -501,8 +502,13 @@
             position: relative;
             background: white;
             .couponCode-img{
-                width: auto;
-                height: auto;
+                width: 10rem;
+                height: 10rem;
+            }
+            .couponCode-p{
+                font-size: .75rem;
+                margin-top: -1rem;
+                margin-bottom: 1rem;
             }
             .couponCode-close{
                 position: absolute;
