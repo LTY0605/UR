@@ -123,7 +123,6 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_integral {
-        margin-bottom: 3.5rem;
         .vux-label {
             font-size: .75rem;
             color: #564712;

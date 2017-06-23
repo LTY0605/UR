@@ -5,28 +5,24 @@
     <div class="page_index">
         <!--主页头部-->
         <div class="head">
-            <x-header :left-options="{backText:''}"></x-header>
+            <x-header :left-options="{showBack: false}"><a @click="goIndex" slot="left"></a></x-header>
             <p class="head-name">{{customerName}}</p>
             <div class="head-img">
-                <img :src="headimgurl" alt="图片"/>
+                <img :src="headimgurl" alt=""/>
             </div>
             <router-link :to="{name:'personMain',query:{tab:0}}">
                 <div class="edit"></div>
             </router-link>
-            <div @click="show" class="code"></div>
+            <div  @click="show" class="code"></div>
             <flexbox :gutter="0">
-                <flexbox-item>
-                    <div class="headTab vip">
-                        <p class="vip-text">{{cardcode}}</p>
-                        <p class="vip-title">银卡会员</p>
-                    </div>
-                </flexbox-item>
-                <flexbox-item>
-                    <div class="headTab integral">
-                        <p class="vip-text">{{integral}}</p>
-                        <p class="vip-title">积分</p>
-                    </div>
-                </flexbox-item>
+                <flexbox-item><div class="headTab vip">
+                    <p class="vip-text">{{cardcode}}</p>
+                    <p class="vip-title">银卡会员</p>
+                </div></flexbox-item>
+                <flexbox-item><div class="headTab integral">
+                    <p class="vip-text">{{integral}}</p>
+                    <p class="vip-title">积分</p>
+                </div></flexbox-item>
             </flexbox>
         </div>
         <!--售前售后-->
@@ -115,9 +111,10 @@
         </div>
         <!--二维码-->
         <div @click="hide">
-            <x-dialog v-model="showNoScroll" class="dialog-demo" :scroll="false">
+            <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
                 <div @click.stop class="couponCode">
-                    <img class="couponCode-img" :src="barcodeUrl+'?text='+cardcode+'&width=200&height=200'" alt="图片">
+                    <img class="couponCode-img" :src="barcodeUrl+'?text='+cardcode+'&width=400&height=400'"  alt="图片">
+                    <p class="couponCode-p">{{cardcode}}</p>
                     <div @click="hide" class="couponCode-close"></div>
                 </div>
             </x-dialog>
@@ -137,24 +134,24 @@
             XHeader, Flexbox, FlexboxItem, Grid, GridItem, Group, Cell, XDialog, Alert, Toast
         },
         data(){
-            return {
-                barcodeUrl: '',
-                integral: '',    //积分
-                mycards: '',    //礼品卡
-                coupon: '',     //优惠券
-                unpaid: '',     //待付款
-                cardcode: '',    //会员卡号
-                customerName: '',    //会员姓名
+            return{
+                barcodeUrl:'',
+                integral:'',    //积分
+                mycards:'',    //礼品卡
+                coupon:'',     //优惠券
+                unpaid:'',     //待付款
+                cardcode:'',    //会员卡号
+                customerName:'',    //会员姓名
                 headimgurl: require('../assets/header.png'),  //头像地址
-                warnText: '',
-                customerName: '',
-                showUnpaid: true,
-                showNoScroll: false,
-                showNoScroll2: false,
-                /*  actions:[
-                 {actionImg: require('../assets/icon_save.png'),actionText:'调查问卷'},
-                 {actionImg: require('../assets/icon_dialog.png'),actionText:'时尚体验'}
-                 ]*/
+                warnText:'',
+                customerName:'',
+                showUnpaid:true,
+                showNoScroll:false,
+                showNoScroll2:false,
+              /*  actions:[
+                    {actionImg: require('../assets/icon_save.png'),actionText:'调查问卷'},
+                    {actionImg: require('../assets/icon_dialog.png'),actionText:'时尚体验'}
+                ]*/
             }
         },
         watch: {},
@@ -167,7 +164,10 @@
         },
         mounted(){
         },
-        methods: {
+        methods:{
+            goIndex(){
+                this.$router.push({name:'login'})
+            },
             goToLink(url){
                 this.$router.push({
                     name: url,
@@ -178,7 +178,7 @@
                 this.warnText = '敬请期待'
             },
             personData(){
-                if (window.localStorage.getItem('headimgurl') && window.localStorage.getItem('headimgurl') != '') {
+                if(window.localStorage.getItem('headimgurl') && window.localStorage.getItem('headimgurl') != ''){
                     this.headimgurl = window.localStorage.getItem('headimgurl');
                 }
                 this.customerName = window.localStorage.getItem('customerName');
@@ -191,25 +191,25 @@
                 this.showNoScroll = false;
             },
             payment(){
-                if (this.unpaid == null || this.unpaid == 0 || this.unpaid == '') {
+                if(this.unpaid == null || this.unpaid == 0 || this.unpaid == ''){
                     this.showUnpaid = false;
                 }
             },
             renderData(){
                 indexService().save({
                     cardcode: window.localStorage.getItem('cardcode')
-                }).then(res => {
+                }).then(res =>{
                     let body = res.body;
-                    if (body.errcode == 0) {
+                    if(body.errcode == 0){
                         this.integral = body.integral;
                         this.mycards = body.mycards;
                         this.unpaid = body.unpaid;
                         this.coupon = body.coupon;
-                    } else {
+                    } else{
                         this.showNoScroll2 = true;
                         this.warnText = body.errmsg;
                     }
-                }, res => {
+                },res =>{
                     this.showNoScroll2 = true;
                     this.warnText = '请求错误';
                 })
@@ -219,51 +219,65 @@
     }
 </script>
 <style lang="less" rel="stylesheet/less">
-    .page_index {
+    .page_index{
         .vux-header {
-            background-color: rgba(0, 0, 0, 0) !important;
+            background-color: rgba(0,0,0,0) !important;
             width: 100%;
             padding: 0;
+            a{
+
+                content: "";
+                position: absolute;
+                width: 12px;
+                height: 12px;
+                border: 1px solid #fff;
+                border-width: 1px 0 0 1px;
+                -webkit-transform: rotate(315deg);
+                -ms-transform: rotate(315deg);
+                transform: rotate(315deg);
+                top: .2rem;
+                left: .2rem;
+            }
         }
         .vux-header .vux-header-title, .vux-header h1 {
             font-size: .85rem;
         }
-        .vux-header .vux-header-left .left-arrow:before {
+        .vux-header .vux-header-left .left-arrow:before{
             border: 1px solid #FFFFFF;
             border-width: 1px 0 0 1px;
         }
-        .alert {
-            .weui-dialog {
+        .alert{
+            .weui-dialog{
                 width: 80% !important;
             }
         }
-        .head {
+        .head{
             width: 100%;
             height: auto;
-            background: radial-gradient(rgba(171, 146, 54, 0.6), rgba(171, 146, 54, 1));
+            background: radial-gradient(rgba(171,146,54,0.6),rgba(171,146,54,1));
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
-            .head-img {
+            .head-img{
                 width: 4.75rem;
                 height: 4.75rem;
                 border-radius: 50%;
-                background: rgba(255, 255, 255, 0.5);
+                background: rgba(255,255,255,0.5);
                 margin-bottom: 1.5rem;
                 padding: 2px;
-                img {
+                img{
                     width: 100%;
                     height: 100%;
                     border-radius: 50%;
                 }
             }
-            .head-name {
+            .head-name{
                 font-size: .9rem;
                 color: #FFFFFF;
                 margin-bottom: .75rem;
             }
-            .edit {
+            .edit{
                 position: absolute;
                 width: 1rem;
                 height: 1rem;
@@ -273,7 +287,7 @@
                 bottom: 3.3rem;
                 left: 1rem;
             }
-            .code {
+            .code{
                 position: absolute;
                 width: 1.15rem;
                 height: .85rem;
@@ -283,44 +297,44 @@
                 bottom: 3.3rem;
                 right: 1rem;
             }
-            .headTab {
+            .headTab{
                 width: 100%;
                 height: 2.75rem;
                 padding: .5rem 0 .5rem 0;
                 border-top: 1px solid #C9B774;
                 border-left: 1px solid #C9B774;
             }
-            .vip {
+            .vip{
                 border-left: none;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                .vip-text {
+                .vip-text{
                     font-size: .75rem;
                     color: #FFFFFF;
                 }
-                .vip-title {
+                .vip-title{
                     font-size: .6rem;
                     color: #564712;
                 }
             }
-            .integral {
+            .integral{
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                .vip-text {
+                .vip-text{
                     font-size: .75rem;
                     color: #FFFFFF;
                 }
-                .vip-title {
+                .vip-title{
                     font-size: .6rem;
                     color: #564712;
                 }
             }
         }
-        .tab {
-            .vux-badge {
-                background: rgba(255, 255, 255, 1);
+        .tab{
+            .vux-badge{
+                background: rgba(255,255,255,1);
                 border: 1px solid #FF0000;
                 color: #FF0000;
                 font-size: .65rem;
@@ -328,41 +342,41 @@
                 line-height: .65rem;
                 border-radius: 50%;
             }
-            .weui-grids {
+            .weui-grids{
                 border-bottom: .35rem solid #E5E5E5;
             }
-            .weui-grids:before {
+            .weui-grids:before{
                 border: none;
             }
-            .weui-grid {
+            .weui-grid{
                 padding: .9rem;
             }
-            .weui-grid:before {
+            .weui-grid:before{
                 border: none !important;
             }
-            .weui-grid:after {
+            .weui-grid:after{
                 border: none !important;
             }
-            .weui-grid__icon {
+            .weui-grid__icon{
                 height: 1.5rem;
             }
-            .weui-grid__icon img {
+            .weui-grid__icon img{
                 margin: 0 auto;
             }
-            .tab-img {
+            .tab-img{
                 height: 1rem;
                 width: 1.25rem;
             }
-            .money {
-                width: 1rem;
+            .money{
+                width: 1rem ;
                 text-align: center;
             }
-            .tab-text {
+            .tab-text{
                 font-size: .6rem;
                 color: #333333;
                 text-align: center;
             }
-            .tab-badge {
+            .tab-badge{
                 position: absolute;
                 color: #FF0000;
                 width: .75rem;
@@ -377,19 +391,19 @@
                 right: 1.4rem;
             }
         }
-        .wallet {
+        .wallet{
             border-bottom: .35rem solid #E5E5E5;
-            .li-integral {
+            .li-integral{
                 margin-right: 0 !important;
             }
-            ul {
+            ul{
                 list-style: none;
                 font-size: 0;
                 height: 3rem;
                 margin: 0;
                 padding: 0;
             }
-            li {
+            li{
                 display: inline-block;
                 width: 25%;
                 padding: 0;
@@ -398,79 +412,79 @@
                 margin-right: 12%;
                 text-align: center;
                 color: #333333;
-                .color-style {
+                .color-style{
                     color: #333333;
                 }
             }
-            .vux-label {
+            .vux-label{
                 font-size: .75rem;
                 color: #333333;
             }
-            .weui-cells {
+            .weui-cells{
                 margin-top: 0 !important;
                 padding: 0 1rem;
             }
-            .weui-cell {
+            .weui-cell{
                 padding: .6rem 0 .5rem 0;
                 border-bottom: 1px solid #D2D2D2;
             }
-            .weui-cell:before {
+            .weui-cell:before{
                 left: .75rem !important;
                 right: .75rem !important;
                 border: none;
             }
-            .weui-cells:after {
+            .weui-cells:after{
                 border-bottom: 3px solid white;
             }
-            .wallet-num {
+            .wallet-num{
                 color: #FF0000;
                 margin-bottom: .25rem;
             }
-            .weui-cells .bill .weui-cell__ft:after {
+            .weui-cells .bill .weui-cell__ft:after{
                 display: none;
             }
         }
-        .bill {
+        .bill{
             padding: .3rem 0 !important;
-            .vux-label {
+            .vux-label{
                 font-size: .65rem;
                 color: #333333;
                 margin-left: .2rem;
             }
         }
-        .detail {
-            .weui-cell__hd {
-                img {
+        .detail{
+            .weui-cell__hd{
+                img{
                     margin-bottom: .1rem;
                 }
             }
         }
-        .action {
-            .vux-label {
+        .action{
+            .vux-label{
                 font-size: .75rem;
                 color: #333333;
             }
-            .weui-cells {
+            .weui-cells{
                 margin-top: 0 !important;
                 padding: 0 1rem;
             }
-            .weui-cell {
+            .weui-cell{
                 padding: .6rem 0 .5rem 0;
                 border-bottom: 1px solid #D2D2D2;
             }
-            .weui-cell:before {
+            .weui-cell:before{
                 left: .75rem !important;
                 right: .75rem !important;
                 border: none;
             }
-            .weui-cells:after {
+            .weui-cells:after{
                 border: none !important;
             }
-            ul {
+            ul{
                 list-style: none;
                 font-size: 0;
             }
-            li {
+            li{
                 display: inline-block;
                 width: 25%;
                 margin: 0;
@@ -480,35 +494,40 @@
                 text-align: center;
                 color: #333333;
             }
-            .action-text {
+            .action-text{
                 margin-top: .4rem;
                 color: #333333;
             }
         }
-        .action-img {
+        .action-img{
             width: 100%;
             height: 5rem;
             margin-bottom: 1rem;
-            img {
+            img{
                 width: 100%;
                 height: 100%;
             }
         }
-        .weui-dialog {
+        .weui-dialog{
             width: auto !important;
             max-width: none !important;
             top: 43% !important;
         }
-        .couponCode {
+        .couponCode{
             width: auto;
             height: auto;
             position: relative;
             background: white;
-            .couponCode-img {
-                width: auto;
-                height: auto;
+            .couponCode-img{
+                width: 10rem;
+                height: 10rem;
             }
-            .couponCode-close {
+            .couponCode-p{
+                font-size: .75rem;
+                margin-top: -1rem;
+                margin-bottom: 1rem;
+            }
+            .couponCode-close{
                 position: absolute;
                 width: .8rem;
                 height: .8rem;
