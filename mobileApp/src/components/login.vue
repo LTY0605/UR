@@ -62,8 +62,8 @@
             <div class="dialog-contain">
                 {{warnText2}}
             </div>
-            <button v-model="aa" class="vux-close" @click="showa()" value="0">是</button>
-            <button v-model="bb" class="vux-close" @click="showBind=false" value="1">否</button>
+            <span v-model="isbind" class="vux-close" @click="showIsbind()" style="margin-right: 2.2rem;">是</span>
+            <span v-model="isbind2" class="vux-close" @click="showNoIsbind()">否</span>
         </x-dialog>
     </div>
 </template>
@@ -82,8 +82,8 @@
         },
         data () {
             return {
-                aa: '',
-                bb: '',
+                isbind: '',
+                isbind2: '',
                 warnText2: '',
                 showBind: false,
                 showNoScroll: false,
@@ -104,42 +104,15 @@
 
         },
         methods: {
-            showa(){
-                alert(this.isbind)
-            },
-            goToLink(url){
-                this.$router.push({
-                    name: url,
-                });
-            },
-            goLink(){
-                /*this.showNoScroll = false;
-                 this.$router.push({
-                 name: 'index',
-                 });*/
-            },
-            login_submit () {
-                this.showBind = true;
-                this.warnText2 = '是否绑定此微信';
-                return
-
-                let _this = this;
-                if (this.phone == '' || this.code == '') {
-                    this.loginAlert = true;
-                    this.loginText = '请输入手机号或者验证码'
-                    return
-                }
-                if (!this.beTel(this.phone).valid) {
-                    this.loginAlert = true;
-                    this.loginText = '请输入正确的手机号';
-                    return
-                }
-                var phoneData = {
+            showIsbind(){
+                this.showBind = false;
+                this.isbind = 0;
+                let data = {
                     wxOpenID: window.localStorage.getItem("wxOpenId"),
                     code: this.code,
-                    mobileTel: this.phone
-                }
-                console.log(phoneData)
+                    mobileTel: this.phone,
+                    isbind: this.isbind}
+                console.log(data)
                 loginService().save({
                     wxOpenID: window.localStorage.getItem("wxOpenId"),
                     code: this.code,
@@ -160,11 +133,15 @@
                         window.localStorage.setItem("city", body.city);
                         window.localStorage.setItem("mobileTel", body.mobileTel);
                         window.localStorage.setItem("headimgurl", body.headimgurl);
-                        setTimeout(function () {
-                            _this.$router.push({
-                                name: 'index'
-                            })
-                        }, 500)
+                        window.localStorage.setItem("isbind", this.isbind);
+                        if(this.isbind == 0){
+                            window.localStorage.setItem("wxOpenId", body.wxOpenId);
+                            setTimeout(function () {
+                                this.$router.push({
+                                    name: 'index'
+                                })
+                            }, 500)
+                        }
                     } else {
                         this.loginAlert = true;
                         this.loginText = body.errmsg;
@@ -174,6 +151,112 @@
                     this.loginAlert = true;
                     this.loginText = "网络超时，请重试";
                 })
+            },
+            showNoIsbind(){
+                this.showBind = false;
+                this.isbind = 1;
+                let data = {
+                    wxOpenID: window.localStorage.getItem("wxOpenId"),
+                    code: this.code,
+                    mobileTel: this.phone,
+                    isbind: this.isbind}
+                console.log(data)
+                loginService().save({
+                    wxOpenID: window.localStorage.getItem("wxOpenId"),
+                    code: this.code,
+                    mobileTel: this.phone,
+                    isbind: this.isbind
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.showNoScroll = false;
+                        this.warnText = '登录成功';
+                        //window.localStorage.setItem("wxOpenId", body.wxOpenId);
+                        window.localStorage.setItem("cardcode", body.cardcode);
+                        window.localStorage.setItem("sex", body.sex);
+                        window.localStorage.setItem("provice", body.provice);
+                        window.localStorage.setItem("brithday", body.brithday);
+                        window.localStorage.setItem("customerName", body.customerName);
+                        window.localStorage.setItem("district", body.district);
+                        window.localStorage.setItem("city", body.city);
+                        window.localStorage.setItem("mobileTel", body.mobileTel);
+                        window.localStorage.setItem("headimgurl", body.headimgurl);
+                        window.localStorage.setItem("isbind", this.isbind);
+                        if(this.isbind == 1){
+                            setTimeout(function () {
+                                this.$router.push({
+                                    name: 'index'
+                                })
+                            }, 500)
+                        }
+                    } else {
+                        this.loginAlert = true;
+                        this.loginText = body.errmsg;
+                    }
+
+                }, res => {
+                    this.loginAlert = true;
+                    this.loginText = "网络超时，请重试";
+                })
+            },
+            goToLink(url){
+                this.$router.push({
+                    name: url,
+                });
+            },
+            goLink(){
+                /*this.showNoScroll = false;
+                this.$router.push({
+                    name: 'index',
+                });*/
+            },
+            login_submit () {
+                let _this = this;
+                if (this.phone == '' || this.code == '') {
+                    this.loginAlert = true;
+                    this.loginText = '请输入手机号或者验证码'
+                    return
+                }
+                if (!this.beTel(this.phone).valid) {
+                    this.loginAlert = true;
+                    this.loginText = '请输入正确的手机号';
+                    return
+                }
+                this.showBind = true;
+                this.warnText2 = '是否绑定此微信';
+                /*loginService().save({
+                    wxOpenID: window.localStorage.getItem("wxOpenId"),
+                    code: this.code,
+                    mobileTel: this.phone,
+                    isbind: this.isbind
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.showNoScroll = false;
+                        this.warnText = '登录成功';
+                        //window.localStorage.setItem("wxOpenId", body.wxOpenId);
+                        window.localStorage.setItem("cardcode", body.cardcode);
+                        window.localStorage.setItem("sex", body.sex);
+                        window.localStorage.setItem("provice", body.provice);
+                        window.localStorage.setItem("brithday", body.brithday);
+                        window.localStorage.setItem("customerName", body.customerName);
+                        window.localStorage.setItem("district", body.district);
+                        window.localStorage.setItem("city", body.city);
+                        window.localStorage.setItem("mobileTel", body.mobileTel);
+                        window.localStorage.setItem("headimgurl", body.headimgurl);
+                        window.localStorage.setItem("isbind", body.isbind);
+                        if(body.isbind == 0){
+                            window.localStorage.setItem("wxOpenId", body.wxOpenId);
+                        }
+                    } else {
+                        this.loginAlert = true;
+                        this.loginText = body.errmsg;
+                    }
+
+                }, res => {
+                    this.loginAlert = true;
+                    this.loginText = "网络超时，请重试";
+                })*/
             },
             getCode(){
                 if (this.phone == '') {
