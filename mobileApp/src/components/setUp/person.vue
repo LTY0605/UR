@@ -453,7 +453,7 @@
                     font-size: .7rem;
                 }
             }
-            .personName{
+            .personName {
                 background: none;
             }
             .birthday {
