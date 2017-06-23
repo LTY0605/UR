@@ -62,7 +62,7 @@
                 }
                 if(!this.bePassWord(this.oldPassword).valid || !this.bePassWord(this.newPassword).valid){
                     this.showNoScroll = true;
-                    this.warnText = '密码只能字母跟数字，长度不能大于11位';
+                    this.warnText = '密码只能输入字母和数字，长度在6~11位';
                     return
                 }
                 if (this.newPassword2 != this.newPassword) {
