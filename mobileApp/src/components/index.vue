@@ -97,7 +97,7 @@
                         <img width="24" src="../assets/icon_dialog.png" alt="图片"/>
                         <p class="action-text">时尚体验</p>
                     </li>
-                    <router-link to="http://weixin.ur.com.cn/app/index.php?i=2&c=mc&a=store">
+                    <router-link to="http://weixin.ur.com.cn/app/index.php?i=2&c=mc&a=store&">
                         <li>
                             <img width="24" src="../assets/index_icon.png" alt="图片"/>
                             <p class="action-text">适用门店</p>
@@ -185,7 +185,13 @@
                 this.cardcode = window.localStorage.getItem('cardcode');
             },
             show() {
-                this.showNoScroll = true;
+                if(window.navigator.onLine==true){
+                    this.showNoScroll = true;
+                    this.currentCode = code;
+                }else{
+                    this.showNoScroll2 = true;
+                    this.warnText = '网络超时，请重试'
+                }
             },
             hide() {
                 this.showNoScroll = false;

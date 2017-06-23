@@ -509,7 +509,7 @@
                 /*width: 7.85rem;*/
                 /*height: 2.6rem;*/
                 width: 10rem;
-                height: 5rem;
+                height: 4.5rem;
                 font-size: .75rem;
             }
             .scanPay-img2 {
