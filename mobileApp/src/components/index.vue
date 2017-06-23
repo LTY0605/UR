@@ -5,7 +5,7 @@
     <div class="page_index">
         <!--主页头部-->
         <div class="head">
-            <x-header :left-options="{backText:''}"></x-header>
+            <x-header :left-options="{showBack: false}"><a @click="goIndex" slot="left"></a></x-header>
             <p class="head-name">{{customerName}}</p>
             <div class="head-img">
                 <img :src="headimgurl" alt=""/>
@@ -165,6 +165,9 @@
         mounted(){
         },
         methods:{
+            goIndex(){
+                this.$router.push({name:'login'})
+            },
             goToLink(url){
                 this.$router.push({
                     name: url,
@@ -221,6 +224,20 @@
             background-color: rgba(0,0,0,0) !important;
             width: 100%;
             padding: 0;
+            a{
+
+                content: "";
+                position: absolute;
+                width: 12px;
+                height: 12px;
+                border: 1px solid #fff;
+                border-width: 1px 0 0 1px;
+                -webkit-transform: rotate(315deg);
+                -ms-transform: rotate(315deg);
+                transform: rotate(315deg);
+                top: .2rem;
+                left: .2rem;
+            }
         }
         .vux-header .vux-header-title, .vux-header h1 {
             font-size: .85rem;
