@@ -33,13 +33,17 @@
             </router-link>
         </group>
         <!--积分使用码-->
-        <x-dialog v-model="showNoScroll" class="dialog-demo" :scroll="false">
-            <div @click.stop class="integralCode">
-                <p class="integralCode-title">积分使用时交给店员扫一扫</p>
-                <img class="integralCode-img" :src="barcode+'?text='+paymentCode" alt="图片"/>
-                <div @click="hide" class="integralCode-close"></div>
+        <div @click="showNoScroll=false" >
+            <div @click="hide">
+                <x-dialog v-model="showNoScroll" class="dialog-demo" :scroll="false">
+                    <div @click.stop class="integralCode">
+                        <p class="integralCode-title">积分使用时交给店员扫一扫</p>
+                        <img class="integralCode-img" :src="barcode+'?text='+paymentCode" alt="图片"/>
+                        <div @click="hide" class="integralCode-close"></div>
+                    </div>
+                </x-dialog>
             </div>
-        </x-dialog>
+        </div>
         <!--温馨提示-->
         <toast v-model="showNoScroll2" type="text" :time="1000">{{warnText}}</toast>
         <!--<alert class="alert" v-model="showNoScroll3" title="积分规则">{{integralRule}}</alert>-->
