@@ -197,22 +197,27 @@
                 })
             },
             getAmout(){
-                this.showNoScroll2 = true;
-                getAmountService().get({
-                    cardcode: window.localStorage.getItem("cardcode"),
-                    mobilTel: window.localStorage.getItem("mobileTel")
-                }).then(res => {
-                    let body = res.body;
-                    if (body.errcode == 0) {
-                        this.amount = body.amount;
-                    } else {
+                if(window.navigator.onLine == true){
+                    this.showNoScroll2 = true;
+                    getAmountService().get({
+                        cardcode: window.localStorage.getItem("cardcode"),
+                        mobilTel: window.localStorage.getItem("mobileTel")
+                    }).then(res => {
+                        let body = res.body;
+                        if (body.errcode == 0) {
+                            this.amount = body.amount;
+                        } else {
+                            this.showNoScro = true;
+                            this.warnText = body.errmsg;
+                        }
+                    }, res => {
                         this.showNoScro = true;
-                        this.warnText = body.errmsg;
-                    }
-                }, res => {
+                        this.warnText = "网络超时，请重试";
+                    })
+                } else {
                     this.showNoScro = true;
                     this.warnText = "网络超时，请重试";
-                })
+                }
             },
             renderjdCard(){
                 jdCardInfoService().save({

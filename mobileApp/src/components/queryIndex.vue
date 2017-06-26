@@ -28,22 +28,25 @@
                     <div class="query_icon" v-show="isActive">
                     <div v-for="(item,index) in areaData" :class="[item.isActive ? '' : 'activeMain', 'item_main']">
                         <div class="query_item_title titleItem" @click="item.isActive=!item.isActive">
-                            {{item.ConditionName}}
-                            <span v-if="item.ConditionId!= 'region'" :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"
+                            {{item.conditionName}}
+                            <span v-if="item.conditionId!= 'region'" :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"
                                 >全部</span>
                         </div>
-                        <div class="box"  v-if="item.ConditionId != 'shop'">
+                        <div class="box"  v-if="item.conditionId != 'shop'">
                             <checker v-model="item.answers" type="radio" default-item-class="demo1-item"
                                      selected-item-class="demo1-item-selected">
-                                <checker-item v-for="i in item.child" :value="i.Id" v-if="item.ConditionId == 'region'">{{i.Name}}</checker-item>
-                                <checker-item v-for="i in item.child" :value="i.Id" v-if="item.ConditionId != 'region' && areaData[index-1].answers==i.ParentId">{{i.Name}}</checker-item>
-                                <!--<checker-item v-for="i in item.child" :value="i.REGION_NO" v-if="item.ConditionId == 'region'">{{i.REGION_NAME}}</checker-item>-->
+                                <checker-item v-for="i in item.child" :value="i.id"
+                                              v-if="item.conditionId == 'region'">{{i.name}}</checker-item>
+                                <checker-item v-for="i in item.child"
+                                              :value="i.id"
+                                              v-if="item.conditionId != 'region' && areaData[index-1].answers==i.parentId">{{i.name}}</checker-item>
+                                <!--<checker-item v-for="i in item.child" :value="i.REGION_NO" v-if="item.conditionId == 'region'">{{i.REGION_NAME}}</checker-item>-->
                             </checker>
                         </div>
-                        <div class="box longBox" v-if="item.ConditionId == 'shop'">
+                        <div class="box longBox" v-if="item.conditionId == 'shop'">
                             <checker v-model="demo4CheckboxMax" type="radio" default-item-class="demo1-item"
                                      selected-item-class="demo1-item-selected">
-                                <checker-item v-for="i in item.child" :value="i.Id" v-if="areaData[index-1].answers==i.ParentId">{{i.Name}}</checker-item>
+                                <checker-item v-for="i in item.child" :value="i.id" v-if="areaData[index-1].answers==i.parentId">{{i.name}}</checker-item>
                             </checker>
                         </div>
                     </div>
@@ -130,7 +133,7 @@
 <script>
     import Vue from 'vue'
     import {
-        queryService,queryALLService
+        queryService,queryALLService,queryChildService
     } from '../services/person.js'
     import {XHeader, Scroller, Popup, Group, Datetime, Checker, CheckerItem,Toast} from 'vux'
     export default {
@@ -167,8 +170,8 @@
                     modelId:1000
                 }).then(res => {
                     let body = res.body;
-                    if (body.condition) {
-                       this.areaData = body.condition.groupid1;
+                    if (body.data) {
+                        this.areaData = body.data[0].conditions;
                         this.areaData.forEach(function (item,index) {
                                 Vue.set(item, 'answers', '');
                                 if(index == 0){
@@ -178,12 +181,14 @@
                                 }
                         })
                         console.log(this.areaData,'----------')
-                       this.styleData = body.condition.groupid2;
-                        this.styleData.forEach(function (item,index) {
-                            Vue.set(item, 'answers', [])
-                            Vue.set(item, 'isActive', false);
-                        })
+                        console.log('666,-----===============================-----------')
+//                        this.styleData = body.condition.groupid2;
+//                        this.styleData.forEach(function (item,index) {
+//                            Vue.set(item, 'answers', [])
+//                            Vue.set(item, 'isActive', false);
+//                        })
                     }
+                    console.log('666,-------------------------------------------')
                 }, res => {
                     this.showNoScroll = true;
                     this.warnText = '网络超时，请重试';
