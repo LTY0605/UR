@@ -224,8 +224,12 @@
                     this.loginText = '请输入正确的手机号';
                     return
                 }
-                this.showBind = true;
-                this.warnText2 = '是否绑定此微信';
+                if(window.localStorage.getItem("isbind") == 1){
+                    this.showBind = true;
+                    this.warnText2 = '是否绑定此微信';
+                }else {
+                    this.showBind = false;
+                }
                 /*loginService().save({
                     wxOpenID: window.localStorage.getItem("wxOpenId"),
                     code: this.code,
