@@ -16,6 +16,7 @@
 </template>
 
 <script>
+    import { surveyServices } from '../services/quest.js'
     import {XHeader, Toast} from 'vux'
     export default{
         components:{
@@ -25,6 +26,8 @@
             return{
                 customerName:'',
                 showNoScroll2: false,
+                surveyType:'02',
+                surveyCode:'wqdc',
                 warnText: ''
             }
         },
@@ -34,6 +37,20 @@
             },
             goLinkQuest(){
                 if(window.navigator.onLine==true){
+                    surveyServices().save({
+                        cardcode: window.localStorage.getItem("cardcode"),
+                        surveyType: this.surveyType,
+                        surveyCode: this.surveyCode
+                    }).then(res=>{
+                        let body =res.body;
+                        if(body.errcode == 0){
+                            this.$router.push({name:'questPage'})
+                        }else{
+                            this.showNoScroll2 = true;
+                            this.warnText = '网络超时，请重试'
+                        }
+                    },res=>{
+                    })
                     this.$router.push({name:'questPage'})
                 }else{
                     this.showNoScroll2 = true;
