@@ -238,11 +238,7 @@
                     this.loginText = '请输入正确的手机号';
                     return
                 }
-
-                this.showBind = true;
-                this.warnText2 = '是否绑定此微信';
-
-                /*if(window.localStorage.getItem("isbind") == 1){
+                if(window.localStorage.getItem("isbind") == 1){
                     this.showBind = true;
                     this.warnText2 = '是否绑定此微信';
                 }else {
@@ -282,9 +278,7 @@
                         this.loginAlert = true;
                         this.loginText = "网络超时，请重试";
                     })
-                }*/
-
-
+                }
                 /*loginService().save({
                     wxOpenID: window.localStorage.getItem("wxOpenId"),
                     code: this.code,
