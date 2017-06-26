@@ -66,4 +66,8 @@ export function queryALLService() {
 export function queryService() {
     return Vue.resource('http://urmobile.ur.com.cn/report/getReportList')
 }
+//通用查询子级所有数据
+export function queryChildService() {
+    return Vue.resource('http://urmobile.ur.com.cn/report/getChildCondition')
+}
 
