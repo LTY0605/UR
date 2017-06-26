@@ -5,7 +5,7 @@
     <div class="page_index">
         <!--主页头部-->
         <div class="head">
-            <x-header :left-options="{showBack: false}"><a @click="goIndex" slot="left"></a></x-header>
+            <x-header :left-options="{showBack: false}"></x-header>
             <p class="head-name">{{customerName}}</p>
             <div class="head-img">
                 <img :src="headimgurl" alt=""/>
@@ -167,9 +167,6 @@
         methods:{
             goStore(){
                 this.$router.push({name:'http://weixin.ur.com.cn/app/index.php?i=2&c=mc&a=store&'})
-            },
-            goIndex(){
-                this.$router.push({name:'login'})
             },
             goToLink(url){
                 this.$router.push({
