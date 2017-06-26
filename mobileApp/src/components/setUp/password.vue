@@ -14,8 +14,7 @@
                 </li>
                 <li>
                     <group>
-                        <x-input type="password" title="确认新密码" placeholder="请再次输入新密码" v-model.trim="newPassword2"
-                                 :equal-with="newPassword"></x-input>
+                        <x-input type="password" title="确认新密码" placeholder="请再次输入新密码" v-model.trim="newPassword2" :equal-with="newPassword"></x-input>
                     </group>
                 </li>
             </ul>

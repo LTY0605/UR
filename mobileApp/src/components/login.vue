@@ -124,19 +124,19 @@
                     if (body.errcode == 0) {
                         this.showNoScroll = false;
                         this.warnText = '登录成功';
-                        //window.localStorage.setItem("wxOpenId", body.wxOpenId);
-                        window.localStorage.setItem("cardcode", body.cardcode);
-                        window.localStorage.setItem("sex", body.sex);
-                        window.localStorage.setItem("provice", body.provice);
-                        window.localStorage.setItem("brithday", body.brithday);
-                        window.localStorage.setItem("customerName", body.customerName);
-                        window.localStorage.setItem("district", body.district);
-                        window.localStorage.setItem("city", body.city);
-                        window.localStorage.setItem("mobileTel", body.mobileTel);
-                        window.localStorage.setItem("headimgurl", body.headimgurl);
-                        window.localStorage.setItem("isbind", this.isbind);
+                        //window.localStorage.setItem("wxOpenId", window.localStorage.getItem("wxOpenId"));
+                        window.localStorage.setItem("cardcode", window.localStorage.getItem("cardcode"));
+                        window.localStorage.setItem("sex", window.localStorage.getItem("sex"));
+                        window.localStorage.setItem("provice", window.localStorage.getItem("provice"));
+                        window.localStorage.setItem("brithday", window.localStorage.getItem("brithday"));
+                        window.localStorage.setItem("customerName", window.localStorage.getItem("customerName"));
+                        window.localStorage.setItem("district", window.localStorage.getItem("district"));
+                        window.localStorage.setItem("city", window.localStorage.getItem("city"));
+                        window.localStorage.setItem("mobileTel", window.localStorage.getItem("mobileTel"));
+                        window.localStorage.setItem("headimgurl", window.localStorage.getItem("headimgurl"));
+                        window.localStorage.setItem("isbind", window.localStorage.getItem("isbind"));
                         if(this.isbind == 0){
-                            window.localStorage.setItem("wxOpenId", body.wxOpenId);
+                            window.localStorage.setItem("wxOpenId", window.localStorage.getItem("wxOpenId"));
                             setTimeout(function () {
                                 _this.$router.push({
                                     name: 'index'
@@ -173,17 +173,17 @@
                     if (body.errcode == 0) {
                         this.showNoScroll = false;
                         this.warnText = '登录成功';
-                        //window.localStorage.setItem("wxOpenId", body.wxOpenId);
-                        window.localStorage.setItem("cardcode", body.cardcode);
-                        window.localStorage.setItem("sex", body.sex);
-                        window.localStorage.setItem("provice", body.provice);
-                        window.localStorage.setItem("brithday", body.brithday);
-                        window.localStorage.setItem("customerName", body.customerName);
-                        window.localStorage.setItem("district", body.district);
-                        window.localStorage.setItem("city", body.city);
-                        window.localStorage.setItem("mobileTel", body.mobileTel);
-                        window.localStorage.setItem("headimgurl", body.headimgurl);
-                        window.localStorage.setItem("isbind", this.isbind);
+                        //window.localStorage.setItem("wxOpenId", window.localStorage.getItem("wxOpenId"));
+                        window.localStorage.setItem("cardcode", window.localStorage.getItem("cardcode"));
+                        window.localStorage.setItem("sex", window.localStorage.getItem("sex"));
+                        window.localStorage.setItem("provice", window.localStorage.getItem("provice"));
+                        window.localStorage.setItem("brithday", window.localStorage.getItem("brithday"));
+                        window.localStorage.setItem("customerName", window.localStorage.getItem("customerName"));
+                        window.localStorage.setItem("district", window.localStorage.getItem("district"));
+                        window.localStorage.setItem("city", window.localStorage.getItem("city"));
+                        window.localStorage.setItem("mobileTel", window.localStorage.getItem("mobileTel"));
+                        window.localStorage.setItem("headimgurl", window.localStorage.getItem("headimgurl"));
+                        window.localStorage.setItem("isbind", window.localStorage.getItem("isbind"));
                         if(this.isbind == 1){
                             setTimeout(function () {
                                 _this.$router.push({
@@ -238,7 +238,11 @@
                     this.loginText = '请输入正确的手机号';
                     return
                 }
-                if(window.localStorage.getItem("isbind") == 1){
+
+                this.showBind = true;
+                this.warnText2 = '是否绑定此微信';
+
+                /*if(window.localStorage.getItem("isbind") == 1){
                     this.showBind = true;
                     this.warnText2 = '是否绑定此微信';
                 }else {
@@ -278,7 +282,9 @@
                         this.loginAlert = true;
                         this.loginText = "网络超时，请重试";
                     })
-                }
+                }*/
+
+
                 /*loginService().save({
                     wxOpenID: window.localStorage.getItem("wxOpenId"),
                     code: this.code,
