@@ -213,6 +213,20 @@
                 });*/
             },
             login_submit () {
+                let asd = {
+                    wxOpenId:window.localStorage.getItem("wxOpenId"),
+                    cardcode:window.localStorage.getItem("cardcode"),
+                    sex:window.localStorage.getItem("sex"),
+                    provice:window.localStorage.getItem("provice"),
+                    brithday:window.localStorage.getItem("brithday"),
+                    customerName:window.localStorage.getItem("customerName"),
+                    district:window.localStorage.getItem("district"),
+                    city:window.localStorage.getItem("city"),
+                    mobileTel:window.localStorage.getItem("mobileTel"),
+                    headimgurl:window.localStorage.getItem("headimgurl"),
+                    isbind:window.localStorage.getItem("isbind"),
+                }
+                console.log(asd);
                 let _this = this;
                 if (this.phone == '' || this.code == '') {
                     this.loginAlert = true;
@@ -224,7 +238,6 @@
                     this.loginText = '请输入正确的手机号';
                     return
                 }
-                alert(window.localStorage.getItem("isbind"))
                 if(window.localStorage.getItem("isbind") == 1){
                     this.showBind = true;
                     this.warnText2 = '是否绑定此微信';
@@ -240,17 +253,17 @@
                         if (body.errcode == 0) {
                             this.showNoScroll = false;
                             this.warnText = '登录成功';
-                            //window.localStorage.setItem("wxOpenId", body.wxOpenId);
-                            window.localStorage.setItem("cardcode", body.cardcode);
-                            window.localStorage.setItem("sex", body.sex);
-                            window.localStorage.setItem("provice", body.provice);
-                            window.localStorage.setItem("brithday", body.brithday);
-                            window.localStorage.setItem("customerName", body.customerName);
-                            window.localStorage.setItem("district", body.district);
-                            window.localStorage.setItem("city", body.city);
-                            window.localStorage.setItem("mobileTel", body.mobileTel);
-                            window.localStorage.setItem("headimgurl", body.headimgurl);
-                            window.localStorage.setItem("isbind", 0);
+                            window.localStorage.setItem("wxOpenId", window.localStorage.getItem("wxOpenId"));
+                            window.localStorage.setItem("cardcode", window.localStorage.getItem("cardcode"));
+                            window.localStorage.setItem("sex", window.localStorage.getItem("sex"));
+                            window.localStorage.setItem("provice", window.localStorage.getItem("provice"));
+                            window.localStorage.setItem("brithday", window.localStorage.getItem("brithday"));
+                            window.localStorage.setItem("customerName", window.localStorage.getItem("customerName"));
+                            window.localStorage.setItem("district", window.localStorage.getItem("district"));
+                            window.localStorage.setItem("city", window.localStorage.getItem("city"));
+                            window.localStorage.setItem("mobileTel", window.localStorage.getItem("mobileTel"));
+                            window.localStorage.setItem("headimgurl", window.localStorage.getItem("headimgurl"));
+                            window.localStorage.setItem("isbind", window.localStorage.getItem("isbind"));
                             setTimeout(function () {
                                 _this.$router.push({
                                     name: 'index'
