@@ -8,6 +8,17 @@
         <!--<div class="headInput">-->
             <!--<input type="text" class="queryInput" placeholder="请选择" @focus="showSelect">-->
         <!--</div>-->
+        <popup v-model="show2" height="100%">
+            <x-header :left-options="{backText:''}">我的报表</x-header>
+            <div class="query-toast">
+                日期：{{dateTime}}<br>
+                地区：{{queryToast}}<br>
+                系列：{{seriesToast}}<br>
+                风格：{{styleToast}}<br>
+                商品层：{{levelToast}}<br>
+                品类：{{classToast}}
+            </div>
+        </popup>
         <popup v-model="show1" height="100%">
             <div class="popup1">
                 <x-header :left-options="{backText:''}">我的报表</x-header>
@@ -47,7 +58,7 @@
                                 <checker-item v-for="i in cityData.child"
                                               :value="i.id"
                                               v-if="item.conditionId == 'city'">
-                                    <p @click="getCity(i.name)">{{i.name}}</p>
+                                    <p @click="getCity(i.name,'')">{{i.name}}</p>
                                 </checker-item>
                                 <!--<checker-item v-for="i in childData.child"-->
                                               <!--:value="i.id"-->
@@ -56,17 +67,10 @@
                             </checker>
                         </div>
                         <div class="box longBox" v-if="item.conditionId == 'shop'">
-                            <checker type="radio" default-item-class="demo1-item"
+                            <checker v-model="demo4CheckboxMax" type="radio" default-item-class="demo1-item"
                                      selected-item-class="demo1-item-selected">
-                                <!--<checker-item v-for="i in item.child" :value="i.id" v-if="areaData[index-1].answers==i.parentId">-->
-                                    <!--<p @click="getShop(1)">{{i.name}}</p></checker-item>-->
-
-                                <checker-item v-for="i in shopData.child"
-                                              :value="i.id"
-                                              @click="getShop(i.name)"
-                                              v-if="item.conditionId == 'shop'">
-                                    <p @click="getShop(i.name)">{{i.name}}</p>
-                                </checker-item>
+                                <checker-item v-for="i in item.child" :value="i.id" v-if="areaData[index-1].answers==i.parentId">
+                                    <p @click="getShop(i.name)">{{i.name}}</p></checker-item>
                             </checker>
                         </div>
                     </div>
@@ -89,13 +93,17 @@
                                 <checker v-model="item.answers" type="checkbox" default-item-class="demo1-item"
                                          selected-item-class="demo1-item-selected">
                                     <checker-item v-for="i in item.child" :value="i.id"
-                                                  v-if="item.conditionId == 'big_series'">{{i.name}}</checker-item>
+                                                  v-if="item.conditionId == 'big_series'">
+                                        <p @click="mm(i.name)">{{i.name}}</p></checker-item>
                                     <checker-item v-for="i in item.child" :value="i.id"
-                                                  v-if="item.conditionId == 'style'">{{i.name}}</checker-item>
+                                                  v-if="item.conditionId == 'style'">
+                                        <p @click="mm1(i.name)">{{i.name}}</p></checker-item>
                                     <checker-item v-for="i in item.child" :value="i.id"
-                                                  v-if="item.conditionId == 'goods_level'">{{i.name}}</checker-item>
+                                                  v-if="item.conditionId == 'goods_level'">
+                                        <p @click="mm2(i.name)">{{i.name}}</p></checker-item>
                                     <checker-item v-for="i in item.child" :value="i.id"
-                                                  v-if="item.conditionId == 'class'">{{i.name}}</checker-item>
+                                                  v-if="item.conditionId == 'class'">
+                                        <p @click="mm3(i.name)">{{i.name}}</p></checker-item>
                                 </checker>
                             </div>
                         </div>
@@ -115,10 +123,10 @@
     import {
         queryService,queryALLService,queryChildService
     } from '../services/person.js'
-    import {XHeader, Scroller, Popup, Group, Datetime, Checker, CheckerItem,Toast} from 'vux'
+    import {XHeader, Scroller, Popup, Group, Datetime, Checker, CheckerItem, XDialog, Toast} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, Popup, Group, Datetime, Checker, CheckerItem,Toast
+            XHeader, Scroller, Popup, Group, Datetime, Checker, CheckerItem, XDialog, Toast
         },
         mounted(){
         },
@@ -128,11 +136,17 @@
                 isActive1:false,
                 id: '',
                 show1: true,
+                show2: false,
                 dateTime: '',
                 demo1CheckboxMax: '',
                 demo2CheckboxMax: '',
                 demo3CheckboxMax: '',
                 demo4CheckboxMax:'',
+                queryToast: '', //提交内容
+                seriesToast: [],  //系列内容
+                styleToast: [], //风格内容
+                levelToast: [], //商品车内容
+                classToast: [], //品类内容
                 areaData:[],//地区
                 region:'',
                 subregion:'',
@@ -141,10 +155,10 @@
                 styleData:[],//风格
                 childData:[],   //子级所有数据
                 cityData:[],    //城市数据
-                shopData:[],    //店铺数据
                 conditionId:'', //条件项id
                 conditionValue:'',  //条件项的数据
                 showNoScroll:false,
+                showNoScroll2:false,
                 warnText:'',
 
             }
@@ -154,11 +168,23 @@
            this.renderData();
         },
         methods: {
+            mm(value){
+                this.seriesToast.push(value);
+            },
+            mm1(value){
+                this.styleToast.push(value);
+            },
+            mm2(value){
+                this.levelToast.push(value);
+            },
+            mm3(value){
+                this.classToast.push(value);
+            },
             getCity(city){
                 this.city = city;
             },
             getShop(shop){
-                this.shop = shop;
+                this.shop = shop
             },
             kk(condition,value,index,region){
 //                alert('----'+condition+'---==='+value+'====');
@@ -180,8 +206,6 @@
                     let body = res.body;
                     if(body.errmsg='ok'){
                         this.cityData = body.data[index-1];
-                        this.shopData = body.data[index];
-                        console.log(this.shopData,'====================================')
                         console.log(this.cityData,'-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-');
                         console.log(body.data,'---------------------------------------------')
                     } else{
@@ -207,10 +231,12 @@
                         })
                         console.log(this.areaData,'----------')
                         this.styleData = body.data[1].conditions;
+//                        this.styleToast = this.styleData[0].child
                         this.styleData.forEach(function (item,index) {
                             Vue.set(item, 'answers', [])
                             Vue.set(item, 'isActive', false);
                         })
+//                        console.log(this.styleToast,'======================================')
                     }
                 }, res => {
                     this.showNoScroll = true;
@@ -239,8 +265,10 @@
                 this.show1 = true;
             },
             sureSubmit(){
-                this.showNoScroll = true;
-                this.warnText = '日期：'+this.dateTime + this.region + '-' + this.subregion + '-' + this.city
+                this.showNoScroll2 = true;
+                this.queryToast = this.region + '-' + this.subregion + '-' + this.city + '-' + this.shop;
+                this.show1 = false;
+                this.show2 = true;
             }
         },
         computed: {}
@@ -248,6 +276,14 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_query {
+        .query-toast{
+            width: 90%;
+            margin: 1rem auto;
+            padding: .5rem;
+            font-size: .75rem;
+            border: 1px solid #ab9236;
+            border-radius: .2rem;
+        }
         .popup1{
             background: #f1f1f1;
         }
