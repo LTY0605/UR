@@ -276,7 +276,6 @@
                             this.loginAlert = true;
                             this.loginText = body.errmsg;
                         }
-                        console.log(body)
                     }, res => {
                         this.loginAlert = true;
                         this.loginText = "网络超时，请重试";
