@@ -4,7 +4,7 @@
 <template>
     <div class="page_query">
         <x-header :left-options="{backText:''}">我的报表</x-header>
-        <span class="head_icon" @click="showSelect"></span>
+        <!--<span class="head_icon" @click="showSelect"></span>-->
         <!--<div class="headInput">-->
             <!--<input type="text" class="queryInput" placeholder="请选择" @focus="showSelect">-->
         <!--</div>-->
@@ -36,10 +36,20 @@
                             <checker v-model="item.answers" type="radio" default-item-class="demo1-item"
                                      selected-item-class="demo1-item-selected">
                                 <checker-item v-for="i in item.child" :value="i.id"
-                                              v-if="item.conditionId == 'region'">{{i.name}}</checker-item>
-                                <checker-item v-for="i in item.child"
+                                              v-if="item.conditionId == 'region'">
+                                    <p @click="kk(item.conditionId,i.id,index)">{{i.name}}</p>
+                                </checker-item>
+                                <checker-item v-for="i in childData.child"
                                               :value="i.id"
-                                              v-if="item.conditionId != 'region' && areaData[index-1].answers==i.parentId">{{i.name}}</checker-item>
+                                              v-if="item.conditionId == 'subregion'">
+                                    <p @click="aa(item.conditionId,i.id,index)">{{i.name}}</p>
+                                </checker-item>
+                                <checker-item v-for="i in cityData.child"
+                                              :value="i.id"
+                                              v-if="item.conditionId == 'city'">{{i.name}}</checker-item>
+                                <!--<checker-item v-for="i in childData.child"-->
+                                              <!--:value="i.id"-->
+                                              <!--v-if="item.conditionId == 'shop'">{{i.name}}</checker-item>-->
                                 <!--<checker-item v-for="i in item.child" :value="i.REGION_NO" v-if="item.conditionId == 'region'">{{i.REGION_NAME}}</checker-item>-->
                             </checker>
                         </div>
@@ -104,10 +114,10 @@
         },
         data () {
             return {
-                isActive:true,
+                isActive:false,
                 isActive1:false,
                 id: '',
-                show1: false,
+                show1: true,
                 dateTime: '',
                 demo1CheckboxMax: '',
                 demo2CheckboxMax: '',
@@ -115,8 +125,10 @@
                 demo4CheckboxMax:'',
                 areaData:[],//地区
                 styleData:[],//风格
-                conditionId:'',
-                conditionValue:'',
+                childData:[],   //子级所有数据
+                cityData:[],    //城市数据
+                conditionId:'', //条件项id
+                conditionValue:'',  //条件项的数据
                 showNoScroll:false,
                 warnText:'',
 
@@ -127,6 +139,33 @@
            this.renderData();
         },
         methods: {
+            kk(condition,value,index){
+//                alert('----'+condition+'---==='+value+'====');
+                this.conditionId = condition;
+                this.conditionValue = value;
+
+                this.renderChildData(index);
+            },
+            aa(condition,value,index){
+//                alert('----'+condition+'---==='+value+'====');
+                this.conditionId = condition;
+                this.conditionValue = value;
+                queryChildService().save({
+                    modelId:1000,
+                    conditionId:this.conditionId,
+                    value:this.conditionValue
+                }).then(res=>{
+                    let body = res.body;
+                    if(body.errmsg='ok'){
+                        this.cityData = body.data[index-1];
+                        console.log(this.cityData,'-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-');
+                        console.log(body.data,'---------------------------------------------')
+                    } else{
+                        console.log('666--------------------------')
+                    }
+                },res=>{
+                })
+            },
             renderData(){
                 queryALLService().save({
                     modelId:1000
@@ -143,22 +182,33 @@
                                 }
                         })
                         console.log(this.areaData,'----------')
-                        console.log('666,-----===============================-----------')
                         this.styleData = body.data[1].conditions;
                         this.styleData.forEach(function (item,index) {
                             Vue.set(item, 'answers', [])
                             Vue.set(item, 'isActive', false);
                         })
                     }
-                    console.log('666,-------------------------------------------')
                 }, res => {
                     this.showNoScroll = true;
                     this.warnText = '网络超时，请重试';
                 })
             },
-            renderChildData() {
+            renderChildData(index) {
                 queryChildService().save({
-                    modelId:1000
+                    modelId:1000,
+                    conditionId:this.conditionId,
+                    value:this.conditionValue
+                }).then(res=>{
+                    let body = res.body;
+                    if(body.errmsg='ok'){
+                        this.childData = body.data[index];
+                        console.log(this.childData.child,'-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-');
+                        console.log(body.data[index],'====================================');
+                        console.log(body.data,'---------------------------------------------')
+                    } else{
+                        console.log('666--------------------------')
+                    }
+                },res=>{
                 })
             },
             showSelect() {
