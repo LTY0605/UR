@@ -110,7 +110,15 @@
             </group>
         </div>
         <!--二维码-->
-        <div @click="hide">
+        <!--<div @click="hide">-->
+            <!--<x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">-->
+                <!--<div @click.stop class="couponCode">-->
+                    <!--<img class="couponCode-img" :src="barcodeUrl+'?text='+cardcode+'&width=400&height=400'"  alt="图片">-->
+                    <!--<p class="couponCode-p">{{cardcode}}</p>-->
+                    <!--<div @click="hide" class="couponCode-close"></div>-->
+                <!--</div>-->
+            <!--</x-dialog>-->
+        <!--</div>-->
             <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
                 <div @click.stop class="couponCode">
                     <img class="couponCode-img" :src="barcodeUrl+'?text='+cardcode+'&width=400&height=400'"  alt="图片">
@@ -118,7 +126,6 @@
                     <div @click="hide" class="couponCode-close"></div>
                 </div>
             </x-dialog>
-        </div>
         <!--提示-->
         <toast v-model="showNoScroll2" type="text" :time="1000">{{warnText}}</toast>
         <!--<alert class="alert" v-model="showNoScroll2" title="温馨提示">{{warnText}}</alert>-->

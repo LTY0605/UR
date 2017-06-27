@@ -5,7 +5,8 @@
             <div @click.stop class="couponCode">
                 <p class="couponCode-title">付款时交给店员扫一扫</p>
                 <img class="couponCode-img" :src="barcodeUrl+'?text='+currentCode" alt=""/>
-                <p class="couponCode-code">{{currentCode}}</p>
+                <!--<p class="couponCode-code">{{currentCode}}</p>-->
+                <p class="couponCode-code"></p>
                 <div @click="hide" class="couponCode-close"></div>
             </div>
         </x-dialog>
@@ -119,8 +120,8 @@
                 border-bottom: 1px solid #CDBE86;
             }
             .couponCode-img {
-                width: 7.85rem;
-                height: 2.2rem;
+                width: 10rem;
+                height: 4.5rem;
             }
             .couponCode-code {
                 font-size: .6rem;
@@ -192,6 +193,7 @@
                 font-size: .6rem;
                 margin-top: .15rem;
             }
+
             .couponRight {
                 position: relative;
             }
