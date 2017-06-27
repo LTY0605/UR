@@ -64,7 +64,7 @@
                 </div>
             </template>
         </div>
-        <div @click.stop="showNoScroll=false" v-if="showNoScroll" class="gift-mask"></div>
+        <!--<div @click.stop="showNoScroll=false" v-if="showNoScroll" class="gift-mask"></div>-->
         <x-dialog v-model="showNoScroll" class="dialog-demo page_pay" :scroll="false">
             <div @click.stop="" class="payCode">
                 <div class="tabTitle">
@@ -80,7 +80,8 @@
                                 <div class="pay-box">
                                     <img class="scanPay-img1" :src="barcodeUrl+'?text='+currentCode" alt="网络超时，请重试"/>
                                 </div>
-                                <p class="scanPay-number">{{currentCode}}</p>
+                                <!--<p class="scanPay-number">{{currentCode}}</p>-->
+                                <p class="scanPay-number"></p>
                                 <div class="pay-box">
                                     <img class="scanPay-img2" :src="barcodeUrl+'?text='+currentPSW" alt="网络超时，请重试"/>
                                 </div>
@@ -105,18 +106,26 @@
                 </div>
             </div>
         </x-dialog>
-        <div @click="showNoScroll2=false" class="page_tran">
-            <div @click="hide2">
-                <x-dialog v-model="showNoScroll2" class="dialog-demo" :scroll="false">
-                    <div @click.stop class="giftCode">
-                        <!--<div class="giftCode-img"></div>-->
-                        <!--<p class="giftCode-text">暂无转赠信息</p>-->
-                        <p>您获取的转赠为{{amount}}元</p>
-                        <div @click="hide2" class="giftCode-close"></div>
-                    </div>
-                </x-dialog>
+        <!--<div @click="showNoScroll2=false" class="page_tran">-->
+            <!--<div @click="hide2">-->
+                <!--<x-dialog v-model="showNoScroll2" class="dialog-demo" :scroll="false">-->
+                    <!--<div @click.stop class="giftCode">-->
+                        <!--&lt;!&ndash;<div class="giftCode-img"></div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<p class="giftCode-text">暂无转赠信息</p>&ndash;&gt;-->
+                        <!--<p>您获取的转赠为{{amount}}元</p>-->
+                        <!--<div @click="hide2" class="giftCode-close"></div>-->
+                    <!--</div>-->
+                <!--</x-dialog>-->
+            <!--</div>-->
+        <!--</div>-->
+        <x-dialog v-model="showNoScroll2" class="page_tran" :scroll="false">
+            <div @click.stop class="giftCode">
+                <!--<div class="giftCode-img"></div>-->
+                <!--<p class="giftCode-text">暂无转赠信息</p>-->
+                <p>您获取的转赠为{{amount}}元</p>
+                <div @click="hide2" class="giftCode-close"></div>
             </div>
-        </div>
+        </x-dialog>
         <toast v-model="showNoScro" type="text" :time="1000">{{warnText}}</toast>
     </div>
 </template>
@@ -478,10 +487,10 @@
             }
         }
         .pay-img {
-            font-size: .75rem;
-            width: 7.5rem;
-            height: 7.5rem;
-            margin: .75rem 2.5rem 0rem;
+            /*font-size: .75rem;*/
+            width: 10rem;
+            height: 10rem;
+            margin: 0rem;
         }
         .payImgCode {
             margin-top: -1.4rem;
@@ -497,8 +506,7 @@
                 font-size: .7rem;
                 text-align: center;
                 color: #000000;
-                margin: .5rem auto;
-                width: 80%;
+                margin-top: .35rem;
             }
             .pay-box {
                 display: flex;
@@ -516,6 +524,7 @@
                 width: 10rem;
                 height: 4.5rem;
                 font-size: .75rem;
+                margin-top: .35rem;
             }
             .scanPay-img2 {
                 margin: .6rem auto;
