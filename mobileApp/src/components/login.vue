@@ -135,14 +135,13 @@
                         window.localStorage.setItem("mobileTel", window.localStorage.getItem("mobileTel"));
                         window.localStorage.setItem("headimgurl", window.localStorage.getItem("headimgurl"));
                         window.localStorage.setItem("isbind", body.isbind);
-                        if(body.isbind == 0){
-                            window.localStorage.setItem("wxOpenId", window.localStorage.getItem("wxOpenId"));
-                            setTimeout(function () {
-                                _this.$router.push({
-                                    name: 'index'
-                                })
-                            }, 500)
-                        }
+                        window.localStorage.setItem("wxOpenId", window.localStorage.getItem("wxOpenId"));
+                        setTimeout(function () {
+                            _this.$router.push({
+                                name: 'index'
+                            })
+                        }, 500)
+
                     } else {
                         this.loginAlert = true;
                         this.loginText = body.errmsg;
@@ -156,18 +155,18 @@
             showNoIsbind(){
                 let _this = this;
                 this.showBind = false;
-                this.isbind = 1;
+                this.isbind2 = 1;
                 let data = {
                     wxOpenID: window.localStorage.getItem("wxOpenId"),
                     code: this.code,
                     mobileTel: this.phone,
-                    isbind: this.isbind}
+                    isbind: this.isbind2}
                 console.log(data)
                 loginService().save({
                     wxOpenID: window.localStorage.getItem("wxOpenId"),
                     code: this.code,
                     mobileTel: this.phone,
-                    isbind: this.isbind
+                    isbind: this.isbind2
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {
@@ -183,19 +182,16 @@
                         window.localStorage.setItem("city", window.localStorage.getItem("city"));
                         window.localStorage.setItem("mobileTel", window.localStorage.getItem("mobileTel"));
                         window.localStorage.setItem("headimgurl", window.localStorage.getItem("headimgurl"));
-                        window.localStorage.setItem("isbind", body.isbind);
-                        if(body.isbind == 1){
-                            setTimeout(function () {
-                                _this.$router.push({
-                                    name: 'index'
-                                })
-                            }, 500)
-                        }
+                        window.localStorage.setItem("isbind", window.localStorage.getItem("isbind"));
+                        setTimeout(function () {
+                            _this.$router.push({
+                                name: 'index'
+                            })
+                        }, 500)
                     } else {
                         this.loginAlert = true;
                         this.loginText = body.errmsg;
                     }
-
                 }, res => {
                     this.loginAlert = true;
                     this.loginText = "网络超时，请重试";
@@ -207,12 +203,15 @@
                 });
             },
             goLink(){
-                /*this.showNoScroll = false;
+                this.showNoScroll = false;
                 this.$router.push({
                     name: 'index',
-                });*/
+                });
             },
             login_submit () {
+
+                /*this.showBind = true;
+                this.warnText2 = '是否绑定此微信';*/
 
                 let asd = {
                     wxOpenId:window.localStorage.getItem("wxOpenId"),
@@ -225,9 +224,11 @@
                     city:window.localStorage.getItem("city"),
                     mobileTel:window.localStorage.getItem("mobileTel"),
                     headimgurl:window.localStorage.getItem("headimgurl"),
-                    isbind:window.localStorage.getItem("isbind"),
+                    isbind: window.localStorage.getItem("isbind"),
                 }
                 console.log(asd);
+
+
                 let _this = this;
                 if (this.phone == '' || this.code == '') {
                     this.loginAlert = true;
@@ -239,6 +240,7 @@
                     this.loginText = '请输入正确的手机号';
                     return
                 }
+
                 if(window.localStorage.getItem("isbind") == 1){
                     this.showBind = true;
                     this.warnText2 = '是否绑定此微信';
@@ -264,7 +266,7 @@
                             window.localStorage.setItem("city", window.localStorage.getItem("city"));
                             window.localStorage.setItem("mobileTel", window.localStorage.getItem("mobileTel"));
                             window.localStorage.setItem("headimgurl", window.localStorage.getItem("headimgurl"));
-                            window.localStorage.setItem("isbind", body.isbind);
+                            window.localStorage.setItem("isbind", window.localStorage.getItem("isbind"));
                             setTimeout(function () {
                                 _this.$router.push({
                                     name: 'index'
@@ -274,7 +276,7 @@
                             this.loginAlert = true;
                             this.loginText = body.errmsg;
                         }
-
+                        console.log(body)
                     }, res => {
                         this.loginAlert = true;
                         this.loginText = "网络超时，请重试";
@@ -284,7 +286,6 @@
                     wxOpenID: window.localStorage.getItem("wxOpenId"),
                     code: this.code,
                     mobileTel: this.phone,
-                    isbind: this.isbind
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {
@@ -300,10 +301,11 @@
                         window.localStorage.setItem("city", body.city);
                         window.localStorage.setItem("mobileTel", body.mobileTel);
                         window.localStorage.setItem("headimgurl", body.headimgurl);
-                        window.localStorage.setItem("isbind", body.isbind);
-                        if(body.isbind == 0){
-                            window.localStorage.setItem("wxOpenId", body.wxOpenId);
-                        }
+                        setTimeout(function () {
+                            _this.$router.push({
+                                name: 'index'
+                            })
+                        }, 500)
                     } else {
                         this.loginAlert = true;
                         this.loginText = body.errmsg;
