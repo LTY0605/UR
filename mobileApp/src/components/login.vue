@@ -155,7 +155,6 @@
             },
             showNoIsbind(){
                 let _this = this;
-                debugger
                 this.showBind = false;
                 this.isbind = 1;
                 let data = {
@@ -240,7 +239,6 @@
                     this.loginText = '请输入正确的手机号';
                     return
                 }
-                debugger
                 if(window.localStorage.getItem("isbind") == 1){
                     this.showBind = true;
                     this.warnText2 = '是否绑定此微信';
