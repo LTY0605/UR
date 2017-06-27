@@ -168,7 +168,7 @@
                         this.warnText = '修改成功';
                         setTimeout(function () {
                             _this.$router.push({
-                                name: 'login',
+                                name: 'index',
                             });
                         }, 300)
                     } else {
@@ -207,7 +207,10 @@
                         this.warnText = '验证码发送成功';
                         this.showMin = true;
                         this.finish();
-                    } else {
+                    } else if (body.errcode == 3201) {
+                        this.showNoScroll = true;
+                        this.warnText = '该账号已被注册，请修改';
+                    }else {
                         this.showNoScroll = true;
                         this.warnText = '验证码发送失败，请稍后再试';
                     }

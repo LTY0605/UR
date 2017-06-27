@@ -266,7 +266,7 @@
                             window.localStorage.setItem("city", window.localStorage.getItem("city"));
                             window.localStorage.setItem("mobileTel", window.localStorage.getItem("mobileTel"));
                             window.localStorage.setItem("headimgurl", window.localStorage.getItem("headimgurl"));
-                            window.localStorage.setItem("isbind", window.localStorage.getItem("isbind"));
+                            window.localStorage.setItem("isbind", 1);
                             setTimeout(function () {
                                 _this.$router.push({
                                     name: 'index'
