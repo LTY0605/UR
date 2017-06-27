@@ -65,7 +65,7 @@
             </template>
         </div>
         <!--<div @click.stop="showNoScroll=false" v-if="showNoScroll" class="gift-mask"></div>-->
-        <x-dialog v-model="showNoScroll" class="dialog-demo page_pay" :scroll="false">
+        <x-dialog v-model="showNoScroll" v-if="showNoScroll" class="dialog-demo page_pay gift-mask" :scroll="false">
             <div @click.stop="" class="payCode">
                 <div class="tabTitle">
                     <span :class="{active:titleTab==index}" v-for="(item, index) in titleList"
@@ -524,7 +524,7 @@
                 width: 10rem;
                 height: 4.5rem;
                 font-size: .75rem;
-                margin-top: .35rem;
+                margin-top: .5rem;
             }
             .scanPay-img2 {
                 margin: .6rem auto;
