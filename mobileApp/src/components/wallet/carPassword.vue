@@ -6,20 +6,22 @@
             <ul class="edit_material">
                 <li>
                     <group>
-                        <x-input type="password" title="原密码" placeholder="原密码"  :max="11"
+                        <x-input type="password" title="原密码" placeholder="原密码" :max="11"
                                  v-model="oldpassword"></x-input>
                     </group>
 
                 </li>
                 <li>
                     <group>
-                        <x-input type="password" title="新密码" placeholder="新密码" v-model="newpassword" :max="11" :min="6" :is-type="bePassWord"></x-input>
+                        <x-input type="password" title="新密码" placeholder="新密码" v-model="newpassword" :max="11" :min="6"
+                                 :is-type="bePassWord"></x-input>
                     </group>
 
                 </li>
                 <li>
                     <group>
-                        <x-input type="password" title="确认新密码" placeholder="请再次输入新密码" v-model="confirmpassword" :equal-with="newpassword"></x-input>
+                        <x-input type="password" title="确认新密码" placeholder="请再次输入新密码" v-model="confirmpassword"
+                                 :equal-with="newpassword"></x-input>
                     </group>
                 </li>
             </ul>
@@ -31,19 +33,19 @@
 <script>
     import {carPasswordServices} from '../../services/carPassword.js'
     import {
-        XHeader, Scroller, XInput, Group, Selector,Alert,Toast
+        XHeader, Scroller, XInput, Group, Selector, Alert, Toast
     } from 'vux'
     import {
         passwordService
     } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, XInput, Group, Selector,Alert,Toast
+            XHeader, Scroller, XInput, Group, Selector, Alert, Toast
         },
         data () {
             return {
-                showNoScroll:false,
-                warnText:'',
+                showNoScroll: false,
+                warnText: '',
                 newpassword: '',
                 oldpassword: '',
                 confirmpassword: '',
@@ -69,7 +71,7 @@
                     this.warnText = '您有信息未填写';
                     return
                 }
-                if(!this.bePassWord(this.oldpassword).valid || !this.bePassWord(this.newpassword).valid || !this.bePassWord(this.confirmpassword).valid){
+                if (!this.bePassWord(this.oldpassword).valid || !this.bePassWord(this.newpassword).valid || !this.bePassWord(this.confirmpassword).valid) {
                     this.showNoScroll = true;
                     this.warnText = '密码只能字母跟数字，长度为6到11位';
                     return
@@ -80,10 +82,10 @@
                     return
                 }
                 carPasswordServices().save({
-                    oldpassword:this.oldpassword,
-                    newpassword:this.newpassword,
-                    confirmpassword:this.confirmpassword,
-                    valueCardcode:this.valueCardcode,
+                    oldpassword: this.oldpassword,
+                    newpassword: this.newpassword,
+                    confirmpassword: this.confirmpassword,
+                    valueCardcode: this.valueCardcode,
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {
@@ -93,8 +95,8 @@
                             _this.$router.push({
                                 name: 'giftCoupon',
                             });
-                        },300)
-                    } else if(body.errcode == 1001) {
+                        }, 300)
+                    } else if (body.errcode == 1001) {
                         this.showNoScroll = true;
                         this.warnText = '原密码不正确，请重新输入';
                     } else {
@@ -114,7 +116,7 @@
         .vux-header {
             background-color: #AB9236 !important;
         }
-        .title{
+        .title {
             padding-bottom: .5rem;
             border-bottom: 1px solid #ddd;
             color: #AB9236;
