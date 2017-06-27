@@ -134,8 +134,8 @@
                         window.localStorage.setItem("city", window.localStorage.getItem("city"));
                         window.localStorage.setItem("mobileTel", window.localStorage.getItem("mobileTel"));
                         window.localStorage.setItem("headimgurl", window.localStorage.getItem("headimgurl"));
-                        window.localStorage.setItem("isbind", window.localStorage.getItem("isbind"));
-                        if(this.isbind == 0){
+                        window.localStorage.setItem("isbind", body.isbind);
+                        if(body.isbind == 0){
                             window.localStorage.setItem("wxOpenId", window.localStorage.getItem("wxOpenId"));
                             setTimeout(function () {
                                 _this.$router.push({
@@ -183,8 +183,8 @@
                         window.localStorage.setItem("city", window.localStorage.getItem("city"));
                         window.localStorage.setItem("mobileTel", window.localStorage.getItem("mobileTel"));
                         window.localStorage.setItem("headimgurl", window.localStorage.getItem("headimgurl"));
-                        window.localStorage.setItem("isbind", window.localStorage.getItem("isbind"));
-                        if(this.isbind == 1){
+                        window.localStorage.setItem("isbind", body.isbind);
+                        if(body.isbind == 1){
                             setTimeout(function () {
                                 _this.$router.push({
                                     name: 'index'
@@ -213,6 +213,7 @@
                 });*/
             },
             login_submit () {
+
                 let asd = {
                     wxOpenId:window.localStorage.getItem("wxOpenId"),
                     cardcode:window.localStorage.getItem("cardcode"),
@@ -247,7 +248,7 @@
                         wxOpenID: window.localStorage.getItem("wxOpenId"),
                         code: this.code,
                         mobileTel: this.phone,
-                        isbind: this.isbind
+                        isbind: 0
                     }).then(res => {
                         let body = res.body;
                         if (body.errcode == 0) {
@@ -263,7 +264,7 @@
                             window.localStorage.setItem("city", window.localStorage.getItem("city"));
                             window.localStorage.setItem("mobileTel", window.localStorage.getItem("mobileTel"));
                             window.localStorage.setItem("headimgurl", window.localStorage.getItem("headimgurl"));
-                            window.localStorage.setItem("isbind", window.localStorage.getItem("isbind"));
+                            window.localStorage.setItem("isbind", body.isbind);
                             setTimeout(function () {
                                 _this.$router.push({
                                     name: 'index'
