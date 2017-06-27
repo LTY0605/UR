@@ -215,7 +215,8 @@
                         let body = res.body;
                         if (body.errcode == 0) {
                             this.amount = body.amount;
-                        } else {
+                        }
+                            else {
                             this.showNoScro = true;
                             this.warnText = body.errmsg;
                         }
