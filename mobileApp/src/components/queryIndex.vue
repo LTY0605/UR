@@ -37,16 +37,18 @@
                                      selected-item-class="demo1-item-selected">
                                 <checker-item v-for="i in item.child" :value="i.id"
                                               v-if="item.conditionId == 'region'">
-                                    <p @click="kk(item.conditionId,i.id,index)">{{i.name}}</p>
+                                    <p @click="kk(item.conditionId,i.id,index,i.name)">{{i.name}}</p>
                                 </checker-item>
                                 <checker-item v-for="i in childData.child"
                                               :value="i.id"
                                               v-if="item.conditionId == 'subregion'">
-                                    <p @click="aa(item.conditionId,i.id,index)">{{i.name}}</p>
+                                    <p @click="aa(item.conditionId,i.id,index,i.name)">{{i.name}}</p>
                                 </checker-item>
                                 <checker-item v-for="i in cityData.child"
                                               :value="i.id"
-                                              v-if="item.conditionId == 'city'">{{i.name}}</checker-item>
+                                              v-if="item.conditionId == 'city'">
+                                    <p @click="getCity(i.name)">{{i.name}}</p>
+                                </checker-item>
                                 <!--<checker-item v-for="i in childData.child"-->
                                               <!--:value="i.id"-->
                                               <!--v-if="item.conditionId == 'shop'">{{i.name}}</checker-item>-->
@@ -54,9 +56,17 @@
                             </checker>
                         </div>
                         <div class="box longBox" v-if="item.conditionId == 'shop'">
-                            <checker v-model="demo4CheckboxMax" type="radio" default-item-class="demo1-item"
+                            <checker type="radio" default-item-class="demo1-item"
                                      selected-item-class="demo1-item-selected">
-                                <checker-item v-for="i in item.child" :value="i.id" v-if="areaData[index-1].answers==i.parentId">{{i.name}}</checker-item>
+                                <!--<checker-item v-for="i in item.child" :value="i.id" v-if="areaData[index-1].answers==i.parentId">-->
+                                    <!--<p @click="getShop(1)">{{i.name}}</p></checker-item>-->
+
+                                <checker-item v-for="i in shopData.child"
+                                              :value="i.id"
+                                              @click="getShop(i.name)"
+                                              v-if="item.conditionId == 'shop'">
+                                    <p @click="getShop(i.name)">{{i.name}}</p>
+                                </checker-item>
                             </checker>
                         </div>
                     </div>
@@ -124,9 +134,14 @@
                 demo3CheckboxMax: '',
                 demo4CheckboxMax:'',
                 areaData:[],//地区
+                region:'',
+                subregion:'',
+                city:'',
+                shop:'',
                 styleData:[],//风格
                 childData:[],   //子级所有数据
                 cityData:[],    //城市数据
+                shopData:[],    //店铺数据
                 conditionId:'', //条件项id
                 conditionValue:'',  //条件项的数据
                 showNoScroll:false,
@@ -139,17 +154,24 @@
            this.renderData();
         },
         methods: {
-            kk(condition,value,index){
+            getCity(city){
+                this.city = city;
+            },
+            getShop(shop){
+                this.shop = shop;
+            },
+            kk(condition,value,index,region){
 //                alert('----'+condition+'---==='+value+'====');
                 this.conditionId = condition;
                 this.conditionValue = value;
-
+                this.region = region;
                 this.renderChildData(index);
             },
-            aa(condition,value,index){
+            aa(condition,value,index,subregion){
 //                alert('----'+condition+'---==='+value+'====');
                 this.conditionId = condition;
                 this.conditionValue = value;
+                this.subregion = subregion;
                 queryChildService().save({
                     modelId:1000,
                     conditionId:this.conditionId,
@@ -158,6 +180,8 @@
                     let body = res.body;
                     if(body.errmsg='ok'){
                         this.cityData = body.data[index-1];
+                        this.shopData = body.data[index];
+                        console.log(this.shopData,'====================================')
                         console.log(this.cityData,'-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-');
                         console.log(body.data,'---------------------------------------------')
                     } else{
@@ -215,7 +239,8 @@
                 this.show1 = true;
             },
             sureSubmit(){
-                this.show1 = false;
+                this.showNoScroll = true;
+                this.warnText = '日期：'+this.dateTime + this.region + '-' + this.subregion + '-' + this.city
             }
         },
         computed: {}
@@ -337,7 +362,11 @@
                     font-size: 0;
                     .vux-checker-item {
                         width: 22%;
-                        padding: .5rem 0;
+                        height: 2rem;
+                        line-height: 2rem;
+                        overflow: hidden;
+                        border-radius: .2rem;
+                        /*padding: .5rem 0;*/
                         text-align: center;
                         font-size: .65rem;
                         margin-left: 4%;
@@ -345,6 +374,10 @@
                         color: #999;
                         vertical-align: top;
                         margin-bottom: .5rem;
+                        p{
+                            height: 100%;
+                            line-height: 2rem;
+                        }
                     }
                     .vux-checker-item:nth-child(4n+1) {
                         margin-left: 0;
