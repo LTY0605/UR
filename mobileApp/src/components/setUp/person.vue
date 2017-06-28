@@ -166,6 +166,7 @@
                     if (body.errcode == 0) {
                         this.showNoScroll = true;
                         this.warnText = '修改成功';
+                        window.localStorage.setItem('mobileTel',this.newMobileTel);
                         setTimeout(function () {
                             _this.$router.push({
                                 name: 'index',
@@ -337,6 +338,7 @@
 //                this.attrValue = name2value(val, ChinaAddressData); //把值转为文字
 //            },
         },
+
 
         computed: {}
     }
