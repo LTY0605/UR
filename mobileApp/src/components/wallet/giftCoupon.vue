@@ -268,7 +268,25 @@
             },
             hide2() {
                 this.showNoScroll2 = false;
-            },
+                    cardListService().save({
+//                   cardcode:'8urp0000118',
+                        cardcode: window.localStorage.getItem("cardcode"),
+                    }).then(res => {
+                        let body = res.body;
+                        // console.log(body.list[0])
+                        if (body.errcode == 0) {
+                            this.cardList = body.list;
+
+                        } else {
+                            this.showNoScro = true;
+                            this.warnText = body.errmsg;
+                        }
+                    }, res => {
+                        this.showNoScro = true;
+                        this.warnText = "网络超时，请重试";
+                    })
+                }
+
         },
         computed: {}
     }
