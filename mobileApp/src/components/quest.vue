@@ -47,13 +47,17 @@
                         if (body.errcode == 0) {
                             this.$router.push({name: 'questPage'})
                         } else if (body.errcode == 4001) {
+
+                            /*这个遮罩没有弹出来*/
                             this.showNoScroll2 = true;
                             this.warnText = body.errmsg
+
+
                             setTimeout(function () {
                                 _this.$router.push({
                                     name: 'quest'
                                 })
-                            }, 500)
+                            }, 1000)
                         } else {
                             this.showNoScroll2 = true;
                             this.warnText = '网络超时，请重试'
