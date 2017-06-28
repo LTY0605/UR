@@ -52,7 +52,6 @@
                             this.showNoScroll2 = true;
                             this.warnText = body.errmsg
 
-
                             setTimeout(function () {
                                 _this.$router.push({
                                     name: 'quest'

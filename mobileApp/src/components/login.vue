@@ -211,7 +211,6 @@
                 });
             },
             login_submit () {
-
                 /*this.showBind = true;
                  this.warnText2 = '是否绑定此微信';*/
 
