@@ -338,31 +338,31 @@
             },
             sureSubmit(){
                 this.queryToast = this.region + '-' + this.subregion + '-' + this.city + '-' + this.shop;
-//                if(this.dateTime == ''){
-//                    this.showNoScroll = true;
-//                    this.warnText = '请选择日期';
-//                    return
-//                } else if(this.region == '' || this.subregion == '' || this.city == '' || this.shop == '' ){
-//                    this.showNoScroll = true;
-//                    this.warnText = '请选择地区，具体到店铺';
-//                    return
-//                } else if(this.seriesToast2 == ''){
-//                    this.showNoScroll = true;
-//                    this.warnText = '请选择系列';
-//                    return
-//                } else if(this.styleToast == ''){
-//                    this.showNoScroll = true;
-//                    this.warnText = '请选择风格';
-//                    return
-//                } else if(this.levelToast == ''){
-//                    this.showNoScroll = true;
-//                    this.warnText = '请选择商品层';
-//                    return
-//                } else if(this.classToast == ''){
-//                    this.showNoScroll = true;
-//                    this.warnText = '请选择品类';
-//                    return
-//                }
+                if(this.dateTime == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请选择日期';
+                    return
+                } else if(this.region == '' || this.subregion == '' || this.city == '' || this.shop == '' ){
+                    this.showNoScroll = true;
+                    this.warnText = '请选择地区，具体到店铺';
+                    return
+                } else if(this.seriesToast2 == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请选择系列';
+                    return
+                } else if(this.styleToast == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请选择风格';
+                    return
+                } else if(this.levelToast == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请选择商品层';
+                    return
+                } else if(this.classToast == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请选择品类';
+                    return
+                }
                 this.show1 = false;
                 this.show2 = true;
             }
