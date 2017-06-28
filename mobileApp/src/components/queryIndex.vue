@@ -184,8 +184,12 @@
         methods: {
             clearSubmit(){
                 this.dateTime = '';
-                this.demo1CheckboxMax = ''
-                this.demo4CheckboxMax = ''
+                this.demo1CheckboxMax = '';
+                this.demo4CheckboxMax = '';
+                this.seriesToast2 = [];
+                this.styleToast = [];
+                this.levelToast = [];
+                this.classToast = [];
             },
             setToday (value) {
                 let now = new Date()
@@ -248,7 +252,7 @@
             },
             kk(condition,value,index,region){
 //                alert('----'+condition+'---==='+value+'====');
-                this.cityData = '';
+//                this.cityData = '';
                 this.shopData = '';
                 this.conditionId = condition;
                 this.conditionValue = value;
@@ -257,7 +261,6 @@
             },
             aa(condition,value,index,subregion){
 //                alert('----'+condition+'---==='+value+'====');
-                this.shopData = '';
                 this.conditionId = condition;
                 this.conditionValue = value;
                 this.subregion = subregion;
@@ -269,6 +272,8 @@
                     let body = res.body;
                     if(body.errmsg='ok'){
                         this.cityData = body.data[index-1];
+                        this.shopData = body.data[index];
+                        console.log(this.shopData,'000000000111111111111=================')
                         console.log(this.cityData,'-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-');
                         console.log(body.data,'---------------------------------------------')
                     } else{
@@ -319,9 +324,9 @@
                     let body = res.body;
                     if(body.errmsg='ok'){
                         this.childData = body.data[index];
+                        this.cityData = body.data[index+1];
+                        this.shopData = body.data[index+2];
                         console.log(this.childData.child,'-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-');
-                        console.log(body.data[index],'====================================');
-                        console.log(body.data,'---------------------------------------------')
                     } else{
                         console.log('666--------------------------')
                     }
