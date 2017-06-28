@@ -13,7 +13,7 @@
             <div class="query-toast">
                 日期：{{dateTime}}<br>
                 地区：{{queryToast}}<br>
-                系列：{{seriesToast}}<br>
+                系列：{{seriesToast2}}<br>
                 风格：{{styleToast}}<br>
                 商品层：{{levelToast}}<br>
                 品类：{{classToast}}
@@ -27,14 +27,17 @@
                         :min-year=1900
                         cancelText="取消"
                         confirmText="确定"
+                        clear-text="今天"
+                        @on-clear="setToday"
                        v-model="dateTime"
                         class="input input1 text textPadding"
                         title="选择日期"></datetime>
                 </group>
                 <div class="query_item">
-                    <div class="query_item_title" @click="isActive=!isActive">
+                    <div class="query_item_title" @click="isActive=!isActive;isActive2=!isActive2">
                         地区
-                        <span :class="[isActive ? 'activeClass' : 'noActclass', 'all']">全部</span>
+                        <span :class="[isActive ? 'activeClass' : 'noActclass', 'all']">
+                            <span v-if="isActive2">全部</span><span v-if="isActive">收起</span></span>
                     </div>
                     <div class="query_icon" v-show="isActive">
                     <div v-for="(item,index) in areaData" :class="[item.isActive ? '' : 'activeMain', 'item_main']">
@@ -78,9 +81,11 @@
                 </div>
                 <!--<p class="deliver"></p>-->
                 <div class="query_item">
-                    <div class="query_item_title" @click="isActive1=!isActive1">
+                    <div class="query_item_title" @click="isActive1=!isActive1;isActive3=!isActive3">
                         风格
-                        <span :class="[isActive1 ? 'activeClass' : 'noActclass', 'all']">全部</span>
+                        <span :class="[isActive1 ? 'activeClass' : 'noActclass', 'all']">
+                            <span v-if="isActive3">全部</span><span v-if="isActive1">收起</span></span>
+                        </span>
                     </div>
                     <div class="query_icon" v-show="isActive1">
                         <div v-for="(item,index) in styleData" :class="[item.isActive ? '' : 'activeMain', 'item_main']">
@@ -134,6 +139,8 @@
             return {
                 isActive:false,
                 isActive1:false,
+                isActive2:true,
+                isActive3:true,
                 id: '',
                 show1: true,
                 show2: false,
@@ -144,6 +151,7 @@
                 demo4CheckboxMax:'',
                 queryToast: '', //提交内容
                 seriesToast: [],  //系列内容
+                seriesToast2: [],
                 styleToast: [], //风格内容
                 levelToast: [], //商品车内容
                 classToast: [], //品类内容
@@ -168,8 +176,33 @@
            this.renderData();
         },
         methods: {
+            setToday (value) {
+                let now = new Date()
+                let cmonth = now.getMonth() + 1
+                let day = now.getDate()
+                if (cmonth < 10) cmonth = '0' + cmonth
+                if (day < 10) day = '0' + day
+                this.dateTime = now.getFullYear() + '-' + cmonth + '-' + day
+                console.log('set today ok')
+            },
             mm(value){
                 this.seriesToast.push(value);
+                if(this.seriesToast.length>1){
+                    for(let i=0;i<this.seriesToast.length;i++){
+                        if(this.seriesToast[i]==value){
+                            this.seriesToast.splice(i,1);
+                            alert('666')
+                        }
+                    }
+                }
+//                this.seriesToast.push(value);
+                for(let j=0;j<this.seriesToast.length;j++){
+                    if(this.seriesToast2.indexOf(this.seriesToast[j])===-1){
+                        this.seriesToast2.push(this.seriesToast[j]);
+//                        this.seriesToast = this.seriesToast2;
+                    }
+                }
+                this.seriesToast = this.seriesToast2;
             },
             mm1(value){
                 this.styleToast.push(value);
@@ -188,6 +221,7 @@
             },
             kk(condition,value,index,region){
 //                alert('----'+condition+'---==='+value+'====');
+                this.cityData='';
                 this.conditionId = condition;
                 this.conditionValue = value;
                 this.region = region;
@@ -265,8 +299,32 @@
                 this.show1 = true;
             },
             sureSubmit(){
-                this.showNoScroll2 = true;
                 this.queryToast = this.region + '-' + this.subregion + '-' + this.city + '-' + this.shop;
+                if(this.dateTime == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请选择日期';
+                    return
+                } else if(this.region == '' || this.subregion == '' || this.city == '' || this.shop == '' ){
+                    this.showNoScroll = true;
+                    this.warnText = '请选择地区，具体到店铺';
+                    return
+                } else if(this.seriesToast2 == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请选择系列';
+                    return
+                } else if(this.styleToast == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请选择风格';
+                    return
+                } else if(this.levelToast == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请选择商品层';
+                    return
+                } else if(this.classToast == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请选择品类';
+                    return
+                }
                 this.show1 = false;
                 this.show2 = true;
             }
