@@ -15,7 +15,7 @@
             <div class="query-toast">
                 日期：{{dateTime}}<br>
                 地区：{{queryToast}}<br>
-                系列：{{seriesToast2}}<br>
+                系列：{{seriesToast}}<br>
                 风格：{{styleToast}}<br>
                 商品层：{{levelToast}}<br>
                 品类：{{classToast}}
@@ -47,13 +47,13 @@
                     <div v-for="(item,index) in areaData" :class="[item.isActive ? '' : 'activeMain', 'item_main']">
                         <div class="query_item_title titleItem" @click="item.isActive=!item.isActive">
                             {{item.conditionName}}
-                            <span v-if="item.conditionId!= 'region'" :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"
-                                >全部</span>
+                            <span :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']">全部</span>
                         </div>
                         <div class="box"  v-if="item.conditionId != ''">
                             <checker v-model="item.answers" type="radio" default-item-class="demo1-item"
                                      selected-item-class="demo1-item-selected">
-                                <checker-item v-for="i in item.child" :value="i.id"
+                                <checker-item v-for="i in item.child"
+                                              :value="i.id"
                                               v-if="item.conditionId == 'region'">
                                     <p @click="kk(item.conditionId,i.id,index,i.name)">{{i.name}}</p>
                                 </checker-item>
@@ -96,13 +96,12 @@
                         <div v-for="(item,index) in styleData" :class="[item.isActive ? '' : 'activeMain', 'item_main']">
                             <div class="query_item_title titleItem" @click="item.isActive=!item.isActive">
                                 {{item.conditionName}}
-                                <span v-if="item.conditionId!= 'big_series'" :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"
-                                >全部</span>
+                                <span :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']">全部</span>
                             </div>
                             <div class="box" >
                                 <checker v-model="demo1CheckboxMax" type="checkbox" default-item-class="demo1-item"
                                          selected-item-class="demo1-item-selected">
-                                    <checker-item v-for="i in item.child" :value="i.id"
+                                    <checker-item v-for="(i,index) in item.child" :value="i.id"
                                                   v-if="item.conditionId == 'big_series'">
                                         <p @click="mm(i.name)">{{i.name}}</p></checker-item>
                                     <checker-item v-for="i in item.child" :value="i.id"
@@ -186,7 +185,7 @@
                 this.dateTime = '';
                 this.demo1CheckboxMax = '';
                 this.demo4CheckboxMax = '';
-                this.seriesToast2 = [];
+                this.seriesToast = [];
                 this.styleToast = [];
                 this.levelToast = [];
                 this.classToast = [];
@@ -201,7 +200,17 @@
                 console.log('set today ok')
             },
             mm(value){
-                this.seriesToast.push(value);
+                if(this.seriesToast.length <1){
+                    this.seriesToast.push(value);
+                } else {
+                    let num = this.seriesToast.indexOf(value);
+                        if(this.seriesToast[num] == value){
+                            this.seriesToast.splice(num,1);
+                        } else {
+                            this.seriesToast.push(value);
+                        }
+//                    }
+                }
 //                for(let i=0;i<this.seriesToast.length;i++){
 //                    if(this.seriesToast[i]==value){
 //                        this.seriesToast.splice(i,1);
@@ -210,22 +219,52 @@
 //                }
 
 //                this.seriesToast.push(value);
-                for(let j=0;j<this.seriesToast.length;j++){
-                    if(this.seriesToast2.indexOf(this.seriesToast[j])===-1){
-                        this.seriesToast2.push(this.seriesToast[j]);
-//                        this.seriesToast = this.seriesToast2;
-                    }
-                }
+//                for(let j=0;j<this.seriesToast.length;j++){
+//                    if(this.seriesToast2.indexOf(this.seriesToast[j])===-1){
+//                        this.seriesToast2.push(this.seriesToast[j]);
+////                        this.seriesToast = this.seriesToast2;
+//                    }
+//                }
 //                this.seriesToast = this.seriesToast2;
             },
             mm1(value){
-                this.styleToast.push(value);
+                if(this.styleToast.length <1){
+                    this.styleToast.push(value);
+                } else {
+                    let num = this.styleToast.indexOf(value);
+                    if(this.styleToast[num] == value){
+                        this.styleToast.splice(num,1);
+                    } else {
+                        this.styleToast.push(value);
+                    }
+//                    }
+                }
             },
             mm2(value){
-                this.levelToast.push(value);
+                if(this.levelToast.length <1){
+                    this.levelToast.push(value);
+                } else {
+                    let num = this.levelToast.indexOf(value);
+                    if(this.levelToast[num] == value){
+                        this.levelToast.splice(num,1);
+                    } else {
+                        this.levelToast.push(value);
+                    }
+//                    }
+                }
             },
             mm3(value){
-                this.classToast.push(value);
+                if(this.classToast.length <1){
+                    this.classToast.push(value);
+                } else {
+                    let num = this.classToast.indexOf(value);
+                    if(this.classToast[num] == value){
+                        this.classToast.splice(num,1);
+                    } else {
+                        this.classToast.push(value);
+                    }
+//                    }
+                }
             },
             getCity(condition,value,index,city){
                 this.conditionId = condition;
