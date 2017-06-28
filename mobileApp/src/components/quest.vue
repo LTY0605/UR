@@ -51,9 +51,9 @@
                             this.warnText = body.errmsg
                             setTimeout(function () {
                                 _this.$router.push({
-                                    name: '/'
+                                    name: 'index'
                                 })
-                            }, 1000)
+                            }, 500)
                         } else {
                             this.showNoScroll2 = true;
                             this.warnText = '网络超时，请重试'
