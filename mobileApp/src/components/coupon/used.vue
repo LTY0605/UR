@@ -27,8 +27,8 @@
                     <p style="margin:0;font-size: .6rem;color: #999999">有效期：{{coupon.startDate | date('YYYY-MM-DD')}}～{{coupon.endDate | date('YYYY-MM-DD')}}</p>
                     <div style="height: auto">
                         <p @click="explainShow(index+1)" class="couponExplain">礼券说明
-                            <span v-if="explainList == index+1">∨</span>
-                            <span v-if="explainList != index+1" class="couponRight">></span></p>
+                            <div v-if="explainList == index+1" class="arrow_down">></div>
+                            <div v-if="explainList != index+1" class="couponRight">></div></p>
                         <p v-if="explainList == index+1" class="coupon-text">
                             <span v-if="coupon.msg">{{coupon.msg}}</span>
                             <span v-else>暂无说明</span>
@@ -192,19 +192,38 @@
                 color: #F68B79;
                 font-size: .6rem;
                 margin-top: .15rem;
+                position: relative;
             }
 
             .couponRight {
-                position: relative;
+                position: absolute;
+                color: #F68B79;
+                top: 3.8rem;
+                right: 9rem;
             }
             .couponRight:before {
-                content: '';
                 position: absolute;
+                content: '';
                 height: 1px;
                 width: 2.8rem;
                 background: #F68B79;
                 left: -2.6rem;
                 bottom: -1px;
+            }
+            .arrow_down{
+                position: relative;
+                color: #F68B79;
+                top: 3.8rem;
+                right: 9rem;
+            }
+
+            div.arrow_down{
+                position: absolute;
+                transform:rotate(90deg);
+                -ms-transform:rotate(90deg); /* IE 9 */
+                -moz-transform:rotate(90deg); /* Firefox */
+                -webkit-transform:rotate(90deg); /* Safari and Chrome */
+                -o-transform:rotate(90deg); /* Opera */
             }
             .coupon-text {
                 font-size: .6rem;
