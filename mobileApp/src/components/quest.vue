@@ -66,7 +66,6 @@
                         this.showNoScroll2 = true;
                         this.warnText = '网络超时，请重试'
                     })
-                    this.$router.push({name: 'questPage'})
                 } else {
                     this.showNoScroll2 = true;
                     this.warnText = '网络超时，请重试'
