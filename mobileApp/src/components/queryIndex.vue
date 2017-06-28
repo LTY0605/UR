@@ -216,7 +216,7 @@
 //                        this.seriesToast = this.seriesToast2;
                     }
                 }
-                this.seriesToast = this.seriesToast2;
+//                this.seriesToast = this.seriesToast2;
             },
             mm1(value){
                 this.styleToast.push(value);
