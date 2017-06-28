@@ -3,13 +3,15 @@
 */
 <template>
     <div class="page_query">
-        <x-header :left-options="{backText:''}">我的报表</x-header>
+        <!--<x-header :left-options="{backText:''}">我的报表</x-header>-->
         <!--<span class="head_icon" @click="showSelect"></span>-->
         <!--<div class="headInput">-->
             <!--<input type="text" class="queryInput" placeholder="请选择" @focus="showSelect">-->
         <!--</div>-->
         <popup v-model="show2" height="100%">
-            <x-header :left-options="{backText:''}">我的报表</x-header>
+            <x-header :left-options="{backText:''}" :right-options="{showMore: true}"
+                      @on-click-more="show1 = true;show2 = false">
+                我的报表</x-header>
             <div class="query-toast">
                 日期：{{dateTime}}<br>
                 地区：{{queryToast}}<br>
@@ -21,7 +23,9 @@
         </popup>
         <popup v-model="show1" height="100%">
             <div class="popup1">
-                <x-header :left-options="{backText:''}">我的报表</x-header>
+                <x-header :left-options="{backText:''}" :right-options="{showMore : true}"
+                          @on-click-more="show1 = false;show2=true">
+                    我的报表</x-header>
                 <group class="dateBox">
                     <datetime
                         :min-year=1900
@@ -46,7 +50,7 @@
                             <span v-if="item.conditionId!= 'region'" :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"
                                 >全部</span>
                         </div>
-                        <div class="box"  v-if="item.conditionId != 'shop'">
+                        <div class="box"  v-if="item.conditionId != ''">
                             <checker v-model="item.answers" type="radio" default-item-class="demo1-item"
                                      selected-item-class="demo1-item-selected">
                                 <checker-item v-for="i in item.child" :value="i.id"
@@ -61,7 +65,7 @@
                                 <checker-item v-for="i in cityData.child"
                                               :value="i.id"
                                               v-if="item.conditionId == 'city'">
-                                    <p @click="getCity(i.name,'')">{{i.name}}</p>
+                                    <p @click="getCity(item.conditionId,i.id,index,i.name)">{{i.name}}</p>
                                 </checker-item>
                                 <!--<checker-item v-for="i in childData.child"-->
                                               <!--:value="i.id"-->
@@ -72,7 +76,8 @@
                         <div class="box longBox" v-if="item.conditionId == 'shop'">
                             <checker v-model="demo4CheckboxMax" type="radio" default-item-class="demo1-item"
                                      selected-item-class="demo1-item-selected">
-                                <checker-item v-for="i in item.child" :value="i.id" v-if="areaData[index-1].answers==i.parentId">
+                                <checker-item v-for="i in shopData.child" :value="i.id"
+                                              v-if="item.conditionId == 'shop'">
                                     <p @click="getShop(i.name)">{{i.name}}</p></checker-item>
                             </checker>
                         </div>
@@ -95,7 +100,7 @@
                                 >全部</span>
                             </div>
                             <div class="box" >
-                                <checker v-model="item.answers" type="checkbox" default-item-class="demo1-item"
+                                <checker v-model="demo1CheckboxMax" type="checkbox" default-item-class="demo1-item"
                                          selected-item-class="demo1-item-selected">
                                     <checker-item v-for="i in item.child" :value="i.id"
                                                   v-if="item.conditionId == 'big_series'">
@@ -116,7 +121,7 @@
                 </div>
             </div>
             <div class="operate">
-                <span>重置</span>
+                <span @click="clearSubmit">重置</span>
                 <span @click="sureSubmit">确定</span>
             </div>
         </popup>
@@ -143,7 +148,7 @@
                 isActive3:true,
                 id: '',
                 show1: true,
-                show2: false,
+                show2: true,
                 dateTime: '',
                 demo1CheckboxMax: '',
                 demo2CheckboxMax: '',
@@ -163,6 +168,7 @@
                 styleData:[],//风格
                 childData:[],   //子级所有数据
                 cityData:[],    //城市数据
+                shopData:[],
                 conditionId:'', //条件项id
                 conditionValue:'',  //条件项的数据
                 showNoScroll:false,
@@ -176,6 +182,11 @@
            this.renderData();
         },
         methods: {
+            clearSubmit(){
+                this.dateTime = '';
+                this.demo1CheckboxMax = ''
+                this.demo4CheckboxMax = ''
+            },
             setToday (value) {
                 let now = new Date()
                 let cmonth = now.getMonth() + 1
@@ -187,14 +198,13 @@
             },
             mm(value){
                 this.seriesToast.push(value);
-                if(this.seriesToast.length>1){
-                    for(let i=0;i<this.seriesToast.length;i++){
-                        if(this.seriesToast[i]==value){
-                            this.seriesToast.splice(i,1);
-                            alert('666')
-                        }
-                    }
-                }
+//                for(let i=0;i<this.seriesToast.length;i++){
+//                    if(this.seriesToast[i]==value){
+//                        this.seriesToast.splice(i,1);
+////                        alert('666')
+//                    }
+//                }
+
 //                this.seriesToast.push(value);
                 for(let j=0;j<this.seriesToast.length;j++){
                     if(this.seriesToast2.indexOf(this.seriesToast[j])===-1){
@@ -213,15 +223,33 @@
             mm3(value){
                 this.classToast.push(value);
             },
-            getCity(city){
+            getCity(condition,value,index,city){
+                this.conditionId = condition;
+                this.conditionValue = value;
                 this.city = city;
+                queryChildService().save({
+                    modelId:1000,
+                    conditionId:this.conditionId,
+                    value:this.conditionValue
+                }).then(res=>{
+                    let body = res.body;
+                    if(body.errmsg='ok'){
+                        this.shopData = body.data[0];
+                        console.log(this.shopData,'-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-');
+                        console.log(body.data,'---------------------------------------')
+                    } else{
+                        console.log('666--------------------------')
+                    }
+                },res=>{
+                })
             },
             getShop(shop){
                 this.shop = shop
             },
             kk(condition,value,index,region){
 //                alert('----'+condition+'---==='+value+'====');
-                this.cityData='';
+                this.cityData = '';
+                this.shopData = '';
                 this.conditionId = condition;
                 this.conditionValue = value;
                 this.region = region;
@@ -229,6 +257,7 @@
             },
             aa(condition,value,index,subregion){
 //                alert('----'+condition+'---==='+value+'====');
+                this.shopData = '';
                 this.conditionId = condition;
                 this.conditionValue = value;
                 this.subregion = subregion;
@@ -255,6 +284,9 @@
                     let body = res.body;
                     if (body.data) {
                         this.areaData = body.data[0].conditions;
+                        this.childData = body.data[0].conditions[1];
+                        this.cityData = body.data[0].conditions[2];
+                        this.shopData = body.data[0].conditions[3];
                         this.areaData.forEach(function (item,index) {
                                 Vue.set(item, 'answers', '');
                                 if(index == 0){
@@ -263,7 +295,8 @@
                                     Vue.set(item, 'isActive', false);
                                 }
                         })
-                        console.log(this.areaData,'----------')
+                        console.log(this.areaData,'----------');
+                        console.log(this.shopData,'1111111111111-------------------------')
                         this.styleData = body.data[1].conditions;
 //                        this.styleToast = this.styleData[0].child
                         this.styleData.forEach(function (item,index) {
@@ -300,31 +333,31 @@
             },
             sureSubmit(){
                 this.queryToast = this.region + '-' + this.subregion + '-' + this.city + '-' + this.shop;
-                if(this.dateTime == ''){
-                    this.showNoScroll = true;
-                    this.warnText = '请选择日期';
-                    return
-                } else if(this.region == '' || this.subregion == '' || this.city == '' || this.shop == '' ){
-                    this.showNoScroll = true;
-                    this.warnText = '请选择地区，具体到店铺';
-                    return
-                } else if(this.seriesToast2 == ''){
-                    this.showNoScroll = true;
-                    this.warnText = '请选择系列';
-                    return
-                } else if(this.styleToast == ''){
-                    this.showNoScroll = true;
-                    this.warnText = '请选择风格';
-                    return
-                } else if(this.levelToast == ''){
-                    this.showNoScroll = true;
-                    this.warnText = '请选择商品层';
-                    return
-                } else if(this.classToast == ''){
-                    this.showNoScroll = true;
-                    this.warnText = '请选择品类';
-                    return
-                }
+//                if(this.dateTime == ''){
+//                    this.showNoScroll = true;
+//                    this.warnText = '请选择日期';
+//                    return
+//                } else if(this.region == '' || this.subregion == '' || this.city == '' || this.shop == '' ){
+//                    this.showNoScroll = true;
+//                    this.warnText = '请选择地区，具体到店铺';
+//                    return
+//                } else if(this.seriesToast2 == ''){
+//                    this.showNoScroll = true;
+//                    this.warnText = '请选择系列';
+//                    return
+//                } else if(this.styleToast == ''){
+//                    this.showNoScroll = true;
+//                    this.warnText = '请选择风格';
+//                    return
+//                } else if(this.levelToast == ''){
+//                    this.showNoScroll = true;
+//                    this.warnText = '请选择商品层';
+//                    return
+//                } else if(this.classToast == ''){
+//                    this.showNoScroll = true;
+//                    this.warnText = '请选择品类';
+//                    return
+//                }
                 this.show1 = false;
                 this.show2 = true;
             }
@@ -334,6 +367,10 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_query {
+        .vux-header-more:after{
+            color: #fff;
+            font-size: .75rem !important;
+        }
         .query-toast{
             width: 90%;
             margin: 1rem auto;
