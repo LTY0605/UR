@@ -12,7 +12,8 @@
             <four :surveyData="surveyData" :currentIndex="currentIndex"
                   v-if="currentData.subjectType=='checkbox'"></four>
             <button class="quest-btn"
-                    @click="next" v-show="currentIndex<length-1">继 续（{{currentIndex+1}}/{{length}}）</button>
+                    @click="next" v-show="currentIndex<length-1">继 续（{{currentIndex + 1}}/{{length}}）
+            </button>
             <button class="quest-btn" @click="submit" v-show="currentIndex==length-1">提 交</button>
         </div>
         <toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>
@@ -21,58 +22,58 @@
 
 <script>
     import Vue from 'vue'
-    import { surveyServices,surveyCommit } from '../services/quest.js'
+    import {surveyServices, surveyCommit} from '../services/quest.js'
     import one from './quest/one.vue'
     import two from './quest/two.vue'
     import three from './quest/three.vue'
     import four from './quest/four.vue'
     import {XHeader, XButton, Toast} from 'vux'
     export default{
-        components:{
+        components: {
             XHeader, XButton, Toast, one, two, three, four
         },
         data(){
-            return{
-                showNoScroll:false,
-                warnText:'',
-                num:'1',
-                subjectCode:'',
-                otherText:'',
-                surveyType:'02',
-                surveyCode:'wqdc',
-                currentIndex:0,
-                currentData:[],
-                submitCode:{},
-                length:0,
+            return {
+                showNoScroll: false,
+                warnText: '',
+                num: '1',
+                subjectCode: '',
+                otherText: '',
+                surveyType: '02',
+                surveyCode: 'wqdc',
+                currentIndex: 0,
+                currentData: [],
+                submitCode: {},
+                length: 0,
             }
         },
         mounted(){
             this.getSurveyData();
         },
-        methods:{
+        methods: {
             getSurveyData(){
                 surveyServices().get({
                     cardcode: window.localStorage.getItem("cardcode"),
                     surveyType: this.surveyType,
                     surveyCode: this.surveyCode
-                }).then(res=>{
-                    let body =res.body;
-                    if(body.errcode == 0){
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
                         this.surveyData = body.survey;
-                        this.surveyData.forEach(function (item,index) {
+                        this.surveyData.forEach(function (item, index) {
                             if (item.subjectType == "checkbox" || item.subjectType == "combobox") {
                                 Vue.set(item, 'answers', [])
                             } else {
                                 Vue.set(item, 'answers', "")
                             }
                         })
-                        console.log(this.surveyData,'---------------')
+                        console.log(this.surveyData, '---------------')
                         this.length = this.surveyData.length;
                         this.currentData = this.surveyData[this.currentIndex];
-                    }else{
+                    } else {
                         console.log(body.errmsg)
                     }
-                },res=>{
+                }, res => {
                     console.log(res);
                 })
             },
@@ -82,17 +83,18 @@
             saveSurveyData(){
                 surveyCommit().save(
                     {
-                    cardcode: window.localStorage.getItem("cardcode"),
-                    surveyCode: this.surveyCode}
+                        cardcode: window.localStorage.getItem("cardcode"),
+                        surveyCode: this.surveyCode
+                    }
 //                    this.submitCode
-                ).then(res=>{
-                },res=>{
-                    this.showNoScroll= true;
-                    this.warnText='网络超时，请重试';
+                ).then(res => {
+                }, res => {
+                    this.showNoScroll = true;
+                    this.warnText = '网络超时，请重试';
                 })
             },
             submit(){
-                if(window.navigator.onLine==true){
+                if (window.navigator.onLine == true) {
                     let data = {};  //选择题的对象
                     let other = {}; //其他选项的对象
                     let name = [];  //其他选项的key
@@ -102,64 +104,66 @@
                     obj.cardcode = cardcode;
                     obj.surveyCode = this.surveyCode;
                     //------------选项push到一个对象里--------------
-                    for(let i=0;i<this.length;i++){
+                    for (let i = 0; i < this.length; i++) {
                         //----------------部分多选的得遍历加前缀----------------
-                        if(Array.isArray(this.surveyData[i].answers)){
+                        if (Array.isArray(this.surveyData[i].answers)) {
                             let arrAnswer = [];
-                            for(let j=0;j<(this.surveyData[i].answers).length;j++){
+                            for (let j = 0; j < (this.surveyData[i].answers).length; j++) {
                                 arrAnswer.push((this.surveyData[i].answers)[j])
                             }
                             this.surveyData[i].answers = arrAnswer
-                        }else{
+                        } else {
                             this.surveyData[i].answers = this.surveyData[i].answers
                         }
-                        Array.prototype.push.call(data,this.surveyData[i].answers);
+                        Array.prototype.push.call(data, this.surveyData[i].answers);
                         //---------------其他选项----------------
-                        if(this.surveyData[i].otherOption[0]){
-                            Array.prototype.push.call(other,this.surveyData[i].otherOption[0].value);
+                        if (this.surveyData[i].otherOption[0]) {
+                            Array.prototype.push.call(other, this.surveyData[i].otherOption[0].value);
                             //---------------value的前缀---------------------
                             name.push(this.surveyData[i].otherOption[0].name);
                         }
                     }
                     //---------------用Object.keys配合forEach更改对象key的值------------------
-                    Object.keys(data).forEach(key=>obj[this.surveyData[key].subjectCode] = data[key]);
-                    Object.keys(other).forEach(key=>{obj2[name[key]] = other[key]});
-                    console.log(obj,'-------------------选项的对象-------------------');
-                    console.log(obj2,'---------------------其他选项的对象---------------------');
-                    this.submitCode = Object.assign(obj,obj2);
-                    console.log(this.submitCode,'=================POST的对象===================');
+                    Object.keys(data).forEach(key => obj[this.surveyData[key].subjectCode] = data[key]);
+                    Object.keys(other).forEach(key => {
+                        obj2[name[key]] = other[key]
+                    });
+                    console.log(obj, '-------------------选项的对象-------------------');
+                    console.log(obj2, '---------------------其他选项的对象---------------------');
+                    this.submitCode = Object.assign(obj, obj2);
+                    console.log(this.submitCode, '=================POST的对象===================');
 //                return
                     this.saveSurveyData();
                     this.showNoScroll = true;
                     this.warnText = '问卷调查提交成功';
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         this.$router.push({
                             path: '/'
                         })
-                    },1000)
-                }else{
+                    }, 1000)
+                } else {
                     this.showNoScroll = true;
                     this.warnText = '网络超时，请重试'
                 }
             },
             next(){
                 //判断是否有选中
-                if(Array.isArray(this.surveyData[this.currentIndex].answers)){
+                if (Array.isArray(this.surveyData[this.currentIndex].answers)) {
                     let len = (this.surveyData[this.currentIndex].answers).length;
-                    for (let i=0;i<len;i++){
-                        if((this.surveyData[this.currentIndex].answers)[i]==''){
+                    for (let i = 0; i < len; i++) {
+                        if ((this.surveyData[this.currentIndex].answers)[i] == '') {
                             this.showNoScroll = true;
                             this.warnText = '请选择您所惠临的门店';
                             return
                         }
                     }
                 }
-                if(this.surveyData[this.currentIndex].answers==''){
+                if (this.surveyData[this.currentIndex].answers == '') {
                     this.showNoScroll = true;
                     this.warnText = '你有信息未填写';
                     return
                 }
-                this.currentIndex = this.currentIndex+1;
+                this.currentIndex = this.currentIndex + 1;
                 this.currentData = this.surveyData[this.currentIndex];
                 return
             }
@@ -168,7 +172,7 @@
 </script>
 
 <style lang="less" rel="stylesheet/less">
-    .page_questPage{
+    .page_questPage {
         .vux-header {
             background-color: #AB9236 !important;
         }
@@ -176,12 +180,12 @@
         .vux-header .vux-header-title, .vux-header h1 {
             font-size: .85rem;
         }
-        .weui-btn{
+        .weui-btn {
             font-size: .75rem;
             color: #FFFFFF;
             background: #AB9236;
         }
-        .quest_con{
+        .quest_con {
             padding: 1.25rem 1.75rem .7rem 1.75rem;
             font-size: 0;
             background: url("../assets/query_05.png") no-repeat;
@@ -189,7 +193,7 @@
             background-position: 1.75rem 4.5rem;
             height: auto;
         }
-        .quest-btn{
+        .quest-btn {
             margin-left: 0;
             width: 100%;
             height: 2rem;
@@ -197,7 +201,7 @@
             background: #ab9236;
             color: #FFFFFF;
         }
-        button{
+        button {
             outline: none;
         }
     }
