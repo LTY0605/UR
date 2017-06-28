@@ -243,7 +243,49 @@
                     return
                 }
 
-                if (window.localStorage.getItem("isbind") == 1 || window.localStorage.getItem("isbind") == undefined) {
+                if (window.localStorage.getItem("isbind") == 0) {
+                    this.showBind = false;
+                    loginService().save({
+                        wxOpenID: window.localStorage.getItem("wxOpenId"),
+                        code: this.code,
+                        mobileTel: this.phone,
+                        isbind: 0
+                    }).then(res => {
+                        let body = res.body;
+                        if (body.errcode == 0) {
+                            this.showNoScroll = false;
+                            this.warnText = '登录成功';
+                            window.localStorage.setItem("wxOpenId", window.localStorage.getItem("wxOpenId"));
+                            window.localStorage.setItem("cardcode", window.localStorage.getItem("cardcode"));
+                            window.localStorage.setItem("sex", window.localStorage.getItem("sex"));
+                            window.localStorage.setItem("provice", window.localStorage.getItem("provice"));
+                            window.localStorage.setItem("brithday", window.localStorage.getItem("brithday"));
+                            window.localStorage.setItem("customerName", window.localStorage.getItem("customerName"));
+                            window.localStorage.setItem("district", window.localStorage.getItem("district"));
+                            window.localStorage.setItem("city", window.localStorage.getItem("city"));
+                            window.localStorage.setItem("mobileTel", window.localStorage.getItem("mobileTel"));
+                            window.localStorage.setItem("headimgurl", window.localStorage.getItem("headimgurl"));
+                            window.localStorage.setItem("isbind", 0);
+                            setTimeout(function () {
+                                _this.$router.push({
+                                    name: 'index'
+                                })
+                            }, 500)
+                        } else {
+                            this.loginAlert = true;
+                            this.loginText = body.errmsg;
+                        }
+                    }, res => {
+                        this.loginAlert = true;
+                        this.loginText = "网络超时，请重试";
+                    })
+                } else {
+                    this.showBind = true;
+                    this.warnText2 = '是否绑定此微信';
+                }
+
+
+                /*if (window.localStorage.getItem("isbind") == 1 || window.localStorage.getItem("isbind") == undefined) {
                     this.showBind = true;
                     this.warnText2 = '是否绑定此微信';
                 } else {
@@ -268,7 +310,7 @@
                             window.localStorage.setItem("city", window.localStorage.getItem("city"));
                             window.localStorage.setItem("mobileTel", window.localStorage.getItem("mobileTel"));
                             window.localStorage.setItem("headimgurl", window.localStorage.getItem("headimgurl"));
-                            window.localStorage.setItem("isbind", 1);
+                            window.localStorage.setItem("isbind", 0);
                             setTimeout(function () {
                                 _this.$router.push({
                                     name: 'index'
@@ -282,7 +324,8 @@
                         this.loginAlert = true;
                         this.loginText = "网络超时，请重试";
                     })
-                }
+                }*/
+
                 /*loginService().save({
                  wxOpenID: window.localStorage.getItem("wxOpenId"),
                  code: this.code,
