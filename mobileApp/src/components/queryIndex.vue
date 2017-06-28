@@ -385,7 +385,7 @@
                     this.showNoScroll = true;
                     this.warnText = '请选择地区，具体到店铺';
                     return
-                } else if(this.seriesToast2 == ''){
+                } else if(this.seriesToast == ''){
                     this.showNoScroll = true;
                     this.warnText = '请选择系列';
                     return
