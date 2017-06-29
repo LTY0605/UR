@@ -21,7 +21,7 @@
                 <li>
                     <group>
                         <x-input type="password" title="确认新密码" placeholder="请再次输入新密码" v-model="confirmpassword"
-                                 :equal-with="newpassword"></x-input>
+                                 :equal-with="newpassword" :max="11" :min="6"></x-input>
                     </group>
                 </li>
             </ul>
