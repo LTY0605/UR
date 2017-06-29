@@ -78,7 +78,7 @@
                 }
                 if (this.confirmpassword != this.newpassword) {
                     this.showNoScroll = true;
-                    this.warnText = '两次输入的密码不一致';
+                    this.warnText = '两次输入的新密码不一致';
                     return
                 }
                 carPasswordServices().save({
