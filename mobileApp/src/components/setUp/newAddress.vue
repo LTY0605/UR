@@ -123,12 +123,16 @@
                 })
             },
             goLink(){
-                this.showNoScro = false;
-//                this.$router.push({
-//                    name: 'personMain',
-//                    query: {tab: 3},
-//                });
-                window.history.back();
+                if(this.warnText2 != '网络超时，请重试'){
+
+                    this.showNoScro = false;
+                    window.history.back();
+                }else{
+                    this.showNoScro = false;
+                }
+
+
+
             },
         },
         computed: {}
