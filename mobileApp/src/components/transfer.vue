@@ -81,7 +81,7 @@
                 }
                 else if (!this.isNumber(this.phone).valid) {
                     this.show2 = true;
-                    this.warnText = '手机格式有误';
+                    this.warnText = '手机号格式有误';
                 }
                 else if (this.money < 50) {
                     this.show2 = true;
@@ -93,7 +93,7 @@
                 }
                 else if (this.remainAmount < this.money) {
                     this.show2 = true;
-                    this.warnText = '余额不足';
+                    this.warnText = '你账号余额不足';
                 }
                  else {
                     this.showNoScroll = true;
