@@ -16,7 +16,7 @@
                     <span>{{item.value}}</span>
                 </label>
             </li>
-            <textarea v-model="list[currentIndex].otherOption[0].value"
+            <textarea v-model="list[currentIndex].otherOption[0].text"
                       class="other-txt"
                       placeholder="请注明"
                       v-if="list[currentIndex].otherOption!=''"></textarea>

@@ -70,6 +70,11 @@
                         console.log(this.surveyData, '---------------')
                         this.length = this.surveyData.length;
                         this.currentData = this.surveyData[this.currentIndex];
+                        this.surveyData.forEach(item=>{
+                            if(item.otherOption!=''){
+                                Vue.set(item.otherOption[0],'text','')
+                            }
+                        })
                     } else {
                         console.log(body.errmsg)
                     }
@@ -82,11 +87,11 @@
             },
             saveSurveyData(){
                 surveyCommit().save(
-                    {
-                        cardcode: window.localStorage.getItem("cardcode"),
-                        surveyCode: this.surveyCode
-                    }
-//                    this.submitCode
+//                    {
+//                        cardcode: window.localStorage.getItem("cardcode"),
+//                        surveyCode: this.surveyCode
+//                    }
+                    this.submitCode
                 ).then(res => {
                 }, res => {
                     this.showNoScroll = true;
@@ -118,7 +123,7 @@
                         Array.prototype.push.call(data, this.surveyData[i].answers);
                         //---------------其他选项----------------
                         if (this.surveyData[i].otherOption[0]) {
-                            Array.prototype.push.call(other, this.surveyData[i].otherOption[0].value);
+                            Array.prototype.push.call(other, this.surveyData[i].otherOption[0].text);
                             //---------------value的前缀---------------------
                             name.push(this.surveyData[i].otherOption[0].name);
                         }
