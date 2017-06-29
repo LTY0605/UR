@@ -62,8 +62,8 @@
                 },
                 isMoney: function (value) {
                     return {
-                        valid: /^[1-9][0-9]*$/.test(value) && value >= 50,  //转赠金额大于50
-                        msg: '请输入正常的金额'
+                        valid: /^[1-9][0-9]*$/.test(value),  //转赠金额大于50
+                        msg: '请输入正整数'
                     }
                 }
             }
@@ -81,20 +81,21 @@
                 }
                 else if (!this.isNumber(this.phone).valid) {
                     this.show2 = true;
-                    this.warnText = '手机格式有误';
-                }
-                else if (!this.isMoney(this.money).valid) {
-                    this.show2 = true;
-                    this.warnText = '金钱输入格式有误';
-                }
-                else if (this.remainAmount < this.money) {
-                    this.show2 = true;
-                    this.warnText = '余额不足';
+                    this.warnText = '手机号格式有误';
                 }
                 else if (this.money < 50) {
                     this.show2 = true;
                     this.warnText = '转赠金额不能小于50'
-                } else {
+                }
+                else if (!this.isMoney(this.money).valid) {
+                    this.show2 = true;
+                    this.warnText = '转赠金额不能为小数';
+                }
+                else if (this.remainAmount < this.money) {
+                    this.show2 = true;
+                    this.warnText = '你账号余额不足';
+                }
+                 else {
                     this.showNoScroll = true;
                     return
                 }
