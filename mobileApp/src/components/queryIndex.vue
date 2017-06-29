@@ -3,8 +3,9 @@
 */
 <template>
     <div class="page_query">
-        <x-header :left-options="{backText:''}">我的报表</x-header>
-        <span class="head_icon" @click="showSelect"></span>
+        <x-header :left-options="{backText:''}" :right-options="{showMore: true}"
+                  @on-click-more="show1 = true">我的报表</x-header>
+        <!--<span class="head_icon" @click="showSelect"></span>-->
         <!--<div class="headInput">-->
             <!--<input type="text" class="queryInput" placeholder="请选择" @focus="showSelect">-->
         <!--</div>-->
@@ -273,7 +274,7 @@
                 this.shop = shop
             },
             kk(condition,value,index,region){
-                this.region = '';this.subregion = '';this.city = '';this.shop = '';
+                this.subregion = '';this.city = '';this.shop = '';
                 this.areaData.forEach(item=>{
                     item.answers='';
                 })
@@ -285,6 +286,8 @@
             },
             aa(condition,value,index,subregion){
 //                alert('----'+condition+'---==='+value+'====');
+                this.city = '';this.shop = '';
+                this.demo4CheckboxMax = '';
                 this.conditionId = condition;
                 this.conditionValue = value;
                 this.subregion = subregion;
@@ -352,32 +355,32 @@
                 this.show1 = true;
             },
             sureSubmit(){
+//                if(this.dateTime == ''){
+//                    this.showNoScroll = true;
+//                    this.warnText = '请选择日期';
+//                    return
+//                } else if(this.region == '' || this.subregion == '' || this.city == '' || this.shop == '' ){
+//                    this.showNoScroll = true;
+//                    this.warnText = '请选择地区，具体到店铺';
+//                    return
+//                } else if(this.seriesToast == ''){
+//                    this.showNoScroll = true;
+//                    this.warnText = '请选择系列';
+//                    return
+//                } else if(this.styleToast == ''){
+//                    this.showNoScroll = true;
+//                    this.warnText = '请选择风格';
+//                    return
+//                } else if(this.levelToast == ''){
+//                    this.showNoScroll = true;
+//                    this.warnText = '请选择商品层';
+//                    return
+//                } else if(this.classToast == ''){
+//                    this.showNoScroll = true;
+//                    this.warnText = '请选择品类';
+//                    return
+//                }
                 this.queryToast = this.region + '-' + this.subregion + '-' + this.city + '-' + this.shop;
-                if(this.dateTime == ''){
-                    this.showNoScroll = true;
-                    this.warnText = '请选择日期';
-                    return
-                } else if(this.region == '' || this.subregion == '' || this.city == '' || this.shop == '' ){
-                    this.showNoScroll = true;
-                    this.warnText = '请选择地区，具体到店铺';
-                    return
-                } else if(this.seriesToast == ''){
-                    this.showNoScroll = true;
-                    this.warnText = '请选择系列';
-                    return
-                } else if(this.styleToast == ''){
-                    this.showNoScroll = true;
-                    this.warnText = '请选择风格';
-                    return
-                } else if(this.levelToast == ''){
-                    this.showNoScroll = true;
-                    this.warnText = '请选择商品层';
-                    return
-                } else if(this.classToast == ''){
-                    this.showNoScroll = true;
-                    this.warnText = '请选择品类';
-                    return
-                }
                 this.show1 = false;
                 this.show2 = true;
             }
@@ -474,7 +477,6 @@
         .query_item {
             padding: .5rem 1rem .75rem 1rem;
             background: #fff;
-            margin-bottom: .3rem;
             .query_item_title {
                 height: 1.95rem;
                 line-height: 1.95rem;
