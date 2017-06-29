@@ -21,7 +21,7 @@
                 <li>
                     <group>
                         <x-input type="password" title="确认新密码" placeholder="请再次输入新密码" v-model="confirmpassword"
-                                 :equal-with="newpassword"></x-input>
+                                 :equal-with="newpassword" :max="11" :min="6"></x-input>
                     </group>
                 </li>
             </ul>
@@ -78,7 +78,7 @@
                 }
                 if (this.confirmpassword != this.newpassword) {
                     this.showNoScroll = true;
-                    this.warnText = '两次输入的密码不一致';
+                    this.warnText = '两次输入的新密码不一致';
                     return
                 }
                 carPasswordServices().save({
@@ -104,6 +104,8 @@
                         this.warnText = body.errmsg;
                     }
                 }, res => {
+                    this.showNoScroll = true;
+                    this.warnText = '网络超时，请重试';
                 })
             },
         },
