@@ -150,8 +150,6 @@
                 show2: true,
                 dateTime: '',
                 demo1CheckboxMax: '',
-                demo2CheckboxMax: '',
-                demo3CheckboxMax: '',
                 demo4CheckboxMax:'',
                 queryToast: '', //提交内容
                 seriesToast: [],  //系列内容
@@ -189,6 +187,13 @@
                 this.styleToast = [];
                 this.levelToast = [];
                 this.classToast = [];
+                this.region = '';
+                this.subregion = '';
+                this.city = '';
+                this.shop = '';
+                this.areaData.forEach(item=>{
+                    item.answers='';
+                })
             },
             setToday (value) {
                 let now = new Date()
@@ -211,21 +216,6 @@
                         }
 //                    }
                 }
-//                for(let i=0;i<this.seriesToast.length;i++){
-//                    if(this.seriesToast[i]==value){
-//                        this.seriesToast.splice(i,1);
-////                        alert('666')
-//                    }
-//                }
-
-//                this.seriesToast.push(value);
-//                for(let j=0;j<this.seriesToast.length;j++){
-//                    if(this.seriesToast2.indexOf(this.seriesToast[j])===-1){
-//                        this.seriesToast2.push(this.seriesToast[j]);
-////                        this.seriesToast = this.seriesToast2;
-//                    }
-//                }
-//                this.seriesToast = this.seriesToast2;
             },
             mm1(value){
                 if(this.styleToast.length <1){
@@ -278,10 +268,6 @@
                     let body = res.body;
                     if(body.errmsg='ok'){
                         this.shopData = body.data[0];
-                        console.log(this.shopData,'-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-');
-                        console.log(body.data,'---------------------------------------')
-                    } else{
-                        console.log('666--------------------------')
                     }
                 },res=>{
                 })
@@ -290,9 +276,6 @@
                 this.shop = shop
             },
             kk(condition,value,index,region){
-//                alert('----'+condition+'---==='+value+'====');
-//                this.cityData = '';
-                this.shopData = '';
                 this.conditionId = condition;
                 this.conditionValue = value;
                 this.region = region;
@@ -312,11 +295,7 @@
                     if(body.errmsg='ok'){
                         this.cityData = body.data[index-1];
                         this.shopData = body.data[index];
-                        console.log(this.shopData,'000000000111111111111=================')
-                        console.log(this.cityData,'-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-');
-                        console.log(body.data,'---------------------------------------------')
                     } else{
-                        console.log('666--------------------------')
                     }
                 },res=>{
                 })
@@ -339,15 +318,12 @@
                                     Vue.set(item, 'isActive', false);
                                 }
                         })
-                        console.log(this.areaData,'----------');
-                        console.log(this.shopData,'1111111111111-------------------------')
                         this.styleData = body.data[1].conditions;
 //                        this.styleToast = this.styleData[0].child
                         this.styleData.forEach(function (item,index) {
                             Vue.set(item, 'answers', [])
                             Vue.set(item, 'isActive', false);
                         })
-//                        console.log(this.styleToast,'======================================')
                     }
                 }, res => {
                     this.showNoScroll = true;
@@ -365,9 +341,7 @@
                         this.childData = body.data[index];
                         this.cityData = body.data[index+1];
                         this.shopData = body.data[index+2];
-                        console.log(this.childData.child,'-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-');
                     } else{
-                        console.log('666--------------------------')
                     }
                 },res=>{
                 })
