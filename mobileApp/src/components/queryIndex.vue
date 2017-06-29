@@ -3,8 +3,8 @@
 */
 <template>
     <div class="page_query">
-        <!--<x-header :left-options="{backText:''}">我的报表</x-header>-->
-        <!--<span class="head_icon" @click="showSelect"></span>-->
+        <x-header :left-options="{backText:''}">我的报表</x-header>
+        <span class="head_icon" @click="showSelect"></span>
         <!--<div class="headInput">-->
             <!--<input type="text" class="queryInput" placeholder="请选择" @focus="showSelect">-->
         <!--</div>-->
@@ -35,19 +35,19 @@
                         @on-clear="setToday"
                        v-model="dateTime"
                         class="input input1 text textPadding"
-                        title="选择日期"></datetime>
+                        title=""
+                        placeholder="选择日期"></datetime>
                 </group>
                 <div class="query_item">
-                    <div class="query_item_title" @click="isActive=!isActive;isActive2=!isActive2">
+                    <div class="query_item_title" @click="isActive=!isActive">
                         地区
-                        <span :class="[isActive ? 'activeClass' : 'noActclass', 'all']">
-                            <span v-if="isActive2">全部</span><span v-if="isActive">收起</span></span>
+                        <span :class="[isActive ? 'activeClass' : 'noActclass', 'all']"></span>
                     </div>
                     <div class="query_icon" v-show="isActive">
                     <div v-for="(item,index) in areaData" :class="[item.isActive ? '' : 'activeMain', 'item_main']">
                         <div class="query_item_title titleItem" @click="item.isActive=!item.isActive">
                             {{item.conditionName}}
-                            <span :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']">全部</span>
+                            <span :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"></span>
                         </div>
                         <div class="box"  v-if="item.conditionId != ''">
                             <checker v-model="item.answers" type="radio" default-item-class="demo1-item"
@@ -86,17 +86,16 @@
                 </div>
                 <!--<p class="deliver"></p>-->
                 <div class="query_item">
-                    <div class="query_item_title" @click="isActive1=!isActive1;isActive3=!isActive3">
+                    <div class="query_item_title" @click="isActive1=!isActive1">
                         风格
-                        <span :class="[isActive1 ? 'activeClass' : 'noActclass', 'all']">
-                            <span v-if="isActive3">全部</span><span v-if="isActive1">收起</span></span>
+                        <span :class="[isActive1 ? 'activeClass' : 'noActclass', 'all']"></span>
                         </span>
                     </div>
                     <div class="query_icon" v-show="isActive1">
                         <div v-for="(item,index) in styleData" :class="[item.isActive ? '' : 'activeMain', 'item_main']">
                             <div class="query_item_title titleItem" @click="item.isActive=!item.isActive">
                                 {{item.conditionName}}
-                                <span :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']">全部</span>
+                                <span :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"></span>
                             </div>
                             <div class="box" >
                                 <checker v-model="demo1CheckboxMax" type="checkbox" default-item-class="demo1-item"
@@ -143,11 +142,9 @@
             return {
                 isActive:false,
                 isActive1:false,
-                isActive2:true,
-                isActive3:true,
                 id: '',
-                show1: true,
-                show2: true,
+                show1: false,
+                show2: false,
                 dateTime: '',
                 demo1CheckboxMax: '',
                 demo4CheckboxMax:'',
@@ -276,6 +273,11 @@
                 this.shop = shop
             },
             kk(condition,value,index,region){
+                this.region = '';this.subregion = '';this.city = '';this.shop = '';
+                this.areaData.forEach(item=>{
+                    item.answers='';
+                })
+                this.demo4CheckboxMax = '';
                 this.conditionId = condition;
                 this.conditionValue = value;
                 this.region = region;
@@ -461,6 +463,7 @@
                 p,.vux-datetime-value {
                     color: #999;
                     font-size: .75rem;
+                    text-align: left;
                 }
             }
             .input1 {
@@ -492,11 +495,27 @@
                     background: url("../assets/icon_down.png") no-repeat right center;
                     -webkit-background-size:.6rem;
                     background-size: .6rem;
+                    position: relative;
+                }
+                .noActclass:after{
+                    content: '全部';
+                    position: absolute;
+                    display: block;
+                    top: 0;
+                    left: -1.4rem;
                 }
                 .activeClass{
                     background: url("../assets/icon_up.png") no-repeat right center;
                     -webkit-background-size:.6rem;
                     background-size: .6rem;
+                    position: relative;
+                }
+                .activeClass:after{
+                    content: '收起';
+                    position: absolute;
+                    display: block;
+                    top: 0;
+                    left: -1.4rem;
                 }
             }
             .item_main {
