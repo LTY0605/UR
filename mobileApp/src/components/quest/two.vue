@@ -16,7 +16,7 @@
                     <span>{{item.value}}</span>
                 </label>
             </li>
-            <textarea v-model="list[currentIndex].otherOption[0].value"
+            <textarea v-model="list[currentIndex].otherOption[0].text"
                       class="other-txt"
                       :disabled="disabledText"
                       placeholder="请注明"
@@ -57,7 +57,7 @@
             isOther(item){
                 if(this.surveyData[this.currentIndex].otherOption[0]){
                     if(item.indexOf('其他')==-1){
-                        this.list[this.currentIndex].otherOption[0].value='';
+                        this.list[this.currentIndex].otherOption[0].text='';
                         this.disabledText=true;
                     }else{
                         this.disabledText=false;

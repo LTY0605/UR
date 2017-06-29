@@ -15,7 +15,7 @@
             <div class="query-toast">
                 日期：{{dateTime}}<br>
                 地区：{{queryToast}}<br>
-                系列：{{seriesToast2}}<br>
+                系列：{{seriesToast}}<br>
                 风格：{{styleToast}}<br>
                 商品层：{{levelToast}}<br>
                 品类：{{classToast}}
@@ -47,13 +47,13 @@
                     <div v-for="(item,index) in areaData" :class="[item.isActive ? '' : 'activeMain', 'item_main']">
                         <div class="query_item_title titleItem" @click="item.isActive=!item.isActive">
                             {{item.conditionName}}
-                            <span v-if="item.conditionId!= 'region'" :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"
-                                >全部</span>
+                            <span :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']">全部</span>
                         </div>
                         <div class="box"  v-if="item.conditionId != ''">
                             <checker v-model="item.answers" type="radio" default-item-class="demo1-item"
                                      selected-item-class="demo1-item-selected">
-                                <checker-item v-for="i in item.child" :value="i.id"
+                                <checker-item v-for="i in item.child"
+                                              :value="i.id"
                                               v-if="item.conditionId == 'region'">
                                     <p @click="kk(item.conditionId,i.id,index,i.name)">{{i.name}}</p>
                                 </checker-item>
@@ -96,13 +96,12 @@
                         <div v-for="(item,index) in styleData" :class="[item.isActive ? '' : 'activeMain', 'item_main']">
                             <div class="query_item_title titleItem" @click="item.isActive=!item.isActive">
                                 {{item.conditionName}}
-                                <span v-if="item.conditionId!= 'big_series'" :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"
-                                >全部</span>
+                                <span :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']">全部</span>
                             </div>
                             <div class="box" >
                                 <checker v-model="demo1CheckboxMax" type="checkbox" default-item-class="demo1-item"
                                          selected-item-class="demo1-item-selected">
-                                    <checker-item v-for="i in item.child" :value="i.id"
+                                    <checker-item v-for="(i,index) in item.child" :value="i.id"
                                                   v-if="item.conditionId == 'big_series'">
                                         <p @click="mm(i.name)">{{i.name}}</p></checker-item>
                                     <checker-item v-for="i in item.child" :value="i.id"
@@ -151,8 +150,6 @@
                 show2: true,
                 dateTime: '',
                 demo1CheckboxMax: '',
-                demo2CheckboxMax: '',
-                demo3CheckboxMax: '',
                 demo4CheckboxMax:'',
                 queryToast: '', //提交内容
                 seriesToast: [],  //系列内容
@@ -186,10 +183,17 @@
                 this.dateTime = '';
                 this.demo1CheckboxMax = '';
                 this.demo4CheckboxMax = '';
-                this.seriesToast2 = [];
+                this.seriesToast = [];
                 this.styleToast = [];
                 this.levelToast = [];
                 this.classToast = [];
+                this.region = '';
+                this.subregion = '';
+                this.city = '';
+                this.shop = '';
+                this.areaData.forEach(item=>{
+                    item.answers='';
+                })
             },
             setToday (value) {
                 let now = new Date()
@@ -201,31 +205,56 @@
                 console.log('set today ok')
             },
             mm(value){
-                this.seriesToast.push(value);
-//                for(let i=0;i<this.seriesToast.length;i++){
-//                    if(this.seriesToast[i]==value){
-//                        this.seriesToast.splice(i,1);
-////                        alert('666')
+                if(this.seriesToast.length <1){
+                    this.seriesToast.push(value);
+                } else {
+                    let num = this.seriesToast.indexOf(value);
+                        if(this.seriesToast[num] == value){
+                            this.seriesToast.splice(num,1);
+                        } else {
+                            this.seriesToast.push(value);
+                        }
 //                    }
-//                }
-
-//                this.seriesToast.push(value);
-                for(let j=0;j<this.seriesToast.length;j++){
-                    if(this.seriesToast2.indexOf(this.seriesToast[j])===-1){
-                        this.seriesToast2.push(this.seriesToast[j]);
-//                        this.seriesToast = this.seriesToast2;
-                    }
                 }
-//                this.seriesToast = this.seriesToast2;
             },
             mm1(value){
-                this.styleToast.push(value);
+                if(this.styleToast.length <1){
+                    this.styleToast.push(value);
+                } else {
+                    let num = this.styleToast.indexOf(value);
+                    if(this.styleToast[num] == value){
+                        this.styleToast.splice(num,1);
+                    } else {
+                        this.styleToast.push(value);
+                    }
+//                    }
+                }
             },
             mm2(value){
-                this.levelToast.push(value);
+                if(this.levelToast.length <1){
+                    this.levelToast.push(value);
+                } else {
+                    let num = this.levelToast.indexOf(value);
+                    if(this.levelToast[num] == value){
+                        this.levelToast.splice(num,1);
+                    } else {
+                        this.levelToast.push(value);
+                    }
+//                    }
+                }
             },
             mm3(value){
-                this.classToast.push(value);
+                if(this.classToast.length <1){
+                    this.classToast.push(value);
+                } else {
+                    let num = this.classToast.indexOf(value);
+                    if(this.classToast[num] == value){
+                        this.classToast.splice(num,1);
+                    } else {
+                        this.classToast.push(value);
+                    }
+//                    }
+                }
             },
             getCity(condition,value,index,city){
                 this.conditionId = condition;
@@ -239,10 +268,6 @@
                     let body = res.body;
                     if(body.errmsg='ok'){
                         this.shopData = body.data[0];
-                        console.log(this.shopData,'-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-');
-                        console.log(body.data,'---------------------------------------')
-                    } else{
-                        console.log('666--------------------------')
                     }
                 },res=>{
                 })
@@ -251,9 +276,6 @@
                 this.shop = shop
             },
             kk(condition,value,index,region){
-//                alert('----'+condition+'---==='+value+'====');
-//                this.cityData = '';
-                this.shopData = '';
                 this.conditionId = condition;
                 this.conditionValue = value;
                 this.region = region;
@@ -273,11 +295,7 @@
                     if(body.errmsg='ok'){
                         this.cityData = body.data[index-1];
                         this.shopData = body.data[index];
-                        console.log(this.shopData,'000000000111111111111=================')
-                        console.log(this.cityData,'-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-');
-                        console.log(body.data,'---------------------------------------------')
                     } else{
-                        console.log('666--------------------------')
                     }
                 },res=>{
                 })
@@ -300,15 +318,12 @@
                                     Vue.set(item, 'isActive', false);
                                 }
                         })
-                        console.log(this.areaData,'----------');
-                        console.log(this.shopData,'1111111111111-------------------------')
                         this.styleData = body.data[1].conditions;
 //                        this.styleToast = this.styleData[0].child
                         this.styleData.forEach(function (item,index) {
                             Vue.set(item, 'answers', [])
                             Vue.set(item, 'isActive', false);
                         })
-//                        console.log(this.styleToast,'======================================')
                     }
                 }, res => {
                     this.showNoScroll = true;
@@ -326,9 +341,7 @@
                         this.childData = body.data[index];
                         this.cityData = body.data[index+1];
                         this.shopData = body.data[index+2];
-                        console.log(this.childData.child,'-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-');
                     } else{
-                        console.log('666--------------------------')
                     }
                 },res=>{
                 })
@@ -346,7 +359,7 @@
                     this.showNoScroll = true;
                     this.warnText = '请选择地区，具体到店铺';
                     return
-                } else if(this.seriesToast2 == ''){
+                } else if(this.seriesToast == ''){
                     this.showNoScroll = true;
                     this.warnText = '请选择系列';
                     return
