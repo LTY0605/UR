@@ -47,10 +47,14 @@
       },
       mounted(){
       },
+
       created(){
+
           if (this.$route.query.tab) {
               this.titleTab = this.$route.query.tab;
+              document.body.scrollTop = 0;
           }
+
       },
       computed: {}
     }

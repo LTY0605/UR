@@ -57,9 +57,24 @@
         methods: {
             passWordEdit(){
                 let _this = this;
-                if (this.oldPassword == '' || this.newPassword == '' || this.newPassword2 == '') {
+                if (this.oldPassword == '' && this.newPassword == '' && this.newPassword2 == '') {
                     this.showNoScroll = true;
                     this.warnText = '您有信息未填写';
+                    return
+                }
+                if(this.oldPassword == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请输入原密码';
+                    return
+                }
+                if(this.newPassword == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请输入新密码';
+                    return
+                }
+                if(this.newPassword2 == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请再次输入新密码';
                     return
                 }
                 if (!this.bePassWord(this.oldPassword).valid || !this.bePassWord(this.newPassword).valid) {

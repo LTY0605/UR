@@ -59,7 +59,7 @@
 //                return
                 if(this.mobileTel == ''  || this.code == ''){
                     this.showNoScroll = true;
-                    this.warnText = '请全部填写';
+                    this.warnText = '请输入验证码';
                     return
                 }
                 if(!this.beTel(this.mobileTel).valid){

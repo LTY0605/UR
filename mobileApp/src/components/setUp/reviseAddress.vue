@@ -67,6 +67,12 @@
                         msg: ''
                     }
                 },
+                bePostcode: function (value) {
+                    return {
+                        valid: /^(?=\d{6}$)^[0-9]/.test(value),
+                        msg: ''
+                    }
+                },
             }
         },
         mounted(){
@@ -114,14 +120,44 @@
             saveItem(){
                 var pro = this.attress.split(" ");
                 let _this = this;
-                if (this.consignee == '' || this.mobile == '' || this.address == '' || this.postcode == '' || this.attrValue.length == 0) {
+                if (this.consignee == '' && this.mobile == '' && this.address == '' && this.postcode == '' && this.attrValue.length == 0) {
                     this.showNoScroll = true;
                     this.warnText = '您有信息未填写';
+                    return
+                }
+                if(this.consignee == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请填写收货人姓名';
+                    return
+                }
+                if(this.mobile == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请填写收货人电话';
+                    return
+                }
+                if(this.address == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请选择所在地区';
+                    return
+                }
+                if(this.attrValue.length == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请填写详细地址';
+                    return
+                }
+                if(this.postcode== ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请填写邮政编码';
                     return
                 }
                 if (!this.beTel(this.mobile).valid) {
                     this.showNoScroll = true;
                     this.warnText = '请输入正确的收货人电话'
+                    return
+                }
+                if(!this.bePostcode(this.postcode).valid){
+                    this.showNoScroll = true;
+                    this.warnText = '请输入正确的邮政编码'
                     return
                 }
                 editAttrService().save({

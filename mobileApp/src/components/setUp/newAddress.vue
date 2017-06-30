@@ -13,7 +13,8 @@
                            :list="addressData"
                            value-text-align="left"></x-address>
                 <x-textarea class="address-text" placeholder="详细地址,必填" v-model.trim="addressDeep" required></x-textarea>
-                <x-input title="邮政编码" placeholder="邮政编码,必填" v-model="postcode" required type="number" :max="6" :min="6"></x-input>
+                <x-input title="邮政编码" placeholder="邮政编码,必填" v-model="num" :max="6" :min="6"
+                         keyboard="number"></x-input>
             </group>
         </div>
         <div class="address-foot">
@@ -60,10 +61,16 @@
                 showNoScro: false,
                 warnText2:'',
                 warnText: '',
-                postcode:'',
+                num:'',
                 beTel: function (value) {
                     return {
                         valid: /^(?=\d{11}$)^1(?:3\d|4[57]|5[^4\D]|7[^249\D]|8\d)\d{8}$/.test(value),
+                        msg: ''
+                    }
+                },
+                bePostcode: function (value) {
+                    return {
+                        valid: /^(?=\d{6}$)^[0-9]/.test(value),
                         msg: ''
                     }
                 },
@@ -81,14 +88,45 @@
         },
         methods: {
             save(){
-                if (this.consignee == '' || this.mobileTel == '' || this.address == '' || this.addressDeep == '' || this.postcode == '') {
+                if (this.consignee == '' && this.mobileTel == '' && this.address == '' && this.addressDeep == '' &&
+                    this.num == '') {
                     this.showNoScroll = true;
                     this.warnText = '您有信息未填写';
+                    return
+                }
+                if(this.consignee == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请填写收货人姓名';
+                    return
+                }
+                if(this.mobileTel == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请填写收货人电话';
+                    return
+                }
+                if(this.address == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请选择所在地区';
+                    return
+                }
+                if(this.addressDeep == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请填写详细地址';
+                    return
+                }
+                if(this.num == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请填写邮政编码';
                     return
                 }
                 if(!this.beTel(this.mobileTel).valid){
                     this.showNoScroll = true;
                     this.warnText = '请输入正确的收货人电话'
+                    return
+                }
+                if(!this.bePostcode(this.num).valid){
+                    this.showNoScroll = true;
+                    this.warnText = '请输入正确的邮政编码'
                     return
                 }
                 var pro = this.address.split(" ");
@@ -109,7 +147,7 @@
                     city: pro[1],
                     district: pro[2],
                     isdefault: selected,
-                    postcode:this.postcode,
+                    postcode:this.num,
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {
@@ -123,12 +161,16 @@
                 })
             },
             goLink(){
-                this.showNoScro = false;
-//                this.$router.push({
-//                    name: 'personMain',
-//                    query: {tab: 3},
-//                });
-                window.history.back();
+                if(this.warnText2 != '网络超时，请重试'){
+
+                    this.showNoScro = false;
+                    window.history.back();
+                }else{
+                    this.showNoScro = false;
+                }
+
+
+
             },
         },
         computed: {}

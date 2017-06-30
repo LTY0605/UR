@@ -229,7 +229,7 @@
                     this.warnText = "网络超时，请重试";
                 }
             },
-            renderjdCard(){
+           /* renderjdCard(){
                 jdCardInfoService().save({
                     cardcode: '8urp0000118',
                 }).then(res => {
@@ -244,7 +244,7 @@
                     this.showNoScro = true;
                     this.warnText = "网络超时，请重试";
                 })
-            },
+            },*/
             payCard(name, code, passWord){
                 this.currentName = name;
                 this.currentCode = code;
