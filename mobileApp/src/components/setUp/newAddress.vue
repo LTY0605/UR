@@ -13,7 +13,7 @@
                            :list="addressData"
                            value-text-align="left"></x-address>
                 <x-textarea class="address-text" placeholder="详细地址,必填" v-model.trim="addressDeep" required></x-textarea>
-                <x-input title="邮政编码" placeholder="邮政编码,必填" v-model="postcode" required type="number" :max="6" :min="6"></x-input>
+                <x-input title="邮政编码" placeholder="邮政编码,必填" v-model="postcode" :max="6" :min="6" required type="number"></x-input>
             </group>
         </div>
         <div class="address-foot">

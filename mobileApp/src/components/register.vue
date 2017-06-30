@@ -163,9 +163,29 @@
         methods: {
             onSubmit () {
                 let _this = this;
-                if (this.user == '' || this.phone == '' || this.value2 == '' || this.attrValue.length == 0) {
+                if (this.user == '' && this.phone == '' && this.value2 == '' && this.attrValue.length == 0) {
                     this.show = true;
-                    this.text = '请完善表单信息'
+                    this.text = '您有信息未填写'
+                    return
+                }
+                if(this.user == ''){
+                    this.show = true;
+                    this.text = '请输入用户名'
+                    return
+                }
+                if(this.phone == ''){
+                    this.show = true;
+                    this.text = '请输入手机号'
+                    return
+                }
+                if(this.value2 == ''){
+                    this.show = true;
+                    this.text = '请选择出生日期'
+                    return
+                }
+                if(this.attrValue.length == ''){
+                    this.show = true;
+                    this.text = '请选择地区'
                     return
                 }
                 if(!this.beTel(this.phone).valid){

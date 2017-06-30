@@ -165,7 +165,7 @@
                 }
                 if (this.surveyData[this.currentIndex].answers == '') {
                     this.showNoScroll = true;
-                    this.warnText = '你有信息未填写';
+                    this.warnText = '请选择符合的选项';
                     return
                 }
                 this.currentIndex = this.currentIndex + 1;
