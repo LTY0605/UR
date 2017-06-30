@@ -89,7 +89,7 @@
                 }
                 else if (!this.isMoney(this.money).valid) {
                     this.show2 = true;
-                    this.warnText = '转赠金额不能为小数';
+                    this.warnText = '转增金额只能为整数';
                 }
                 else if (this.remainAmount < this.money) {
                     this.show2 = true;
