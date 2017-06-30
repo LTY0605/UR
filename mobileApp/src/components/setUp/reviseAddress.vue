@@ -12,7 +12,7 @@
                 <x-address title="所在地区" v-model="attrValue" :list="addressData"
                            placeholder="请选择地址,必填"></x-address>
                 <x-textarea class="address-text" placeholder="详细地址,必填" v-model.trim="address"></x-textarea>
-                <x-input title="邮政编码" v-model="postcode" placeholder="邮政编码,必填" :max="6" :min="6"></x-input>
+                <x-input title="邮政编码" v-model="postcode" placeholder="邮政编码,必填" :max="6" :min="6" keyboard="number"></x-input>
             </group>
         </div>
         <div class="address-foot">
