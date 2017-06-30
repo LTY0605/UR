@@ -15,7 +15,10 @@
                 我的报表</x-header>
             <div class="query-toast">
                 日期：{{dateTime}}<br>
-                地区：{{queryToast}}<br>
+                大区：{{region}}<br>
+                小区：{{subregion}}<br>
+                城市：{{city}}<br>
+                店铺：{{shop}}<br>
                 系列：{{seriesToast}}<br>
                 风格：{{styleToast}}<br>
                 商品层：{{levelToast}}<br>
@@ -39,9 +42,45 @@
                         title=""
                         placeholder="选择日期"></datetime>
                 </group>
+                <!--<div v-for="item in allData" class="query_item">-->
+                    <!--<div class="query_item_title" @click="isActive=!isActive">-->
+                        <!--{{item.group}}-->
+                        <!--<span :class="[isActive ? 'activeClass' : 'noActclass', 'all']"></span>-->
+                    <!--</div>-->
+                    <!--<template v-if="item.jilian = 'true'">-->
+                        <!--<div class="query_icon" v-show="isActive">-->
+                            <!--<div v-for="(i,index) in item.conditions"-->
+                                 <!--:class="[item.isActive ? '' : 'activeMain', 'item_main']">-->
+                                <!--<div class="query_item_title titleItem" @click="item.isActive=!item.isActive">-->
+                                    <!--{{i.conditionName}}-->
+                                    <!--<span :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"></span>-->
+                                <!--</div>-->
+                                <!--<div class="box" >-->
+                                    <!--<template v-if="i.conditionType = 'single'">-->
+                                        <!--<checker v-model="item.answers" type="radio" default-item-class="demo1-item"-->
+                                                 <!--selected-item-class="demo1-item-selected">-->
+                                            <!--<checker-item v-for="(a,index) in i.child" :value="a.name">-->
+                                                <!--<span>{{a.name}}</span>-->
+                                            <!--</checker-item>-->
+                                        <!--</checker>-->
+                                    <!--</template>-->
+                                    <!--&lt;!&ndash;<template v-else-if="i.conditionType = 'multiple'">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<checker v-model="a.conditionName" type="checkbox"&ndash;&gt;-->
+                                                 <!--&lt;!&ndash;default-item-class="demo1-item"&ndash;&gt;-->
+                                                 <!--&lt;!&ndash;selected-item-class="demo1-item-selected">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<checker-item v-for="a in i.child" :value="a.conditionName">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;{{a.conditionName}}&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</checker-item>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</checker>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</template>&ndash;&gt;-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</template>-->
+                <!--</div>-->
                 <div class="query_item">
                     <div class="query_item_title" @click="isActive=!isActive">
-                        地区
+                        地区查询
                         <span :class="[isActive ? 'activeClass' : 'noActclass', 'all']"></span>
                     </div>
                     <div class="query_icon" v-show="isActive">
@@ -88,7 +127,7 @@
                 <!--<p class="deliver"></p>-->
                 <div class="query_item">
                     <div class="query_item_title" @click="isActive1=!isActive1">
-                        风格
+                        风格查询
                         <span :class="[isActive1 ? 'activeClass' : 'noActclass', 'all']"></span>
                         </span>
                     </div>
@@ -118,6 +157,12 @@
                         </div>
                     </div>
                 </div>
+                <!--<checker v-model="demo1"-->
+                         <!--type="isRadio1"-->
+                         <!--default-item-class="demo1-item" selected-item-class="demo1-item-selected">-->
+                    <!--<checker-item :value="item" v-for="(item, index) in items1" :key="index">{{item.value}}</checker-item>-->
+                <!--</checker>-->
+                <!--<p>{{demo1}}</p>-->
             </div>
             <div class="operate">
                 <span @click="clearSubmit">重置</span>
@@ -141,6 +186,7 @@
         },
         data () {
             return {
+                allData:[],
                 isActive:false,
                 isActive1:false,
                 id: '',
@@ -160,6 +206,9 @@
                 subregion:'',
                 city:'',
                 shop:'',
+                testStr:'',
+                testArr:[],
+                testArr2:[],
                 styleData:[],//风格
                 childData:[],   //子级所有数据
                 cityData:[],    //城市数据
@@ -169,6 +218,7 @@
                 showNoScroll:false,
                 showNoScroll2:false,
                 warnText:'',
+                modelId:'',
 
             }
         },
@@ -177,6 +227,26 @@
            this.renderData();
         },
         methods: {
+            getUrlParams(urlName) {
+             // var url = decodeURI(location.href);
+                var url = location.href;
+                var paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
+                var returnValue;
+                for (var i = 0; i < paraString.length; i++) {
+                var tempParas = paraString[i].split('=')[0];
+                var parasValue = paraString[i].split('=')[1];
+                if (tempParas === urlName)
+                returnValue = parasValue;
+                }
+                if (typeof(returnValue) == "undefined") {
+                return "";
+                } else {
+                return returnValue;
+                }
+            },
+            isRadio(){
+                this.isRadio1 = 'radio'
+            },
             clearSubmit(){
                 this.dateTime = '';
                 this.demo1CheckboxMax = '';
@@ -210,7 +280,7 @@
                         if(this.seriesToast[num] == value){
                             this.seriesToast.splice(num,1);
                         } else {
-                            this.seriesToast.push(value);
+                            this.seriesToast.push('value');
                         }
 //                    }
                 }
@@ -255,13 +325,15 @@
                 }
             },
             getCity(condition,value,index,city){
+                this.shop = '';
                 this.conditionId = condition;
                 this.conditionValue = value;
+                this.testStr = "'"+value+"'";
                 this.city = city;
                 queryChildService().save({
                     modelId:1000,
                     conditionId:this.conditionId,
-                    value:this.conditionValue
+                    values:this.conditionValue
                 }).then(res=>{
                     let body = res.body;
                     if(body.errmsg='ok'){
@@ -281,20 +353,27 @@
                 this.demo4CheckboxMax = '';
                 this.conditionId = condition;
                 this.conditionValue = value;
+                this.testStr = "'"+value+"'"
+                this.testArr.push(value);
+//                for(let i=0;i<this.testArr.length;i++){
+//                    this.testArr[i] = "'"+this.testArr[i]+"'"
+//                }
                 this.region = region;
                 this.renderChildData(index);
             },
             aa(condition,value,index,subregion){
 //                alert('----'+condition+'---==='+value+'====');
-                this.city = '';this.shop = '';
+                this.city = '';
+                this.shop = '';
                 this.demo4CheckboxMax = '';
                 this.conditionId = condition;
                 this.conditionValue = value;
+                this.testStr = "'"+value+"'";
                 this.subregion = subregion;
                 queryChildService().save({
                     modelId:1000,
                     conditionId:this.conditionId,
-                    value:this.conditionValue
+                    values:this.testStr
                 }).then(res=>{
                     let body = res.body;
                     if(body.errmsg='ok'){
@@ -306,11 +385,15 @@
                 })
             },
             renderData(){
+                //url输入对应参数
+                let modelId = this.getUrlParams('modelId');
                 queryALLService().save({
-                    modelId:1000
+                    //modelId: modelId
+                    modelId: 1000
                 }).then(res => {
                     let body = res.body;
                     if (body.data) {
+                        this.allData = body.data;
                         this.areaData = body.data[0].conditions;
                         this.childData = body.data[0].conditions[1];
                         this.cityData = body.data[0].conditions[2];
@@ -323,6 +406,7 @@
                                     Vue.set(item, 'isActive', false);
                                 }
                         })
+                        console.log(this.allData);
                         this.styleData = body.data[1].conditions;
 //                        this.styleToast = this.styleData[0].child
                         this.styleData.forEach(function (item,index) {
@@ -339,7 +423,7 @@
                 queryChildService().save({
                     modelId:1000,
                     conditionId:this.conditionId,
-                    value:this.conditionValue
+                    values:this.testStr
                 }).then(res=>{
                     let body = res.body;
                     if(body.errmsg='ok'){
@@ -475,7 +559,7 @@
             }
         }
         .query_item {
-            padding: .5rem 1rem .75rem 1rem;
+            padding: 0rem 1rem 0 1rem;
             background: #fff;
             .query_item_title {
                 height: 1.95rem;
@@ -575,8 +659,8 @@
         }
         .operate{
             width: 100%;
-            height: 2rem;
-            line-height: 2rem;
+            height: 2.5rem;
+            line-height: 2.5rem;
             background: #EEEEEE;
             font-size: 0;
             position: fixed;
