@@ -214,6 +214,22 @@
                 }
             },
             renderData(){
+                    pushHistory();
+                /*var bool=false;
+                setTimeout(function(){
+                    bool=true;
+                },1500);*/
+                window.addEventListener("popstate", function(e) {
+                        this.window.close();
+                    }, false);
+                    function pushHistory() {
+                        var state = {
+                            title: "title",
+                            url: "#"
+                        };
+                        window.history.pushState(state, "title", "#");
+                    }
+
                 indexService().save({
                     cardcode: window.localStorage.getItem('cardcode')
                 }).then(res => {
