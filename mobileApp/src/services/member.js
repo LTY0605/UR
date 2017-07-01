@@ -17,3 +17,7 @@ export function loginService() {
 export function codeService() {
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/verification_code')
 }
+//会员接口
+export function infoByMobileTelService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/infoByMobileTel')
+}

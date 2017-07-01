@@ -68,8 +68,7 @@
     </div>
 </template>
 <script>
-    import {loginService, codeService} from '../services/member.js'
-    import {memberInfoService} from '../services/person.js'
+    import {loginService, codeService,infoByMobileTelService} from '../services/member.js'
     import {Toast, XButton, XHeader, Scroller, Group, XInput, XDialog} from 'vux'
     export default {
         components: {
@@ -168,7 +167,8 @@
                         this.showNoScroll = false;
                         this.warnText = '登录成功';
                         //window.localStorage.setItem("wxOpenId", body.wxOpenId);
-                        window.localStorage.setItem("isbind", window.localStorage.getItem("isbind"));
+                        //window.localStorage.setItem("isbind", window.localStorage.getItem("isbind"));
+                        window.localStorage.setItem("isbind", body.isbind);
                         setTimeout(function () {
                             _this.$router.push({
                                 name: 'index'
@@ -196,10 +196,8 @@
                 });
             },
             login_submit () {
-                /*this.showBind = true;
-                 this.warnText2 = '是否绑定此微信';*/
 
-                /*let asd = {
+                let asd = {
                  wxOpenId: window.localStorage.getItem("wxOpenId"),
                  cardcode: window.localStorage.getItem("cardcode"),
                  sex: window.localStorage.getItem("sex"),
@@ -212,7 +210,7 @@
                  headimgurl: window.localStorage.getItem("headimgurl"),
                  isbind: window.localStorage.getItem("isbind"),
                  }
-                 console.log(asd);*/
+                 console.log(asd);
 
 
                 let _this = this;
@@ -228,7 +226,7 @@
                 }
 
                 /*获取会员信息*/
-                memberInfoService().get({
+                infoByMobileTelService().get({
                     mobileTel: this.phone
                 }).then(res => {
                     let body = res.body;
