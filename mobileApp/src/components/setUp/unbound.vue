@@ -75,6 +75,7 @@
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {
+                        window.localStorage.setItem("mobileTel", '');
                         this.showNoScroll = true;
                         this.warnText = '解绑成功';
                         /*_this.$router.push({
