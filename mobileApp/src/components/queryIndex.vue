@@ -9,40 +9,26 @@
         <!--<div class="headInput">-->
         <!--<input type="text" class="queryInput" placeholder="请选择" @focus="showSelect">-->
         <!--</div>-->
-        <!--<popup v-model="show2" height="100%">-->
-        <!--<x-header :left-options="{backText:''}" :right-options="{showMore: true}"-->
-        <!--@on-click-more="show1 = true;show2 = false">-->
-        <!--我的报表</x-header>-->
-        <!--<div class="query-toast">-->
-        <!--日期：{{dateTime}}<br>-->
-        <!--大区：{{region}}<br>-->
-        <!--小区：{{subregion}}<br>-->
-        <!--城市：{{city}}<br>-->
-        <!--店铺：{{shop}}<br>-->
-        <!--系列：{{seriesToast}}<br>-->
-        <!--风格：{{styleToast}}<br>-->
-        <!--商品层：{{levelToast}}<br>-->
-        <!--品类：{{classToast}}-->
-        <!--</div>-->
-        <!--</popup>-->
-        <x-dialog v-model="showNoScroll3" class="page_tran" :scroll="false">
-            <div class="query-toast">
-                日期：{{dateTime}}<br>
-                大区：{{region}}<br>
-                小区：{{subregion}}<br>
-                城市：{{city}}<br>
-                店铺：{{shop}}<br>
-                系列：{{seriesToast}}<br>
-                风格：{{styleToast}}<br>
-                商品层：{{levelToast}}<br>
-                品类：{{classToast}}
-                <div @click="showNoScroll3=false" class="giftCode-close"></div>
-            </div>
-        </x-dialog>
+        <popup v-model="show2" height="100%">
+            <x-header :left-options="{backText:''}" :right-options="{showMore: true}"
+                      @on-click-more="show1 = true;show2 = false">
+                我的报表</x-header>
+            <!--<div class="query-toast">-->
+            <!--日期：{{dateTime}}<br>-->
+            <!--大区：{{region}}<br>-->
+            <!--小区：{{subregion}}<br>-->
+            <!--城市：{{city}}<br>-->
+            <!--店铺：{{shop}}<br>-->
+            <!--系列：{{seriesToast}}<br>-->
+            <!--风格：{{styleToast}}<br>-->
+            <!--商品层：{{levelToast}}<br>-->
+            <!--品类：{{classToast}}-->
+            <!--</div>-->
+        </popup>
         <popup v-model="show1" height="100%">
             <div class="popup1">
                 <x-header :left-options="{backText:''}" :right-options="{showMore : true}"
-                          @on-click-more="show1 = false;">
+                          @on-click-more="show1 = false;show2=true">
                     我的报表</x-header>
                 <group class="dateBox">
                     <datetime
@@ -56,128 +42,155 @@
                             title=""
                             placeholder="选择日期"></datetime>
                 </group>
-                <!--<div v-for="item in allData" class="query_item">-->
+                <div v-for="(item,index) in allData" class="query_item">
+                    <div class="query_item_title" @click="showJlian(index)">
+                        {{item.group}}
+                        <span :class="[jilianActive ? 'noActclass' : 'activeClass', 'all']"></span>
+                    </div>
+                    <template v-if="item.jilian == true">
+                        <div class="query_icon" v-show="jilianActive == index">
+                            <div v-for="(i,index1) in cData"
+                                 :class="[item.isActive ? '' : 'activeMain', 'item_main']">
+                                <div class="query_item_title titleItem" @click="item.isActive=!item.isActive">
+                                    {{i.conditionName}}
+                                    <span :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"></span>
+                                </div>
+                                <div class="box" >
+                                    <template v-if="i.conditionType = 'single'">
+                                        <checker v-model="item.answers" type="radio" default-item-class="demo1-item"
+                                                 selected-item-class="demo1-item-selected">
+                                            <checker-item v-for="(a,index) in i.child" :value="a">
+                                                <p style="width: 100%"
+                                                   @click="getChild(i.conditionId,a.id,index,index1)">{{a.name}}</p>
+                                            </checker-item>
+                                            <!--<checker-item v-if="index != 0" v-for="(b,index) in i.child"-->
+                                                          <!--:value="b">-->
+                                                <!--<p style="width: 100%" @click="getChild(i.conditionId,a.id,index)">{{b.name}}</p>-->
+                                            <!--</checker-item>-->
+                                        </checker>
+                                    </template>
+                                    <!--<template v-else-if="i.conditionType = 'multiple'">-->
+                                    <!--<checker v-model="a.conditionName" type="checkbox"-->
+                                    <!--default-item-class="demo1-item"-->
+                                    <!--selected-item-class="demo1-item-selected">-->
+                                    <!--<checker-item v-for="a in i.child" :value="a.conditionName">-->
+                                    <!--{{a.conditionName}}-->
+                                    <!--</checker-item>-->
+                                    <!--</checker>-->
+                                    <!--</template>-->
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <template v-if="item.jilian == false">
+                        <div class="query_icon" v-show="jilianActive == index">
+                            <div v-for="(i,index) in item.conditions"
+                                 :class="[item.isActive ? '' : 'activeMain', 'item_main']">
+                                <div class="query_item_title titleItem" @click="item.isActive=!item.isActive">
+                                    {{i.conditionName}}
+                                    <span :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"></span>
+                                </div>
+                                <div class="box" >
+                                    <template v-if="i.conditionType == 'single'">
+                                        <checker v-model="item.answers" type="radio" default-item-class="demo1-item"
+                                                 selected-item-class="demo1-item-selected">
+                                            <checker-item v-for="(a,index) in i.child" :value="a.name">
+                                                <span>{{a.name}}</span>
+                                            </checker-item>
+                                        </checker>
+                                    </template>
+                                    <template v-else-if="i.conditionType = 'multiple'">
+                                        <checker v-model="item.answers" type="checkbox" default-item-class="demo1-item"
+                                                 selected-item-class="demo1-item-selected">
+                                            <checker-item v-for="a in i.child" :value="a">
+                                                {{a.name}}
+                                            </checker-item>
+                                        </checker>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <!--<div class="query_item">-->
                 <!--<div class="query_item_title" @click="isActive=!isActive">-->
-                <!--{{item.group}}-->
+                <!--地区查询-->
                 <!--<span :class="[isActive ? 'activeClass' : 'noActclass', 'all']"></span>-->
                 <!--</div>-->
-                <!--<template v-if="item.jilian = 'true'">-->
                 <!--<div class="query_icon" v-show="isActive">-->
-                <!--<div v-for="(i,index) in item.conditions"-->
-                <!--:class="[item.isActive ? '' : 'activeMain', 'item_main']">-->
+                <!--<div v-for="(item,index) in areaData" :class="[item.isActive ? '' : 'activeMain', 'item_main']">-->
                 <!--<div class="query_item_title titleItem" @click="item.isActive=!item.isActive">-->
-                <!--{{i.conditionName}}-->
+                <!--{{item.conditionName}}-->
+                <!--<span :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"></span>-->
+                <!--</div>-->
+                <!--<div class="box"  v-if="item.conditionId != ''">-->
+                <!--<checker v-model="item.answers" type="radio" default-item-class="demo1-item"-->
+                <!--selected-item-class="demo1-item-selected">-->
+                <!--<checker-item v-for="i in item.child"-->
+                <!--:value="i.id"-->
+                <!--v-if="item.conditionId == 'region'">-->
+                <!--<p @click="kk(item.conditionId,i.id,index,i.name)">{{i.name}}</p>-->
+                <!--</checker-item>-->
+                <!--<checker-item v-for="i in childData.child"-->
+                <!--:value="i.id"-->
+                <!--v-if="item.conditionId == 'subregion'">-->
+                <!--<p @click="aa(item.conditionId,i.id,index,i.name)">{{i.name}}</p>-->
+                <!--</checker-item>-->
+                <!--<checker-item v-for="i in cityData.child"-->
+                <!--:value="i.id"-->
+                <!--v-if="item.conditionId == 'city'">-->
+                <!--<p @click="getCity(item.conditionId,i.id,index,i.name)">{{i.name}}</p>-->
+                <!--</checker-item>-->
+                <!--&lt;!&ndash;<checker-item v-for="i in childData.child"&ndash;&gt;-->
+                <!--&lt;!&ndash;:value="i.id"&ndash;&gt;-->
+                <!--&lt;!&ndash;v-if="item.conditionId == 'shop'">{{i.name}}</checker-item>&ndash;&gt;-->
+                <!--&lt;!&ndash;<checker-item v-for="i in item.child" :value="i.REGION_NO" v-if="item.conditionId == 'region'">{{i.REGION_NAME}}</checker-item>&ndash;&gt;-->
+                <!--</checker>-->
+                <!--</div>-->
+                <!--<div class="box longBox" v-if="item.conditionId == 'shop'">-->
+                <!--<checker v-model="demo4CheckboxMax" type="radio" default-item-class="demo1-item"-->
+                <!--selected-item-class="demo1-item-selected">-->
+                <!--<checker-item v-for="i in shopData.child" :value="i.id"-->
+                <!--v-if="item.conditionId == 'shop'">-->
+                <!--<p @click="getShop(i.name)">{{i.name}}</p></checker-item>-->
+                <!--</checker>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;<p class="deliver"></p>&ndash;&gt;-->
+                <!--<div class="query_item">-->
+                <!--<div class="query_item_title" @click="isActive1=!isActive1">-->
+                <!--风格查询-->
+                <!--<span :class="[isActive1 ? 'activeClass' : 'noActclass', 'all']"></span>-->
+                <!--</span>-->
+                <!--</div>-->
+                <!--<div class="query_icon" v-show="isActive1">-->
+                <!--<div v-for="(item,index) in styleData" :class="[item.isActive ? '' : 'activeMain', 'item_main']">-->
+                <!--<div class="query_item_title titleItem" @click="item.isActive=!item.isActive">-->
+                <!--{{item.conditionName}}-->
                 <!--<span :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"></span>-->
                 <!--</div>-->
                 <!--<div class="box" >-->
-                <!--<template v-if="i.conditionType = 'single'">-->
-                <!--<checker v-model="item.answers" type="radio" default-item-class="demo1-item"-->
+                <!--<checker v-model="demo1CheckboxMax" type="checkbox" default-item-class="demo1-item"-->
                 <!--selected-item-class="demo1-item-selected">-->
-                <!--<checker-item v-for="(a,index) in i.child" :value="a.name">-->
-                <!--<span>{{a.name}}</span>-->
-                <!--</checker-item>-->
+                <!--<checker-item v-for="(i,index) in item.child" :value="i.id"-->
+                <!--v-if="item.conditionId == 'big_series'">-->
+                <!--<p @click="mm(i.name)">{{i.name}}</p></checker-item>-->
+                <!--<checker-item v-for="i in item.child" :value="i.id"-->
+                <!--v-if="item.conditionId == 'style'">-->
+                <!--<p @click="mm1(i.name)">{{i.name}}</p></checker-item>-->
+                <!--<checker-item v-for="i in item.child" :value="i.id"-->
+                <!--v-if="item.conditionId == 'goods_level'">-->
+                <!--<p @click="mm2(i.name)">{{i.name}}</p></checker-item>-->
+                <!--<checker-item v-for="i in item.child" :value="i.id"-->
+                <!--v-if="item.conditionId == 'class'">-->
+                <!--<p @click="mm3(i.name)">{{i.name}}</p></checker-item>-->
                 <!--</checker>-->
-                <!--</template>-->
-                <!--&lt;!&ndash;<template v-else-if="i.conditionType = 'multiple'">&ndash;&gt;-->
-                <!--&lt;!&ndash;<checker v-model="a.conditionName" type="checkbox"&ndash;&gt;-->
-                <!--&lt;!&ndash;default-item-class="demo1-item"&ndash;&gt;-->
-                <!--&lt;!&ndash;selected-item-class="demo1-item-selected">&ndash;&gt;-->
-                <!--&lt;!&ndash;<checker-item v-for="a in i.child" :value="a.conditionName">&ndash;&gt;-->
-                <!--&lt;!&ndash;{{a.conditionName}}&ndash;&gt;-->
-                <!--&lt;!&ndash;</checker-item>&ndash;&gt;-->
-                <!--&lt;!&ndash;</checker>&ndash;&gt;-->
-                <!--&lt;!&ndash;</template>&ndash;&gt;-->
                 <!--</div>-->
                 <!--</div>-->
                 <!--</div>-->
-                <!--</template>-->
                 <!--</div>-->
-                <div class="query_item">
-                    <div class="query_item_title" @click="isActive=!isActive">
-                        地区查询
-                        <span :class="[isActive ? 'activeClass' : 'noActclass', 'all']"></span>
-                    </div>
-                    <div class="query_icon" v-show="isActive">
-                        <div v-for="(item,index) in areaData" :class="[item.isActive ? '' : 'activeMain', 'item_main']">
-                            <div class="query_item_title titleItem" @click="item.isActive=!item.isActive">
-                                {{item.conditionName}}
-                                <span v-if="item.conditionId!= 'region'"
-                                      :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"></span>
-                            </div>
-                            <div class="box"  v-if="item.conditionId != ''">
-                                <checker v-model="item.answers" type="radio" default-item-class="demo1-item"
-                                         selected-item-class="demo1-item-selected">
-                                    <checker-item v-for="i in item.child"
-                                                  :value="i.id"
-                                                  v-if="item.conditionId == 'region'">
-                                        <p @click="kk(item.conditionId,i.id,index,i.name)">{{i.name}}</p>
-                                    </checker-item>
-                                    <checker-item v-for="i in childData.child"
-                                                  :value="i.id"
-                                                  v-if="item.conditionId == 'subregion'">
-                                        <p @click="aa(item.conditionId,i.id,index,i.name)">{{i.name}}</p>
-                                    </checker-item>
-                                    <checker-item v-for="i in cityData.child"
-                                                  :value="i.id"
-                                                  v-if="item.conditionId == 'city'">
-                                        <p @click="getCity(item.conditionId,i.id,index,i.name)">{{i.name}}</p>
-                                    </checker-item>
-                                    <!--<checker-item v-for="i in childData.child"-->
-                                    <!--:value="i.id"-->
-                                    <!--v-if="item.conditionId == 'shop'">{{i.name}}</checker-item>-->
-                                    <!--<checker-item v-for="i in item.child" :value="i.REGION_NO" v-if="item.conditionId == 'region'">{{i.REGION_NAME}}</checker-item>-->
-                                </checker>
-                            </div>
-                            <div class="box longBox" v-if="item.conditionId == 'shop'">
-                                <checker v-model="demo4CheckboxMax" type="radio" default-item-class="demo1-item"
-                                         selected-item-class="demo1-item-selected">
-                                    <checker-item v-for="i in shopData.child" :value="i.id"
-                                                  v-if="item.conditionId == 'shop'">
-                                        <p @click="getShop(i.name)">{{i.name}}</p></checker-item>
-                                </checker>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--<p class="deliver"></p>-->
-                <div class="query_item">
-                    <div class="query_item_title" @click="isActive1=!isActive1">
-                        风格查询
-                        <span :class="[isActive1 ? 'activeClass' : 'noActclass', 'all']"></span>
-                        </span>
-                    </div>
-                    <div class="query_icon" v-show="isActive1">
-                        <div v-for="(item,index) in styleData" :class="[item.isActive ? '' : 'activeMain', 'item_main']">
-                            <div class="query_item_title titleItem" @click="item.isActive=!item.isActive">
-                                {{item.conditionName}}
-                                <span :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"></span>
-                            </div>
-                            <div class="box" >
-                                <checker v-model="demo1CheckboxMax" type="checkbox" default-item-class="demo1-item"
-                                         selected-item-class="demo1-item-selected">
-                                    <checker-item v-for="(i,index) in item.child" :value="i.id"
-                                                  v-if="item.conditionId == 'big_series'">
-                                        <p @click="mm(i.name)">{{i.name}}</p></checker-item>
-                                    <checker-item v-for="i in item.child" :value="i.id"
-                                                  v-if="item.conditionId == 'style'">
-                                        <p @click="mm1(i.name)">{{i.name}}</p></checker-item>
-                                    <checker-item v-for="i in item.child" :value="i.id"
-                                                  v-if="item.conditionId == 'goods_level'">
-                                        <p @click="mm2(i.name)">{{i.name}}</p></checker-item>
-                                    <checker-item v-for="i in item.child" :value="i.id"
-                                                  v-if="item.conditionId == 'class'">
-                                        <p @click="mm3(i.name)">{{i.name}}</p></checker-item>
-                                </checker>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--<checker v-model="demo1"-->
-                <!--type="isRadio1"-->
-                <!--default-item-class="demo1-item" selected-item-class="demo1-item-selected">-->
-                <!--<checker-item :value="item" v-for="(item, index) in items1" :key="index">{{item.value}}</checker-item>-->
-                <!--</checker>-->
-                <!--<p>{{demo1}}</p>-->
             </div>
             <div class="operate">
                 <span @click="clearSubmit">重置</span>
@@ -201,7 +214,16 @@
         },
         data () {
             return {
-                allData:[],
+                allData:[], //渲染版数据
+                childData1:[],//子级数据
+                childData2:[],
+                childData3:[],
+                cData:[],
+                cData1:[],
+                cData2:[],
+                cData3:[],
+                cData4:[],
+                jilianActive:999,
                 isActive:false,
                 isActive1:false,
                 id: '',
@@ -232,7 +254,6 @@
                 conditionValue:'',  //条件项的数据
                 showNoScroll:false,
                 showNoScroll2:false,
-                showNoScroll3:false,
                 warnText:'',
                 modelId:'',
 
@@ -243,6 +264,37 @@
             this.renderData();
         },
         methods: {
+            getChild(conditionId,id,index,index1){
+                this.testStr = "'"+id+"'";
+                this.cData2 = this.cData;
+//                console.log(this.cData2,'33333333333==============================')
+                this.renderChildData(conditionId,index);
+                for(var i=0;i<this.childData1.length;i++){
+                    this.cData[i+index1+1] = this.childData1[i];
+
+                }
+                console.log(this.cData,'this.cdata')
+//                setTimeout(()=>{
+////                    this.cData2 = this.cData.shift();
+////                    this.cData3 = this.cData1.concat(this.cData2,this.childData1);
+////                    this.cData = this.cData3;
+//                    for(let i=0;i<this.childData1.length;i++){
+//                        debugger
+//                        this.cData[i+index1+1] = this.childData1[i];
+//
+//                    }
+//                    console.log(index1,'222222222222222--------------==================')
+//                    console.log(this.cData,'11111111111111111111111111111111')
+//                },300)
+            },
+            showJlian(value){
+                if(this.jilianActive == value){
+                    this.jilianActive = 9999;
+                } else {
+                    this.jilianActive = value;
+                    console.log(this.jilianActive);
+                }
+            },
             getUrlParams(urlName) {
                 // var url = decodeURI(location.href);
                 var url = location.href;
@@ -404,14 +456,24 @@
                 //url输入对应参数
                 let modelId = this.getUrlParams('modelId');
                 queryALLService().save({
-                    //modelId: modelId
+//                    modelId: modelId
                     modelId: 1000
                 }).then(res => {
                     let body = res.body;
                     if (body.data) {
                         this.allData = body.data;
+                        for(let i=0;i<this.allData.length;i++){
+                            if(this.allData[i].jilian == true){
+                                this.cData = this.allData[i].conditions;
+                            }
+                        }
+                        console.log(this.cData,'-=-=-===========================--=-=-');
+                        for(let j=0;j<this.cData.length;j++){
+                            this.childData.push(this.cData[j].child);
+                        }
+                        console.log(this.childData,'11===================================')
                         this.areaData = body.data[0].conditions;
-                        this.childData = body.data[0].conditions[1];
+//                        this.childData = body.data[0].conditions[1];
                         this.cityData = body.data[0].conditions[2];
                         this.shopData = body.data[0].conditions[3];
                         this.areaData.forEach(function (item,index) {
@@ -423,7 +485,7 @@
                             }
                         })
                         console.log(this.allData);
-                        this.styleData = body.data[1].conditions;
+//                        this.styleData = body.data[1].conditions;
 //                        this.styleToast = this.styleData[0].child
                         this.styleData.forEach(function (item,index) {
                             Vue.set(item, 'answers', [])
@@ -435,17 +497,16 @@
                     this.warnText = '网络超时，请重试';
                 })
             },
-            renderChildData(index) {
+            renderChildData(conditionId,index) {
                 queryChildService().save({
                     modelId:1000,
-                    conditionId:this.conditionId,
+                    conditionId:conditionId,
                     values:this.testStr
                 }).then(res=>{
                     let body = res.body;
                     if(body.errmsg='ok'){
-                        this.childData = body.data[index];
-                        this.cityData = body.data[index+1];
-                        this.shopData = body.data[index+2];
+                        this.childData1 = body.data;
+                        console.log(this.childData1,'222222========================')
                     } else{
                     }
                 },res=>{
@@ -482,7 +543,7 @@
 //                }
                 this.queryToast = this.region + '-' + this.subregion + '-' + this.city + '-' + this.shop;
                 this.show1 = false;
-                this.showNoScroll3 = true;
+                this.show2 = true;
             }
         },
         computed: {}
@@ -490,43 +551,17 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_query {
-    .mask{
-        position: fixed;
-        z-index: 1000;
-        top: 0;
-        right: 0;
-        left: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.6);
-    }
-    .query-toast{
-        width: auto;
-        height: auto;
-        margin: 1.2rem;
-        padding: .5rem;
-        font-size: .75rem;
-        border: 1px solid #ab9236;
-        position: relative;
-        border-radius: .2rem;
-        z-index:9999;
-    .giftCode-close {
-        position: absolute;
-        width: .8rem;
-        height: .8rem;
-        background: url("../assets/money_code3.png");
-        background-size: cover;
-        top: .6rem;
-        right: .6rem;
-    }
-    }
-    .weui-dialog {
-        width: 12.5rem !important;
-        max-width: none !important;
-        text-align: left;
-    }
     .vux-header-more:after{
         color: #fff;
         font-size: .75rem !important;
+    }
+    .query-toast{
+        width: 90%;
+        margin: 1rem auto;
+        padding: .5rem;
+        font-size: .75rem;
+        border: 1px solid #ab9236;
+        border-radius: .2rem;
     }
     .popup1{
         background: #f1f1f1;
