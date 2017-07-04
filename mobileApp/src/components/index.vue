@@ -1,6 +1,7 @@
 /**
 * Created by tanyichao on 2017/3/15.
 */
+
 <template>
     <div class="page_index">
         <!--主页头部-->
@@ -138,7 +139,7 @@
 </template>
 <script>
     import {indexService} from '../services/wallet.js'
-    import {URL_getQRCode} from '../services/index.js'
+    import {URL_getQRCode, infoService} from '../services/index.js'
     import {XHeader, Flexbox, FlexboxItem, Grid, GridItem, Group, Cell, XDialog, Alert, Toast} from 'vux'
     export default {
         components: {
@@ -167,8 +168,10 @@
         },
         watch: {},
         created(){
+            //获取wxOpenId
+            this.renderOpen();
             this.personData();
-            this.renderData();
+//            this.renderData();
             //待付款没有时不显示红点数字
             this.payment();
             this.barcodeUrl = URL_getQRCode;
@@ -176,6 +179,34 @@
         mounted(){
         },
         methods: {
+
+
+            renderOpen(){
+                let wxOpenId = this.getParams("wxOpenId");
+                //let wxOpenId = 'odaBLwEfMOFDB5ATyqZwQco5Aaxo';
+                if (wxOpenId && wxOpenId != '') {
+                    window.localStorage.setItem("wxOpenId", wxOpenId);
+                }
+//              获取数据
+                this.renderData();
+            },
+            getParams(paras) {
+//                let url = decodeURI(location.href);
+                let url = 'http://nianhui.ur.com.cn/front/#/personMain?wxOpenId=odaBLwI5ERI1Da5HXf6Kt3cIulPY';
+                let paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
+                let returnValue;
+                for (let i = 0; i < paraString.length; i++) {
+                    let tempParas = paraString[i].split('=')[0];
+                    let parasValue = paraString[i].split('=')[1];
+                    if (tempParas === paras)
+                        returnValue = parasValue;
+                }
+                if (typeof(returnValue) == "undefined") {
+                    return "";
+                } else {
+                    return returnValue;
+                }
+            },
 
             goStore(){
                 this.$router.push({name: 'http://weixin.ur.com.cn/app/index.php?i=2&c=mc&a=store&'})
@@ -214,22 +245,36 @@
                 }
             },
             renderData(){
-                    pushHistory();
-                /*var bool=false;
-                setTimeout(function(){
-                    bool=true;
-                },1500);*/
-                window.addEventListener("popstate", function(e) {
-                        this.window.close();
-                    }, false);
-                    function pushHistory() {
-                        var state = {
-                            title: "title",
-                            url: "#"
-                        };
-                        window.history.pushState(state, "title", "#");
-                    }
 
+
+                let _this = this;
+                debugger
+                console.log(window.localStorage.getItem('cardcode'));
+                console.log(window.localStorage.getItem('wxOpenId'));
+                //没有cardcode就调用info接口
+                if (window.localStorage.getItem('cardcode') == null) {
+                    console.log(window.localStorage.getItem('wxOpenId'));
+                    infoService().save({
+                        wxOpenID: window.localStorage.getItem('wxOpenId')
+                    }).then(res => {
+                        let body = res.body;
+                        if (body.errcode == 0) {
+
+                        } else {
+                            this.showNoScroll2 = true;
+                            this.warnText = body.errmsg;
+                            setTimeout(function () {
+                                _this.$router.push({
+                                    name: 'login'
+                                })
+                            }, 500)
+                        }
+                    }, res => {
+                        this.showNoScroll2 = true;
+                        this.warnText = '请求错误';
+                    })
+                }
+                //有cardcode
                 indexService().save({
                     cardcode: window.localStorage.getItem('cardcode')
                 }).then(res => {
@@ -247,6 +292,21 @@
                     this.showNoScroll2 = true;
                     this.warnText = '请求错误';
                 })
+
+
+
+                //主页后退按钮监控
+                pushHistory();
+                window.addEventListener("popstate", function (e) {
+                    this.window.close();
+                }, false);
+                function pushHistory() {
+                    var state = {
+                        title: "title",
+                        url: "#"
+                    };
+                    window.history.pushState(state, "title", "#");
+                }
             }
         },
         computed: {}

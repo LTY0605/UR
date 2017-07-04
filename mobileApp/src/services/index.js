@@ -15,3 +15,8 @@ export const URL_getBarcode= `${HTTP_REMOTE}/ur_crm/admin/sys/barcode/getBarcode
 //二维码地址
 export const URL_getQRCode= `${HTTP_REMOTE}/ur_crm/admin/sys/qrcode/getQRCode`
 
+//获取会员信息
+export function infoService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/info')
+}
+
