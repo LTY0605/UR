@@ -5,31 +5,24 @@
     <div class="page_query">
         <x-header :left-options="{backText:''}" :right-options="{showMore: true}"
                   @on-click-more="show1 = true">我的报表</x-header>
-        <!--<span class="head_icon" @click="showSelect"></span>-->
-        <!--<div class="headInput">-->
-        <!--<input type="text" class="queryInput" placeholder="请选择" @focus="showSelect">-->
-        <!--</div>-->
-        <popup v-model="show2" height="100%">
-            <x-header :left-options="{backText:''}" :right-options="{showMore: true}"
-                      @on-click-more="show1 = true;show2 = false">
-                我的报表</x-header>
-            <!--<div class="query-toast">-->
-            <!--日期：{{dateTime}}<br>-->
-            <!--大区：{{region}}<br>-->
-            <!--小区：{{subregion}}<br>-->
-            <!--城市：{{city}}<br>-->
-            <!--店铺：{{shop}}<br>-->
-            <!--系列：{{seriesToast}}<br>-->
-            <!--风格：{{styleToast}}<br>-->
-            <!--商品层：{{levelToast}}<br>-->
-            <!--品类：{{classToast}}-->
-            <!--</div>-->
-        </popup>
+        <!--弹窗-->
+        <x-dialog v-model="showNoScroll3" class="page_tran" :scroll="false">
+            <div class="query-toast">
+                日期：{{dateTime}}<br>
+                <ul style="list-style: none">
+                    <li v-for="item in cData3">{{item}}</li>
+                    <li v-for="item in cData2">{{item}}</li>
+                </ul>
+                <div @click="showNoScroll3=false" class="giftCode-close"></div>
+            </div>
+        </x-dialog>
+        <!--报表-->
         <popup v-model="show1" height="100%">
             <div class="popup1">
                 <x-header :left-options="{backText:''}" :right-options="{showMore : true}"
                           @on-click-more="show1 = false;show2=true">
                     我的报表</x-header>
+                <!--日历-->
                 <group class="dateBox">
                     <datetime
                             :min-year=1900
@@ -43,154 +36,91 @@
                             placeholder="选择日期"></datetime>
                 </group>
                 <div v-for="(item,index) in allData" class="query_item">
-                    <div class="query_item_title" @click="showJlian(index)">
+                    <div class="query_item_title" @click="showJlian(index,allData)">
                         {{item.group}}
-                        <span :class="[jilianActive ? 'noActclass' : 'activeClass', 'all']"></span>
+                        <span :class="[item.isActive ? 'noActclass' : 'activeClass', 'all']"></span>
                     </div>
+                    <!--jilian为true时加载的模板-->
                     <template v-if="item.jilian == true">
-                        <div class="query_icon" v-show="jilianActive == index">
+                        <div class="query_icon" v-show="item.isActive">
                             <div v-for="(i,index1) in cData"
-                                 :class="[item.isActive ? '' : 'activeMain', 'item_main']">
-                                <div class="query_item_title titleItem" @click="item.isActive=!item.isActive">
+                                 :class="[i.isActive ? '' : 'activeMain', 'item_main']">
+                                <div class="query_item_title titleItem" @click="shoelistActive(index1,cData)">
                                     {{i.conditionName}}
-                                    <span :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"></span>
+                                    <span v-if="i.conditionId!= 'region'"
+                                          :class="[i.isActive ? 'activeClass' : 'noActclass', 'all']"></span>
                                 </div>
                                 <div class="box" >
-                                    <template v-if="i.conditionType = 'single'">
+                                    <!--<template v-if="i.conditionType == 'single'">-->
+                                        <!--<checker v-model="item.color" type="radio" default-item-class="demo1-item"-->
+                                                 <!--selected-item-class="demo1-item-selected">-->
+                                            <!--<checker-item v-for="(a,index) in i.child" :value="a.name">-->
+                                                <!--<p style="width: 100%"-->
+                                                   <!--@click="getChild(i.conditionId,a.id,index,index1,a.name,i.conditionName)">{{a.name}}</p>-->
+                                            <!--</checker-item>-->
+                                            <!--&lt;!&ndash;<checker-item v-if="index != 0" v-for="(b,index) in i.child"&ndash;&gt;-->
+                                                          <!--&lt;!&ndash;:value="b">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<p style="width: 100%" @click="getChild(i.conditionId,a.id,index)">{{b.name}}</p>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</checker-item>&ndash;&gt;-->
+                                        <!--</checker>-->
+                                    <!--</template>-->
+                                    <template v-if="i.conditionType == 'single'">
                                         <checker v-model="item.answers" type="radio" default-item-class="demo1-item"
                                                  selected-item-class="demo1-item-selected">
                                             <checker-item v-for="(a,index) in i.child" :value="a">
                                                 <p style="width: 100%"
-                                                   @click="getChild(i.conditionId,a.id,index,index1)">{{a.name}}</p>
+                                                   @click="getChild(i.conditionId,a.id,index,index1,a.name,i.conditionName)">{{a.name}}</p>
                                             </checker-item>
-                                            <!--<checker-item v-if="index != 0" v-for="(b,index) in i.child"-->
-                                                          <!--:value="b">-->
-                                                <!--<p style="width: 100%" @click="getChild(i.conditionId,a.id,index)">{{b.name}}</p>-->
-                                            <!--</checker-item>-->
                                         </checker>
                                     </template>
-                                    <!--<template v-else-if="i.conditionType = 'multiple'">-->
-                                    <!--<checker v-model="a.conditionName" type="checkbox"-->
-                                    <!--default-item-class="demo1-item"-->
-                                    <!--selected-item-class="demo1-item-selected">-->
-                                    <!--<checker-item v-for="a in i.child" :value="a.conditionName">-->
-                                    <!--{{a.conditionName}}-->
-                                    <!--</checker-item>-->
-                                    <!--</checker>-->
-                                    <!--</template>-->
+                                    <template v-else-if="i.conditionType =='multiple'">
+                                        <div class="box longBox">
+                                            <checker v-model="childData2" type="checkbox"
+                                                     default-item-class="demo1-item"
+                                                     selected-item-class="demo1-item-selected">
+                                                <checker-item v-for="(a,index) in i.child" :value="a.name">
+                                                    <p style="width: 100%">{{a.name}}</p>
+                                                </checker-item>
+                                            </checker>
+                                        </div>
+                                    </template>
                                 </div>
                             </div>
                         </div>
                     </template>
                     <template v-if="item.jilian == false">
-                        <div class="query_icon" v-show="jilianActive == index">
-                            <div v-for="(i,index) in item.conditions"
-                                 :class="[item.isActive ? '' : 'activeMain', 'item_main']">
-                                <div class="query_item_title titleItem" @click="item.isActive=!item.isActive">
+                        <div class="query_icon" v-show="item.isActive">
+                            <div v-for="(i,conIndex) in item.conditions"
+                                 :class="[i.isActive ? '' : 'activeMain', 'item_main']">
+                                <div class="query_item_title titleItem" @click="shoelistActive(conIndex,item.conditions)">
                                     {{i.conditionName}}
-                                    <span :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"></span>
+                                    <span :class="[i.isActive ? 'activeClass' : 'noActclass', 'all']"></span>
                                 </div>
-                                <div class="box" >
-                                    <template v-if="i.conditionType == 'single'">
+                                <template v-if="i.conditionType == 'single'">
+                                    <div class="box" >
                                         <checker v-model="item.answers" type="radio" default-item-class="demo1-item"
                                                  selected-item-class="demo1-item-selected">
-                                            <checker-item v-for="(a,index) in i.child" :value="a.name">
+                                            <checker-item v-for="(a,childIndex) in i.child" :value="a.name">
                                                 <span>{{a.name}}</span>
                                             </checker-item>
                                         </checker>
-                                    </template>
-                                    <template v-else-if="i.conditionType = 'multiple'">
-                                        <checker v-model="item.answers" type="checkbox" default-item-class="demo1-item"
+                                    </div>
+                                </template>
+                                <template v-if="i.conditionType == 'multiple'">
+                                    <div class="box">
+                                        <checker v-model="childData3" type="checkbox" default-item-class="demo1-item"
                                                  selected-item-class="demo1-item-selected">
-                                            <checker-item v-for="a in i.child" :value="a">
-                                                {{a.name}}
+                                            <checker-item v-for="(a,childIndex) in i.child" :value="a.name">
+                                                <p style="width: 100%"
+                                                   @click="getChecboxData(conIndex,index,a.name,i.conditionName)">{{a.name}}</p>
                                             </checker-item>
                                         </checker>
-                                    </template>
-                                </div>
+                                    </div>
+                                </template>
                             </div>
                         </div>
                     </template>
                 </div>
-                <!--<div class="query_item">-->
-                <!--<div class="query_item_title" @click="isActive=!isActive">-->
-                <!--地区查询-->
-                <!--<span :class="[isActive ? 'activeClass' : 'noActclass', 'all']"></span>-->
-                <!--</div>-->
-                <!--<div class="query_icon" v-show="isActive">-->
-                <!--<div v-for="(item,index) in areaData" :class="[item.isActive ? '' : 'activeMain', 'item_main']">-->
-                <!--<div class="query_item_title titleItem" @click="item.isActive=!item.isActive">-->
-                <!--{{item.conditionName}}-->
-                <!--<span :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"></span>-->
-                <!--</div>-->
-                <!--<div class="box"  v-if="item.conditionId != ''">-->
-                <!--<checker v-model="item.answers" type="radio" default-item-class="demo1-item"-->
-                <!--selected-item-class="demo1-item-selected">-->
-                <!--<checker-item v-for="i in item.child"-->
-                <!--:value="i.id"-->
-                <!--v-if="item.conditionId == 'region'">-->
-                <!--<p @click="kk(item.conditionId,i.id,index,i.name)">{{i.name}}</p>-->
-                <!--</checker-item>-->
-                <!--<checker-item v-for="i in childData.child"-->
-                <!--:value="i.id"-->
-                <!--v-if="item.conditionId == 'subregion'">-->
-                <!--<p @click="aa(item.conditionId,i.id,index,i.name)">{{i.name}}</p>-->
-                <!--</checker-item>-->
-                <!--<checker-item v-for="i in cityData.child"-->
-                <!--:value="i.id"-->
-                <!--v-if="item.conditionId == 'city'">-->
-                <!--<p @click="getCity(item.conditionId,i.id,index,i.name)">{{i.name}}</p>-->
-                <!--</checker-item>-->
-                <!--&lt;!&ndash;<checker-item v-for="i in childData.child"&ndash;&gt;-->
-                <!--&lt;!&ndash;:value="i.id"&ndash;&gt;-->
-                <!--&lt;!&ndash;v-if="item.conditionId == 'shop'">{{i.name}}</checker-item>&ndash;&gt;-->
-                <!--&lt;!&ndash;<checker-item v-for="i in item.child" :value="i.REGION_NO" v-if="item.conditionId == 'region'">{{i.REGION_NAME}}</checker-item>&ndash;&gt;-->
-                <!--</checker>-->
-                <!--</div>-->
-                <!--<div class="box longBox" v-if="item.conditionId == 'shop'">-->
-                <!--<checker v-model="demo4CheckboxMax" type="radio" default-item-class="demo1-item"-->
-                <!--selected-item-class="demo1-item-selected">-->
-                <!--<checker-item v-for="i in shopData.child" :value="i.id"-->
-                <!--v-if="item.conditionId == 'shop'">-->
-                <!--<p @click="getShop(i.name)">{{i.name}}</p></checker-item>-->
-                <!--</checker>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--&lt;!&ndash;<p class="deliver"></p>&ndash;&gt;-->
-                <!--<div class="query_item">-->
-                <!--<div class="query_item_title" @click="isActive1=!isActive1">-->
-                <!--风格查询-->
-                <!--<span :class="[isActive1 ? 'activeClass' : 'noActclass', 'all']"></span>-->
-                <!--</span>-->
-                <!--</div>-->
-                <!--<div class="query_icon" v-show="isActive1">-->
-                <!--<div v-for="(item,index) in styleData" :class="[item.isActive ? '' : 'activeMain', 'item_main']">-->
-                <!--<div class="query_item_title titleItem" @click="item.isActive=!item.isActive">-->
-                <!--{{item.conditionName}}-->
-                <!--<span :class="[item.isActive ? 'activeClass' : 'noActclass', 'all']"></span>-->
-                <!--</div>-->
-                <!--<div class="box" >-->
-                <!--<checker v-model="demo1CheckboxMax" type="checkbox" default-item-class="demo1-item"-->
-                <!--selected-item-class="demo1-item-selected">-->
-                <!--<checker-item v-for="(i,index) in item.child" :value="i.id"-->
-                <!--v-if="item.conditionId == 'big_series'">-->
-                <!--<p @click="mm(i.name)">{{i.name}}</p></checker-item>-->
-                <!--<checker-item v-for="i in item.child" :value="i.id"-->
-                <!--v-if="item.conditionId == 'style'">-->
-                <!--<p @click="mm1(i.name)">{{i.name}}</p></checker-item>-->
-                <!--<checker-item v-for="i in item.child" :value="i.id"-->
-                <!--v-if="item.conditionId == 'goods_level'">-->
-                <!--<p @click="mm2(i.name)">{{i.name}}</p></checker-item>-->
-                <!--<checker-item v-for="i in item.child" :value="i.id"-->
-                <!--v-if="item.conditionId == 'class'">-->
-                <!--<p @click="mm3(i.name)">{{i.name}}</p></checker-item>-->
-                <!--</checker>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
             </div>
             <div class="operate">
                 <span @click="clearSubmit">重置</span>
@@ -223,39 +153,29 @@
                 cData2:[],
                 cData3:[],
                 cData4:[],
-                jilianActive:999,
+                cData5:[],
+                obj1:{},
+                jilianActive:false,
                 isActive:false,
                 isActive1:false,
                 id: '',
                 show1: false,
                 show2: false,
                 dateTime: '',
-                demo1CheckboxMax: '',
-                demo4CheckboxMax:'',
-                queryToast: '', //提交内容
-                seriesToast: [],  //系列内容
-                seriesToast2: [],
-                styleToast: [], //风格内容
-                levelToast: [], //商品车内容
-                classToast: [], //品类内容
-                areaData:[],//地区
                 region:'',
                 subregion:'',
                 city:'',
                 shop:'',
                 testStr:'',
-                testArr:[],
-                testArr2:[],
-                styleData:[],//风格
                 childData:[],   //子级所有数据
-                cityData:[],    //城市数据
-                shopData:[],
                 conditionId:'', //条件项id
                 conditionValue:'',  //条件项的数据
                 showNoScroll:false,
                 showNoScroll2:false,
+                showNoScroll3:false,
                 warnText:'',
                 modelId:'',
+                checkObj:{}
 
             }
         },
@@ -264,35 +184,79 @@
             this.renderData();
         },
         methods: {
-            getChild(conditionId,id,index,index1){
-                this.testStr = "'"+id+"'";
-                this.cData2 = this.cData;
-//                console.log(this.cData2,'33333333333==============================')
-                this.renderChildData(conditionId,index);
-                for(var i=0;i<this.childData1.length;i++){
-                    this.cData[i+index1+1] = this.childData1[i];
-
-                }
-                console.log(this.cData,'this.cdata')
-//                setTimeout(()=>{
-////                    this.cData2 = this.cData.shift();
-////                    this.cData3 = this.cData1.concat(this.cData2,this.childData1);
-////                    this.cData = this.cData3;
-//                    for(let i=0;i<this.childData1.length;i++){
-//                        debugger
-//                        this.cData[i+index1+1] = this.childData1[i];
-//
-//                    }
-//                    console.log(index1,'222222222222222--------------==================')
-//                    console.log(this.cData,'11111111111111111111111111111111')
-//                },300)
-            },
-            showJlian(value){
-                if(this.jilianActive == value){
-                    this.jilianActive = 9999;
+            shoelistActive(index,data){
+                if(data[index].isActive==true){
+                    data[index].isActive = false;
                 } else {
-                    this.jilianActive = value;
-                    console.log(this.jilianActive);
+                    data[index].isActive = true;
+                }
+                console.log(index);
+                console.log(data[index]);
+            },
+            getChecboxData(index,conIndex,value,conditionName){
+                this.checkObj = {
+                    cengji:index,
+                    value:value,
+                    type:conditionName
+                }
+//                this.cData4.push(this.checkObj)
+                if(this.cData4.length < 1){
+                    this.cData4.push(this.checkObj);
+                    this.cData5.push(value);
+                } else {
+                    var num = this.cData5.indexOf(value);
+                    if(this.cData5[num] == value){
+                        this.cData4.splice(num,1);
+                        this.cData5.splice(num,1);
+                    } else {
+                        this.cData4.push(this.checkObj);
+                        this.cData5.push(value);
+                    }
+                }
+                setTimeout(()=>{
+                    this.allData[conIndex].conditions[index].fuck=[];
+                    for(let i=0;i<this.cData4.length;i++){
+                        if(this.cData4[i].cengji == index){
+                            this.allData[conIndex].conditions[index].fuck.push(this.cData4[i].value);
+                        }
+                    }
+                    console.log(index,conIndex,this.allData[conIndex].conditions);
+                },500)
+                console.log(this.cData4,num,'---------------checkObj----------------')
+            },
+            getChild(conditionId,id,index,index1,value,typeName){
+                this.testStr = "'"+id+"'";
+                this.renderChildData(conditionId,index);
+                this.cData[index1].answers = value;
+                this.cData[index1].selectId = index;
+                this.obj={
+                    id:index,
+                    value:this.cData[index1].answers,
+                    type:typeName
+                }
+//                alert(this.cData[index].answers = value)
+                setTimeout(()=>{
+                    //调用接口二加载数据替换本来循环遍历的数据cData
+                    for(let i=0;i<this.childData1.length;i++){
+//                        this.cData[i+index1+1] = this.childData1[i];
+                        Vue.set(this.cData,i+index1+1,this.childData1[i])
+
+                    }
+                },300);
+//                alert(this.obj)
+                console.log(this.cData,'--------------------cData------------------------')
+            },
+            showJlian(index,data){
+//                if(this.jilianActive == value){
+//                    this.jilianActive = 9999;
+//                } else {
+//                    this.jilianActive = value;
+//                    console.log(this.jilianActive);
+//                }
+                if(data[index].isActive==true){
+                    data[index].isActive = false;
+                } else {
+                    data[index].isActive = true;
                 }
             },
             getUrlParams(urlName) {
@@ -312,24 +276,13 @@
                     return returnValue;
                 }
             },
-            isRadio(){
-                this.isRadio1 = 'radio'
-            },
             clearSubmit(){
-                this.dateTime = '';
-                this.demo1CheckboxMax = '';
-                this.demo4CheckboxMax = '';
-                this.seriesToast = [];
-                this.styleToast = [];
-                this.levelToast = [];
-                this.classToast = [];
-                this.region = '';
-                this.subregion = '';
-                this.city = '';
-                this.shop = '';
-                this.areaData.forEach(item=>{
-                    item.answers='';
-                })
+//                alert(this.cData3)
+                this.cData3 = [];
+                for(let i=0;i<this.cData.length;i++){
+                    this.cData3.push(this.cData[i].conditionName+':'+this.cData[i].answers);
+                }
+                console.log(this.cData3)
             },
             setToday (value) {
                 let now = new Date()
@@ -340,124 +293,13 @@
                 this.dateTime = now.getFullYear() + '-' + cmonth + '-' + day
                 console.log('set today ok')
             },
-            mm(value){
-                if(this.seriesToast.length <1){
-                    this.seriesToast.push(value);
-                } else {
-                    let num = this.seriesToast.indexOf(value);
-                    if(this.seriesToast[num] == value){
-                        this.seriesToast.splice(num,1);
-                    } else {
-                        this.seriesToast.push('value');
-                    }
-//                    }
-                }
-            },
-            mm1(value){
-                if(this.styleToast.length <1){
-                    this.styleToast.push(value);
-                } else {
-                    let num = this.styleToast.indexOf(value);
-                    if(this.styleToast[num] == value){
-                        this.styleToast.splice(num,1);
-                    } else {
-                        this.styleToast.push(value);
-                    }
-//                    }
-                }
-            },
-            mm2(value){
-                if(this.levelToast.length <1){
-                    this.levelToast.push(value);
-                } else {
-                    let num = this.levelToast.indexOf(value);
-                    if(this.levelToast[num] == value){
-                        this.levelToast.splice(num,1);
-                    } else {
-                        this.levelToast.push(value);
-                    }
-//                    }
-                }
-            },
-            mm3(value){
-                if(this.classToast.length <1){
-                    this.classToast.push(value);
-                } else {
-                    let num = this.classToast.indexOf(value);
-                    if(this.classToast[num] == value){
-                        this.classToast.splice(num,1);
-                    } else {
-                        this.classToast.push(value);
-                    }
-//                    }
-                }
-            },
-            getCity(condition,value,index,city){
-                this.shop = '';
-                this.conditionId = condition;
-                this.conditionValue = value;
-                this.testStr = "'"+value+"'";
-                this.city = city;
-                queryChildService().save({
-                    modelId:1000,
-                    conditionId:this.conditionId,
-                    values:this.conditionValue
-                }).then(res=>{
-                    let body = res.body;
-                    if(body.errmsg='ok'){
-                        this.shopData = body.data[0];
-                    }
-                },res=>{
-                })
-            },
-            getShop(shop){
-                this.shop = shop
-            },
-            kk(condition,value,index,region){
-                this.subregion = '';this.city = '';this.shop = '';
-                this.areaData.forEach(item=>{
-                    item.answers='';
-                })
-                this.demo4CheckboxMax = '';
-                this.conditionId = condition;
-                this.conditionValue = value;
-                this.testStr = "'"+value+"'"
-                this.testArr.push(value);
-//                for(let i=0;i<this.testArr.length;i++){
-//                    this.testArr[i] = "'"+this.testArr[i]+"'"
-//                }
-                this.region = region;
-                this.renderChildData(index);
-            },
-            aa(condition,value,index,subregion){
-//                alert('----'+condition+'---==='+value+'====');
-                this.city = '';
-                this.shop = '';
-                this.demo4CheckboxMax = '';
-                this.conditionId = condition;
-                this.conditionValue = value;
-                this.testStr = "'"+value+"'";
-                this.subregion = subregion;
-                queryChildService().save({
-                    modelId:1000,
-                    conditionId:this.conditionId,
-                    values:this.testStr
-                }).then(res=>{
-                    let body = res.body;
-                    if(body.errmsg='ok'){
-                        this.cityData = body.data[index-1];
-                        this.shopData = body.data[index];
-                    } else{
-                    }
-                },res=>{
-                })
-            },
             renderData(){
                 //url输入对应参数
                 let modelId = this.getUrlParams('modelId');
+                modelId = modelId?modelId:'1000';
                 queryALLService().save({
-//                    modelId: modelId
-                    modelId: 1000
+                    modelId: modelId
+//                    modelId: 1000
                 }).then(res => {
                     let body = res.body;
                     if (body.data) {
@@ -467,30 +309,30 @@
                                 this.cData = this.allData[i].conditions;
                             }
                         }
-                        console.log(this.cData,'-=-=-===========================--=-=-');
-                        for(let j=0;j<this.cData.length;j++){
-                            this.childData.push(this.cData[j].child);
+                        for(let j=0;j<this.allData.length;j++){
+                            this.allData[j].conditions.forEach(function(item){
+                                Vue.set(item,'fuck',[]);
+                            });
                         }
-                        console.log(this.childData,'11===================================')
-                        this.areaData = body.data[0].conditions;
-//                        this.childData = body.data[0].conditions[1];
-                        this.cityData = body.data[0].conditions[2];
-                        this.shopData = body.data[0].conditions[3];
-                        this.areaData.forEach(function (item,index) {
+                        this.allData.forEach(function (item,index) {
                             Vue.set(item, 'answers', '');
+                            Vue.set(item, 'color', '');
                             if(index == 0){
                                 Vue.set(item, 'isActive', true);
                             }else{
                                 Vue.set(item, 'isActive', false);
                             }
                         })
+                        for(let k=0;k<this.allData.length;k++){
+                            this.allData[k].conditions.forEach(function(item,index){
+                                if(index == 0){
+                                    Vue.set(item, 'isActive', true);
+                                }else{
+                                    Vue.set(item, 'isActive', false);
+                                }
+                            })
+                        }
                         console.log(this.allData);
-//                        this.styleData = body.data[1].conditions;
-//                        this.styleToast = this.styleData[0].child
-                        this.styleData.forEach(function (item,index) {
-                            Vue.set(item, 'answers', [])
-                            Vue.set(item, 'isActive', false);
-                        })
                     }
                 }, res => {
                     this.showNoScroll = true;
@@ -506,44 +348,33 @@
                     let body = res.body;
                     if(body.errmsg='ok'){
                         this.childData1 = body.data;
-                        console.log(this.childData1,'222222========================')
                     } else{
                     }
                 },res=>{
                 })
             },
-            showSelect() {
-                this.show1 = true;
-            },
             sureSubmit(){
-//                if(this.dateTime == ''){
-//                    this.showNoScroll = true;
-//                    this.warnText = '请选择日期';
-//                    return
-//                } else if(this.region == '' || this.subregion == '' || this.city == '' || this.shop == '' ){
-//                    this.showNoScroll = true;
-//                    this.warnText = '请选择地区，具体到店铺';
-//                    return
-//                } else if(this.seriesToast == ''){
-//                    this.showNoScroll = true;
-//                    this.warnText = '请选择系列';
-//                    return
-//                } else if(this.styleToast == ''){
-//                    this.showNoScroll = true;
-//                    this.warnText = '请选择风格';
-//                    return
-//                } else if(this.levelToast == ''){
-//                    this.showNoScroll = true;
-//                    this.warnText = '请选择商品层';
-//                    return
-//                } else if(this.classToast == ''){
-//                    this.showNoScroll = true;
-//                    this.warnText = '请选择品类';
-//                    return
-//                }
-                this.queryToast = this.region + '-' + this.subregion + '-' + this.city + '-' + this.shop;
+                this.cData3 = [];
+                this.cData2 = [];
+                this.childData3 = this.childData2.join(',');
+                for(let i=0;i<this.cData.length;i++){
+                    if(this.cData[i].conditionType == 'single'){
+                        this.cData3.push(this.cData[i].conditionName+':'+this.cData[i].answers);
+                    } else if (this.cData[i].conditionType == 'multiple'){
+                        this.cData3.push(this.cData[i].conditionName+':'+this.childData3);
+                    }
+                }
+                for(let k=0;k<this.allData.length;k++){
+                    if(this.allData[k].jilian == false){
+                        for(let j=0;j<this.allData[k].conditions.length;j++){
+                            this.cData2.push(this.allData[k].conditions[j].conditionName+':'+this.allData[k].conditions[j].fuck);
+                        }
+                    }
+                }
+                console.log(this.cData2,'================------------------=========')
+                console.log(this.cData3)
                 this.show1 = false;
-                this.show2 = true;
+                this.showNoScroll3 = true;
             }
         },
         computed: {}
@@ -555,9 +386,20 @@
         color: #fff;
         font-size: .75rem !important;
     }
+    .weui-dialog{
+        text-align: left;
+    }
+    .giftCode-close {
+        position: absolute;
+        width: .8rem;
+        height: .8rem;
+        background: url("../assets/money_code3.png");
+        background-size: cover;
+        top: .4rem;
+        right: .4rem;
+    }
     .query-toast{
-        width: 90%;
-        margin: 1rem auto;
+        margin: 1.3rem 1rem;
         padding: .5rem;
         font-size: .75rem;
         border: 1px solid #ab9236;
