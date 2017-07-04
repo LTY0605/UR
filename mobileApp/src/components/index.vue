@@ -169,7 +169,7 @@
         created(){
             this.personData();
             this.renderData();
-            //待付款没有时不显示红点数字
+            //待付款没有时不显示红点数字1
             this.payment();
             this.barcodeUrl = URL_getQRCode;
         },
