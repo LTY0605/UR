@@ -124,8 +124,8 @@
             },
             //根据设置的isActive来收缩展开
             showActive(index,data){
+//                debugger
                 data[index].isActive == true ? data[index].isActive = false : data[index].isActive = true;
-                debugger
             },
             //根据url传入的modelId展示对应的查询面板
             getUrlParams(urlName) {
@@ -224,6 +224,7 @@
                                 {
                                     if(this.modelData[indexI].conditions[j].conditionId==body.data[i].conditionId){
                                         Vue.set(this.modelData[indexI].conditions,j,body.data[i]);
+                                        Vue.set(this.modelData[indexI].conditions[j],'isActive',false);
                                     }
                                 }
                             }
@@ -270,7 +271,9 @@
                         this.resultData[i].conditions[j].conditionName=this.modelData[i].conditions[j].conditionName;
                         this.resultData[i].conditions[j].conditionType=this.modelData[i].conditions[j].conditionType;
                         this.resultData[i].conditions[j].selectedItems =[];
+                        this.resultData[i].conditions[j].isActive =false;
                         if(typeof(this.modelData[i].conditions[j].selectedItems) !='undefined') {
+                            this.resultData[i].conditions[j].isActive = this.modelData[i].conditions[j].isActive;
                             if(this.resultData[i].conditions[j].conditionType=='single'){
                                 this.resultData[i].conditions[j].selectedItems[0]=this.modelData[i].conditions[j].selectedItems;
                             }else if(this.resultData[i].conditions[j].conditionType=='multiple'){
