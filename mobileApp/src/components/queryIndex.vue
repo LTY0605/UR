@@ -317,7 +317,7 @@
     }
     .vux-popup{
         overflow-y: auto;
-        padding-bottom: 4rem;
+        padding-bottom: 2.6rem;
         background: #fff !important;
     }
     .giftCode-close {
