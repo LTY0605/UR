@@ -22,8 +22,11 @@
         Loading,
         TransferDomDirective as TransferDom
     } from 'vux'
+    import {
+        memberInfoService
+    } from './services/person.js'
     import {mapState, mapActions} from 'vuex'
-    import {TestLoginService} from  './services/index'
+    import {openService} from  './services/index'
     export default {
         components: {Loading},
         mounted(){
@@ -35,9 +38,68 @@
             }
         },
         created(){
-//            TestLoginService().get().then(() => {
-//
-//            })
+            this.renderOpen();
+        },
+        methods: {
+            renderOpen(){
+                let wxOpenId = this.getParams("wxOpenId");
+                //let wxOpenId = 'odaBLwEfMOFDB5ATyqZwQco5Aaxo';
+                if (wxOpenId && wxOpenId != '') {
+                    window.localStorage.setItem("wxOpenId", wxOpenId);
+                }
+                //如果缓存中没有mobileTel，就重新登录
+                if (window.localStorage.getItem("mobileTel") == "") {
+                    this.$router.push({
+                        name: 'login',
+                    });
+                } else {
+                    this.putLocal();
+                }
+            },
+            putLocal(){
+                memberInfoService().get({
+                    wxOpenID: window.localStorage.getItem("wxOpenId"),
+                    mobileTel: window.localStorage.getItem("mobileTel")
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        window.localStorage.setItem("cardcode", body.cardcode);
+                        window.localStorage.setItem("sex", body.sex);
+                        window.localStorage.setItem("provice", body.provice);
+                        window.localStorage.setItem("brithday", body.brithday);
+                        window.localStorage.setItem("customerName", body.customerName);
+                        window.localStorage.setItem("district", body.district);
+                        window.localStorage.setItem("city", body.city);
+                        window.localStorage.setItem("mobileTel", body.mobileTel);
+                        window.localStorage.setItem("headimgurl", body.headimgurl);
+                    } else {
+                        this.$router.push({
+                            name: 'login',
+                        });
+                    }
+                }, res => {
+                    this.$router.push({
+                        name: 'login',
+                    });
+                })
+            },
+            getParams(paras) {
+//                let url = decodeURI(location.href);
+                let url = 'http://nianhui.ur.com.cn/front/#/personMain?wxOpenId=odaBLwI5ERI1Da5HXf6Kt3cIulPY';
+                let paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
+                let returnValue;
+                for (let i = 0; i < paraString.length; i++) {
+                    let tempParas = paraString[i].split('=')[0];
+                    let parasValue = paraString[i].split('=')[1];
+                    if (tempParas === paras)
+                        returnValue = parasValue;
+                }
+                if (typeof(returnValue) == "undefined") {
+                    return "";
+                } else {
+                    return returnValue;
+                }
+            },
         },
         computed: {
             ...mapState({
