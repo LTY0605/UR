@@ -46,7 +46,8 @@
                                  :class="[condition.isActive ? '' : 'activeMain', 'item_main']">
                                 <div class="query_item_title titleItem" @click="showActive(indexJ,conditionGroup.conditions)">
                                     {{condition.conditionName}}
-                                    <span :class="[condition.isActive ? 'activeClass' : 'noActclass', 'all']"></span>
+                                    <span v-if="condition.conditionId !='region'"
+                                          :class="[condition.isActive ? 'activeClass' : 'noActclass', 'all']"></span>
                                 </div>
                                 <div class="box">
                                     <template v-if="condition.conditionType == 'single'">
@@ -254,6 +255,7 @@
                         this.modelData[i].conditions[j].selectedItems=[];
                     }
                 }
+                this.getModelData();
             },
             //点击确定
             sureSubmit(){
@@ -262,8 +264,10 @@
                 //遍历modeldata的选中项给resultData赋值
                 for (let i = 0; i < this.modelData.length; i++) {
                     this.resultData[i]={};
+                    this.resultData[i].isActive = false;
                     this.resultData[i].group=this.modelData[i].group;
                     this.resultData[i].jilian=this.modelData[i].jilian;
+                    this.resultData[i].isActive=this.modelData[i].isActive;
                     this.resultData[i].conditions=[];
                     for (let j = 0; j < this.modelData[i].conditions.length; j++) {
                         this.resultData[i].conditions[j]={};
