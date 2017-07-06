@@ -4,7 +4,7 @@
             <ul class="edit_material">
                 <li>
                     <group>
-                        <x-input class="mobileTel" title="手机号" placeholder="手机号" :max="11" :min="11"
+                        <x-input title="手机号" placeholder="手机号" :max="11" :min="11"
                                  keyboard="number" :is-type="beTel" v-model="mobileTel" required ref="kk" disabled></x-input>
                     </group>
                 </li>
@@ -81,8 +81,8 @@
                         /*_this.$router.push({
                          name:'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5f165071859dd820&redirect_uri=http%3a%2f%2fnianhui.ur.com.cn%2fur_crm%2fadmin%2fsys%2foauth%2fredirect&response_type=code&scope=snsapi_base&state=http%3a%2f%2fnianhui.ur.com.cn%2fwx%2findex.html%23%2f%3f#wechat_redirect'
                          })*/
-                        this.$router.push('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5f165071859dd820&redirect_uri=http%3a%2f%2fnianhui.ur.com.cn%2fur_crm%2fadmin%2fsys%2foauth%2fredirect&response_type=code&scope=snsapi_base&state=http%3a%2f%2fnianhui.ur.com.cn%2fwx%2findex.html%23%2f%3f#wechat_redirect');
-//                        -webkit-this.$router.go('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5f165071859dd820&redirect_uri=http%3a%2f%2fnianhui.ur.com.cn%2fur_crm%2fadmin%2fsys%2foauth%2fredirect&response_type=code&scope=snsapi_base&state=http%3a%2f%2fnianhui.ur.com.cn%2fwx%2findex.html%23%2f%3f#wechat_redirect');
+//                        this.$router.go('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5f165071859dd820&redirect_uri=http%3a%2f%2fnianhui.ur.com.cn%2fur_crm%2fadmin%2fsys%2foauth%2fredirect&response_type=code&scope=snsapi_base&state=http%3a%2f%2fnianhui.ur.com.cn%2fwx%2findex.html%23%2f%3f#wechat_redirect');
+                        -webkit-this.$router.go('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5f165071859dd820&redirect_uri=http%3a%2f%2fnianhui.ur.com.cn%2fur_crm%2fadmin%2fsys%2foauth%2fredirect&response_type=code&scope=snsapi_base&state=http%3a%2f%2fnianhui.ur.com.cn%2fwx%2findex.html%23%2f%3f#wechat_redirect');
                         /*setTimeout(function () {
                             _this.$router.push({
                                 name: 'login',
@@ -225,9 +225,6 @@
                 width: 100%;
                 font-size: 0;
                 position: relative;
-                /*mobileTel{
-                    -webkit-text-fill-color:#999; -webkit-opacity:1; opacity: 1;
-                }*/
                 div {
                     font-size: .7rem;
                 }
