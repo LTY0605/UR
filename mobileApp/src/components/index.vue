@@ -364,6 +364,7 @@
                 }
                 .vip-title {
                     font-size: .6rem;
+
                     color: #564712;
                 }
             }
