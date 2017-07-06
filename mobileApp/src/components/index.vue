@@ -279,7 +279,7 @@
                 }
             },
             renderData(){
-                alert(window.localStorage.getItem('cardcode'))
+                //alert(window.localStorage.getItem('cardcode'))
                 var bool = true;
                 pushHistory();
                 function pushHistory() {
