@@ -177,6 +177,7 @@
 
         },
         methods: {
+
             goStore(){
                 this.$router.push({name: 'http://weixin.ur.com.cn/app/index.php?i=2&c=mc&a=store&'})
             },
@@ -254,321 +255,321 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_index {
-        .vux-header {
-            background-color: rgba(0, 0, 0, 0) !important;
-            width: 100%;
-            padding: 0;
-            a {
-                content: "";
-                position: absolute;
-                width: 12px;
-                height: 12px;
-                border: 1px solid #fff;
-                border-width: 1px 0 0 1px;
-                -webkit-transform: rotate(315deg);
-                -ms-transform: rotate(315deg);
-                transform: rotate(315deg);
-                top: .2rem;
-                left: .2rem;
-            }
-        }
-        .vux-header .vux-header-title, .vux-header h1 {
-            font-size: .85rem;
-        }
-        .vux-header .vux-header-left .left-arrow:before {
-            border: 1px solid #FFFFFF;
-            border-width: 1px 0 0 1px;
-        }
-        .alert {
-            .weui-dialog {
-                width: 80% !important;
-            }
-        }
-        .head {
-            width: 100%;
-            height: auto;
-            background: radial-gradient(rgba(171, 146, 54, 0.6), rgba(171, 146, 54, 1));
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            .head-img {
-                width: 4.75rem;
-                height: 4.75rem;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.5);
-                margin-bottom: 1.5rem;
-                padding: 2px;
-                img {
-                    width: 100%;
-                    height: 100%;
-                    border-radius: 50%;
-                }
-            }
-            .head-name {
-                font-size: .9rem;
-                color: #FFFFFF;
-                margin-bottom: .75rem;
-            }
-            .edit {
-                position: absolute;
-                width: 1rem;
-                height: 1rem;
-                background: url("../assets/icon_index_edit.png");
-                background-size: 100%;
-                background-repeat: no-repeat;
-                bottom: 3.3rem;
-                left: 1rem;
-            }
-            .code {
-                position: absolute;
-                width: 1.15rem;
-                height: .85rem;
-                background: url("../assets/icon_index_code.png");
-                background-size: 100%;
-                background-repeat: no-repeat;
-                bottom: 3.3rem;
-                right: 1rem;
-            }
-            .headTab {
-                width: 100%;
-                height: 2.75rem;
-                padding: .5rem 0 .5rem 0;
-                border-top: 1px solid #C9B774;
-                border-left: 1px solid #C9B774;
-            }
-            .vip {
-                border-left: none;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                .vip-text {
-                    font-size: .75rem;
-                    color: #FFFFFF;
-                }
-                .vip-title {
-                    font-size: .6rem;
-                    color: #564712;
-                }
-            }
-            .integral {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                .vip-text {
-                    font-size: .75rem;
-                    color: #FFFFFF;
-                }
-                .vip-title {
-                    font-size: .6rem;
-                    color: #564712;
-                }
-            }
-        }
-        .tab {
-            .vux-badge {
-                background: rgba(255, 255, 255, 1);
-                border: 1px solid #FF0000;
-                color: #FF0000;
-                font-size: .65rem;
-                height: .8rem;
-                line-height: .65rem;
-                border-radius: 50%;
-            }
-            .weui-grids {
-                border-bottom: .35rem solid #E5E5E5;
-            }
-            .weui-grids:before {
-                border: none;
-            }
-            .weui-grid {
-                padding: .9rem;
-            }
-            .weui-grid:before {
-                border: none !important;
-            }
-            .weui-grid:after {
-                border: none !important;
-            }
-            .weui-grid__icon {
-                height: 1.5rem;
-            }
-            .weui-grid__icon img {
-                margin: 0 auto;
-            }
-            .tab-img {
-                height: 1rem;
-                width: 1.25rem;
-            }
-            .money {
-                width: 1rem;
-                text-align: center;
-            }
-            .tab-text {
-                font-size: .6rem;
-                color: #333333;
-                text-align: center;
-            }
-            .tab-badge {
-                position: absolute;
-                color: #FF0000;
-                width: .75rem;
-                height: .75rem;
-                font-size: .6rem;
-                line-height: .65rem;
-                border: 1px solid #FF0000;
-                border-radius: 50%;
-                background: #FFFFFF;
-                text-align: center;
-                top: .6rem;
-                right: 1.4rem;
-            }
-        }
-        .wallet {
-            border-bottom: .35rem solid #E5E5E5;
-            .li-integral {
-                margin-right: 0 !important;
-            }
-            ul {
-                list-style: none;
-                font-size: 0;
-                height: 3rem;
-                margin: 0;
-                padding: 0;
-            }
-            li {
-                display: inline-block;
-                width: 25%;
-                padding: 0;
-                font-size: .6rem;
-                margin-top: .4rem;
-                margin-right: 12%;
-                text-align: center;
-                color: #333333;
-                .color-style {
-                    color: #333333;
-                }
-            }
-            .vux-label {
-                font-size: .75rem;
-                color: #333333;
-            }
-            .weui-cells {
-                margin-top: 0 !important;
-                padding: 0 1rem;
-            }
-            .weui-cell {
-                padding: .6rem 0 .5rem 0;
-                border-bottom: 1px solid #D2D2D2;
-            }
-            .weui-cell:before {
-                left: .75rem !important;
-                right: .75rem !important;
-                border: none;
-            }
-            .weui-cells:after {
-                border-bottom: 3px solid white;
-            }
-            .wallet-num {
-                color: #FF0000;
-                margin-bottom: .25rem;
-            }
-            .weui-cells .bill .weui-cell__ft:after {
-                display: none;
-            }
-        }
-        .bill {
-            padding: .3rem 0 !important;
-            .vux-label {
-                font-size: .65rem;
-                color: #333333;
-                margin-left: .2rem;
-            }
-        }
-        .detail {
-            .weui-cell__hd {
-                img {
-                    margin-bottom: .1rem;
-                }
-            }
-        }
-        .action {
-            .vux-label {
-                font-size: .75rem;
-                color: #333333;
-            }
-            .weui-cells {
-                margin-top: 0 !important;
-                padding: 0 1rem;
-            }
-            .weui-cell {
-                padding: .6rem 0 .5rem 0;
-                border-bottom: 1px solid #D2D2D2;
-            }
-            .weui-cell:before {
-                left: .75rem !important;
-                right: .75rem !important;
-                border: none;
-            }
-            .weui-cells:after {
-                border: none !important;
-            }
-            ul {
-                list-style: none;
-                font-size: 0;
-            }
-            li {
-                display: inline-block;
-                width: 25%;
-                margin: 0;
-                padding: 0;
-                font-size: .6rem;
-                padding: .6rem 0 1rem 0;
-                text-align: center;
-                color: #333333;
-            }
-            .action-text {
-                margin-top: .4rem;
-                color: #333333;
-            }
-        }
-        .action-img {
-            width: 100%;
-            height: 5rem;
-            margin-bottom: 1rem;
-            img {
-                width: 100%;
-                height: 100%;
-            }
-        }
-        .weui-dialog {
-            width: auto !important;
-            max-width: none !important;
-            top: 43% !important;
-        }
-        .couponCode {
-            width: auto;
-            height: auto;
-            position: relative;
-            background: white;
-            .couponCode-img {
-                width: 10rem;
-                height: 10rem;
-            }
-            .couponCode-p {
-                font-size: .75rem;
-                margin-top: -1rem;
-                margin-bottom: 1rem;
-            }
-            .couponCode-close {
-                position: absolute;
-                width: .8rem;
-                height: .8rem;
-                background: url("../assets/money_code3.png");
-                background-size: 100%;
-                top: .6rem;
-                right: .6rem;
-            }
-        }
+    .vux-header {
+        background-color: rgba(0, 0, 0, 0) !important;
+        width: 100%;
+        padding: 0;
+    a {
+        content: "";
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border: 1px solid #fff;
+        border-width: 1px 0 0 1px;
+        -webkit-transform: rotate(315deg);
+        -ms-transform: rotate(315deg);
+        transform: rotate(315deg);
+        top: .2rem;
+        left: .2rem;
+    }
+    }
+    .vux-header .vux-header-title, .vux-header h1 {
+        font-size: .85rem;
+    }
+    .vux-header .vux-header-left .left-arrow:before {
+        border: 1px solid #FFFFFF;
+        border-width: 1px 0 0 1px;
+    }
+    .alert {
+    .weui-dialog {
+        width: 80% !important;
+    }
+    }
+    .head {
+        width: 100%;
+        height: auto;
+        background: radial-gradient(rgba(171, 146, 54, 0.6), rgba(171, 146, 54, 1));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+    .head-img {
+        width: 4.75rem;
+        height: 4.75rem;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        margin-bottom: 1.5rem;
+        padding: 2px;
+    img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+    }
+    .head-name {
+        font-size: .9rem;
+        color: #FFFFFF;
+        margin-bottom: .75rem;
+    }
+    .edit {
+        position: absolute;
+        width: 1rem;
+        height: 1rem;
+        background: url("../assets/icon_index_edit.png");
+        background-size: 100%;
+        background-repeat: no-repeat;
+        bottom: 3.3rem;
+        left: 1rem;
+    }
+    .code {
+        position: absolute;
+        width: 1.15rem;
+        height: .85rem;
+        background: url("../assets/icon_index_code.png");
+        background-size: 100%;
+        background-repeat: no-repeat;
+        bottom: 3.3rem;
+        right: 1rem;
+    }
+    .headTab {
+        width: 100%;
+        height: 2.75rem;
+        padding: .5rem 0 .5rem 0;
+        border-top: 1px solid #C9B774;
+        border-left: 1px solid #C9B774;
+    }
+    .vip {
+        border-left: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    .vip-text {
+        font-size: .75rem;
+        color: #FFFFFF;
+    }
+    .vip-title {
+        font-size: .6rem;
+        color: #564712;
+    }
+    }
+    .integral {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    .vip-text {
+        font-size: .75rem;
+        color: #FFFFFF;
+    }
+    .vip-title {
+        font-size: .6rem;
+        color: #564712;
+    }
+    }
+    }
+    .tab {
+    .vux-badge {
+        background: rgba(255, 255, 255, 1);
+        border: 1px solid #FF0000;
+        color: #FF0000;
+        font-size: .65rem;
+        height: .8rem;
+        line-height: .65rem;
+        border-radius: 50%;
+    }
+    .weui-grids {
+        border-bottom: .35rem solid #E5E5E5;
+    }
+    .weui-grids:before {
+        border: none;
+    }
+    .weui-grid {
+        padding: .9rem;
+    }
+    .weui-grid:before {
+        border: none !important;
+    }
+    .weui-grid:after {
+        border: none !important;
+    }
+    .weui-grid__icon {
+        height: 1.5rem;
+    }
+    .weui-grid__icon img {
+        margin: 0 auto;
+    }
+    .tab-img {
+        height: 1rem;
+        width: 1.25rem;
+    }
+    .money {
+        width: 1rem;
+        text-align: center;
+    }
+    .tab-text {
+        font-size: .6rem;
+        color: #333333;
+        text-align: center;
+    }
+    .tab-badge {
+        position: absolute;
+        color: #FF0000;
+        width: .75rem;
+        height: .75rem;
+        font-size: .6rem;
+        line-height: .65rem;
+        border: 1px solid #FF0000;
+        border-radius: 50%;
+        background: #FFFFFF;
+        text-align: center;
+        top: .6rem;
+        right: 1.4rem;
+    }
+    }
+    .wallet {
+        border-bottom: .35rem solid #E5E5E5;
+    .li-integral {
+        margin-right: 0 !important;
+    }
+    ul {
+        list-style: none;
+        font-size: 0;
+        height: 3rem;
+        margin: 0;
+        padding: 0;
+    }
+    li {
+        display: inline-block;
+        width: 25%;
+        padding: 0;
+        font-size: .6rem;
+        margin-top: .4rem;
+        margin-right: 12%;
+        text-align: center;
+        color: #333333;
+    .color-style {
+        color: #333333;
+    }
+    }
+    .vux-label {
+        font-size: .75rem;
+        color: #333333;
+    }
+    .weui-cells {
+        margin-top: 0 !important;
+        padding: 0 1rem;
+    }
+    .weui-cell {
+        padding: .6rem 0 .5rem 0;
+        border-bottom: 1px solid #D2D2D2;
+    }
+    .weui-cell:before {
+        left: .75rem !important;
+        right: .75rem !important;
+        border: none;
+    }
+    .weui-cells:after {
+        border-bottom: 3px solid white;
+    }
+    .wallet-num {
+        color: #FF0000;
+        margin-bottom: .25rem;
+    }
+    .weui-cells .bill .weui-cell__ft:after {
+        display: none;
+    }
+    }
+    .bill {
+        padding: .3rem 0 !important;
+    .vux-label {
+        font-size: .65rem;
+        color: #333333;
+        margin-left: .2rem;
+    }
+    }
+    .detail {
+    .weui-cell__hd {
+    img {
+        margin-bottom: .1rem;
+    }
+    }
+    }
+    .action {
+    .vux-label {
+        font-size: .75rem;
+        color: #333333;
+    }
+    .weui-cells {
+        margin-top: 0 !important;
+        padding: 0 1rem;
+    }
+    .weui-cell {
+        padding: .6rem 0 .5rem 0;
+        border-bottom: 1px solid #D2D2D2;
+    }
+    .weui-cell:before {
+        left: .75rem !important;
+        right: .75rem !important;
+        border: none;
+    }
+    .weui-cells:after {
+        border: none !important;
+    }
+    ul {
+        list-style: none;
+        font-size: 0;
+    }
+    li {
+        display: inline-block;
+        width: 25%;
+        margin: 0;
+        padding: 0;
+        font-size: .6rem;
+        padding: .6rem 0 1rem 0;
+        text-align: center;
+        color: #333333;
+    }
+    .action-text {
+        margin-top: .4rem;
+        color: #333333;
+    }
+    }
+    .action-img {
+        width: 100%;
+        height: 5rem;
+        margin-bottom: 1rem;
+    img {
+        width: 100%;
+        height: 100%;
+    }
+    }
+    .weui-dialog {
+        width: auto !important;
+        max-width: none !important;
+        top: 43% !important;
+    }
+    .couponCode {
+        width: auto;
+        height: auto;
+        position: relative;
+        background: white;
+    .couponCode-img {
+        width: 10rem;
+        height: 10rem;
+    }
+    .couponCode-p {
+        font-size: .75rem;
+        margin-top: -1rem;
+        margin-bottom: 1rem;
+    }
+    .couponCode-close {
+        position: absolute;
+        width: .8rem;
+        height: .8rem;
+        background: url("../assets/money_code3.png");
+        background-size: 100%;
+        top: .6rem;
+        right: .6rem;
+    }
+    }
     }
 </style>
