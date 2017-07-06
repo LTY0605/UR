@@ -245,7 +245,7 @@
             showSelect() {
                 this.show1 = true;
             },
-            //重置选择
+            //重置选择.
             clearSubmit(){
                 this.dateTime = '';
                 for (let i = 0; i < this.modelData.length; i++) {
