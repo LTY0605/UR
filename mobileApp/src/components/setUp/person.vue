@@ -392,6 +392,7 @@
         .weui-input {
             text-align: right;
             color: #999;
+            -webkit-text-fill-color:#999; -webkit-opacity:1; opacity: 1;
         }
 
         .weui-label {

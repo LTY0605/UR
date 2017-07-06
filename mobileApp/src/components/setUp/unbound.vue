@@ -81,7 +81,8 @@
                         /*_this.$router.push({
                          name:'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5f165071859dd820&redirect_uri=http%3a%2f%2fnianhui.ur.com.cn%2fur_crm%2fadmin%2fsys%2foauth%2fredirect&response_type=code&scope=snsapi_base&state=http%3a%2f%2fnianhui.ur.com.cn%2fwx%2findex.html%23%2f%3f#wechat_redirect'
                          })*/
-                        _this.$router.go('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5f165071859dd820&redirect_uri=http%3a%2f%2fnianhui.ur.com.cn%2fur_crm%2fadmin%2fsys%2foauth%2fredirect&response_type=code&scope=snsapi_base&state=http%3a%2f%2fnianhui.ur.com.cn%2fwx%2findex.html%23%2f%3f#wechat_redirect')
+//                        this.$router.go('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5f165071859dd820&redirect_uri=http%3a%2f%2fnianhui.ur.com.cn%2fur_crm%2fadmin%2fsys%2foauth%2fredirect&response_type=code&scope=snsapi_base&state=http%3a%2f%2fnianhui.ur.com.cn%2fwx%2findex.html%23%2f%3f#wechat_redirect');
+                        -webkit-this.$router.go('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5f165071859dd820&redirect_uri=http%3a%2f%2fnianhui.ur.com.cn%2fur_crm%2fadmin%2fsys%2foauth%2fredirect&response_type=code&scope=snsapi_base&state=http%3a%2f%2fnianhui.ur.com.cn%2fwx%2findex.html%23%2f%3f#wechat_redirect');
                         /*setTimeout(function () {
                             _this.$router.push({
                                 name: 'login',
@@ -168,6 +169,7 @@
         .weui-input {
             text-align: left;
             color: #999;
+            -webkit-text-fill-color:#999; -webkit-opacity:1; opacity: 1;
         }
 
         .weui-label {
