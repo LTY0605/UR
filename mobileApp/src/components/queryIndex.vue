@@ -389,8 +389,9 @@
         margin-top: 0 !important;
     }
     .dateBox {
-        padding: .5rem 1rem 0;
+        padding: .5rem 1rem .5rem;
         background: #fff;
+        border-bottom: 1px solid #ddd;
     .weui-cell_access .weui-cell__ft:after {
         display: none;
     }
@@ -410,13 +411,13 @@
     }
     }
     .query_item {
-        padding: 0rem 1rem 0 1rem;
         background: #fff;
     .query_item_title {
-        height: 1.95rem;
-        line-height: 1.95rem;
+        height: 2.5rem;
+        line-height: 2.5rem;
         color: #333;
         font-size: .75rem;
+        padding: 0 1rem;
         border-bottom: 1px solid #ddd;
     .all {
         color: #999;
@@ -433,6 +434,8 @@
         -webkit-background-size:.6rem;
         background-size: .6rem;
         position: relative;
+        height: 2.5rem;
+        line-height: 2.5rem;
     }
     .noActclass:after{
         content: '全部';
@@ -446,6 +449,8 @@
         -webkit-background-size:.6rem;
         background-size: .6rem;
         position: relative;
+        height: 2.5rem;
+        line-height: 2.5rem;
     }
     .activeClass:after{
         content: '收起';
@@ -459,11 +464,12 @@
         width: 100%;
         height: auto;
     .titleItem {
-        height: 2.1rem;
-        line-height: 2.1rem;
+        height: 2.5rem;
+        line-height: 2.5rem;
         border: 0;
     }
     .vux-checker-box {
+        padding: 0 1rem;
         font-size: 0;
     .vux-checker-item {
         width: 22%;
@@ -500,7 +506,7 @@
     }
     }
     .activeMain{
-        height: 6.5rem;
+        height: 7rem;
         overflow: hidden;
     }
     }
