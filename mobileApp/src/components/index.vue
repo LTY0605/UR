@@ -167,8 +167,7 @@
         },
         watch: {},
         created(){
-            //获取wxopenId
-            this.renderOpen();
+
 
             this.personData();
             this.renderData();
@@ -179,39 +178,7 @@
         mounted(){
         },
         methods: {
-            //获取wxopenId
-            renderOpen(){
-                let wxOpenId = this.getParams("wxOpenId");
-                //let wxOpenId = 'odaBLwEfMOFDB5ATyqZwQco5Aaxo';
-                if (wxOpenId && wxOpenId != '') {
-                    window.localStorage.setItem("wxOpenId", wxOpenId);
-                }
-                //如果缓存中没有mobileTel，就重新登录
-                if (window.localStorage.getItem("mobileTel") == "") {
-                    this.$router.push({
-                        name: 'login',
-                    });
-                } else {
-                    this.putLocal();
-                }
-            },
-            getParams(paras) {
-//                let url = decodeURI(location.href);
-                let url = 'http://nianhui.ur.com.cn/front/#/personMain?wxOpenId=odaBLwI5ERI1Da5HXf6Kt3cIulPY';
-                let paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
-                let returnValue;
-                for (let i = 0; i < paraString.length; i++) {
-                    let tempParas = paraString[i].split('=')[0];
-                    let parasValue = paraString[i].split('=')[1];
-                    if (tempParas === paras)
-                        returnValue = parasValue;
-                }
-                if (typeof(returnValue) == "undefined") {
-                    return "";
-                } else {
-                    return returnValue;
-                }
-            },
+
 
             goStore(){
                 this.$router.push({name: 'http://weixin.ur.com.cn/app/index.php?i=2&c=mc&a=store&'})
