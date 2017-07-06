@@ -25,15 +25,15 @@
                 <!--日历-->
                 <group class="dateBox">
                     <datetime
-                        :min-year=1900
-                        cancelText="取消"
-                        confirmText="确定"
-                        clear-text="今天"
-                        @on-clear="setToday"
-                        v-model="dateTime"
-                        class="input input1 text textPadding"
-                        title=""
-                        placeholder="选择日期"></datetime>
+                            :min-year=1900
+                            cancelText="取消"
+                            confirmText="确定"
+                            clear-text="今天"
+                            @on-clear="setToday"
+                            v-model="dateTime"
+                            class="input input1 text textPadding"
+                            title=""
+                            placeholder="选择日期"></datetime>
                 </group>
                 <div v-for="(conditionGroup,indexI) in this.modelData" class="query_item">
                     <div class="query_item_title" @click="showActive(indexI,modelData)">
@@ -245,7 +245,7 @@
             showSelect() {
                 this.show1 = true;
             },
-            //重置选择
+            //重置选择.
             clearSubmit(){
                 this.dateTime = '';
                 for (let i = 0; i < this.modelData.length; i++) {
@@ -309,221 +309,221 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_query {
-        .vux-header-more:after{
-            color: #fff;
-            font-size: .75rem !important;
-        }
-        .weui-dialog{
-            text-align: left;
-        }
-        .vux-popup{
-            overflow-y: auto;
-            padding-bottom: 2.6rem;
-            background: #fff !important;
-        }
-        .giftCode-close {
-            position: absolute;
-            width: .8rem;
-            height: .8rem;
-            background: url("../assets/money_code3.png");
-            background-size: cover;
-            top: .4rem;
-            right: .4rem;
-        }
-        .query-toast{
-            margin: 1.3rem 1rem;
-            padding: .5rem;
-            font-size: .75rem;
-            border: 1px solid #ab9236;
-            border-radius: .2rem;
-        }
-        .popup1{
-            background: #f1f1f1;
-        }
-        .head_icon{
-            display: inline-block;
-            height: 2.3rem;
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 2rem;
-            background: url("../assets/icon_circle.png") no-repeat center center;
-            background-size: 1rem;
-        }
-        .vux-popup-dialog{
-            overflow-y: auto;
-            padding-bottom: 3rem;
-        }
-        .deliver{
-            width: 100%;
-            height: .3rem;
-            background: #E5E5E5;
-        }
-        .vux-header {
-            background-color: #AB9236 !important;
-        }
+    .vux-header-more:after{
+        color: #fff;
+        font-size: .75rem !important;
+    }
+    .weui-dialog{
+        text-align: left;
+    }
+    .vux-popup{
+        overflow-y: auto;
+        padding-bottom: 2.6rem;
+        background: #fff !important;
+    }
+    .giftCode-close {
+        position: absolute;
+        width: .8rem;
+        height: .8rem;
+        background: url("../assets/money_code3.png");
+        background-size: cover;
+        top: .4rem;
+        right: .4rem;
+    }
+    .query-toast{
+        margin: 1.3rem 1rem;
+        padding: .5rem;
+        font-size: .75rem;
+        border: 1px solid #ab9236;
+        border-radius: .2rem;
+    }
+    .popup1{
+        background: #f1f1f1;
+    }
+    .head_icon{
+        display: inline-block;
+        height: 2.3rem;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 2rem;
+        background: url("../assets/icon_circle.png") no-repeat center center;
+        background-size: 1rem;
+    }
+    .vux-popup-dialog{
+        overflow-y: auto;
+        padding-bottom: 3rem;
+    }
+    .deliver{
+        width: 100%;
+        height: .3rem;
+        background: #E5E5E5;
+    }
+    .vux-header {
+        background-color: #AB9236 !important;
+    }
 
-        .vux-header .vux-header-title, .vux-header h1 {
-            font-size: .85rem;
-        }
-        .headInput {
-            padding: .5rem;
+    .vux-header .vux-header-title, .vux-header h1 {
+        font-size: .85rem;
+    }
+    .headInput {
+        padding: .5rem;
 
-            .queryInput {
-                display: block;
-                width: 100%;
-                height: 1.5rem;
-                line-height: 1.5rem;
-                border-radius: .25rem;
-                border: 1px solid #ddd;
-                background: url("../assets/icon_search1.png") no-repeat .5rem center;
-                background-size: .8rem;
-                padding-left: 1.5rem;
-                outline: none;
-            }
-        }
-        .vux-popup-dialog {
-            background: #fff;
-        }
-        .weui-cells {
-            margin-top: 0 !important;
-        }
-        .dateBox {
-            padding: .5rem 1rem 0;
-            background: #fff;
-            .weui-cell_access .weui-cell__ft:after {
-                display: none;
-            }
-            .weui-cell {
-                background: url("../assets/images/date.png") 98% center no-repeat;
-                background-size: 1rem;
-                padding: 7px 20px 7px 15px;
-                p,.vux-datetime-value {
-                    color: #999;
-                    font-size: .75rem;
-                    text-align: left;
-                }
-            }
-            .input1 {
-                border-radius: 0.2rem;
-                border: 0.02rem solid #D2D2D2;
-            }
-        }
-        .query_item {
-            padding: 0rem 1rem 0 1rem;
-            background: #fff;
-            .query_item_title {
-                height: 1.95rem;
-                line-height: 1.95rem;
-                color: #333;
-                font-size: .75rem;
-                border-bottom: 1px solid #ddd;
-                .all {
-                    color: #999;
-                    display: inline-block;
-                    height: 1.95rem;
-                    line-height: 1.95rem;
-                    float: right;
-                    padding-right: 1rem;
+    .queryInput {
+        display: block;
+        width: 100%;
+        height: 1.5rem;
+        line-height: 1.5rem;
+        border-radius: .25rem;
+        border: 1px solid #ddd;
+        background: url("../assets/icon_search1.png") no-repeat .5rem center;
+        background-size: .8rem;
+        padding-left: 1.5rem;
+        outline: none;
+    }
+    }
+    .vux-popup-dialog {
+        background: #fff;
+    }
+    .weui-cells {
+        margin-top: 0 !important;
+    }
+    .dateBox {
+        padding: .5rem 1rem 0;
+        background: #fff;
+    .weui-cell_access .weui-cell__ft:after {
+        display: none;
+    }
+    .weui-cell {
+        background: url("../assets/images/date.png") 98% center no-repeat;
+        background-size: 1rem;
+        padding: 7px 20px 7px 15px;
+    p,.vux-datetime-value {
+        color: #999;
+        font-size: .75rem;
+        text-align: left;
+    }
+    }
+    .input1 {
+        border-radius: 0.2rem;
+        border: 0.02rem solid #D2D2D2;
+    }
+    }
+    .query_item {
+        padding: 0rem 1rem 0 1rem;
+        background: #fff;
+    .query_item_title {
+        height: 1.95rem;
+        line-height: 1.95rem;
+        color: #333;
+        font-size: .75rem;
+        border-bottom: 1px solid #ddd;
+    .all {
+        color: #999;
+        display: inline-block;
+        height: 1.95rem;
+        line-height: 1.95rem;
+        float: right;
+        padding-right: 1rem;
 
-                    font-size: .7rem;
-                }
-                .noActclass{
-                    background: url("../assets/icon_down.png") no-repeat right center;
-                    -webkit-background-size:.6rem;
-                    background-size: .6rem;
-                    position: relative;
-                }
-                .noActclass:after{
-                    content: '全部';
-                    position: absolute;
-                    display: block;
-                    top: 0;
-                    left: -1.4rem;
-                }
-                .activeClass{
-                    background: url("../assets/icon_up.png") no-repeat right center;
-                    -webkit-background-size:.6rem;
-                    background-size: .6rem;
-                    position: relative;
-                }
-                .activeClass:after{
-                    content: '收起';
-                    position: absolute;
-                    display: block;
-                    top: 0;
-                    left: -1.4rem;
-                }
-            }
-            .item_main {
-                width: 100%;
-                height: auto;
-                .titleItem {
-                    height: 2.1rem;
-                    line-height: 2.1rem;
-                    border: 0;
-                }
-                .vux-checker-box {
-                    font-size: 0;
-                    .vux-checker-item {
-                        width: 22%;
-                        height: 2rem;
-                        line-height: 2rem;
-                        overflow: hidden;
-                        border-radius: .2rem;
-                        /*padding: .5rem 0;*/
-                        text-align: center;
-                        font-size: .65rem;
-                        margin-left: 4%;
-                        background: #E5E5E5;
-                        color: #999;
-                        vertical-align: top;
-                        margin-bottom: .5rem;
-                        p{
-                            height: 100%;
-                            line-height: 2rem;
-                        }
-                    }
-                    .vux-checker-item:nth-child(4n+1) {
-                        margin-left: 0;
-                    }
-                    .demo1-item-selected {
-                        background: #CDBE86;
-                        color: #fff;
-                    }
-                }
-                .longItem {
-                    width: 48% !important;
-                }
-                .longItem:nth-child(2n+1){
-                    margin-left: 0 !important;
-                }
-            }
-            .activeMain{
-                height: 6.5rem;
-                overflow: hidden;
-            }
-        }
-        .operate{
-            width: 100%;
-            height: 2.5rem;
-            line-height: 2.5rem;
-            background: #EEEEEE;
-            font-size: 0;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            span{
-                width: 50%;
-                display: inline-block;
-                font-size: .75rem;
-                color: #666;
-                text-align: center;
-            }
-            span:last-child{
-                background: #F23030;
-                color: #fff;
-            }
-        }
+        font-size: .7rem;
+    }
+    .noActclass{
+        background: url("../assets/icon_down.png") no-repeat right center;
+        -webkit-background-size:.6rem;
+        background-size: .6rem;
+        position: relative;
+    }
+    .noActclass:after{
+        content: '全部';
+        position: absolute;
+        display: block;
+        top: 0;
+        left: -1.4rem;
+    }
+    .activeClass{
+        background: url("../assets/icon_up.png") no-repeat right center;
+        -webkit-background-size:.6rem;
+        background-size: .6rem;
+        position: relative;
+    }
+    .activeClass:after{
+        content: '收起';
+        position: absolute;
+        display: block;
+        top: 0;
+        left: -1.4rem;
+    }
+    }
+    .item_main {
+        width: 100%;
+        height: auto;
+    .titleItem {
+        height: 2.1rem;
+        line-height: 2.1rem;
+        border: 0;
+    }
+    .vux-checker-box {
+        font-size: 0;
+    .vux-checker-item {
+        width: 22%;
+        height: 2rem;
+        line-height: 2rem;
+        overflow: hidden;
+        border-radius: .2rem;
+        /*padding: .5rem 0;*/
+        text-align: center;
+        font-size: .65rem;
+        margin-left: 4%;
+        background: #E5E5E5;
+        color: #999;
+        vertical-align: top;
+        margin-bottom: .5rem;
+    p{
+        height: 100%;
+        line-height: 2rem;
+    }
+    }
+    .vux-checker-item:nth-child(4n+1) {
+        margin-left: 0;
+    }
+    .demo1-item-selected {
+        background: #CDBE86;
+        color: #fff;
+    }
+    }
+    .longItem {
+        width: 48% !important;
+    }
+    .longItem:nth-child(2n+1){
+        margin-left: 0 !important;
+    }
+    }
+    .activeMain{
+        height: 6.5rem;
+        overflow: hidden;
+    }
+    }
+    .operate{
+        width: 100%;
+        height: 2.5rem;
+        line-height: 2.5rem;
+        background: #EEEEEE;
+        font-size: 0;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+    span{
+        width: 50%;
+        display: inline-block;
+        font-size: .75rem;
+        color: #666;
+        text-align: center;
+    }
+    span:last-child{
+        background: #F23030;
+        color: #fff;
+    }
+    }
     }
 </style>
