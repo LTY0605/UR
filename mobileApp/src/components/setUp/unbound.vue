@@ -4,7 +4,7 @@
             <ul class="edit_material">
                 <li>
                     <group>
-                        <x-input title="手机号" placeholder="手机号" :max="11" :min="11"
+                        <x-input class="mobileTel" title="手机号" placeholder="手机号" :max="11" :min="11"
                                  keyboard="number" :is-type="beTel" v-model="mobileTel" required ref="kk" disabled></x-input>
                     </group>
                 </li>
@@ -223,6 +223,9 @@
                 width: 100%;
                 font-size: 0;
                 position: relative;
+                mobileTel{
+                    -webkit-text-fill-color:#999; -webkit-opacity:1; opacity: 1;
+                }
                 div {
                     font-size: .7rem;
                 }
