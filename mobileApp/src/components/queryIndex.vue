@@ -171,7 +171,7 @@
                                 Vue.set(item, 'isActive', false);
                             }
                         })
-                        //展开后的每个列表收缩条件
+                        //展开后的每个列表收缩条件.
                         for(let k=0;k<this.modelData.length;k++){
                             this.modelData[k].conditions.forEach(function(item,index){
                                 if(index == 0){
