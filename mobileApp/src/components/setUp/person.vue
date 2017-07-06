@@ -43,7 +43,7 @@
             <ul class="edit_material edit_material2">
                 <li>
                     <group>
-                        <x-input class="mobileTel" title="原手机号" placeholder="原手机号" v-model="mobileTel" :max="11" :min="11"
+                        <x-input title="原手机号" placeholder="原手机号" v-model="mobileTel" :max="11" :min="11"
                                  keyboard="number" is-type="china-mobile" disabled></x-input>
                     </group>
                 </li>
@@ -392,6 +392,7 @@
         .weui-input {
             text-align: right;
             color: #999;
+            -webkit-text-fill-color:#999; -webkit-opacity:1; opacity: 1;
         }
 
         .weui-label {
@@ -457,9 +458,6 @@
                     vertical-align: top;
                     font-size: .7rem;
                 }
-            }
-            .mobileTel{
-                -webkit-text-fill-color:#999; -webkit-opacity:1; opacity: 1;
             }
             .personName {
                 background: none;
