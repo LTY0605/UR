@@ -176,6 +176,7 @@
             this.barcodeUrl = URL_getQRCode;
         },
         mounted(){
+
         },
         methods: {
 
