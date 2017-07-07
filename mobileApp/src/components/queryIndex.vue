@@ -43,6 +43,7 @@
                         <span :class="[conditionGroup.isActive ? 'activeClass' : 'noActclass', 'all']"></span>
                     </div>
                     <template>
+                        <transition name="slide-fade">
                         <div class="query_icon" v-show="conditionGroup.isActive">
                             <div v-for="(condition,indexJ) in conditionGroup.conditions"
                                  :class="[condition.isActive ? '' : 'activeMain', 'item_main']">
@@ -74,6 +75,7 @@
                                 </div>
                             </div>
                         </div>
+                        </transition>
                     </template>
                 </div>
             </div>
@@ -102,6 +104,7 @@
                 modelData:[], //渲染版数据
                 resultData:[],//从modelData筛选出的结果集
                 isActive:false,
+                titleActive: false,
                 show1: false,
                 show2: false,
                 dateTime: '',
@@ -120,9 +123,14 @@
         },
         methods: {
             rightOption(){
-                this.show1 == false ? this.show1 = true : this.show1 = false;
-                this.show2 == true ? this.show2 = false : this.show2 = true;
-                this.clearSubmit();
+                this.modelData.forEach((item,index)=>{
+                    item.isActive = false;
+                })
+                setTimeout(()=>{
+                    this.show1 == false ? this.show1 = true : this.show1 = false;
+                    this.show2 == true ? this.show2 = false : this.show2 = true;
+                    this.clearSubmit();
+                },400)
             },
             //根据设置的isActive来收缩展开
             showActive(index,data){
@@ -168,9 +176,9 @@
                         //给每个字段添加收缩条件
                         this.modelData.forEach(function (item,index) {
                             if(index == 0){
-                                Vue.set(item, 'isActive', false);
+                                Vue.set(item, 'isActive', true);
                             }else{
-                                Vue.set(item, 'isActive', false);
+                                Vue.set(item, 'isActive', true);
                             }
                         })
                         //展开后的每个列表收缩条件.
@@ -188,6 +196,7 @@
                                 Vue.set(item,'selectedItems',[]);
                             });
                         }
+                        console.log(this.modelData)
                     } else{
                         this.showNoScroll = true;
                         this.warnText = body.errmsg;
@@ -311,6 +320,13 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_query {
+    .slide-fade-enter-active, .slide-fade-leave-active {
+        transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+    .slide-fade-enter, .slide-fade-leave-to
+        /* .slide-fade-leave-active for <2.1.8 */ {
+        opacity: 0;
+    }
     .vux-header-more:after{
         color: #fff;
         font-size: .75rem !important;
