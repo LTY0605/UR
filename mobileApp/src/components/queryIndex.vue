@@ -20,7 +20,9 @@
         <!--报表-->
         <popup v-model="show1" height="100%">
             <div class="popup1">
-                <x-header :left-options="{backText:''}">我的报表</x-header>
+                <x-header :left-options="{showBack:false}">
+                    <span class="head_back" @click="rightOption"></span>
+                    我的报表</x-header>
                 <span class="head_icon" @click="rightOption"></span>
                 <!--日历-->
                 <group class="dateBox">
@@ -348,6 +350,21 @@
         right: 0;
         width: 2rem;
         background: url("../assets/icon_circle.png") no-repeat center center;
+        background-size: 1rem;
+    }
+    .head_back{
+        display: inline-block;
+        height: 2.3rem;
+        position: absolute;
+        top: .9rem;
+        left: 1rem;
+        width: 12px;
+        height: 12px;
+        border: 1px solid #fff;
+        border-width: 1px 0 0 1px;
+        -webkit-transform: rotate(315deg);
+        -ms-transform: rotate(315deg);
+        transform: rotate(315deg);
         background-size: 1rem;
     }
     .vux-popup-dialog{

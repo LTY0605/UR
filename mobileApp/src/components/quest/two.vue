@@ -5,7 +5,7 @@
             <span class="con_text">{{list[currentIndex].title}}</span></p>
         <ul class="radioBox">
             <li v-for="(item,index) in list[currentIndex].option" class="girl">
-                <label class="text" :for="'sex'+item.id">
+                <label @click="isOther(item.value)" class="text" :for="'sex'+item.id">
                     <input
                             :id="'sex'+item.id"
                             name="radio"
