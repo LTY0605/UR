@@ -167,11 +167,10 @@
         },
         watch: {},
         created(){
-//          获取wxopenId
-            this.renderOpen();
 
-            /*this.personData();
-            this.renderData();*/
+
+            this.personData();
+            this.renderData();
             //待付款没有时不显示红点数字1
             this.payment();
             this.barcodeUrl = URL_getQRCode;
@@ -180,66 +179,6 @@
 
         },
         methods: {
-            renderOpen(){
-                let wxOpenId = this.getParams("wxOpenId");
-                //let wxOpenId = 'odaBLwEfMOFDB5ATyqZwQco5Aaxo';
-                if (wxOpenId && wxOpenId != '') {
-                    window.localStorage.setItem("wxOpenId", wxOpenId);
-                }
-                //如果缓存中没有mobileTel，就重新登录
-                if (window.localStorage.getItem("mobileTel") == "") {
-                    this.$router.push({
-                        name: 'login',
-                    });
-                } else {
-                    this.putLocal();
-                }
-            },
-            putLocal(){
-                infoService().get({
-                    wxOpenID: window.localStorage.getItem("wxOpenId"),
-                }).then(res => {
-                    let body = res.body;
-                    if (body.errcode == 0) {
-                        window.localStorage.setItem("cardcode", body.cardcode);
-                        if(window.localStorage.getItem('cardcode')){
-                            this.personData();
-                            this.renderData();
-                        } else {
-                            this.getCardCode()
-                        }
-
-                    } else {
-                        this.$router.push({
-                            name: 'login',
-                        });
-                    }
-                }, res => {
-                    this.$router.push({
-                        name: 'login',
-                    });
-                })
-            },
-            getParams(paras) {
-                let url = decodeURI(location.href);
-//                let url = 'http://nianhui.ur.com.cn/front/#/personMain?wxOpenId=odaBLwI5ERI1Da5HXf6Kt3cIulPY';
-                let paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
-                let returnValue;
-                for (let i = 0; i < paraString.length; i++) {
-                    let tempParas = paraString[i].split('=')[0];
-                    let parasValue = paraString[i].split('=')[1];
-                    if (tempParas === paras)
-                        returnValue = parasValue;
-                }
-                if (typeof(returnValue) == "undefined") {
-                    return "";
-                } else {
-                    return returnValue;
-                }
-            },
-            getCardCode(){
-
-            },
 
 
             goStore(){
@@ -279,7 +218,6 @@
                 }
             },
             renderData(){
-                //alert(window.localStorage.getItem('cardcode'))
                 var bool = true;
                 pushHistory();
                 function pushHistory() {

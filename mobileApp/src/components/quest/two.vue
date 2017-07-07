@@ -52,7 +52,6 @@
                     let Base64 = this.list[this.currentIndex].otherOption[0].value;
                     this.el2 = window.atob(Base64);
                 }
-                console.log(this.el2);
             },
             isOther(item){
                 if(this.surveyData[this.currentIndex].otherOption[0]){
