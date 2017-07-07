@@ -169,6 +169,7 @@
         created(){
 
 
+
             this.personData();
             this.renderData();
             //待付款没有时不显示红点数字1
@@ -179,6 +180,64 @@
 
         },
         methods: {
+            renderOpen(){
+                let wxOpenId = this.getParams("wxOpenId");
+                //let wxOpenId = 'odaBLwEfMOFDB5ATyqZwQco5Aaxo';
+                if (wxOpenId && wxOpenId != '') {
+                    window.localStorage.setItem("wxOpenId", wxOpenId);
+                }
+                this.putLocal();
+                //如果缓存中没有mobileTel，就重新登录
+               /* if (window.localStorage.getItem("mobileTel") == "") {
+                    this.$router.push({
+                        name: 'login',
+                    });
+                } else {
+                    this.putLocal();
+                }*/
+            },
+            putLocal(){
+                infoService().get({
+                    wxOpenID: window.localStorage.getItem("wxOpenId"),
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        window.localStorage.setItem("cardcode", body.cardcode);
+                        window.localStorage.setItem("mobileTel", body.mobileTel);
+                        window.localStorage.setItem("sex", body.sex);
+                        window.localStorage.setItem("provice", body.provice);
+                        window.localStorage.setItem("brithday", body.brithday);
+                        window.localStorage.setItem("customerName", body.customerName);
+                        window.localStorage.setItem("district", body.district);
+                        window.localStorage.setItem("city", body.city);
+                        window.localStorage.setItem("mobileTel", body.mobileTel);
+                        window.localStorage.setItem("headimgurl", body.headimgurl);
+                        this.renderData();
+                        this.personData();
+                    } else {
+
+                    }
+                }, res => {
+
+                })
+            },
+            getParams(paras) {
+//                let url = decodeURI(location.href);
+                let url = 'http://nianhui.ur.com.cn/front/#/personMain?wxOpenId=odaBLwI5ERI1Da5HXf6Kt3cIulPY';
+                let paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
+                let returnValue;
+                for (let i = 0; i < paraString.length; i++) {
+                    let tempParas = paraString[i].split('=')[0];
+                    let parasValue = paraString[i].split('=')[1];
+                    if (tempParas === paras)
+                        returnValue = parasValue;
+                }
+                if (typeof(returnValue) == "undefined") {
+                    return "";
+                } else {
+                    return returnValue;
+                }
+            },
 
 
             goStore(){
@@ -203,7 +262,7 @@
             show() {
                 if (window.navigator.onLine == true) {
                     this.showNoScroll = true;
-                    this.currentCode = code;
+//                    this.currentCode = code;
                 } else {
                     this.showNoScroll2 = true;
                     this.warnText = '网络超时，请重试'
@@ -234,23 +293,28 @@
                         });
                     }, 0);
                 };
-                indexService().save({
-                    cardcode: window.localStorage.getItem('cardcode')
-                }).then(res => {
-                    let body = res.body;
-                    if (body.errcode == 0) {
-                        this.integral = body.integral;
-                        this.mycards = body.mycards;
-                        this.unpaid = body.unpaid;
-                        this.coupon = body.coupon;
-                    } else {
+                if(window.localStorage.getItem('cardcode')){
+                    indexService().save({
+                        cardcode: window.localStorage.getItem('cardcode')
+                    }).then(res => {
+                        let body = res.body;
+                        if (body.errcode == 0) {
+                            this.integral = body.integral;
+                            this.mycards = body.mycards;
+                            this.unpaid = body.unpaid;
+                            this.coupon = body.coupon;
+                        } else {
+                            this.showNoScroll2 = true;
+                            this.warnText = body.errmsg;
+                        }
+                    }, res => {
                         this.showNoScroll2 = true;
-                        this.warnText = body.errmsg;
-                    }
-                }, res => {
-                    this.showNoScroll2 = true;
-                    this.warnText = '请求错误';
-                })
+                        this.warnText = '请求错误';
+                    })
+                } else {
+//                    获取wxopenid
+                    this.renderOpen();
+                }
             }
         },
         computed: {},

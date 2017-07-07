@@ -20,3 +20,7 @@ export function infoService() {
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/info')
 }
 
+//获取会员信息接口
+export function memberInfoService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/info')
+}
