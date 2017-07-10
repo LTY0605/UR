@@ -104,6 +104,32 @@
 
         },
         methods: {
+            getParams(paras) {
+                let url = decodeURI(location.href);
+//                let url = 'http://nianhui.ur.com.cn/front/#/personMain?wxOpenId=odaBLwI5ERI1Da5HXf6Kt3cIulPY';
+                let paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
+                let returnValue;
+                for (let i = 0; i < paraString.length; i++) {
+                    let tempParas = paraString[i].split('=')[0];
+                    let parasValue = paraString[i].split('=')[1];
+                    if (tempParas === paras)
+                        returnValue = parasValue;
+                }
+                if (typeof(returnValue) == "undefined") {
+                    return "";
+                } else {
+                    return returnValue;
+                }
+            },
+            renderOpen(){
+                let wxOpenId = this.getParams("wxOpenId");
+                //let wxOpenId = 'odaBLwEfMOFDB5ATyqZwQco5Aaxo';
+                if (wxOpenId && wxOpenId != '') {
+                    window.localStorage.setItem("wxOpenId", wxOpenId);
+                }
+                alert(window.localStorage.getItem("wxOpenId"))
+            },
+
             isMenber(){
                 if (window.localStorage.getItem("isbind") == 0) {
                     this.showBind = false;
@@ -257,31 +283,37 @@
                     this.loginText = '请输入正确的手机号';
                     return
                 }
+                /*如果wxOpenId为空*/
+                if(window.localStorage.getItem("wxOpenId")){
+                    /*获取会员信息*/
+                    infoByMobileTelService().get({
+                        mobileTel: this.phone
+                    }).then(res => {
+                        let body = res.body;
+                        if (body.errcode == 0) {
+                            window.localStorage.setItem("cardcode", body.cardcode);
+                            window.localStorage.setItem("sex", body.sex);
+                            window.localStorage.setItem("provice", body.provice);
+                            window.localStorage.setItem("brithday", body.brithday);
+                            window.localStorage.setItem("customerName", body.customerName);
+                            window.localStorage.setItem("district", body.district);
+                            window.localStorage.setItem("city", body.city);
+                            window.localStorage.setItem("mobileTel", body.mobileTel);
+                            window.localStorage.setItem("headimgurl", body.headimgurl);
+                            this.isMenber();
+                        } else {
+                            this.loginAlert = true;
+                            this.loginText = '该手机号账户不存在，请先去注册';
 
-                /*获取会员信息*/
-                infoByMobileTelService().get({
-                    mobileTel: this.phone
-                }).then(res => {
-                    let body = res.body;
-                    if (body.errcode == 0) {
-                        window.localStorage.setItem("cardcode", body.cardcode);
-                        window.localStorage.setItem("sex", body.sex);
-                        window.localStorage.setItem("provice", body.provice);
-                        window.localStorage.setItem("brithday", body.brithday);
-                        window.localStorage.setItem("customerName", body.customerName);
-                        window.localStorage.setItem("district", body.district);
-                        window.localStorage.setItem("city", body.city);
-                        window.localStorage.setItem("mobileTel", body.mobileTel);
-                        window.localStorage.setItem("headimgurl", body.headimgurl);
-                        this.isMenber();
-                    } else {
-                        this.loginAlert = true;
-                        this.loginText = '该手机号账户不存在，请先去注册';
+                        }
+                    }, res => {
 
-                    }
-                }, res => {
+                    })
+                } else {
+                    /*获取wxOpenId*/
+                    this.renderOpen();
+                }
 
-                })
 
 
 

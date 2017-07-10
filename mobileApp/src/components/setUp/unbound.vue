@@ -76,6 +76,7 @@
                     let body = res.body;
                     if (body.errcode == 0) {
                         window.localStorage.setItem("mobileTel", '');
+                        window.localStorage.setItem("wxOpenId", '');
                         this.showNoScroll = true;
                         this.warnText = '解绑成功';
                         // this.$router.go('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5f165071859dd820&redirect_uri=http%3a%2f%2fnianhui.ur.com.cn%2fur_crm%2fadmin%2fsys%2foauth%2fredirect&response_type=code&scope=snsapi_base&state=http%3a%2f%2fnianhui.ur.com.cn%2fwx%2findex.html%23%2f%3f#wechat_redirect');
