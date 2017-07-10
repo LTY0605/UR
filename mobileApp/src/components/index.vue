@@ -10,9 +10,12 @@
             <div class="head-img">
                 <img :src="headimgurl" alt=""/>
             </div>
-            <router-link :to="{name:'personMain',query:{tab:0}}">
+
+            <div @click="editFn" class="edit"></div>
+
+            <!--<router-link :to="{name:'personMain',query:{tab:0}}">
                 <div class="edit"></div>
-            </router-link>
+            </router-link>-->
             <div @click="show" class="code"></div>
             <flexbox :gutter="0">
                 <flexbox-item>
@@ -180,6 +183,14 @@
 
         },
         methods: {
+            editFn(){
+                this.$router.push({
+                    name: 'personMain',
+                    query:{
+                        tab:0
+                    }
+                });
+            },
             renderOpen(){
                 let wxOpenId = this.getParams("wxOpenId");
                 //let wxOpenId = 'odaBLwEfMOFDB5ATyqZwQco5Aaxo';
@@ -215,7 +226,8 @@
                         this.renderData();
                         this.personData();
                     } else {
-
+                        this.showNoScroll2 = true;
+                        this.warnText = body.errmsg
                     }
                 }, res => {
 
