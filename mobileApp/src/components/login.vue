@@ -105,6 +105,7 @@
         },
         methods: {
             getParams(paras) {
+                debugger
                 let url = decodeURI(location.href);
 //                let url = 'http://nianhui.ur.com.cn/front/#/personMain?wxOpenId=odaBLwI5ERI1Da5HXf6Kt3cIulPY';
                 let paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
@@ -118,6 +119,7 @@
                 if (typeof(returnValue) == "undefined") {
                     return "";
                 } else {
+                    console.log('wxOpenId:'+returnValue);
                     return returnValue;
                 }
             },
@@ -127,24 +129,25 @@
                 if (wxOpenId && wxOpenId != '') {
                     window.localStorage.setItem("wxOpenId", wxOpenId);
                 }
-                alert(window.localStorage.getItem("wxOpenId"))
             },
 
+            /*多余的函数*/
             isMenber(){
+                let _this = this;
                 if (window.localStorage.getItem("isbind") == 0) {
                     this.showBind = false;
                     loginService().save({
                         wxOpenID: window.localStorage.getItem("wxOpenId"),
                         code: this.code,
                         mobileTel: this.phone,
-                        isbind: 0
+                        isbind: this.isbind
                     }).then(res => {
                         let body = res.body;
                         if (body.errcode == 0) {
                             this.showNoScroll = false;
                             this.warnText = '登录成功';
                             window.localStorage.setItem("wxOpenId", body.wxOpenId);
-                            window.localStorage.setItem("isbind", 0);
+                            window.localStorage.setItem("isbind", this.isbind);
                             setTimeout(function () {
                                 _this.$router.push({
                                     name: 'index'
@@ -185,8 +188,8 @@
                         this.showNoScroll = false;
                         this.warnText = '登录成功';
                         //window.localStorage.setItem("wxOpenId", window.localStorage.getItem("wxOpenId"));
-                        window.localStorage.setItem("isbind", body.isbind);
-                        window.localStorage.setItem("wxOpenId", body.wxOpenId);
+                        window.localStorage.setItem("isbind", this.isbind);
+                        window.localStorage.setItem("wxOpenId", window.localStorage.getItem("wxOpenId"));
                         setTimeout(function () {
                             _this.$router.push({
                                 name: 'index'
@@ -225,9 +228,9 @@
                     if (body.errcode == 0) {
                         this.showNoScroll = false;
                         this.warnText = '登录成功';
-                        //window.localStorage.setItem("wxOpenId", body.wxOpenId);
-                        //window.localStorage.setItem("isbind", window.localStorage.getItem("isbind"));
-                        window.localStorage.setItem("isbind", body.isbind);
+//                        window.localStorage.setItem("wxOpenId", body.wxOpenId);
+//                        window.localStorage.setItem("isbind", window.localStorage.getItem("isbind"));
+                        window.localStorage.setItem("isbind", this.isbind2);
                         setTimeout(function () {
                             _this.$router.push({
                                 name: 'index'
@@ -255,7 +258,7 @@
                 });
             },
             login_submit () {
-
+                alert(location.href)
                 let asd = {
                     wxOpenId: window.localStorage.getItem("wxOpenId"),
                     cardcode: window.localStorage.getItem("cardcode"),
@@ -300,7 +303,9 @@
                             window.localStorage.setItem("city", body.city);
                             window.localStorage.setItem("mobileTel", body.mobileTel);
                             window.localStorage.setItem("headimgurl", body.headimgurl);
-                            this.isMenber();
+//                            this.isMenber();
+                            this.showBind = true;
+                            this.warnText2 = '是否绑定此微信';
                         } else {
                             this.loginAlert = true;
                             this.loginText = '该手机号账户不存在，请先去注册';
