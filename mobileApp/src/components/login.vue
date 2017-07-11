@@ -257,7 +257,7 @@
                 });
             },
             login_submit () {
-                alert(location.href)
+//                alert(location.href)
                 let asd = {
                     wxOpenId: window.localStorage.getItem("wxOpenId"),
                     cardcode: window.localStorage.getItem("cardcode"),
