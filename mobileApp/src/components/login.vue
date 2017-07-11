@@ -104,6 +104,15 @@
 
         },
         methods: {
+            renderOpen(){
+                let wxOpenId = this.getParams("wxOpenId");
+                //let wxOpenId = 'odaBLwEfMOFDB5ATyqZwQco5Aaxo';
+                if (wxOpenId && wxOpenId != '') {
+                    window.localStorage.setItem("wxOpenId", wxOpenId);
+                }
+//                alert(window.localStorage.getItem("wxOpenId"))
+
+            },
             getParams(paras) {
                 let url = decodeURI(location.href);
 //                let url = 'http://nianhui.ur.com.cn/front/#/personMain?wxOpenId=odaBLwI5ERI1Da5HXf6Kt3cIulPY';
@@ -118,15 +127,7 @@
                 if (typeof(returnValue) == "undefined") {
                     return "";
                 } else {
-                    console.log('wxOpenId:'+returnValue);
                     return returnValue;
-                }
-            },
-            renderOpen(){
-                let wxOpenId = this.getParams("wxOpenId");
-                //let wxOpenId = 'odaBLwEfMOFDB5ATyqZwQco5Aaxo';
-                if (wxOpenId && wxOpenId != '') {
-                    window.localStorage.setItem("wxOpenId", wxOpenId);
                 }
             },
 
