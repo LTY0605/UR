@@ -147,7 +147,7 @@
                             this.showNoScroll = false;
                             this.warnText = '登录成功';
                             window.localStorage.setItem("wxOpenId", window.localStorage.getItem("wxOpenId"));
-                            window.localStorage.setItem("isbind", this.isbind);
+                            window.localStorage.setItem("isbind", 0);
                             setTimeout(function () {
                                 _this.$router.push({
                                     name: 'index'
