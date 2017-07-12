@@ -164,6 +164,7 @@
                     this.warnText2 = '是否绑定此微信';
                 }
             },
+            //绑定微信
             showIsbind(){
                 let _this = this;
                 this.showBind = false;
@@ -204,6 +205,7 @@
                 })
 
             },
+            //不绑定微信
             showNoIsbind(){
                 let _this = this;
                 this.showBind = false;
