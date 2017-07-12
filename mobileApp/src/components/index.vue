@@ -170,10 +170,9 @@
         },
         watch: {},
         created(){
-
-
-
+            //用户名，卡号，头像
             this.personData();
+            //根据cardcode来获取钱包信息
             this.renderData();
             //待付款没有时不显示红点数字1
             this.payment();
@@ -183,6 +182,7 @@
 
         },
         methods: {
+            //跳到会员设置页面
             editFn(){
                 this.$router.push({
                     name: 'personMain',
@@ -197,15 +197,8 @@
                 if (wxOpenId && wxOpenId != '') {
                     window.localStorage.setItem("wxOpenId", wxOpenId);
                 }
+                //根据wxOpenID来获取用户信息
                 this.putLocal();
-                //如果缓存中没有mobileTel，就重新登录
-               /* if (window.localStorage.getItem("mobileTel") == "") {
-                    this.$router.push({
-                        name: 'login',
-                    });
-                } else {
-                    this.putLocal();
-                }*/
             },
             putLocal(){
                 infoService().get({
@@ -223,7 +216,9 @@
                         window.localStorage.setItem("city", body.city);
                         window.localStorage.setItem("mobileTel", body.mobileTel);
                         window.localStorage.setItem("headimgurl", body.headimgurl);
+                        //根据cardcode来获取钱包信息
                         this.renderData();
+                        //用户名，卡号，头像
                         this.personData();
                     } else {
                         this.showNoScroll2 = true;
@@ -250,8 +245,6 @@
                     return returnValue;
                 }
             },
-
-
             goStore(){
                 this.$router.push({name: 'http://weixin.ur.com.cn/app/index.php?i=2&c=mc&a=store&'})
             },

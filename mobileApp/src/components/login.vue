@@ -110,8 +110,6 @@
                 if (wxOpenId && wxOpenId != '') {
                     window.localStorage.setItem("wxOpenId", wxOpenId);
                 }
-//                alert(window.localStorage.getItem("wxOpenId"))
-
             },
             getParams(paras) {
                 let url = decodeURI(location.href);
@@ -187,7 +185,6 @@
                     if (body.errcode == 0) {
                         this.showNoScroll = false;
                         this.warnText = '登录成功';
-                        //window.localStorage.setItem("wxOpenId", window.localStorage.getItem("wxOpenId"));
                         window.localStorage.setItem("isbind", this.isbind);
                         window.localStorage.setItem("wxOpenId", window.localStorage.getItem("wxOpenId"));
                         setTimeout(function () {
@@ -228,8 +225,6 @@
                     if (body.errcode == 0) {
                         this.showNoScroll = false;
                         this.warnText = '登录成功';
-//                        window.localStorage.setItem("wxOpenId", body.wxOpenId);
-//                        window.localStorage.setItem("isbind", window.localStorage.getItem("isbind"));
                         window.localStorage.setItem("isbind", this.isbind2);
                         setTimeout(function () {
                             _this.$router.push({
@@ -258,7 +253,6 @@
                 });
             },
             login_submit () {
-//                alert(location.href)
                 let asd = {
                     wxOpenId: window.localStorage.getItem("wxOpenId"),
                     cardcode: window.localStorage.getItem("cardcode"),
@@ -304,8 +298,6 @@
                             window.localStorage.setItem("mobileTel", body.mobileTel);
                             window.localStorage.setItem("headimgurl", body.headimgurl);
                             this.isMenber();
-                            /*this.showBind = true;
-                            this.warnText2 = '是否绑定此微信';*/
                         } else {
                             this.loginAlert = true;
                             this.loginText = '该手机号账户不存在，请先去注册';
@@ -318,85 +310,6 @@
                     /*获取wxOpenId*/
                     this.renderOpen();
                 }
-
-
-
-
-
-                /*if (window.localStorage.getItem("isbind") == 1 || window.localStorage.getItem("isbind") == undefined) {
-                 this.showBind = true;
-                 this.warnText2 = '是否绑定此微信';
-                 } else {
-                 this.showBind = false;
-                 loginService().save({
-                 wxOpenID: window.localStorage.getItem("wxOpenId"),
-                 code: this.code,
-                 mobileTel: this.phone,
-                 isbind: 0
-                 }).then(res => {
-                 let body = res.body;
-                 if (body.errcode == 0) {
-                 this.showNoScroll = false;
-                 this.warnText = '登录成功';
-                 window.localStorage.setItem("wxOpenId", window.localStorage.getItem("wxOpenId"));
-                 window.localStorage.setItem("cardcode", window.localStorage.getItem("cardcode"));
-                 window.localStorage.setItem("sex", window.localStorage.getItem("sex"));
-                 window.localStorage.setItem("provice", window.localStorage.getItem("provice"));
-                 window.localStorage.setItem("brithday", window.localStorage.getItem("brithday"));
-                 window.localStorage.setItem("customerName", window.localStorage.getItem("customerName"));
-                 window.localStorage.setItem("district", window.localStorage.getItem("district"));
-                 window.localStorage.setItem("city", window.localStorage.getItem("city"));
-                 window.localStorage.setItem("mobileTel", window.localStorage.getItem("mobileTel"));
-                 window.localStorage.setItem("headimgurl", window.localStorage.getItem("headimgurl"));
-                 window.localStorage.setItem("isbind", 0);
-                 setTimeout(function () {
-                 _this.$router.push({
-                 name: 'index'
-                 })
-                 }, 500)
-                 } else {
-                 this.loginAlert = true;
-                 this.loginText = body.errmsg;
-                 }
-                 }, res => {
-                 this.loginAlert = true;
-                 this.loginText = "网络超时，请重试";
-                 })
-                 }*/
-
-                /*loginService().save({
-                 wxOpenID: window.localStorage.getItem("wxOpenId"),
-                 code: this.code,
-                 mobileTel: this.phone,
-                 }).then(res => {
-                 let body = res.body;
-                 if (body.errcode == 0) {
-                 this.showNoScroll = false;
-                 this.warnText = '登录成功';
-                 //window.localStorage.setItem("wxOpenId", body.wxOpenId);
-                 window.localStorage.setItem("cardcode", body.cardcode);
-                 window.localStorage.setItem("sex", body.sex);
-                 window.localStorage.setItem("provice", body.provice);
-                 window.localStorage.setItem("brithday", body.brithday);
-                 window.localStorage.setItem("customerName", body.customerName);
-                 window.localStorage.setItem("district", body.district);
-                 window.localStorage.setItem("city", body.city);
-                 window.localStorage.setItem("mobileTel", body.mobileTel);
-                 window.localStorage.setItem("headimgurl", body.headimgurl);
-                 setTimeout(function () {
-                 _this.$router.push({
-                 name: 'index'
-                 })
-                 }, 500)
-                 } else {
-                 this.loginAlert = true;
-                 this.loginText = body.errmsg;
-                 }
-
-                 }, res => {
-                 this.loginAlert = true;
-                 this.loginText = "网络超时，请重试";
-                 })*/
             },
             getCode(){
                 if (this.phone == '') {
