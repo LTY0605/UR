@@ -303,9 +303,9 @@
                             window.localStorage.setItem("city", body.city);
                             window.localStorage.setItem("mobileTel", body.mobileTel);
                             window.localStorage.setItem("headimgurl", body.headimgurl);
-//                            this.isMenber();
-                            this.showBind = true;
-                            this.warnText2 = '是否绑定此微信';
+                            this.isMenber();
+                            /*this.showBind = true;
+                            this.warnText2 = '是否绑定此微信';*/
                         } else {
                             this.loginAlert = true;
                             this.loginText = '该手机号账户不存在，请先去注册';
