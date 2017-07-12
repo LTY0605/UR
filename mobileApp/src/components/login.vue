@@ -146,7 +146,7 @@
                         if (body.errcode == 0) {
                             this.showNoScroll = false;
                             this.warnText = '登录成功';
-                            window.localStorage.setItem("wxOpenId", body.wxOpenId);
+                            window.localStorage.setItem("wxOpenId", window.localStorage.getItem("wxOpenId"));
                             window.localStorage.setItem("isbind", this.isbind);
                             setTimeout(function () {
                                 _this.$router.push({

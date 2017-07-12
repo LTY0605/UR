@@ -76,6 +76,7 @@
                     let body = res.body;
                     if (body.errcode == 0) {
                         window.localStorage.setItem("mobileTel", '');
+                        window.localStorage.setItem("isbind", 1);
                         this.showNoScroll = true;
                         this.warnText = '解绑成功';
                         this.$router.push({name: 'login'});
