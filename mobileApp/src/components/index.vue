@@ -10,12 +10,7 @@
             <div class="head-img">
                 <img :src="headimgurl" alt=""/>
             </div>
-
             <div @click="editFn" class="edit"></div>
-
-            <!--<router-link :to="{name:'personMain',query:{tab:0}}">
-                <div class="edit"></div>
-            </router-link>-->
             <div @click="show" class="code"></div>
             <flexbox :gutter="0">
                 <flexbox-item>
@@ -116,16 +111,6 @@
                 </div>
             </group>
         </div>
-        <!--二维码-->
-        <!--<div @click="hide">-->
-        <!--<x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">-->
-        <!--<div @click.stop class="couponCode">-->
-        <!--<img class="couponCode-img" :src="barcodeUrl+'?text='+cardcode+'&width=400&height=400'"  alt="图片">-->
-        <!--<p class="couponCode-p">{{cardcode}}</p>-->
-        <!--<div @click="hide" class="couponCode-close"></div>-->
-        <!--</div>-->
-        <!--</x-dialog>-->
-        <!--</div>-->
         <x-dialog v-model="showNoScroll" class="dialog-demo" :scroll="false">
             <div @click.stop class="couponCode">
                 <img class="couponCode-img" :src="barcodeUrl+'?text='+cardcode+'&width=400&height=400'" alt="图片">
@@ -135,7 +120,6 @@
         </x-dialog>
         <!--提示-->
         <toast v-model="showNoScroll2" type="text" :time="1000">{{warnText}}</toast>
-        <!--<alert class="alert" v-model="showNoScroll2" title="温馨提示">{{warnText}}</alert>-->
     </div>
 
 </template>
@@ -162,10 +146,6 @@
                 showUnpaid: true,
                 showNoScroll: false,
                 showNoScroll2: false,
-                /*  actions:[
-                 {actionImg: require('../assets/icon_save.png'),actionText:'调查问卷'},
-                 {actionImg: require('../assets/icon_dialog.png'),actionText:'时尚体验'}
-                 ]*/
             }
         },
         watch: {},
@@ -179,7 +159,6 @@
             this.barcodeUrl = URL_getQRCode;
         },
         mounted(){
-
         },
         methods: {
             //跳到会员设置页面
@@ -230,7 +209,6 @@
             },
             getParams(paras) {
                 let url = decodeURI(location.href);
-//                let url = 'http://nianhui.ur.com.cn/front/#/personMain?wxOpenId=odaBLwI5ERI1Da5HXf6Kt3cIulPY';
                 let paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
                 let returnValue;
                 for (let i = 0; i < paraString.length; i++) {
@@ -267,7 +245,6 @@
             show() {
                 if (window.navigator.onLine == true) {
                     this.showNoScroll = true;
-//                    this.currentCode = code;
                 } else {
                     this.showNoScroll2 = true;
                     this.warnText = '网络超时，请重试'
@@ -317,7 +294,7 @@
                         this.warnText = '请求错误';
                     })
                 } else {
-//                    获取wxopenid
+                    //获取wxopenid
                     this.renderOpen();
                 }
             }
