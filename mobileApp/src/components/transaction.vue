@@ -6,22 +6,11 @@
                   v-for="(item, index) in titleList" @click="changeItem(index,item.code)">{{item.name}}</span>
         </div>
         <div class="tabContain">
-            <!--<div class="tab-swiper" v-if="titleTab==0">-->
-                <!--<consume></consume>-->
-                <!--<transfer></transfer>-->
-            <!--</div>-->
-            <!--<div class="tabItem" v-if="titleTab==1">-->
-                <!--<consume></consume>-->
-            <!--</div>-->
-            <!--<div class="tabItem" v-if="titleTab==2">-->
-                <!--<transfer></transfer>-->
-            <!--</div>-->
             <div class="tabItem">
                 <consume :tranlists="tranlists"></consume>
             </div>
 
         </div>
-        <!--<toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>-->
     </div>
 </template>
 <script>
