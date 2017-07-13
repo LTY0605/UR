@@ -20,22 +20,6 @@ const routes = [
         component: resolve => require(['./components/index.vue'], resolve)
     },
     {
-        path: '/pageDemo',
-        name: 'pageDemo',
-        meta: {
-            title: '演示'
-        },
-        component: resolve => require(['./components/pageDemo.vue'], resolve)
-    },
-    {
-        path: '/setUp',
-        name: 'setUp',
-        meta: {
-            title: '设置'
-        },
-        component: resolve => require(['./components/setUp.vue'], resolve)
-    },
-    {
         path: '/personMain',
         name: 'personMain',
         meta: {
@@ -98,14 +82,6 @@ const routes = [
             title: '注册'
         },
         component: resolve => require(['./components/register.vue'], resolve)
-    },
-    {
-        path: '/contract',
-        name: 'contract',
-        meta: {
-            title: '协议'
-        },
-        component: resolve => require(['./components/contract.vue'], resolve)
     },
     {
         path: '/newAddress',
