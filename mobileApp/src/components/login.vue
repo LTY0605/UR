@@ -44,9 +44,6 @@
                 <div class="forgetBox" @click="goToLink('register')">
                     立即注册 <span class="toRight">》</span>
                 </div>
-                <!--<div class="agreementBox">-->
-                <!--<router-link :to="{name:'contract'}">UR用户使用协议</router-link>-->
-                <!--</div>-->
             </div>
         </div>
         <toast v-model="loginAlert" type="text" :time="1000">{{loginText}}</toast>
@@ -82,8 +79,8 @@
         },
         data () {
             return {
-                isbind: '',
-                isbind2: '',
+                isbind: '',//绑定
+                isbind2: '',//不绑定
                 warnText2: '',
                 showBind: false,
                 showNoScroll: false,
@@ -113,7 +110,6 @@
             },
             getParams(paras) {
                 let url = decodeURI(location.href);
-//                let url = 'http://nianhui.ur.com.cn/front/#/personMain?wxOpenId=odaBLwI5ERI1Da5HXf6Kt3cIulPY';
                 let paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
                 let returnValue;
                 for (let i = 0; i < paraString.length; i++) {
@@ -129,7 +125,7 @@
                 }
             },
 
-            /*多余的函数*/
+            //判断这个账号是否已经跟这个wxOpenId绑定
             isMenber(){
                 let _this = this;
                 if (window.localStorage.getItem("isbind") == 0) {
@@ -169,13 +165,6 @@
                 let _this = this;
                 this.showBind = false;
                 this.isbind = 0;
-                let data = {
-                    wxOpenID: window.localStorage.getItem("wxOpenId"),
-                    code: this.code,
-                    mobileTel: this.phone,
-                    isbind: this.isbind
-                }
-                console.log(data)
                 loginService().save({
                     wxOpenID: window.localStorage.getItem("wxOpenId"),
                     code: this.code,
@@ -210,13 +199,6 @@
                 let _this = this;
                 this.showBind = false;
                 this.isbind2 = 1;
-                let data = {
-                    wxOpenID: window.localStorage.getItem("wxOpenId"),
-                    code: this.code,
-                    mobileTel: this.phone,
-                    isbind: this.isbind2
-                }
-                console.log(data)
                 loginService().save({
                     wxOpenID: window.localStorage.getItem("wxOpenId"),
                     code: this.code,
@@ -255,22 +237,6 @@
                 });
             },
             login_submit () {
-                let asd = {
-                    wxOpenId: window.localStorage.getItem("wxOpenId"),
-                    cardcode: window.localStorage.getItem("cardcode"),
-                    sex: window.localStorage.getItem("sex"),
-                    provice: window.localStorage.getItem("provice"),
-                    brithday: window.localStorage.getItem("brithday"),
-                    customerName: window.localStorage.getItem("customerName"),
-                    district: window.localStorage.getItem("district"),
-                    city: window.localStorage.getItem("city"),
-                    mobileTel: window.localStorage.getItem("mobileTel"),
-                    headimgurl: window.localStorage.getItem("headimgurl"),
-                    isbind: window.localStorage.getItem("isbind"),
-                }
-                console.log(asd);
-
-
                 let _this = this;
                 if (this.phone == '' || this.code == '') {
                     this.loginAlert = true;
@@ -282,9 +248,9 @@
                     this.loginText = '请输入正确的手机号';
                     return
                 }
-                /*如果wxOpenId为空*/
+                //wxOpenId是否为空
                 if(window.localStorage.getItem("wxOpenId")){
-                    /*获取会员信息*/
+                    //获取会员信息
                     infoByMobileTelService().get({
                         mobileTel: this.phone
                     }).then(res => {
@@ -299,6 +265,7 @@
                             window.localStorage.setItem("city", body.city);
                             window.localStorage.setItem("mobileTel", body.mobileTel);
                             window.localStorage.setItem("headimgurl", body.headimgurl);
+                            //判断是否已经绑定
                             this.isMenber();
                         } else {
                             this.loginAlert = true;
@@ -309,7 +276,7 @@
 
                     })
                 } else {
-                    /*获取wxOpenId*/
+                    //获取wxOpenId
                     this.renderOpen();
                 }
             },
