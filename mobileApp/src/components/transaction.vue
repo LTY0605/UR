@@ -15,13 +15,11 @@
 </template>
 <script>
     import {transRecordService,giftCardService} from '../services/transRecord.js'
-    import Whole from './transaction/whole.vue'
     import Consume from './transaction/consume.vue'
-    import Transfer from './transaction/transfer.vue'
     import {XHeader, Scroller} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, Whole, Consume, Transfer
+            XHeader, Scroller, Consume
         },
 
         data () {

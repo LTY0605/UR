@@ -52,14 +52,6 @@ const routes = [
         component: resolve => require(['./components/integralS.vue'], resolve)
     },
     {
-        path: '/myCoupon',
-        name: 'myCoupon',
-        meta: {
-            title: '优惠券'
-        },
-        component: resolve => require(['./components/myCoupon.vue'], resolve)
-    },
-    {
         path: '/transfer',
         name: 'transfer',
         meta: {

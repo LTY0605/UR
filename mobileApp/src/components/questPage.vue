@@ -25,12 +25,11 @@
     import {surveyServices, surveyCommit} from '../services/quest.js'
     import one from './quest/one.vue'
     import two from './quest/two.vue'
-    import three from './quest/three.vue'
     import four from './quest/four.vue'
     import {XHeader, XButton, Toast} from 'vux'
     export default{
         components: {
-            XHeader, XButton, Toast, one, two, three, four
+            XHeader, XButton, Toast, one, two, four
         },
         data(){
             return {

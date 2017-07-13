@@ -259,22 +259,6 @@
                 }
             },
             renderData(){
-                var bool = true;
-                pushHistory();
-                function pushHistory() {
-                    var state = {title: "title", url: "#"};
-                    window.history.pushState(state, "title", "#");
-                };
-                window.onload = function () {
-                    setTimeout(function () {
-                        window.addEventListener('popstate', function () {
-                            if (bool == true) {
-                                this.window.opener = null;
-                                window.close();
-                            }
-                        });
-                    }, 0);
-                };
                 if(window.localStorage.getItem('cardcode')){
                     indexService().save({
                         cardcode: window.localStorage.getItem('cardcode')
