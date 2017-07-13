@@ -52,7 +52,7 @@
         },
         methods: {
             boundSubmit(){
-                let _this = this;s
+                let _this = this;
                 if(this.mobileTel == ''  || this.code == ''){
                     this.showNoScroll = true;
                     this.warnText = '请输入验证码';
