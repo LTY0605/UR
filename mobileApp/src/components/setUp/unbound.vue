@@ -52,11 +52,7 @@
         },
         methods: {
             boundSubmit(){
-                let _this = this;
-//                debugger
-//                let a = this.$refs.kk;
-//                console.log(a.msg,'--------')
-//                return
+                let _this = this;s
                 if(this.mobileTel == ''  || this.code == ''){
                     this.showNoScroll = true;
                     this.warnText = '请输入验证码';
@@ -80,31 +76,7 @@
                         this.showNoScroll = true;
                         this.warnText = '解绑成功';
                         this.$router.push({name: 'login'});
-//                        window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5f165071859dd820&redirect_uri=http%3a%2f%2fnianhui.ur.com.cn%2fur_crm%2fadmin%2fsys%2foauth%2fredirect&response_type=code&scope=snsapi_base&state=http%3a%2f%2fnianhui.ur.com.cn%2fwx%2findex.html%23%2f%3f#wechat_redirect';
 //                         this.$router.go('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5f165071859dd820&redirect_uri=http%3a%2f%2fnianhui.ur.com.cn%2fur_crm%2fadmin%2fsys%2foauth%2fredirect&response_type=code&scope=snsapi_base&state=http%3a%2f%2fnianhui.ur.com.cn%2fwx%2findex.html%23%2f%3f#wechat_redirect');
-                        /*this.$router.go({
-                            name: 'user',
-                            params: {
-                                appid: 'wx5f165071859dd820',
-                                redirect_uri: 'http://nianhui.ur.com.cn/ur_crm/admin/sys/oauth/redirect',
-                                response_type: 'code',
-                                scope: 'snsapi_base',
-                                state:'http://nianhui.ur.com.cn/wx/index.html#/?#wechat_redirect'
-
-                            }
-                        });*/
-                        /*this.$router.push({
-                            path: 'https://open.weixin.qq.com/connect/oauth2/authorize',
-                            query: {
-                                appid: 'wx5f165071859dd820',
-                                redirect_uri: 'http://nianhui.ur.com.cn/ur_crm/admin/sys/oauth/redirect',
-                                response_type: 'code',
-                                scope: 'snsapi_base',
-                                state:'http://nianhui.ur.com.cn/wx/index.html#/?#wechat_redirect'
-                             }
-                        });*/
-
-
                     } else {
                         this.showNoScroll = true;
                         this.warnText = body.errmsg;
