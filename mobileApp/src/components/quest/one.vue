@@ -4,7 +4,7 @@
         <div class="con_back">
             <select class="con_select" name="province">
                 <option value ="" disabled selected>选择省份</option>
-                <option value="广东省">广东省</option>
+                <option v-for="(item,index) in provincens" value="省份">{{item.value}}</option>
             </select>
             <select class="con_select" name="city">
                 <option value ="" disabled selected>选择城市</option>
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+    import { surveyServices } from '../../services/quest.js'
     import {XButton} from 'vux'
     export default {
         components:{
@@ -26,11 +27,31 @@
         },
         data(){
             return{
+                surveryType:'02',
+                surveyCode:'wqdc',
+                provincens:[]
             }
         },
         methods:{
+            surveyData(){
+                surveyServices().save({
+                    surveyType: this.surveyType,
+                    surveryCode: this.surveyCode
+                }).then(res=>{
+                    let body =res.body;
+                    if(body.errcode == 0){
+                        this.provinces = body.survey.option;
+                        console.log(this.provinces);
+                    }else{
+                        console.log(body.errmsg)
+                    }
+                },res=>{
+                    console.log(res);
+                })
+            }
         },
         mounted(){
+            this.surveyData();
         },
         created(){
         },
@@ -39,9 +60,9 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_one{
-   /*     select{
+        select{
             outline: none;
-        }*/
+        }
         .con_back{
             .last{
                 margin-bottom: 1.25rem;

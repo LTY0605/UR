@@ -4,7 +4,7 @@
         <div class="quest-con">
             <div class="con-logo"></div>
             <div class="con-text">
-                <p>尊敬的{{name}}会员：</p>
+                <p>尊敬的{{customerName}}会员：</p>
                 <p>UR致力于为您提供<br/>高品质的时尚产品和优质服务！<br>
                 为了提高您的购物体验，<br>请您提供宝贵的意见，<br>完成问卷即可获赠<span class="con-integral">300会员积分</span>，<br>谢谢！</p>
             </div>
@@ -23,12 +23,16 @@
         },
         data(){
             return{
-                name:'Sara Chen'
+                customerName:''
             }
         },
         methods:{
+            questName(){
+                this.customerName = window.localStorage.getItem('customerName');
+            }
         },
         mounted(){
+            this.questName()
         }
     }
 </script>
@@ -43,10 +47,10 @@
         }
         .quest-con{
             width: 100%;
-            height: 30.15rem;
+            height: 100%;
             background: url("../assets/ask01.png");
             background-size: 100% 100%;
-            position: relative;
+            position: fixed;
             .con-logo{
                 position: absolute;
                 top: .7rem;
