@@ -2,23 +2,29 @@
     <div class="page_transaction">
         <x-header :left-options="{backText: ''}">交易记录</x-header>
         <div class="tabTitle">
-            <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="titleTab = index">{{item.name}}</span>
+            <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="changeItem(index,item.code)">{{item.name}}</span>
         </div>
         <div class="tabContain">
-            <div class="tab-swiper" v-if="titleTab==0">
-                <consume></consume>
-                <transfer></transfer>
+            <!--<div class="tab-swiper" v-if="titleTab==0">-->
+                <!--<consume></consume>-->
+                <!--<transfer></transfer>-->
+            <!--</div>-->
+            <!--<div class="tabItem" v-if="titleTab==1">-->
+                <!--<consume></consume>-->
+            <!--</div>-->
+            <!--<div class="tabItem" v-if="titleTab==2">-->
+                <!--<transfer></transfer>-->
+            <!--</div>-->
+            <div class="tabItem">
+                <consume :tranlists="tranlists"></consume>
             </div>
-            <div class="tabItem" v-if="titleTab==1">
-                <consume></consume>
-            </div>
-            <div class="tabItem" v-if="titleTab==2">
-                <transfer></transfer>
-            </div>
+
         </div>
+        <!--<toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>-->
     </div>
 </template>
 <script>
+    //import {transRecordService} from '../../services/transRecord.js'
     import Whole from './transaction/whole.vue'
     import Consume from './transaction/consume.vue'
     import Transfer from './transaction/transfer.vue'
@@ -29,10 +35,13 @@
         },
         data () {
             return {
+                tranlists:[],
                 titleTab: 0,
                 list2: ['全部', '消费', '转赠'],
                 index: 1,
                 time: '',
+                currentCode:'',
+                valueCardcode: this.$route.query.valueCardcode,
                 titleList: [
                     {
                         code: 0,
@@ -74,6 +83,34 @@
         },
         watch: {},
         created(){
+            //this.renderData()
+            //this.transRecordService()
+        },
+        methods:{
+            changeItem(index,code){
+                this.titleTab = index;
+                this.currentCode = code;
+                //this.renderData();
+            },
+            /*renderData(){
+                transRecordService().save({
+//                    cardcode:'8urp0070227',
+                    //cardcode:window.localStorage.getItem('cardcode'),
+                    operTypeName:this.operTypeName,
+                    operType:this.currentCode
+                }).then(res =>{
+                    let body = res.body;
+                    if(body.errcode == 0){
+                        this.tranlists = body.list;
+                    } else{
+                        this.showNoScroll = true;
+                        this.warnText = body.errmsg;
+                    }
+                },res =>{
+                    this.showNoScroll = true;
+                    this.warnText = "网络超时，请重试";
+                })
+            },*/
         },
         computed: {}
     }
