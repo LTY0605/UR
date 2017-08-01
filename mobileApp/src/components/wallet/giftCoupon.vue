@@ -40,7 +40,7 @@
                           <button @click="showNoScroll2=true" class="Box6">获取转赠</button>
                       </div>
                       <div class="btnDown">
-                          <router-link :to="{name:'carPassword',query:{tab:1}}">
+                          <router-link :to="{name:'carPassword',query:{valueCardcode:valueCardcode}}">
                               <button class="Box7">修改密码</button>
                           </router-link>
                           <router-link to="transaction"><button class="Box8">交易记录</button></router-link>
@@ -145,10 +145,10 @@
                currentName:'',
                qRcodeUrl:'',
                barcodeUrl:'',
+               valueCardcode:'',
            }
        },
        mounted(){
-
        },
        created(){
 //           this.renderjdCard();
@@ -157,6 +157,13 @@
            this.barcodeUrl = URL_getBarcode;
        },
        methods:{
+           renderCode(valueCardcode){
+//               alert(valueCardcode)
+               this.$router.push({
+                   name: 'carPassword',
+                   query: {valueCardcode:valueCardcode},
+               })
+           },
            renderCardList(){
                cardListService().save({
 //                   cardcode: window.localStorage.getItem('cardcode'),
@@ -165,6 +172,9 @@
                    let body = res.body;
                    if (body.errcode == 0) {
                       this.cardList = body.list;
+                      this.valueCardcode = body.list[0].valueCardcode;
+
+
                    } else {
                        this.showNoScro = true;
                        this.warnText = body.errmsg;
