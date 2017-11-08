@@ -43,6 +43,14 @@ const routes = [
         },
         component: resolve => require(['./components/wallet.vue'], resolve)
     },
+    {
+        path: '/myBill',
+            name: 'myBill',
+        meta: {
+        title: '我的账单'
+    },
+        component: resolve => require(['./components/myBill.vue'], resolve)
+    },
     // {
     //     path: '/login',
     //     name: 'login',
