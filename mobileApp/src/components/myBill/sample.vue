@@ -1,13 +1,20 @@
 <template>
    <div class="page_sample" >
-
             <div class="detail">
-               <span class="price">-800</span>
-               <ul>
-                  <li class="number">单号:<a href="#">#VHB56646</a></li>
-                  <li class="itype">类型:<a href="#">消费</a></li>
-                  <li class="time">日期:<a href="#"></a></li>
-               </ul>
+               <!--<span class="price">-800</span>-->
+               <!--<ul>-->
+                  <!--<li class="number">单号:<a href="#">#VHB56646</a></li>-->
+                  <!--<li class="itype">类型:<a href="#">消费</a></li>-->
+                  <!--<li class="time">日期:<a href="#"></a></li>-->
+               <!--</ul>-->
+                <ul class="samplelist">
+                    <li v-for="list in tranlists" class="list">
+                        <p>单号：<span class="list-number">{{list.number}}</span></p>
+                        <p class="list-mar">类型：{{list.type}}</p>
+                        <p>日期：{{list.time}}</p>
+                        <p class="list-money">{{list.money}}</p>
+                    </li>
+                </ul>
 
             </div>
          </div>
@@ -16,62 +23,65 @@
 </template>
 
 <script>
+  export default {
+    components: {
+    },
+    data () {
+      return {
+        tranlists:[
+          {
+            number: 'OS201704120289',
+            type: '兑换',
+            time: '2017-04-12 15:30:28',
+            money: '-300.00'
+          },
+          {
+            number: 'OS201703021888',
+            type: '兑换',
+            time: '2017-03-02 09:38:21',
+            money: '-150.00'
+          }
+        ]
+
+      }
+    },
+    mounted(){
+    },
+    watch: {},
+    created(){
+    },
+    computed: {}
+  }
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_sample{
-
-    .detail {
-        position: relative;
-        margin: .8rem auto;
-        padding-left: 1rem;
-        border-bottom: 1px solid #D2D2D2;
-    .price{
-        font-size: 1rem;
-        color: #333;
-        top: .9rem;
-        right: 1rem;
-        position: absolute;
-
-    }
-    ul{
+    .detail{
+    .samplelist{
         list-style: none;
-        height: 4.3rem;
-        width: 100%;
+    .list{
         font-size: .6rem;
-        color: #666;
-
-        /*display: inline-block;*/
-
-    }
-
-    .number{
+        color: #666666;
+        border-bottom: 1px solid #D2D2D2;
+        width: auto;
         height: auto;
-        width: 8.25rem;
+        padding: .9rem 0 1rem 1rem;
+        position: relative;
+    .list-number{
+        font-size: .75rem;
+        color: #333333 !important;
     }
-    a{
-        list-style: none;
-        color: #666;
-        padding-left: .5rem;
+    .list-mar{
+        margin:.35rem auto .4rem auto;
     }
-    .number a{
-        font-size: .75rem !important;
-        color: #333 !important;
-    }
-    .itype{
-        height: auto;
-        width: 4.92rem;
-        padding: .3rem 0rem .3rem 0rem;
-        /*padding: .45rem 0rem .4rem 0rem;*/
-    }
-
-
-    .time{
-        height: auto;
-        width: 8rem;
-        /*margin-top: .5rem;*/
-        /*padding-top: .4rem;*/
+    .list-money{
+        position: absolute;
+        right: 1rem;
+        bottom: 2rem;
+        font-size: 1rem;
+        color: #333333;
     }
     }
-
+    }
+    }
     }
 </style>

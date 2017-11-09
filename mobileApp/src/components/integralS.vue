@@ -6,13 +6,14 @@
       </div>
       <div class="tabContain">
          <div class="tabItem tab-swiper" v-if="titleTab==0">
-            <!--<consume></consume>-->
+            <sample></sample>
+            <sampleT></sampleT>
          </div>
          <div class="tabItem" v-if="titleTab==1">
-            <sample></sample>
+            <sampleT></sampleT>
          </div>
          <div class="tabItem" v-if="titleTab==2">
-            <sampleT></sampleT>
+            <sample></sample>
          </div>
       </div>
    
@@ -20,12 +21,13 @@
 </template>
 
 <script>
+//  import Consume from './transaction/consume.vue'
   import sample from './myBill/sample.vue'
-  import sampleT from './myBill/sampleT.vue'
+   import sampleT from './myBill/sampleT.vue'
   import {XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar, Cell, Group, InlineCalendar} from 'vux'
   export default {
     components: {
-      XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar, Cell, Group, InlineCalendar,sample,sampleT
+      XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar, Cell, Group, InlineCalendar,sampleT,sample
     },
     data () {
       return {

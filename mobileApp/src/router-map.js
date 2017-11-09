@@ -58,6 +58,13 @@ const routes = [
       title: '积分查询'
     },
     component: resolve => require(['./components/integralS.vue'], resolve)
+  },{
+    path: '/transaction',
+    name: 'transaction',
+    meta: {
+      title: '交易记录'
+    },
+    component: resolve => require(['./components/transaction.vue'], resolve)
   },
     // {
     //     path: '/login',
