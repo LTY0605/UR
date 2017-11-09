@@ -8,18 +8,14 @@
 
         <div class="tabContain">
             <div class="tabItem" v-if="titleTab==0">
-                <div class="detail">
-                    <span class="price">-800</span>
-                    <ul>
-                        <li class="number">单号:<a href="#">#VHB56646</a></li>
-                        <li class="itype">类型:<a href="#">消费</a></li>
-                        <li class="time">日期:<a href="#"></a></li>
-                    </ul>
-
-                </div>
+                <sample></sample>
             </div>
-            <div class="tabItem" v-if="titleTab==1">22</div>
-            <div class="tabItem" v-if="titleTab==2">33</div>
+            <div class="tabItem" v-if="titleTab==1">
+                <sample></sample>
+            </div>
+            <div class="tabItem" v-if="titleTab==2">
+                <sampleT></sampleT>
+            </div>
 
         </div>
 
@@ -28,10 +24,13 @@
 </template>
 
 <script>
+    import sample from './sample.vue'
+    import sampleT from './sampleT.vue'
     import {XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar,CellFormPreview, Cell, Group, InlineCalendar} from 'vux'
     export default {
         components: {
-            XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar, CellFormPreview,Cell, Group, InlineCalendar
+            XHeader, Scroller, Tab, TabItem, Swiper, SwiperItem, Calendar, CellFormPreview,Cell, Group,
+          InlineCalendar,sample,sampleT
         },
         data () {
             return {
@@ -68,7 +67,7 @@
     .page_consume {
     .consumeTitle {
         width: 16.75rem;
-        height: 1.2rem;
+        height: 1.3rem;
         line-height: 1.2rem;
         margin: 1rem 1rem 0rem 1rem;
         border: 1px solid #EC6941;
@@ -101,56 +100,58 @@
                 color: #fff;
             }
     }
-    .detail {
-        margin: 1rem auto;
-        padding-left: 1rem;
-        border-bottom: 1px solid #D2D2D2;
-    .price{
-        font-size: 1rem;
-        color: #333;
-        top: 3.85rem;
-        right: 1rem;
-        position: absolute;
+    /*.detail {*/
+        /*position: relative;*/
+        /*margin: .8rem auto;*/
+        /*padding-left: 1rem;*/
+        /*border-bottom: 1px solid #D2D2D2;*/
+    /*.price{*/
+        /*font-size: 1rem;*/
+        /*color: #333;*/
+        /*top: .9rem;*/
+        /*right: 1rem;*/
+        /*position: absolute;*/
 
-    }
-    ul{
-        list-style: none;
-        height: 4.3rem;
-        width: 100%;
-        font-size: .6rem;
-        color: #666;
-        /*display: inline-block;*/
+    /*}*/
+    /*ul{*/
+        /*list-style: none;*/
+        /*height: 4.3rem;*/
+        /*width: 100%;*/
+        /*font-size: .6rem;*/
+        /*color: #666;*/
 
-    }
+        /*!*display: inline-block;*!*/
 
-    .number{
-        height: 0.6rem;
-        width: 8.25rem;
-    }
-    a{
-        list-style: none;
-        color: #666;
-        padding-left: .5rem;
-    }
-    .number a{
-        font-size: .75rem !important;
-        color: #333 !important;
-    }
-    .itype{
-        height: 0.6rem;
-        width: 4.92rem;
-        padding: .5rem 0rem .5rem 0rem;
-        /*padding: .45rem 0rem .4rem 0rem;*/
-    }
+    /*}*/
+
+    /*.number{*/
+        /*height: auto;*/
+        /*width: 8.25rem;*/
+    /*}*/
+    /*a{*/
+        /*list-style: none;*/
+        /*color: #666;*/
+        /*padding-left: .5rem;*/
+    /*}*/
+    /*.number a{*/
+        /*font-size: .75rem !important;*/
+        /*color: #333 !important;*/
+    /*}*/
+    /*.itype{*/
+        /*height: auto;*/
+        /*width: 4.92rem;*/
+        /*padding: .3rem 0rem .3rem 0rem;*/
+        /*!*padding: .45rem 0rem .4rem 0rem;*!*/
+    /*}*/
 
 
-    .time{
-        height: 0.6rem;
-        width: 8rem;
-        margin-top: .5rem;
-        /*padding-top: .4rem;*/
-    }
-    }
+    /*.time{*/
+        /*height: auto;*/
+        /*width: 8rem;*/
+        /*!*margin-top: .5rem;*!*/
+        /*!*padding-top: .4rem;*!*/
+    /*}*/
+    /*}*/
 
     }
 
