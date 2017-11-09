@@ -1,12 +1,6 @@
 <template>
    <div class="page_sample" >
             <div class="detail">
-               <!--<span class="price">-800</span>-->
-               <!--<ul>-->
-                  <!--<li class="number">单号:<a href="#">#VHB56646</a></li>-->
-                  <!--<li class="itype">类型:<a href="#">消费</a></li>-->
-                  <!--<li class="time">日期:<a href="#"></a></li>-->
-               <!--</ul>-->
                 <ul class="samplelist">
                     <li v-for="list in tranlists" class="list">
                         <p>单号：<span class="list-number">{{list.number}}</span></p>
