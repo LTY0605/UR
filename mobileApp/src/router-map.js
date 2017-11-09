@@ -51,6 +51,14 @@ const routes = [
     },
         component: resolve => require(['./components/myBill.vue'], resolve)
     },
+  {
+    path: '/integralS',
+    name: 'integralS',
+    meta: {
+      title: '积分查询'
+    },
+    component: resolve => require(['./components/integralS.vue'], resolve)
+  },
     // {
     //     path: '/login',
     //     name: 'login',
