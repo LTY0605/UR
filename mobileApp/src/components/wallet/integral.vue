@@ -23,7 +23,7 @@
         </group>
         <transition name="mask-animative">
             <div v-if="show" @click="show=!show" class="integral-mask">
-                <div class="integral-code">
+                <div id="integralMask" @click="stopPropagation" class="integral-code">
                     <div class="integralCode-div">积分使用时交给店员扫一扫</div>
                     <img class="integralCode-img" src="../../assets/money_code.png" alt=""/>
                     <p class="integralCode-p">{{code}}</p>
@@ -46,6 +46,14 @@
             }
         },
         methods:{
+            stopPropagation:function (e) {
+                e = e||window.event;
+                if(e.stopPropagation){
+                    e.stopPropagation();
+                }else{
+                    e.cancelBubble = true;
+                }
+            }
         },
         mounted(){
         },
