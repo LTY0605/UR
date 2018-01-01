@@ -1,6 +1,7 @@
 <template>
    <div class="page_integralS">
       <x-header>积分查询</x-header>
+      <scroller :height="-46+'px'" lock-x>
       <div class="tabTitle">
          <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="titleTab = index">{{item.name}}</span>
       </div>
@@ -16,7 +17,7 @@
             <sample></sample>
          </div>
       </div>
-   
+      </scroller>
    </div>
 </template>
 
