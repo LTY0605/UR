@@ -7,7 +7,7 @@
         <div>
             <div class="header">
                 <div class="imgBox">
-                    <img src="../assets/images/logo.png" alt="">
+                    <img class="logo" src="../assets/images/logo.png" alt="">
                 </div>
             </div>
             <div class="loginContent">
@@ -195,30 +195,24 @@
             height:auto;
             margin-top: -.04rem;
             .imgBox{
+                background-color: #ffffff;
                 width: 4.55rem;
                 height: 4.55rem;
                 border: 0.2rem solid #cdbe86;
                 border-radius: 50%;
                 overflow: hidden;
                 margin: auto;
-                img{
-                    width: 4.2rem;
-                    height: 4.2rem;
+
+                .logo{
+                    width: 100%;
+                    margin-top: 15%;
+                    padding-left: .5rem;
+                    padding-right: .5rem;
+
                 }
             }
         }
-        .imgBox{
-            width: 4.55rem;
-            height: 4.55rem;
-            border: 0.2rem solid #cdbe86;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: auto;
-            img{
-                width: 4.2rem;
-                height: 4.2rem;
-            }
-        }
+
         .loginContent{
             padding: 0 9.6%;
             background: #fff;
