@@ -205,7 +205,7 @@
 
                 .logo{
                     width: 100%;
-                    margin-top: 15%;
+                    margin-top: 16%;
                     padding-left: .5rem;
                     padding-right: .5rem;
 

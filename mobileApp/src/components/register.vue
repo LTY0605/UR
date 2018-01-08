@@ -7,7 +7,7 @@
             <div>
                 <div class="header">
                     <div class="imgBox">
-                        <img src="../assets/images/logo.png" alt="">
+                        <img class="logo" src="../assets/images/logo.png" alt="">
                     </div>
                 </div>
                 <div class="registerContent">
@@ -234,19 +234,23 @@
             height:auto;
             margin-top: -.04rem;
         }
-        .imgBox{
-            width: 4.55rem;
-            height: 4.55rem;
-            border: 0.2rem solid #cdbe86;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: auto;
-            img{
-                width: 100%;
-                height: 100%;
-                border-radius: 50%;
-            }
-        }
+    .imgBox{
+        background-color: #ffffff;
+        width: 4.55rem;
+        height: 4.55rem;
+        border: 0.2rem solid #cdbe86;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: auto;
+
+    .logo{
+        width: 100%;
+        margin-top: 16%;
+        padding-left: .5rem;
+        padding-right: .5rem;
+
+    }
+    }
         .registerContent{
             padding: 0 9.6%;
             background: #fff;
