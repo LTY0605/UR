@@ -3,7 +3,7 @@
 */
 <template>
     <div class="page_login">
-        <x-header title="登 录" :left-options="{backText: ''}"></x-header>
+        <x-header title="登 录" :left-options="{showBack: false}"></x-header>
         <div>
             <div class="header">
                 <div class="imgBox">
