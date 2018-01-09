@@ -54,15 +54,15 @@
                 <ul>
                     <li>
                         <p class="wallet-num">{{mycards}}</p>
-                        <p>礼品卡</p>
+                        <router-link class="color-style" to="./wallet">礼品卡</router-link>
                     </li>
                     <li>
                         <p class="wallet-num">{{coupon}}</p>
-                        <p>优惠券</p>
+                        <router-link class="color-style" to="./myCoupon">优惠券</router-link>
                     </li>
                     <li>
                         <p class="wallet-num">{{integral}}可兑换</p>
-                        <p>积分</p>
+                        <router-link class="color-style" to="./wallet">积分</router-link>
                     </li>
                 </ul>
             </group>
@@ -71,10 +71,10 @@
         <div class="wallet">
             <group>
                 <cell title="我的账单" link="./myBill"></cell>
-                <cell class="bill" title="消费明细">
+                <cell class="bill" title="消费明细" link="./myBill">
                     <img slot="icon" width="12" src="../assets/icon_sm.png"/>
                 </cell>
-                <cell class="bill detail" title="积分明细">
+                <cell class="bill detail" title="积分明细" link="./myBill/page_integralBill">
                     <img slot="icon" width="12" src="../assets/icon_list.png"/>
                 </cell>
             </group>
@@ -364,16 +364,21 @@
             ul{
                 list-style: none;
                 font-size: 0;
+                height: 3rem;
+                margin: 0;
+                padding: 0;
             }
             li{
                 display: inline-block;
                 width: 33.33%;
-                margin: 0;
                 padding: 0;
                 font-size: .6rem;
-                padding: .5rem 0 .9rem 0;
+                margin-top: .4rem;
                 text-align: center;
                 color: #333333;
+                .color-style{
+                    color: #333333;
+                }
             }
             .vux-label{
                 font-size: .75rem;
@@ -397,7 +402,7 @@
             }
             .wallet-num{
                 color: #FF0000;
-                margin-bottom: .4rem;
+                margin-bottom: .25rem;
             }
         }
         .bill{
