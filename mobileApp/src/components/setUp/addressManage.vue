@@ -81,7 +81,8 @@
                     this.warnText = '设置失败'
                 }
             }, res => {
-
+                    this.showNoScroll = true;
+                    this.warnText = '网络超时，请重试';
                 })
             },
             renderData(){
@@ -94,7 +95,8 @@
                         this.dataList = body.list;
                     }
                 }, res => {
-
+                    this.showNoScroll = true;
+                    this.warnText = '网络超时，请重试';
                 })
             },
             addAddress(){
@@ -130,7 +132,8 @@
                         this.warnText = '删除失败';
                     }
                 }, res => {
-
+                    this.showNoScroll = true;
+                    this.warnText = '网络超时，请重试';
                 })
             },
         },

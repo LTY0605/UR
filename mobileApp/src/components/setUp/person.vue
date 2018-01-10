@@ -171,7 +171,8 @@
                     }
 
                 }, res => {
-
+                    this.showNoScroll = true;
+                    this.warnText = '网络超时，请重试';
                 })
             },
             getCode(){
@@ -196,7 +197,8 @@
                     }
 
                 }, res => {
-
+                    this.showNoScroll = true;
+                    this.warnText = '网络超时，请重试';
                 })
             },
             finish() {
@@ -252,7 +254,7 @@
                     }
                 }, res => {
                     this.showNoScroll = true;
-                    this.warnText = '请求错误';
+                    this.warnText = '网络超时，请重试';
                 })
             },
             sureSubmit(){
@@ -292,7 +294,7 @@
 
                 }, res => {
                     this.showNoScroll = true;
-                    this.warnText = '请求出错';
+                    this.warnText = '网络超时，请重试';
                 })
             },
             logHide(str){

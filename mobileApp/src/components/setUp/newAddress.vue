@@ -5,14 +5,14 @@
         </x-header>
         <div class="address-con">
             <group>
-                <x-input class="consignee" title="收货人姓名" v-model="consignee" placeholder="收货人姓名"></x-input>
-                <x-input title="收货人电话" placeholder="收货人电话" v-model="mobileTel" :max="11" :min="11"
-                         keyboard="number" is-type="china-mobile"></x-input>
-                <x-address class="address-select" placeholder="请选择" title="所在地区" v-model="attrValue" raw-value
+                <x-input class="consignee" title="收货人姓名" v-model="consignee" placeholder="收货人姓名,必填" :max="20"></x-input>
+                <x-input title="收货人电话" placeholder="收货人电话,必填" v-model="mobileTel" :max="11" :min="11"
+                         keyboard="number"></x-input>
+                <x-address class="address-select" placeholder="请选择,必填" title="所在地区" v-model="attrValue" raw-value
                            :list="addressData"
                            value-text-align="left"></x-address>
-                <x-textarea class="address-text" placeholder="详细地址" v-model="addressDeep" required></x-textarea>
-                <x-input title="邮政编码" placeholder="邮政编码" v-model="postcode" required type="number"></x-input>
+                <x-textarea class="address-text" placeholder="详细地址,必填" v-model="addressDeep" required></x-textarea>
+                <x-input title="邮政编码" placeholder="邮政编码,必填" v-model="postcode" required type="number"></x-input>
             </group>
         </div>
         <div class="address-foot">
@@ -60,6 +60,12 @@
                 warnText2:'',
                 warnText: '',
                 postcode:'',
+                beTel: function (value) {
+                    return {
+                        valid: /^(?=\d{11}$)^1(?:3\d|4[57]|5[^4\D]|7[^249\D]|8\d)\d{8}$/.test(value),
+                        msg: ''
+                    }
+                },
             }
         },
         mounted(){
@@ -73,13 +79,15 @@
         created(){
         },
         methods: {
-            change (val) {
-                console.log('change', val)
-            },
             save(){
                 if (this.consignee == '' || this.mobileTel == '' || this.address == '' || this.addressDeep == '' || this.postcode == '') {
                     this.showNoScroll = true;
                     this.warnText = '您有信息未填写';
+                    return
+                }
+                if(!this.beTel(this.mobileTel).valid){
+                    this.showNoScroll = true;
+                    this.warnText = '请输入正确的收货人电话'
                     return
                 }
                 var pro = this.address.split(" ");
@@ -109,15 +117,17 @@
                     }
 
                 }, res => {
-
+                    this.showNoScro = true;
+                    this.warnText2 = '网络超时，请重试';
                 })
             },
             goLink(){
                 this.showNoScro = false;
-                this.$router.push({
-                    name: 'personMain',
-                    query: {tab: 3},
-                });
+//                this.$router.push({
+//                    name: 'personMain',
+//                    query: {tab: 3},
+//                });
+                window.history.back();
             },
         },
         computed: {}
@@ -166,6 +176,9 @@
     }
 
     .page_newAddress {
+        .weui-input{
+            color: #333;
+        }
         .text {
             display: block;
             height: 2rem;

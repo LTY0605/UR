@@ -138,7 +138,7 @@
 
                 }, res => {
                     this.loginAlert =true;
-                    this.loginText = "网络不给力";
+                    this.loginText = "网络超时，请重试";
                 })
             },
             getCode(){
@@ -162,7 +162,8 @@
                         this.loginText = '验证码发送失败，请稍后再试';
                     }
                 }, res => {
-
+                    this.loginAlert =true;
+                    this.loginText = "网络超时，请重试";
                 })
             },
             finish:function(){

@@ -88,7 +88,8 @@
                     }
 
                 }, res => {
-
+                    this.showNoScroll = true;
+                    this.warnText = '网络超时，请重试';
                 })
             },
             getCode(){
@@ -113,7 +114,8 @@
                     }
 
                 }, res => {
-
+                    this.showNoScroll = true;
+                    this.warnText = '网络超时，请重试';
                 })
             },
             finish() {

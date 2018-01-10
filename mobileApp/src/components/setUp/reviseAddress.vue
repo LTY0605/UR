@@ -1,16 +1,17 @@
 <template>
     <div class="page_reviseAddress">
         <x-header :left-options="{backText: ''}">修改地址
-            <a slot="right">保存</a>
+            <a slot="right" @click="saveItem">保存</a>
         </x-header>
         <div class="address-con">
             <group>
-                <x-input class="consignee" title="收货人姓名" v-model="consignee" placeholder="收货人姓名"></x-input>
-                <x-input title="联系电话" v-model="mobile"  placeholder="联系电话"></x-input>
-                <x-address title="地区" v-model="attrValue" :list="addressData"
-                           placeholder="请选择地址"></x-address>
-                <x-textarea class="address-text" placeholder="详细地址" v-model="address"></x-textarea>
-                <x-input title="邮政编码" v-model="postcode" placeholder="邮政编码"></x-input>
+                <x-input class="consignee" title="收货人姓名" v-model="consignee" placeholder="收货人姓名,必填" :max="20"></x-input>
+                <x-input title="收货人电话" v-model="mobile"  placeholder="收货人电话,必填" :max="11" :min="11"
+                         keyboard="number"></x-input>
+                <x-address title="所在地区" v-model="attrValue" :list="addressData"
+                           placeholder="请选择地址,必填"></x-address>
+                <x-textarea class="address-text" placeholder="详细地址,必填" v-model="address"></x-textarea>
+                <x-input title="邮政编码" v-model="postcode" placeholder="邮政编码,必填"></x-input>
             </group>
         </div>
         <div class="address-foot">
@@ -58,14 +59,19 @@
                 city: "",
                 address: "",
                 district: "",
-                mobile: ""
+                mobile: "",
+                beTel: function (value) {
+                    return {
+                        valid: /^(?=\d{11}$)^1(?:3\d|4[57]|5[^4\D]|7[^249\D]|8\d)\d{8}$/.test(value),
+                        msg: ''
+                    }
+                },
             }
         },
         mounted(){
         },
         watch: {
             attrValue(val) {
-                console.log(val);
                 this.attress = value2name(val, ChinaAddressData); //把值转为文字
             }
         },
@@ -100,7 +106,8 @@
                         this.warnText = '初始化失败';
                     }
                 }, res => {
-
+                    this.showNoScroll = true;
+                    this.warnText = '网络超时，请重试';
                 })
             },
             saveItem(){
@@ -109,6 +116,11 @@
                 if (this.consignee == '' || this.mobileTel == '' || this.address == '' || this.postcode == '' || this.attrValue.length == 0) {
                     this.showNoScroll = true;
                     this.warnText = '您有信息未填写';
+                    return
+                }
+                if(!this.beTel(this.mobileTel).valid){
+                    this.showNoScroll = true;
+                    this.warnText = '请输入正确的收货人电话'
                     return
                 }
                 editAttrService().save({
@@ -132,10 +144,11 @@
                         }, 1000)
                     } else {
                         this.showNoScroll = true;
-                        this.warnText = '初始化失败';
+                        this.warnText = '保存失败';
                     }
                 }, res => {
-
+                    this.showNoScroll = true;
+                    this.warnText = '网络超时，请重试';
                 })
             },
             deleteItem(){
@@ -161,14 +174,16 @@
                         this.warnText = '删除失败';
                     }
                 }, res => {
-
+                    this.showNoScroll = true;
+                    this.warnText = '网络超时，请重试';
                 })
             },
             goLink(){
-                this.$router.push({
-                    name: 'personMain',
-                    query: {tab: 3},
-                });
+                window.history.back();
+//                this.$router.push({
+//                    name: 'personMain',
+//                    query: {tab: 3},
+//                });
             }
 
         },
@@ -218,6 +233,9 @@
     }
 
     .page_reviseAddress {
+        .weui-input{
+            color: #333;
+        }
         .text {
             display: block;
             height: 2rem;
