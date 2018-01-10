@@ -12,7 +12,7 @@
                 <!--</li>-->
                 <li>
                     <group>
-                        <x-input title="用户名" placeholder="请输入" v-model="customerName" :max="20"></x-input>
+                        <x-input title="用户名" placeholder="请输入用户名" v-model="customerName" :max="20" :is-type="zhengze_name"></x-input>
                     </group>
                 </li>
                 <li>
@@ -43,7 +43,7 @@
                 <li>
                     <group>
                         <x-input title="原手机号" placeholder="原手机号" v-model="mobileTel" :max="11" :min="11"
-                                 keyboard="number" is-type="china-mobile"></x-input>
+                                 keyboard="number" is-type="china-mobile" disabled></x-input>
                     </group>
                 </li>
                 <li>
@@ -61,30 +61,29 @@
                     <span v-show="showMin" class="getCode">{{time}}s后才能重发</span>
                 </li>
             </ul>
-            <div class="operate">提交</div>
+            <div class="operate" @click="editTel">提交</div>
         </div>
         <!--<x-dialog v-model="showNoScroll" class="dialog-demo" :scroll="false">-->
-            <!--<p class="dialog-title">温馨提示</p>-->
-            <!--<div class="dialog-contain">-->
-                <!--{{warnText}}-->
-            <!--</div>-->
-            <!--<button class="vux-close" @click="showNoScroll=false">关闭</button>-->
+        <!--<p class="dialog-title">温馨提示</p>-->
+        <!--<div class="dialog-contain">-->
+        <!--{{warnText}}-->
+        <!--</div>-->
+        <!--<button class="vux-close" @click="showNoScroll=false">关闭</button>-->
         <!--</x-dialog>-->
-        <alert v-model="showNoScroll" title="温馨提示">{{warnText}}</alert>
-
+        <toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>
     </div>
 </template>
 <script>
     import {
         XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, ChinaAddressData,
-        Value2nameFilter as value2name, Name2valueFilter as name2value, Datetime, XDialog,Alert
+        Value2nameFilter as value2name, Name2valueFilter as name2value, Datetime, XDialog,Toast
     } from 'vux'
     import {
-        memberInfoService, infoEditService
+        memberInfoService, infoEditService, mobileEditService, codeService
     } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, Datetime, XDialog,Alert
+            XHeader, Scroller, XInput, Group, Selector, Calendar, Cell, XAddress, Datetime, XDialog,Toast
         },
         data () {
             return {
@@ -117,20 +116,90 @@
                 cardcode: '',//会员卡号
                 showMin: false,
                 time: 60,
+                zhengze_name: function (value) {
+                    return {
+                        valid: /^[A-Za-z0-9_\u4e00-\u9fa5]{4,20}$/.test(value),
+                        msg: '字体长度不能超过20'
+                    }
+                },
             }
         },
         created(){
-            //this.renderData();
+            // this.renderData();
+            this.getData();
+            this.mobileTel = window.localStorage.getItem("mobileTel");
         },
         mounted(){
-            this.renderData();
         },
         methods: {
-            getCode(){
-                this.showMin = true;
-                this.finish();
+            editTel(){
+                let _this = this;
+                if (this.newMobileTel == '' || this.code == '') {
+                    this.showNoScroll = true;
+                    this.warnText = '请全部填写';
+                    return
+                }
+                if(!this.beTel(this.newMobileTel).valid){
+                    this.showNoScroll = true;
+                    this.warnText = '请输入正确的手机号'
+                    return
+                }
+                if (this.newMobileTel == this.mobileTel) {
+                    this.showNoScroll = true;
+                    this.warnText = '新旧手机号不能一样';
+                    return
+                }
+                mobileEditService().save({
+                    mobileTel: this.mobileTel,
+                    newMobileTel: this.newMobileTel,
+                    code: this.code,
+                    cardcode: window.localStorage.getItem("cardcode"),
+                    wxOpenID: window.localStorage.getItem("wxOpenId"),
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.showNoScroll = true;
+                        this.warnText = '修改成功';
+                        setTimeout(function () {
+                            _this.$router.push({
+                                name: 'login',
+                            });
+                        },300)
+                    } else {
+                        this.showNoScroll = true;
+                        this.warnText = body.errmsg;
+                    }
+
+                }, res => {
+
+                })
             },
-            finish: function () {
+            getCode(){
+                if (this.mobileTel == '') {
+                    this.showNoScroll = true;
+                    this.warnText = '请填写原手机号';
+                    return
+                }
+                codeService().save({
+                    scope: 'mobileTel',
+                    mobileTel: this.mobileTel,
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.showNoScroll = true;
+                        this.warnText = '验证码发送成功';
+                        this.showMin = true;
+                        this.finish();
+                    } else {
+                        this.showNoScroll = true;
+                        this.warnText = '验证码发送失败，请稍后再试';
+                    }
+
+                }, res => {
+
+                })
+            },
+            finish() {
                 this.time = this.time - 1;
                 if (this.time > 0) {
                     setTimeout(() => {
@@ -141,6 +210,22 @@
                     this.time = 60;
                 }
             },
+            getData(){
+                if (window.localStorage.getItem("customerName")) {
+                    this.customerName = window.localStorage.getItem("customerName");
+                    this.sex = window.localStorage.getItem("sex");
+                    this.brithday = window.localStorage.getItem("brithday");
+                    this.provice = window.localStorage.getItem("provice");
+                    this.city = window.localStorage.getItem("city");
+                    this.district = window.localStorage.getItem("district");
+                    if (this.provice != '' && this.city != '' && this.district != '') {
+                        var attr = this.provice + ' ' + this.city + ' ' + this.district;
+                        this.attress = attr.split(" ");//地区文字转为数字，要数组
+                        var transValue = name2value(this.attress, ChinaAddressData); //把文字转为值
+                        this.attrValue = transValue.split(" ");//要数组
+                    }
+                }
+            },
             renderData(){
                 memberInfoService().get({
                     wxOpenid: window.localStorage.getItem("wxOpenId"),
@@ -148,7 +233,7 @@
                     let body = res.body;
                     if (body.errcode == 0) {
                         this.cardcode = body.cardcode;
-                        window.localStorage.setItem("cardcode",this.cardcode);
+                        window.localStorage.setItem("cardcode", this.cardcode);
                         this.customerName = body.customerName;
                         this.sex = body.sex;
                         this.brithday = body.brithday;
@@ -172,9 +257,19 @@
             },
             sureSubmit(){
                 var pro = this.attress.split(" ")
+                if(this.customerName == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请输入用户名';
+                    return
+                }
+                if(!this.zhengze_name(this.customerName).valid){
+                    this.showNoScroll = true;
+                    this.warnText = '用户名格式不对，字数在4到20之间'
+                    return
+                }
                 infoEditService().save({
                     customerName: this.customerName,
-                    cardcode: this.cardcode,
+                    cardcode: window.localStorage.getItem("cardcode"),
                     wxOpenID: window.localStorage.getItem("wxOpenId"),
                     sex: this.sex,
                     provice: pro[0],
@@ -185,13 +280,19 @@
                     if (body.errcode == 0) {
                         this.showNoScroll = true;
                         this.warnText = '修改成功';
+                        window.localStorage.setItem("sex", this.sex);
+                        window.localStorage.setItem("provice", pro[0]);
+                        window.localStorage.setItem("customerName", this.customerName);
+                        window.localStorage.setItem("district", pro[2]);
+                        window.localStorage.setItem("city", pro[1]);
                     } else {
                         this.showNoScroll = true;
                         this.warnText = '修改失败';
                     }
 
                 }, res => {
-
+                    this.showNoScroll = true;
+                    this.warnText = '请求出错';
                 })
             },
             logHide(str){
@@ -204,11 +305,9 @@
         watch: {
             attrValue(val) {
                 this.attress = value2name(val, ChinaAddressData); //把值转为文字
-                // this.getCompany(this.address);
             },
 //            attress(val) {
 //                this.attrValue = name2value(val, ChinaAddressData); //把值转为文字
-//                // this.getCompany(this.address);
 //            },
         },
 

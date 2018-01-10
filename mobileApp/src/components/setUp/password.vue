@@ -5,12 +5,12 @@
                 <li>
                     <group>
                         <x-input type="password" title="原密码" placeholder="原密码"  :max="11" :is-type="bePassWord"
-                                 v-model="password"></x-input>
+                                 v-model="oldPassword"></x-input>
                     </group>
                 </li>
                 <li>
                     <group>
-                        <x-input type="password" title="新密码" placeholder="新密码" v-model="newPassword"></x-input>
+                        <x-input type="password" title="新密码" placeholder="新密码" v-model="newPassword" :max="11" :is-type="bePassWord"></x-input>
                     </group>
                 </li>
                 <li>
@@ -20,27 +20,33 @@
                     </group>
                 </li>
             </ul>
-            <div class="operate">提交</div>
+            <div class="operate" @click="passWordEdit">提交</div>
         </div>
+        <toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>
     </div>
 </template>
 <script>
     import {
-        XHeader, Scroller, XInput, Group, Selector
+        XHeader, Scroller, XInput, Group, Selector,Alert,Toast
     } from 'vux'
+    import {
+        passwordService
+    } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, XInput, Group, Selector
+            XHeader, Scroller, XInput, Group, Selector,Alert,Toast
         },
         data () {
             return {
+                showNoScroll:false,
+                warnText:'',
                 newPassword: '',
-                password: '',
+                oldPassword: '',
                 newPassword2: '',
                 bePassWord: function (value) {
                 return {
                     valid: /^[0-9a-zA-Z]{0,11}$/.test(value),
-                    msg: 'Must be 2333'
+                    msg: '密码只能字母跟数字，长度不能大于11位'
                 }
             },
             }
@@ -48,8 +54,40 @@
         mounted(){
         },
         methods: {
-            kk(val){
-                alert(val)
+            passWordEdit(){
+                if (this.oldPassword == '' || this.newPassword == '' || this.newPassword2 == '') {
+                    this.showNoScroll = true;
+                    this.warnText = '您有信息未填写';
+                    return
+                }
+                if(!this.bePassWord(this.oldPassword).valid || !this.bePassWord(this.newPassword).valid || !this.bePassWord(this.newPassword2).valid){
+                    this.showNoScroll = true;
+                    this.warnText = '密码只能字母跟数字，长度不能大于11位';
+                    return
+                }
+                if (this.newPassword2 != this.newPassword) {
+                    this.showNoScroll = true;
+                    this.warnText = '两次输入的密码不一致';
+                    return
+                }
+                passwordService().save({
+                    oldpassword:this.oldPassword,
+                    newpassword:this.newPassword,
+                    confirmpassword:this.newPassword2,
+                    cardcode: window.localStorage.getItem("cardcode"),
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.showNoScroll = true;
+                        this.warnText = '修改成功';
+                    }else{
+                        this.showNoScroll = true;
+                        this.warnText = body.errmsg;
+                    }
+
+                }, res => {
+
+                })
             },
         },
         watch: {},

@@ -4,37 +4,129 @@
             <ul class="edit_material">
                 <li>
                     <group>
-                        <x-input title="手机号" placeholder="手机号"></x-input>
+                        <x-input title="手机号" placeholder="手机号" :max="11" :min="11"
+                                 keyboard="number" :is-type="beTel" v-model="mobileTel" required ref="kk"></x-input>
                     </group>
                 </li>
                 <li class="code">
                     <group>
-                        <x-input title="验证码" placeholder="请输入短信验证码"></x-input>
+                        <x-input title="验证码" placeholder="请输入短信验证码" v-model="code"></x-input>
                     </group>
-                    <span class="getCode">获取验证码</span>
+                    <span v-show="!showMin" class="getCode" @click="getCode">获取验证码</span>
+                    <span v-show="showMin" class="getCode">{{time}}s后才能重发</span>
                 </li>
             </ul>
-            <div class="operate">提交</div>
+            <div class="operate" @click="boundSubmit">提交</div>
         </div>
+        <toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>
     </div>
 </template>
 <script>
     import {
-        XHeader, Scroller, XInput, Group, Selector
+        XHeader, Scroller, XInput, Group, Selector,Toast
     } from 'vux'
+    import {
+        bindEditService,codeService
+    } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, XInput, Group, Selector
+            XHeader, Scroller, XInput, Group, Selector,Toast
         },
         data () {
             return {
-
+                mobileTel:'',
+                code:'',
+                showMin:false,
+                time:60,
+                showNoScroll: false,
+                warnText: '提示',
+                beTel: function (value) {
+                    return {
+                        valid: /^(?=\d{11}$)^1(?:3\d|4[57]|5[^4\D]|7[^249\D]|8\d)\d{8}$/.test(value),
+                        msg: ''
+                    }
+                },
             }
         },
         mounted(){
         },
         methods: {
+            boundSubmit(){
+                let _this = this;
+//                debugger
+//                let a = this.$refs.kk;
+//                console.log(a.msg,'--------')
+//                return
+                if(this.mobileTel == ''  || this.code == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请全部填写';
+                    return
+                }
+                if(!this.beTel(this.mobileTel).valid){
+                    this.showNoScroll = true;
+                    this.warnText = '请输入正确的手机号'
+                    return
+                }
+                bindEditService().save({
+                    mobileTel:this.mobileTel,
+                    code:this.code,
+                    cardcode: window.localStorage.getItem("cardcode"),
+                    wxOpenID: window.localStorage.getItem("wxOpenId"),
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.showNoScroll = true;
+                        this.warnText = '解绑成功';
+                        setTimeout(function () {
+                            _this.$router.push({
+                                name: 'login',
+                            });
+                        },300)
+                    } else {
+                        this.showNoScroll = true;
+                        this.warnText = body.errmsg;
+                    }
 
+                }, res => {
+
+                })
+            },
+            getCode(){
+                if(this.mobileTel == ''){
+                    this.showNoScroll = true;
+                    this.warnText = '请填写原手机号';
+                    return
+                }
+                codeService().save({
+                    scope:'unbind',
+                    mobileTel:this.mobileTel,
+                }).then(res => {
+                    let body = res.body;
+                    if (body.errcode == 0) {
+                        this.showNoScroll = true;
+                        this.warnText = '验证码发送成功';
+                        this.showMin = true;
+                        this.finish();
+                    } else {
+                        this.showNoScroll = true;
+                        this.warnText = '验证码发送失败，请稍后再试';
+                    }
+
+                }, res => {
+
+                })
+            },
+            finish() {
+                this.time = this.time - 1;
+                if (this.time > 0) {
+                    setTimeout(() => {
+                        this.finish();
+                    }, 1000)
+                } else {
+                    this.showMin = false;
+                    this.time = 60;
+                }
+            },
         },
         watch: {
 

@@ -52,6 +52,14 @@ router.beforeEach(function (to, from, next) {
 
     const toIndex = history.getItem(to.path)
     const fromIndex = history.getItem(from.path)
+    //create by xyc on 2017/5/5
+    if (from.name == 'newAddress' && to.name == 'personMain') {
+        next()
+        router.replace('/personMain?tab=3');
+        return
+    }
+    //end
+
     if (toIndex) {
         if (toIndex > fromIndex || !fromIndex || (toIndex === '0' && fromIndex === '0')) {
             store.commit('updateDirection', {direction: 'forward'})

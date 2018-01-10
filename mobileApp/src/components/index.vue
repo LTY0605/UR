@@ -6,19 +6,21 @@
         <!--主页头部-->
         <div class="head">
             <x-header :left-options="{backText:''}"></x-header>
-            <p class="head-name">Sara Chen</p>
+            <p class="head-name">{{customerName}}</p>
             <div class="head-img">
-                <img src="../assets/header.png" alt=""/>
+                <img :src="headimgurl" alt=""/>
             </div>
-            <div class="edit"></div>
-            <div class="code"></div>
+            <router-link :to="{name:'personMain',query:{tab:0}}">
+                <div class="edit"></div>
+            </router-link>
+            <div  @click="show" class="code"></div>
             <flexbox :gutter="0">
                 <flexbox-item><div class="headTab vip">
-                    <p class="vip-text">8urP18121300</p>
+                    <p class="vip-text">{{cardcode}}</p>
                     <p class="vip-title">银卡会员</p>
                 </div></flexbox-item>
                 <flexbox-item><div class="headTab integral">
-                    <p class="vip-text">18800</p>
+                    <p class="vip-text">{{integral}}</p>
                     <p class="vip-title">积分</p>
                 </div></flexbox-item>
             </flexbox>
@@ -31,7 +33,7 @@
                     <p class="tab-text">所有订单</p>
                 </grid-item>
                 <grid-item>
-                    <p class="tab-badge">{{badge}}</p>
+                    <p v-if="showUnpaid" class="tab-badge">{{unpaid}}</p>
                     <img class="tab-img" slot="icon" src="../assets/icon_book_on.png">
                     <p class="tab-text">待付款</p>
                 </grid-item>
@@ -48,11 +50,20 @@
         <!--钱包-->
         <div class="wallet">
             <group>
-                <cell title="我的钱包" link="./wallet"></cell>
+                <cell title="我的钱包" link="./wallet?tab=2"></cell>
                 <ul>
-                    <li v-for="(wallet,index) in wallets">
-                        <p class="wallet-num">{{wallet.num}}</p>
-                        <p>{{wallet.name}}</p>
+                    <li>
+                        <p class="wallet-num">{{mycards}}</p>
+                        <router-link class="color-style" to="./wallet?tab=0">礼品卡</router-link>
+                    </li>
+                    <li>
+                        <p class="wallet-num">{{coupon}}</p>
+                        <router-link class="color-style" to="./myCoupon?tab=1">优惠券</router-link>
+                    </li>
+                    <li>
+                        <p class="wallet-num">{{integral}}可兑换</p>
+                        <router-link class="color-style" to="./wallet?tab=2">积分
+                        </router-link>
                     </li>
                 </ul>
             </group>
@@ -61,10 +72,10 @@
         <div class="wallet">
             <group>
                 <cell title="我的账单" link="./myBill"></cell>
-                <cell class="bill" title="消费明细">
+                <cell class="bill" title="消费明细" link="./myBill?tab=0">
                     <img slot="icon" width="12" src="../assets/icon_sm.png"/>
                 </cell>
-                <cell class="bill detail" title="积分明细">
+                <cell class="bill detail" title="积分明细" link="./myBill?tab=1">
                     <img slot="icon" width="12" src="../assets/icon_list.png"/>
                 </cell>
             </group>
@@ -72,45 +83,120 @@
         <!--活动-->
         <div class="action">
             <group>
-                <cell title="会员活动" link="./wallet"></cell>
+                <cell title="会员活动" link="./"></cell>
                 <ul>
-                    <li v-for="(action,index) in actions">
-                        <img width="24" :src="action.actionImg"></img>
-                        <p class="action-text">{{action.actionText}}</p>
+                    <li>
+                        <img width="24" src="../assets/icon_save.png"/>
+                        <p class="action-text">调查问卷</p>
                     </li>
+                    <li>
+                        <img width="24" src="../assets/icon_dialog.png"/>
+                        <p class="action-text">时尚体验</p>
+                    </li>
+                    <router-link to="http://weixin.ur.com.cn/app/index.php?i=2&c=mc&a=store">
+                        <li>
+                            <img width="24" src="../assets/icon_dialog.png"/>
+                            <p class="action-text">适用门店</p>
+                        </li>
+                    </router-link>
                 </ul>
                 <div class="action-img">
                     <img src="../assets/banner.png" alt=""/>
                 </div>
             </group>
         </div>
+        <!--二维码-->
+        <div @click="hide">
+            <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
+                <div @click.stop class="couponCode">
+                    <img class="couponCode-img" :src="barcodeUrl+'?text='+cardcode+'&width=200&height=200'">
+                    <div @click="hide" class="couponCode-close"></div>
+                </div>
+            </x-dialog>
+        </div>
+        <!--提示-->
+        <toast v-model="showNoScroll2" type="text" :time="1000">{{warnText}}</toast>
+        <!--<alert class="alert" v-model="showNoScroll2" title="温馨提示">{{warnText}}</alert>-->
     </div>
 
 </template>
 <script>
-    import {XHeader, Flexbox, FlexboxItem, Grid, GridItem, Group, Cell, Badge} from 'vux'
+    import {indexService} from '../services/wallet.js'
+    import {URL_getQRCode} from '../services/index.js'
+    import {XHeader, Flexbox, FlexboxItem, Grid, GridItem, Group, Cell, XDialog, Alert, Toast} from 'vux'
     export default {
         components: {
-            XHeader, Flexbox, FlexboxItem, Grid, GridItem, Group, Cell, Badge
+            XHeader, Flexbox, FlexboxItem, Grid, GridItem, Group, Cell, XDialog, Alert, Toast
         },
         data(){
             return{
-                badge: 3,
-                wallets:[
-                    {num:'2',name:'礼品卡'},
-                    {num:'3',name:'优惠券'},
-                    {num:'18800可兑换',name:'积分'}
-                ],
-                actions:[
-                    {actionImg:'../assets/icon_save.png',actionText:'调查问卷'},
-                    {actionImg:'../assets/icon_dialog.png',actionText:'时尚体验'}
-                ]
+                barcodeUrl:'',
+                integral:'',    //积分
+                mycards:'',    //礼品卡
+                coupon:'',     //优惠券
+                unpaid:'',     //待付款
+                cardcode:'',    //会员卡号
+                customerName:'',    //会员姓名
+                headimgurl: require('../assets/header.png'),  //头像地址
+                warnText:'',
+                customerName:'',
+                showUnpaid:true,
+                showNoScroll:false,
+                showNoScroll2:false,
+              /*  actions:[
+                    {actionImg: require('../assets/icon_save.png'),actionText:'调查问卷'},
+                    {actionImg: require('../assets/icon_dialog.png'),actionText:'时尚体验'}
+                ]*/
             }
-        },
-        mounted(){
         },
         watch: {},
         created(){
+            this.personData();
+            this.renderData();
+            //待付款没有时不显示红点数字
+            this.payment();
+            this.barcodeUrl = URL_getQRCode;
+        },
+        mounted(){
+        },
+        methods:{
+            personData(){
+                if(window.localStorage.getItem('headimgurl') && window.localStorage.getItem('headimgurl') != ''){
+                    this.headimgurl = window.localStorage.getItem('headimgurl');
+                }
+                this.customerName = window.localStorage.getItem('customerName');
+                this.cardcode = window.localStorage.getItem('cardcode');
+            },
+            show() {
+                this.showNoScroll = true;
+            },
+            hide() {
+                this.showNoScroll = false;
+            },
+            payment(){
+                if(this.unpaid == null || this.unpaid == 0 || this.unpaid == ''){
+                    this.showUnpaid = false;
+                }
+            },
+            renderData(){
+                indexService().save({
+                    cardcode: window.localStorage.getItem('cardcode')
+                }).then(res =>{
+                    let body = res.body;
+                    if(body.errcode == 0){
+                        this.integral = body.integral;
+                        this.mycards = body.mycards;
+                        this.unpaid = body.unpaid;
+                        this.coupon = body.coupon;
+                    } else{
+                        this.showNoScroll2 = true;
+                        this.warnText = body.errmsg;
+                    }
+                },res =>{
+                    this.showNoScroll2 = true;
+                    this.warnText = '请求错误';
+                })
+            }
         },
         computed: {}
     }
@@ -128,6 +214,11 @@
         .vux-header .vux-header-left .left-arrow:before{
             border: 1px solid #FFFFFF;
             border-width: 1px 0 0 1px;
+        }
+        .alert{
+            .weui-dialog{
+                width: 80% !important;
+            }
         }
         .head{
             width: 100%;
@@ -161,6 +252,7 @@
                 height: 1rem;
                 background: url("../assets/icon_index_edit.png");
                 background-size: 100%;
+                background-repeat: no-repeat;
                 bottom: 3.3rem;
                 left: 1rem;
             }
@@ -176,7 +268,7 @@
             }
             .headTab{
                 width: 100%;
-                height: auto;
+                height: 2.75rem;
                 padding: .5rem 0 .5rem 0;
                 border-top: 1px solid #C9B774;
                 border-left: 1px solid #C9B774;
@@ -273,16 +365,21 @@
             ul{
                 list-style: none;
                 font-size: 0;
+                height: 3rem;
+                margin: 0;
+                padding: 0;
             }
             li{
                 display: inline-block;
                 width: 33.33%;
-                margin: 0;
                 padding: 0;
                 font-size: .6rem;
-                padding: .5rem 0 .9rem 0;
+                margin-top: .4rem;
                 text-align: center;
                 color: #333333;
+                .color-style{
+                    color: #333333;
+                }
             }
             .vux-label{
                 font-size: .75rem;
@@ -306,7 +403,7 @@
             }
             .wallet-num{
                 color: #FF0000;
-                margin-bottom: .4rem;
+                margin-bottom: .25rem;
             }
         }
         .bill{
@@ -371,6 +468,30 @@
             img{
                 width: 100%;
                 height: 100%;
+            }
+        }
+        .weui-dialog{
+            width: auto !important;
+            max-width: none !important;
+            top: 43% !important;
+        }
+        .couponCode{
+            width: auto;
+            height: auto;
+            position: relative;
+            background: white;
+            .couponCode-img{
+                width: auto;
+                height: auto;
+            }
+            .couponCode-close{
+                position: absolute;
+                width: .8rem;
+                height: .8rem;
+                background: url("../assets/money_code3.png");
+                background-size: 100%;
+                top: .6rem;
+                right: .6rem;
             }
         }
     }

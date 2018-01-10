@@ -21,5 +21,40 @@ export function infoEditService() {
 export function addAddressService() {
     return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/address/add')
 }
-
+//会员地址列表接口
+export function addressListService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/address/list')
+}
+//会员地址列表删除接口
+export function removeService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/address/del')
+}
+//会员地址详情接口
+export function detailService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/address/find')
+}
+//会员地址修改接口
+export function editAttrService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/address/edit')
+}
+//会员修改手机号接口
+export function mobileEditService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/mobile/edit')
+}
+//会员修改密码接口
+export function bindEditService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/wx/unbind')
+}
+//会员地址设为默认接口
+export function attrDefalutService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/address/default')
+}
+//验证码接口
+export function codeService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/wx/verification_code')
+}
+//密码修改接口
+export function passwordService() {
+    return Vue.resource(HTTP_REMOTE + '/ur_crm/admin/sys/member/password/edit')
+}
 

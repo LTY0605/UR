@@ -1,8 +1,8 @@
 <template>
     <div class="page_personMain">
-        <x-header>设置</x-header>
+        <x-header :left-options="{backText:''}">设置</x-header>
         <div class="tabTitle">
-            <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="titleTab = index">{{item.name}}</span>
+            <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="tabChange(index)">{{item.name}}</span>
         </div>
         <div class="tabContain">
             <div class="tabItem tab-swiper" v-if="titleTab==0">
@@ -63,6 +63,15 @@
             if (this.$route.query.tab) {
                 this.titleTab = this.$route.query.tab;
             }
+        },
+        methods: {
+            tabChange(index){
+                this.titleTab = index;
+//                    this.$router.push({
+//                        name:'personMain'
+//                        query: {tab: index},
+//                    });
+            },
         },
         computed: {}
     }

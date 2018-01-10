@@ -1,6 +1,6 @@
 <template>
    <div class="page_myBill">
-      <x-header>我的账单</x-header>
+      <x-header :left-options="{backText:''}">我的账单</x-header>
       <!--<scroller :height="-46+'px'" lock-x>-->
       <div class="tabTitle">
          <span :class="{active:titleTab==index}" v-for="(item, index) in titleList" @click="titleTab = index">{{item.name}}</span>
@@ -48,6 +48,9 @@
       mounted(){
       },
       created(){
+          if (this.$route.query.tab) {
+              this.titleTab = this.$route.query.tab;
+          }
       },
       computed: {}
     }

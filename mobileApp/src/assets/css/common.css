@@ -13,6 +13,7 @@ html, body {
     height: 100%;
     padding: 0px;
     margin: 0px;
+    font-family: 'Verdana', "Hiragino Sans GB";
     -webkit-tap-highlight-color: transparent;
     /*overflow: hidden;*/
 }
@@ -21,7 +22,18 @@ html, body {
     height: auto;
     width: 100%;
 }
-
+/*页面公共样式*/
+.operate {
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    font-size: .75rem;
+    background: #AB9236;
+    color: #fff;
+    margin-top: 1.25rem;
+    border-radius: .2rem;
+}
+/*end*/
 body, .page {
     /*background-color: #FBF9FE;*/
     background-color: #fff;
@@ -240,4 +252,10 @@ button{
 button.orangeBtn{
     color: rgb(238,113,73);
     border-color: rgb(238,113,73);
+}
+
+/* 标题返回按钮 */
+.vux-header .vux-header-left .left-arrow:before{
+    border:1px solid #FFFFFF !important;
+    border-width: 1px 0 0 1px !important;
 }

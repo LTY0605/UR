@@ -1,17 +1,18 @@
 <template>
     <div class="page_newAddress">
         <x-header :left-options="{backText: ''}">新增收货地址
-            <a slot="right">保存</a>
+            <a slot="right" href="javascript:void(0)" @click="save">保存</a>
         </x-header>
         <div class="address-con">
             <group>
-                <x-input class="consignee" title="收货人姓名" v-model="consignee" placeholder="收货人姓名" required></x-input>
-                <x-input title="收货人电话" placeholder="收货人电话" v-model="mobileTel" required :max="11" :min="11"
+                <x-input class="consignee" title="收货人姓名" v-model="consignee" placeholder="收货人姓名"></x-input>
+                <x-input title="收货人电话" placeholder="收货人电话" v-model="mobileTel" :max="11" :min="11"
                          keyboard="number" is-type="china-mobile"></x-input>
                 <x-address class="address-select" placeholder="请选择" title="所在地区" v-model="attrValue" raw-value
                            :list="addressData"
                            value-text-align="left"></x-address>
                 <x-textarea class="address-text" placeholder="详细地址" v-model="addressDeep" required></x-textarea>
+                <x-input title="邮政编码" placeholder="邮政编码" v-model="postcode" required type="number"></x-input>
             </group>
         </div>
         <div class="address-foot">
@@ -21,7 +22,7 @@
             </label>
             <div class="operate" @click="save">保存</div>
         </div>
-        <alert v-model="showNoScroll" title="温馨提示">{{warnText}}</alert>
+        <toast v-model="showNoScroll" type="text" :time="1000">{{warnText}}</toast>
         <x-dialog v-model="showNoScro" class="dialog-demo" :scroll="false">
             <p class="dialog-title">温馨提示</p>
             <div class="dialog-contain">
@@ -34,14 +35,14 @@
 <script>
     import {
         XHeader, Scroller, Group, XInput, ChinaAddressData, XAddress, XTextarea, Checklist,
-        XButton, Value2nameFilter as value2name, Name2valueFilter as name2value, Alert, XDialog
+        XButton, Value2nameFilter as value2name, Name2valueFilter as name2value, Alert, XDialog,Toast
     } from 'vux'
     import {
         addAddressService
     } from '../../services/person.js'
     export default {
         components: {
-            XHeader, Scroller, Group, XInput, XAddress, XTextarea, Checklist, XButton, Alert, XDialog
+            XHeader, Scroller, Group, XInput, XAddress, XTextarea, Checklist, XButton, Alert, XDialog,Toast
         },
         data () {
             return {
@@ -58,6 +59,7 @@
                 showNoScro: false,
                 warnText2:'',
                 warnText: '',
+                postcode:'',
             }
         },
         mounted(){
@@ -75,11 +77,12 @@
                 console.log('change', val)
             },
             save(){
-                if (this.consignee == '' || this.mobileTel == '' || this.address == '' || this.addressDeep == '') {
+                if (this.consignee == '' || this.mobileTel == '' || this.address == '' || this.addressDeep == '' || this.postcode == '') {
                     this.showNoScroll = true;
                     this.warnText = '您有信息未填写';
                     return
                 }
+                var pro = this.address.split(" ");
                 var selected = 1;
                 if (this.selected == true) {
                     selected = 0;
@@ -90,10 +93,14 @@
                 addAddressService().save({
                     cardcode: window.localStorage.getItem("cardcode"),
                     consignee: this.consignee,
-                    mobileTel: this.mobileTel,
+                    mobile: this.mobileTel,
                     wxOpenID: window.localStorage.getItem("wxOpenId"),
-                    address: this.address + this.addressDeep,
-                    default: selected
+                    address: this.addressDeep,
+                    provice: pro[0],
+                    city: pro[1],
+                    district: pro[2],
+                    isdefault: selected,
+                    postcode:this.postcode,
                 }).then(res => {
                     let body = res.body;
                     if (body.errcode == 0) {

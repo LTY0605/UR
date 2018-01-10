@@ -53,33 +53,33 @@
 
 <style lang="less" rel="stylesheet/less">
     .page_consume{
-    .consume{
-    .tranlist{
-        list-style: none;
-    .list{
-        font-size: .6rem;
-        color: #666666;
-        border-bottom: 1px solid #D2D2D2;
-        width: auto;
-        height: auto;
-        padding: .9rem 0 1rem 1rem;
-        position: relative;
-    .list-number{
-        font-size: .75rem;
-        color: #333333 !important;
-    }
-    .list-mar{
-        margin:.35rem auto .4rem auto;
-    }
-    .list-money{
-        position: absolute;
-        right: 1rem;
-        bottom: 2rem;
-        font-size: 1rem;
-        color: #333333;
-    }
-    }
-    }
-    }
+        .consume{
+            .tranlist{
+                list-style: none;
+                .list{
+                    font-size: .6rem;
+                    color: #666666;
+                    border-bottom: 1px solid #D2D2D2;
+                    width: auto;
+                    height: auto;
+                    padding: .9rem 0 1rem 1rem;
+                    position: relative;
+                    .list-number{
+                        font-size: .75rem;
+                        color: #333333 !important;
+                    }
+                    .list-mar{
+                        margin:.35rem auto .4rem auto;
+                    }
+                    .list-money{
+                        position: absolute;
+                        right: 1rem;
+                        bottom: 2rem;
+                        font-size: 1rem;
+                        color: #333333;
+                    }
+                }
+            }
+        }
     }
 </style>

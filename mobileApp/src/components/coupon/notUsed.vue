@@ -6,7 +6,7 @@
                 <div @click.stop class="couponCode">
                     <p class="couponCode-title">付款时交给店员扫一扫</p>
                     <img class="couponCode-img" src="../../assets/money_code.png" alt=""/>
-                    <p class="couponCode-code">8999305128</p>
+                    <p class="couponCode-code">{{moneyCode}}</p>
                     <div @click="hide" class="couponCode-close"></div>
                 </div>
             </x-dialog>
@@ -26,9 +26,9 @@
                     <p class="cou-type">{{coupon.shop}}</p>
                     <p style="margin:0;font-size: .6rem;color: #999999">有效期：{{coupon.startTime}}～{{coupon.endTime}}</p>
                     <div style="height: auto">
-                        <p @click="explainList = index" class="couponExplain">礼券说明
-                            <span v-if="explainList != index" class="couponRight">></span></p>
-                        <p v-if="explainList == index" class="coupon-text">本券只限于购买正价商品，每个订单 限用一张。</p>
+                        <p @click="explainShow(index+1)" class="couponExplain">礼券说明
+                            <span v-if="explainList != index+1" class="couponRight">></span></p>
+                        <p v-if="explainList == index+1" class="coupon-text">本券只限于购买正价商品，每个订单 限用一张。</p>
                     </div>
                 </div>
                 <div @click="show" class="couList-code"></div>
@@ -49,13 +49,14 @@
                 showRight:true,
                 showText:false,
                 showNoScroll:false,
+                moneyCode:'8999301128',
                 couponList: [
                     {
                         money: '50', type: '生日礼券', number: '8999305128', shop:'线下门店',
                         startTime:'2017.04.12',endTime:'2017.04.30'
                     },
                     {
-                        money: '130', type: '购物礼券', number: '8229305128', shop:'线上网店',
+                        money: '130', type: '六字购物礼券', number: '8229305128', shop:'线上网店',
                         startTime:'2017.04.12',endTime:'2017.04.30'
                     },
                     {
@@ -77,9 +78,12 @@
             hide:function () {
                 this.showNoScroll = false;
             },
-            hideRight:function () {
-                this.showText = !this.showText;
-                this.showRight = !this.showRight;
+            explainShow(index){
+                if(this.explainList == index){
+                    this.explainList = null
+                } else {
+                    this.explainList = index
+                }
             }
         },
         computed: {}
@@ -119,7 +123,7 @@
         width: .8rem;
         height: .8rem;
         background: url("../../assets/money_code3.png");
-        background-size: 100%;
+        background-size: cover;
         top: -.15rem;
         right: .6rem;
     }
@@ -141,33 +145,33 @@
         height: 4.56rem;
         margin: .62rem 0 .62rem 0;
         position: relative;
-        background: url("../../assets/money_back.png");
+        background: url("../../assets/money_new.png");
+        background-size: contain;
         background-repeat: no-repeat;
-        background-size: 100%;
         display: flex;
-        justify-content: center;
         align-items: center;
         flex-direction: column;
+        font-size: 0;
     }
     .couList-imgText {
         color: #C5B166;
         padding: 0;
-        margin-top: -.3rem;
+        margin-top: 1.25rem;
     }
     .imgText-symbol{
         display: inline-block;
         font-size:.55rem;
-        width: .2rem;
     }
     .imgText-money{
-        font-size: 1.25rem;
-        font-weight: 600;
+        font-size: 1rem;
     }
     .couList-imgType {
         font-size: .45rem;
-        color: #C5B166;
-        margin-top: -.3rem;
-        -webkit-text-size-adjust: none;
+        color: #FFFFFF;
+        margin-top: .7rem;
+        transform: scale(.8);
+        width: 120%;
+        text-align: center;
     }
     .couList-text {
         margin-left: .6rem;
@@ -202,11 +206,11 @@
     }
     .cou-type {
         margin: .2rem 0 .2rem 0;
-        width: 2.9rem;
-        height: .95rem;
+        width: 3.5rem;
+        height: 1rem;
         color: #FFFFFF;
         font-size: .6rem;
-        line-height: .95rem;
+        line-height: 1rem;
         text-align: center;
         background: #F68B79;
     }
@@ -214,10 +218,10 @@
         width: 1.5rem;
         height: 1.5rem;
         position: absolute;
-        top: 1.8rem;
+        top: 1.5rem;
         right: 0;
         background: url("../../assets/money_code2.png");
-        background-size: 100%;
+        background-size: cover;
     }
     }
     }

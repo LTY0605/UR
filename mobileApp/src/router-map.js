@@ -12,6 +12,14 @@ const routes = [
         component: resolve => require(['./components/index.vue'], resolve)
     },
     {
+        path: '/index',
+        name: 'index',
+        meta: {
+            title: '主页'
+        },
+        component: resolve => require(['./components/index.vue'], resolve)
+    },
+    {
         path: '/pageDemo',
         name: 'pageDemo',
         meta: {
@@ -116,12 +124,36 @@ const routes = [
         component: resolve => require(['./components/setUp/reviseAddress.vue'], resolve)
     },
     {
+        path: '/questPage',
+        name: 'questPage',
+        meta: {
+            title: '调查问卷页'
+        },
+        component: resolve => require(['./components/questPage.vue'], resolve)
+    },
+    {
         path: '/login',
         name: 'login',
         meta: {
             title: '登录'
         },
         component: resolve => require(['./components/login.vue'], resolve)
+    },
+    {
+        path: '/queryIndex',
+        name: 'queryIndex',
+        meta: {
+            title: '通用查询'
+        },
+        component: resolve => require(['./components/queryIndex.vue'], resolve)
+    },
+    {
+        path: '/carPassword',
+        name: 'carPassword',
+        meta: {
+            title: '修改密码'
+        },
+        component: resolve => require(['./components/wallet/carPassword.vue'], resolve)
     },
 ]
 

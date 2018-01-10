@@ -35,7 +35,11 @@
                     wxOpenID:window.localStorage.getItem("wxOpenId"),
                     sex:1
                 }).then(res => {
-
+                    let body = res.body;
+                    if (body.errcode == 0) {
+//                        this.showNoScro = true;
+//                        this.warnText2 = '保存成功';
+                    }
 
                 }, res => {
 

@@ -1,13 +1,14 @@
 <template>
     <div class="page_transfer">
         <x-header :left-options="{backText: ''}">转 赠</x-header>
+        <!--页面主体-->
         <div class="transferCon">
-            <p class="tran-money">余额：￥800</p>
+            <p class="tran-money">余额：￥{{balance}}</p>
             <group>
-                <x-input name="transfer_phone" v-model="phone" :is-type="isNumber" placeholder="转赠人手机"></x-input>
+                <x-input v-model="phone" keyboard="number" is-type="china-mobile" :max="11" :min="11" placeholder="转赠人手机" required></x-input>
             </group>
             <group>
-                <x-input name="transfer_money" v-model="money" :is-type="isMoney" placeholder="转赠金额"></x-input>
+                <x-input v-model="money" :is-type="isMoney" placeholder="转赠金额" required></x-input>
             </group>
             <p class="tran-remind"><span>*</span> 转赠金额需大于50</p>
             <div @click="onSumbit">
@@ -19,25 +20,35 @@
             <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
                 <div @click.stop class="transferCode">
                     <p class="transferCode-title">请输入密码</p>
-                    <x-input class="transferCode-input"></x-input>
-                    <x-button><span class="transferCode-text">确 定</span></x-button>
+                    <x-input type="password" v-model="password" class="transferCode-input" required></x-input>
+                    <!--<p v-if="warnShow" class="warn-text">密码错误</p>-->
+                    <div @click="enter"><x-button><span class="transferCode-text">确 定</span></x-button></div>
                 </div>
             </x-dialog>
         </div>
+        <!--提示-->
+        <toast v-model="show2" type="text" :time="1000">{{warnText}}</toast>
+        <!--<alert class="prompt" v-model="show2" title="温馨提示">{{warnText}}</alert>-->
     </div>
 </template>
 
 <script>
-    import {XHeader,Group,XInput,XButton,XDialog} from 'vux'
+    import {XHeader,Group,XInput,XButton,XDialog,Alert,Toast} from 'vux'
+    import { addAddressService } from '../services/person.js'
     export default{
         components:{
-            XHeader,Group,XInput,XButton,XDialog
+            XHeader,Group,XInput,XButton,XDialog,Alert,Toast
         },
         data(){
             return{
+                show2:false,
                 showNoScroll:false,
-                phone:'',
-                money:'',
+                warnShow:false,
+                balance:500,  //余额
+                phone:'',  //转赠人手机
+                money:'',  //金额
+                password:'',  //密码
+                warnText:'',  //错误提示文字
                 isNumber:function (value) {
                     return{
                         valid: /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/.test(value),
@@ -46,24 +57,66 @@
                 },
                 isMoney:function (value) {
                     return{
-                        valid: /^[1-9][0-9]*$/.test(value),
+                        valid: /^[1-9][0-9]*$/.test(value)&&value>=50,  //转赠金额大于50
                         msg: '请输入正常的金额'
                     }
                 }
             }
         },
+        mounted(){
+        },
+        watch: {
+        },
+        created(){
+        },
         methods:{
-            onSumbit:function () {
-                if(this.phone=='' || this.money==''){
-                    console.log('请输入手机号和金额')
-                }else{
+            onSumbit() {
+                if(this.phone == '' || this.money == ''){
+                    this.show2 = true;
+                    this.warnText='你有信息未填写';
+                } else if(this.balance < this.money){
+                    this.show2 = true;
+                    this.warnText = '余额不足';
+                } else if(this.money < 50){
+                    this.show2 = true;
+                    this.warnText = '转赠金额不能小于50'
+                } else{
                     this.showNoScroll=true;
+                    addAddressService().save({
+                        cardcode: window.localStorage.getItem("cardcode"),
+                        wxOpenID: window.localStorage.getItem("wxOpenId"),
+                        phone:this.phone,
+                        money:this.money,
+                        balance:this.balance
+                    }).then(res => {
+                        let body = res.body;
+                        if(body.errcode==0){
+                            console.log('保存成功')
+                        }
+                    },res =>{
+                        console.log('2333333')
+                    })
+                    return
                 }
             },
-            hide:function () {
+            hide() {
                 this.showNoScroll = false;
+            },
+            enter() {
+                if(this.password == '' || this.password != 'qq123123'){
+//                    this.warnShow = true;
+//                    console.log('密码错误')
+                    this.show2 = true;
+                    this.warnText = '密码错误'
+                } else{
+                    this.warnShow = false;
+                    this.showNoScroll = false;
+                    this.show2 = true;
+                    this.warnText = '转赠成功'
+                }
             }
-        }
+        },
+        computed: {}
     }
 </script>
 
@@ -75,10 +128,18 @@
         .vux-header .vux-header-title, .vux-header h1 {
             font-size: .85rem;
         }
+        .left-arrow:before{
+            border-color: #FFFFFF !important;
+        }
         .weui-dialog{
             width: auto !important;
             max-width: none !important;
             top: 43% !important;
+        }
+        .prompt{
+            .weui-dialog{
+                width: 80% !important;
+            }
         }
         .transferCon{
             padding: 1rem 1.75rem 0 1.75rem;
@@ -184,6 +245,20 @@
                 font-size: .75rem;
                 color: #FFFFFF;
                 display: block;
+            }
+            .transferCode-input{
+                .weui-icon-warn:before{
+                    font-size: .75rem;
+                }
+                [class^="weui-icon-"]:before, [class*=" weui-icon-"]:before{
+                    margin-bottom: .3rem;
+                }
+            }
+            .warn-text{
+                font-size: .6rem;
+                transform: scale(.8);
+                color: #F67982;
+                position: absolute;
             }
         }
     }
