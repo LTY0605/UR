@@ -318,6 +318,7 @@
       /*justify-content: space-between;*/
       margin: auto 0;
       height: auto;
+       padding-top: .55rem;
    }
    .Box1,.Box2,.Box3{
        font-size: .75rem;
