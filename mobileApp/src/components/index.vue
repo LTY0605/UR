@@ -58,7 +58,7 @@
                     </li>
                     <li>
                         <p class="wallet-num">{{coupon}}</p>
-                        <router-link class="color-style" to="./myCoupon?tab=1">优惠券</router-link>
+                        <router-link class="color-style" to="./wallet?tab=1">优惠券</router-link>
                     </li>
                     <li>
                         <p class="wallet-num">{{integral}}可兑换</p>
