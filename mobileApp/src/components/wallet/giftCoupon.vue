@@ -1,57 +1,105 @@
 <template>
    <div class="page_giftC">
-      <div class="gift1" >
-         <div class="massege1">
-            <ul class="massegel1List">
-               <li v-for="list in massege1List" class="list">
-                  <p class="Type">{{list.type}}</p>
-                  <p class="Id">{{list.Id}}</p>
-                  <p class="money">余额：{{list.money}}</p>
-               </li>
-            </ul>
-         </div>
-         <div class="imgbox">
-            <p class="picture">
-               <img @click="showNoScroll=!showNoScroll" width="100%" src="../../assets/icon_money_code.png">
-            </p>
-         </div>
-         <div class="buttonBox">
-            <button @click="payCard" class="Box1">扫码支付</button>
-             <router-link :to="{name:'personMain',query:{tab:1}}">
-                 <button class="Box7">修改密码</button>
-             </router-link>
-             <router-link to="transaction"><button class="Box3">交易记录</button></router-link>
-         </div>
-      </div>
-      <div class="gift2">
-         <div class="massege2">
-            <ul class="massegel2List1">
-               <li v-for="list1 in massege2List1" class="list1">
-                  <p class="Type">{{list1.type}}</p>
-                  <p class="number">{{list1.number}}</p>
-                  <p class="money">余额：{{list1.money}}</p>
-               </li>
-            </ul>
-         </div>
-         <div class="imgbox1">
-            <p class="picture1">
-               <img @click="showNoScroll=!showNoScroll" width="100%" src="../../assets/icon_money_code.png">
-            </p>
-         </div>
-         <div class="buttonBox1">
-            <div class="btnUp">
-               <button @click="payCard" class="Box4">扫码支付</button>
-               <router-link to="transfer"><button class="Box5">转赠</button></router-link>
-               <button @click="showNoScroll2=true" class="Box6">获取转赠</button>
-            </div>
-            <div class="btnDown">
-                <router-link :to="{name:'personMain',query:{tab:1}}">
-                    <button class="Box7">修改密码</button>
-                </router-link>
-                <router-link to="transaction"><button class="Box8">交易记录</button></router-link>
-            </div>
-         </div>
-      </div>
+      <!--<div class="gift1" >-->
+          <ul class="massegel1List">
+              <div class="gift1">
+                  <li v-for="list in massege1List" class="list">
+                      <p class="Type">{{list.type}}</p>
+                      <p class="Id">{{list.Id}}</p>
+                      <p class="money">余额：{{list.money}}</p>
+                  </li>
+                  <div class="imgbox">
+                      <p class="picture">
+                          <img @click="showNoScroll=!showNoScroll" width="100%" src="../../assets/icon_money_code.png">
+                      </p>
+                  </div>
+                  <div class="buttonBox">
+                      <button @click="payCard" class="Box1">扫码支付</button>
+                      <router-link :to="{name:'personMain',query:{tab:1}}">
+                          <button class="Box7">修改密码</button>
+                      </router-link>
+                      <router-link to="transaction"><button class="Box3">交易记录</button></router-link>
+                  </div>
+              </div>
+              <div class="gift2">
+                  <li v-for="list1 in massege2List1" class="list1">
+                      <p class="Type">{{list1.type}}</p>
+                      <p class="number">{{list1.number}}</p>
+                      <p class="money">余额：{{list1.money}}</p>
+                  </li>
+                  <div class="imgbox1">
+                      <p class="picture1">
+                          <img @click="showNoScroll=!showNoScroll" width="100%" src="../../assets/icon_money_code.png">
+                      </p>
+                  </div>
+                  <div class="buttonBox1">
+                      <div class="btnUp">
+                          <button @click="payCard" class="Box4">扫码支付</button>
+                          <router-link to="transfer"><button class="Box5">转赠</button></router-link>
+                          <button @click="showNoScroll2=true" class="Box6">获取转赠</button>
+                      </div>
+                      <div class="btnDown">
+                          <router-link :to="{name:'personMain',query:{tab:1}}">
+                              <button class="Box7">修改密码</button>
+                          </router-link>
+                          <router-link to="transaction"><button class="Box8">交易记录</button></router-link>
+                      </div>
+                  </div>
+              </div>
+
+
+          </ul>
+         <!--<div class="massege1">-->
+            <!--<ul class="massegel1List">-->
+               <!--<li v-for="list in massege1List" class="list">-->
+                  <!--<p class="Type">{{list.type}}</p>-->
+                  <!--<p class="Id">{{list.Id}}</p>-->
+                  <!--<p class="money">余额：{{list.money}}</p>-->
+               <!--</li>-->
+            <!--</ul>-->
+         <!--</div>-->
+         <!--<div class="imgbox">-->
+            <!--<p class="picture">-->
+               <!--<img @click="showNoScroll=!showNoScroll" width="100%" src="../../assets/icon_money_code.png">-->
+            <!--</p>-->
+         <!--</div>-->
+         <!--<div class="buttonBox">-->
+            <!--<button @click="payCard" class="Box1">扫码支付</button>-->
+             <!--<router-link :to="{name:'personMain',query:{tab:1}}">-->
+                 <!--<button class="Box7">修改密码</button>-->
+             <!--</router-link>-->
+             <!--<router-link to="transaction"><button class="Box3">交易记录</button></router-link>-->
+         <!--</div>-->
+      <!--</div>-->
+      <!--<div class="gift2">-->
+         <!--<div class="massege2">-->
+            <!--<ul class="massegel2List1">-->
+               <!--<li v-for="list1 in massege2List1" class="list1">-->
+                  <!--<p class="Type">{{list1.type}}</p>-->
+                  <!--<p class="number">{{list1.number}}</p>-->
+                  <!--<p class="money">余额：{{list1.money}}</p>-->
+               <!--</li>-->
+            <!--</ul>-->
+         <!--</div>-->
+         <!--<div class="imgbox1">-->
+            <!--<p class="picture1">-->
+               <!--<img @click="showNoScroll=!showNoScroll" width="100%" src="../../assets/icon_money_code.png">-->
+            <!--</p>-->
+         <!--</div>-->
+         <!--<div class="buttonBox1">-->
+            <!--<div class="btnUp">-->
+               <!--<button @click="payCard" class="Box4">扫码支付</button>-->
+               <!--<router-link to="transfer"><button class="Box5">转赠</button></router-link>-->
+               <!--<button @click="showNoScroll2=true" class="Box6">获取转赠</button>-->
+            <!--</div>-->
+            <!--<div class="btnDown">-->
+                <!--<router-link :to="{name:'personMain',query:{tab:1}}">-->
+                    <!--<button class="Box7">修改密码</button>-->
+                <!--</router-link>-->
+                <!--<router-link to="transaction"><button class="Box8">交易记录</button></router-link>-->
+            <!--</div>-->
+         <!--</div>-->
+      <!--</div>-->
       <div @click="showNoScroll=false" class="page_pay">
          <x-dialog v-model="showNoScroll"  class="dialog-demo" :scroll="false">
             <div @click.stop class="payCode">
