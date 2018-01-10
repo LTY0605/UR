@@ -54,15 +54,16 @@
                 <ul>
                     <li>
                         <p class="wallet-num">{{mycards}}</p>
-                        <router-link class="color-style" to="./wallet">礼品卡</router-link>
+                        <router-link class="color-style" to="./wallet?tab=0">礼品卡</router-link>
                     </li>
                     <li>
                         <p class="wallet-num">{{coupon}}</p>
-                        <router-link class="color-style" to="./myCoupon">优惠券</router-link>
+                        <router-link class="color-style" to="./myCoupon?tab=1">优惠券</router-link>
                     </li>
                     <li>
                         <p class="wallet-num">{{integral}}可兑换</p>
-                        <router-link class="color-style" to="./wallet">积分</router-link>
+                        <router-link class="color-style" to="./wallet?tab=2">积分
+                        </router-link>
                     </li>
                 </ul>
             </group>
@@ -71,10 +72,10 @@
         <div class="wallet">
             <group>
                 <cell title="我的账单" link="./myBill"></cell>
-                <cell class="bill" title="消费明细" link="./myBill">
+                <cell class="bill" title="消费明细" link="./myBill?tab=0">
                     <img slot="icon" width="12" src="../assets/icon_sm.png"/>
                 </cell>
-                <cell class="bill detail" title="积分明细" link="./myBill/page_integralBill">
+                <cell class="bill detail" title="积分明细" link="./myBill?tab=1">
                     <img slot="icon" width="12" src="../assets/icon_list.png"/>
                 </cell>
             </group>

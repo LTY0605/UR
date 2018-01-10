@@ -48,6 +48,9 @@
       mounted(){
       },
       created(){
+          if (this.$route.query.tab) {
+              this.titleTab = this.$route.query.tab;
+          }
       },
       computed: {}
     }
