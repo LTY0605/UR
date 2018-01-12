@@ -85,17 +85,19 @@
             <group>
                 <cell title="会员活动" link="./"></cell>
                 <ul>
-                    <li>
-                        <img width="24" src="../assets/icon_save.png"/>
-                        <p class="action-text">调查问卷</p>
-                    </li>
-                    <li>
+                    <router-link to="quest">
+                        <li>
+                            <img width="24" src="../assets/icon_save.png"/>
+                            <p class="action-text">调查问卷</p>
+                        </li>
+                    </router-link>
+                    <li @click="goLink">
                         <img width="24" src="../assets/icon_dialog.png"/>
                         <p class="action-text">时尚体验</p>
                     </li>
                     <router-link to="http://weixin.ur.com.cn/app/index.php?i=2&c=mc&a=store">
                         <li>
-                            <img width="24" src="../assets/icon_dialog.png"/>
+                            <img width="24" src="../assets/index_icon.png"/>
                             <p class="action-text">适用门店</p>
                         </li>
                     </router-link>
@@ -160,6 +162,10 @@
         mounted(){
         },
         methods:{
+            goLink(){
+                this.showNoScroll2 = true;
+                this.warnText = '敬请期待'
+            },
             personData(){
                 if(window.localStorage.getItem('headimgurl') && window.localStorage.getItem('headimgurl') != ''){
                     this.headimgurl = window.localStorage.getItem('headimgurl');

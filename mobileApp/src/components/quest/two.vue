@@ -25,8 +25,7 @@
                 </label>
             </li>
         </ul>
-        <x-button class="two_btn">继 续（2/10）</x-button>
-        <br>
+        <!--<button class="quest-btn" @click="">继 续（2/10）</button>-->
     </div>
 </template>
 
@@ -97,6 +96,7 @@
     input[type="radio"]:checked + span{
         background: url(../../assets/images/circle_a.png) left center no-repeat;
         background-size: .85rem .85rem;
+        color: #666666;
     }
     .radioBox{
         font-size: .75rem;
@@ -110,6 +110,17 @@
     }
     .two_btn{
         margin-bottom: .7rem;
+    }
+    .quest-btn{
+        margin-left: 0;
+        width: 100%;
+        height: 2rem;
+        border: none;
+        background: #ab9236;
+        color: #FFFFFF;
+    }
+    button{
+        outline: none;
     }
     }
 </style>

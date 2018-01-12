@@ -179,6 +179,14 @@ const routes = [
         },
         component: resolve => require(['./components/wallet/giftCoupon.vue'], resolve)
     },
+    {
+        path: '/quest',
+        name: 'quest',
+        meta: {
+            title: '调查问卷'
+        },
+        component: resolve => require(['./components/quest.vue'], resolve)
+    }
 ]
 
 export default routes

@@ -10,11 +10,10 @@
                 <option value ="" disabled selected>选择城市</option>
                 <option value="广州市">广州市</option>
             </select>
-            <select class="con_select" name="store">
+            <select class="con_select last" name="store">
                 <option value ="" disabled selected>选择门店</option>
                 <option value="肯德基">肯德基</option>
             </select>
-            <x-button>继 续（1/10）</x-button>
         </div>
     </div>
 </template>
@@ -25,6 +24,12 @@
         components:{
             XButton
         },
+        data(){
+            return{
+            }
+        },
+        methods:{
+        },
         mounted(){
         },
         created(){
@@ -34,7 +39,13 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     .page_one{
+   /*     select{
+            outline: none;
+        }*/
         .con_back{
+            .last{
+                margin-bottom: 1.25rem;
+            }
         }
         .con_p{
             margin-bottom: 1.25rem;
